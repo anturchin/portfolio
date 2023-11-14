@@ -2,8 +2,13 @@
 @import 'fonts';
 @import 'variables/main-bg';
 
+html {
+	font-size: 10px;
+}
+
 body {
-	font-family: 'Inter';
+	font-size: 1.6rem;
+	font-family: 'Inter', Verdana, sans-serif;
 	background-color: $bg;
 }
 
