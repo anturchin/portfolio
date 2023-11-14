@@ -27,6 +27,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'src', 'index.html')
 		}),
+		new HtmlWebpackPlugin({
+			filename: 'menu.html',
+			template: path.resolve(__dirname, 'src', 'menu.html')
+		}),
 		new MiniCssExtractPlugin({
 			filename: '[name].[contenthash].css',
 		}),
