@@ -1,4 +1,5 @@
 import './index.html';
+import './index.scss';
 
 const sum = (a, b) => a + b;
 
