@@ -6,3 +6,10 @@ body {
 	background-color: $bg;
 	font-size: 25px;
 }
+
+.container {
+	width: 800px;
+	height: 500px;
+	background-size: cover;
+	background-image: url('img/img-hero.jpg');
+}
