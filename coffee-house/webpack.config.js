@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
@@ -52,7 +53,14 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.(?:js|mjs|cjs)$/,
+				test: /\.woff2?$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name].[ext]'
+				}
+			},
+			{
+				test: /\.(?:js|mjs|cjs)$/i,
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',

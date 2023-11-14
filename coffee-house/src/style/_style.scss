@@ -1,6 +1,8 @@
+@import 'fonts';
 @import 'variables/main-bg';
 
 body {
+	font-family: 'Inter';
 	background-color: $bg;
 	font-size: 25px;
 }
