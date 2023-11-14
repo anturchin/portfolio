@@ -1,15 +1,14 @@
+@import 'utils/normalize';
 @import 'fonts';
 @import 'variables/main-bg';
 
 body {
 	font-family: 'Inter';
 	background-color: $bg;
-	font-size: 25px;
 }
 
 .container {
-	width: 800px;
-	height: 500px;
-	background-size: cover;
-	background-image: url('img/img-hero.jpg');
+	max-width: 1440px;
+	margin: 0 auto;
+	background-color: $main;
 }
