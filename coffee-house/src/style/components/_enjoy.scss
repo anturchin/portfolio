@@ -1,0 +1,52 @@
+.enjoy {
+
+	&__content {
+		max-width: 1360px;
+		margin: 0 auto;
+		background-image: url('img/img-hero.jpg');
+		background-size: cover;
+		border-radius: 40px;
+	}
+
+	&__offer {
+		max-width: 530px;
+		padding-left: 100px;
+		padding-top: 100px;
+		padding-bottom: 100px;
+	}
+
+	&__title {
+		font-size: 7.2rem;
+		font-weight: 600;
+		line-height: 105%;
+		color: $text-light;
+
+		span {
+			font-style: italic;
+			color: $text-accent;
+		}
+	}
+
+	&__descr {
+		margin-top: 42px;
+		font-weight: 400;
+		color: $text-light;
+		line-height: 24px
+	}
+
+	&__link {
+		margin-top: 42px;
+		width: 200px;
+
+		a {
+			display: block;
+			text-align: center;
+			padding: 23px 78px;
+			border-radius: 100px;
+			background: $button-light;
+			text-decoration: none;
+			color: $text-dark;
+			font-weight: 600;
+		}
+	}
+}

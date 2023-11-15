@@ -1,6 +1,6 @@
 @import 'utils/normalize';
 @import 'fonts';
-@import 'variables/main-bg';
+@import 'abstract/constants';
 
 html {
 	font-size: 10px;
@@ -12,8 +12,6 @@ body {
 	background-color: $bg;
 }
 
-.container {
-	max-width: 1440px;
-	margin: 0 auto;
-	background-color: $main;
-}
+@import 'layout/container';
+@import 'components/header';
+@import 'components/enjoy';
