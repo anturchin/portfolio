@@ -40,6 +40,8 @@
 		}
 
 		&:nth-child(2) {
+			position: relative;
+			top: -3px;
 			order: 3;
 		}
 
@@ -48,6 +50,8 @@
 		}
 
 		&:nth-child(4) {
+			position: relative;
+			top: -163px;
 			order: 4;
 		}
 	}

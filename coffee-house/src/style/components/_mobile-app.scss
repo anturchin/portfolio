@@ -1,0 +1,70 @@
+.mobile-app {
+
+	&__wrapper {
+		max-width: 1360px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__offer {
+		width: 45%;
+	}
+
+	&__title {
+		margin-top: 78px;
+		font-size: 6rem;
+		font-weight: 600;
+		line-height: 125%;
+		color: $text-dark;
+
+		span {
+			font-style: italic;
+			color: $text-accent;
+		}
+	}
+
+	&__descr {
+		margin-top: 40px;
+		font-weight: 400;
+		line-height: 150%;
+		color: $text-dark;
+	}
+
+	&__button {
+		display: flex;
+		margin-top: 40px;
+	}
+
+	&__store {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 12px 20px 12px 20px;
+		width: 200px;
+		border-radius: 100px;
+		border: 1px solid $border-dark;
+
+		&:nth-child(2) {
+			margin-left: 21px;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		font-size: 10px;
+		color: $text-dark;
+		font-weight: 600;
+		line-height: 140%;
+		/* 14px */
+	}
+
+	&__screens {
+		position: relative;
+		width: 45%;
+		top: -67px;
+		right: 18px;
+	}
+
+}
