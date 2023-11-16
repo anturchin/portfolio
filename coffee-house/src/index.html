@@ -14,24 +14,23 @@
 			<div class="header__menu">
 				<a href="#" class="logo">
 					<div class="logo__resource">
-						<img src="img/icons/resource.svg" alt="resource">
-					</div>
-					<div class="logo__text">
-						<img src="img/icons/coffee-house.svg" alt="coffee">
+						<img src="img/icons/logo.svg" alt="logo">
 					</div>
 				</a>
 				<nav>
 					<ul class="navigate">
-						<li class="navigate__item">Favorite coffee</li>
-						<li class="navigate__item">About</li>
-						<li class="navigate__item">Mobile app</li>
-						<li class="navigate__item">Contact us</li>
+						<li class="navigate__item"><a href="#">Favorite coffee</a></li>
+						<li class="navigate__item"><a href="#">About</a></li>
+						<li class="navigate__item"><a href="#">Mobile app</a></li>
+						<li class="navigate__item"><a href="#">Contact us</a></li>
 					</ul>
 				</nav>
 				<div class="header__link">
 					<a href="#" class="button-primary">
 						<span>Menu</span>
-						<img src="img/icons/coffee-cup.svg" class="icon-cup"></img>
+						<div class="header__svg">
+							<img src="img/icons/coffee-cup.svg" class="icon-cup" alt="coffee-cup"></img>
+						</div>
 					</a>
 				</div>
 			</div>
@@ -47,45 +46,64 @@
 						Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy
 						their
 						favorite beverage.</p>
-					<div class="enjoy__link">
-						<a href="#" class="button-primary">
-							Menu
-							<span class="icon-cup"></span>
-						</a>
-					</div>
+					<a href="#" class="enjoy__link">
+						<div class="enjoy__menu">Menu</div>
+						<object data="img/icons/coffee-cup.svg" type="image/svg+xml" class="enjoy__svg">
+							<img src="img/icons/coffee-cup.png" class="enjoy__img" alt="coffee-cup"></img>
+						</object>
+					</a>
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
 	<section class="favorites-coffee">
 		<div class="container">
-			<h2 class="favorites-coffee__title">Choose your favorite coffee</h2>
-			<div class="favorites-coffee__slides">
-				<div class="slides">
-					<img class="slides__img" src="img/slider/coffee-slider-1.png">
-					<h3 class="slides__title">
-						S&#8217;mores Frappuccino
-					</h3>
-					<p class="slides__descr">
-						This new drink takes an espresso and mixes it with brown sugar and cinnamon
-						before being topped with oat milk.
-					</p>
-					<div class="slides__price">
-						$5.50
+			<div class="favorites-coffee__content">
+				<h2 class="favorites-coffee__title">Choose your <span>favorite</span> coffee</h2>
+				<div class="favorites-coffee__slides">
+					<div class="slides">
+						<div class="slides__img">
+							<img src="img/slider/coffee-slider-1.png">
+						</div>
+						<h3 class="slides__title">
+							S&#8217;mores Frappuccino
+						</h3>
+						<p class="slides__descr">
+							This new drink takes an espresso and mixes it with brown sugar and cinnamon
+							before being topped with oat milk.
+						</p>
+						<div class="slides__price">
+							$5.50
+						</div>
+						<div class="slides__button">
+							<button class="slides__prev">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<g id="arrow-left">
+										<path class="icon__svg" id="Vector" d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke="#403F3D"
+											stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+								</svg>
+							</button>
+						</div>
+						<div class="slides__button">
+							<button class="slides__next">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<g id="arrow-right">
+										<path class="icon__svg" id="Vector" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D"
+											stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="lines">
+						<span class="lines__item lines__item_active"></span>
+						<span class="lines__item"></span>
+						<span class="lines__item"></span>
 					</div>
 				</div>
-				<button class="slides__prev">
-					<img src="img/icons/arrow-left.svg" alt="arrow-left">
-				</button>
-				<button class="slides__next">
-					<img src="img/icons/arrow-right.svg" alt="arrow-right">
-				</button>
-			</div>
-			<div class="lines">
-				<span class="lines__item"></span>
-				<span class="lines__item"></span>
-				<span class="lines__item"></span>
 			</div>
 		</div>
 	</section>
@@ -93,7 +111,8 @@
 	<section class="about">
 		<div class="container">
 			<h2 class="about__title">
-				Resource is the perfect and cozy place where you can enjoy a variety of hot beverages, relax, catch up with
+				Resource is <span>the perfect and cozy place</span> where you can enjoy a variety of hot beverages, relax, catch
+				up with
 				friends, or get some work done.
 			</h2>
 			<div class="about__layout">
@@ -101,10 +120,10 @@
 					<img src="img/layout/about-1.jpg" alt="about-photo">
 				</div>
 				<div class="about__photo">
-					<img src="img/layout/about-2.jpg" alt="about-photo">
+					<img src="img/layout/about-3.jpg" alt="about-photo">
 				</div>
 				<div class="about__photo">
-					<img src="img/layout/about-3.jpg" alt="about-photo">
+					<img src="img/layout/about-2.jpg" alt="about-photo">
 				</div>
 				<div class="about__photo">
 					<img src="img/layout/about-4.jpg" alt="about-photo">

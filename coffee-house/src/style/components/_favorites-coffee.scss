@@ -1,0 +1,145 @@
+.favorites-coffee {
+	&__content {
+		padding-bottom: 100px;
+	}
+
+	&__title {
+
+		padding-top: 100px;
+		font-size: 6rem;
+		font-weight: 600;
+		line-height: 125%;
+		text-align: center;
+		color: $text-dark;
+
+		span {
+			font-style: italic;
+			color: $text-accent;
+		}
+
+	}
+
+	&__slides {
+		max-width: 1360px;
+		margin-top: 40px;
+		position: relative;
+	}
+}
+
+
+.slides {
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	color: $text-dark;
+	position: relative;
+
+	&__img {
+
+		img {
+			width: 91%;
+			object-fit: contain;
+			object-position: 65px;
+		}
+	}
+
+	&__title {
+		margin-top: 16px;
+		text-align: center;
+		font-size: 2.4rem;
+		font-weight: 600;
+		line-height: 125%;
+		margin-left: 80px;
+	}
+
+	&__descr {
+		margin-top: 15px;
+		text-align: center;
+		margin-left: 80px;
+		max-width: 480px;
+		font-weight: 400;
+		line-height: 150%;
+	}
+
+	&__price {
+		margin-top: 17px;
+		margin-left: 80px;
+		text-align: center;
+		font-size: 2.4rem;
+		font-weight: 600;
+		line-height: 125%;
+	}
+
+	&__prev {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 45px;
+		width: 60px;
+		height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid $border-dark;
+		border-radius: 100px;
+		background: transparent;
+		cursor: pointer;
+		@extend %transition;
+
+		&:hover {
+			background-color: $bg-dark;
+
+			.icon__svg {
+				stroke: $text-light;
+			}
+		}
+	}
+
+	&__next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: -35px;
+		display: flex;
+		width: 60px;
+		height: 60px;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid $border-dark;
+		border-radius: 100px;
+		background: transparent;
+		cursor: pointer;
+		@extend %transition;
+
+		&:hover {
+			background-color: $bg-dark;
+
+			.icon__svg {
+				stroke: $text-light;
+			}
+		}
+	}
+
+}
+
+.lines {
+	padding-top: 38px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(calc(-50% + 45px));
+	display: flex;
+
+	&__item {
+		cursor: pointer;
+		width: 40px;
+		height: 4px;
+		background-color: $border-light;
+		margin-right: 12px;
+		@extend %transition;
+
+		&_active {
+			background-color: $border-dark;
+		}
+	}
+}

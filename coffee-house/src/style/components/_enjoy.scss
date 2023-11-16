@@ -28,25 +28,47 @@
 	}
 
 	&__descr {
-		margin-top: 42px;
+		margin-top: 40px;
 		font-weight: 400;
 		color: $text-light;
 		line-height: 24px
 	}
 
 	&__link {
-		margin-top: 42px;
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+		margin-top: 40px;
 		width: 200px;
+		height: 64px;
+		color: $text-dark;
+		text-decoration: none;
+		font-weight: 600;
+		background: $button-light;
+		border-radius: 100px;
 
-		a {
-			display: block;
-			text-align: center;
-			padding: 23px 78px;
-			border-radius: 100px;
-			background: $button-light;
-			text-decoration: none;
-			color: $text-dark;
-			font-weight: 600;
+		&:hover {
+			.enjoy__svg {
+				z-index: 1;
+			}
+
+			.enjoy__menu {
+				margin-right: 27px;
+			}
 		}
 	}
+
+	&__menu {
+		@extend %transition;
+	}
+
+	&__svg {
+		position: absolute;
+		z-index: -1;
+		top: 20px;
+		right: 65px;
+		@extend %transition;
+	}
+
 }
