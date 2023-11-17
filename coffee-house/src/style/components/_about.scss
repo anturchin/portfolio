@@ -15,12 +15,13 @@
 		}
 	}
 
+	.wrapper {
+		margin-top: 41px;
+	}
+
 	&__layout {
 
 		display: grid;
-		max-width: 1360px;
-		margin: 0 auto;
-		margin-top: 40px;
 		grid-template-columns: repeat(2, 1fr);
 		column-gap: 40px;
 		row-gap: 40px;

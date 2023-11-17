@@ -1,80 +1,62 @@
 .header {
 
 	&__menu {
-
-		padding: 17px 20px 18px 20px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	&__logo {
+		display: flex;
+	}
+
+	&__resource {
+		width: 100px;
+		height: 60px;
+		background-image: url('img/icons/logo.svg');
 	}
 
 	&__link {
+		display: flex;
 		font-weight: 600;
-		margin-right: 28px;
-
-		a {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			text-decoration: none;
-			color: $text-dark;
-
-			span {
-				padding-right: 8px;
-				padding-bottom: 2px;
-			}
-
-			.header__svg {
-				margin-right: -8px;
-				padding-bottom: 6px;
-			}
-		}
-
-	}
-
-}
-
-.logo {
-	position: relative;
-	padding-top: 3px;
-	padding-left: 20px;
-	cursor: pointer;
-
-	&__resource {
-		position: relative;
-		z-index: 10;
+		line-height: 24px;
+		align-items: center;
+		color: $text-dark;
+		text-decoration: none;
 	}
 
 	&__text {
-		margin-top: 2px;
-		margin-left: 13px;
+		margin-right: 8px;
+	}
+
+	&__cup {
+		margin-top: -7px;
+		width: 20px;
+		height: 20px;
+		background-image: url('img/icons/coffee-cup.svg');
 	}
 }
 
 .navigate {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	font-weight: 600;
+	line-height: 24px;
+	color: $text-dark;
 
 	&__item {
 		list-style-type: none;
-		font-weight: 600;
-		padding-right: 41px;
-		padding-bottom: 3px;
-		cursor: pointer;
-
-		a {
-			color: $text-dark;
-			text-decoration: none;
-		}
-
-		&:nth-child(1) {
-			padding-right: 41px;
-		}
+		margin-right: 41px;
 
 		&:nth-child(4) {
-			margin-right: -2px;
+			margin-right: 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: $text-dark;
 		}
 	}
-
 }

@@ -1,0 +1,165 @@
+.contacts {
+	.wrapper {
+		padding-bottom: 40px;
+	}
+
+	&__wrapper {
+		display: flex;
+		justify-content: center;
+		border-radius: 40px;
+		margin: 0 auto;
+		padding-bottom: 100px;
+		background-color: $bg-dark;
+	}
+
+	&__offer {
+		width: 40%;
+		padding-top: 100px;
+	}
+
+	&__title {
+		font-size: 6rem;
+		font-weight: 600;
+		line-height: 75px;
+		color: $text-light;
+
+		span {
+			color: $text-accent;
+			font-style: italic;
+		}
+	}
+
+	&__info {
+		width: 45%;
+		margin-top: 100px;
+		color: $text-light;
+	}
+
+	&__subtitle {
+		margin-top: 30px;
+		margin-left: 85px;
+		font-size: 2.4rem;
+		font-weight: 600;
+		line-height: 30px;
+	}
+
+	&-navigate {
+
+		&__list {
+			margin-top: 45px;
+			margin-left: 85px;
+		}
+
+		&__item {
+			display: flex;
+			align-items: center;
+			list-style-type: none;
+			margin-top: 22px;
+
+			&:nth-child(1) {
+				margin-top: 0;
+			}
+
+		}
+
+		&__link {
+			text-decoration: none;
+			color: $text-light;
+			padding-left: 9px;
+		}
+
+		&__pin-alt {
+			width: 20px;
+			height: 20px;
+			background-image: url('img/icons/pin-alt.svg');
+		}
+
+		&__phone {
+			width: 20px;
+			height: 20px;
+			background-image: url('img/icons/phone.svg');
+		}
+
+		&__clock {
+			width: 20px;
+			height: 20px;
+			background-image: url('img/icons/clock.svg');
+		}
+	}
+
+
+}
+
+.social-navigate {
+	display: flex;
+	justify-content: flex-start;
+	padding-top: 38px;
+
+	&__item {
+		list-style-type: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 60px;
+		height: 60px;
+		border: 1px solid $border-light;
+		border-radius: 100px;
+		cursor: pointer;
+		@extend %transition;
+
+		&:nth-child(1) {
+			margin-left: -3px;
+		}
+
+		&:nth-child(2) {
+			margin-left: 10px;
+		}
+
+		&:nth-child(3) {
+			margin-left: 10px;
+		}
+
+		&:hover {
+			border-color: $border-dark;
+			background-color: $main;
+
+			.twitter-icon {
+				background-image: url('img/icons/twitter-dark.svg');
+			}
+
+			.instagram-icon {
+				background-image: url('img/icons/instagram-dark.svg');
+			}
+
+			.facebook-icon {
+				background-image: url('img/icons/facebook-dark.svg');
+			}
+		}
+
+	}
+
+	&__icon {
+		display: flex;
+
+		.twitter-icon {
+			background-image: url('img/icons/twitter.svg');
+			width: 24px;
+			height: 24px;
+			@extend %transition;
+		}
+
+		.instagram-icon {
+			background-image: url('img/icons/instagram.svg');
+			width: 24px;
+			height: 24px;
+			@extend %transition;
+		}
+
+		.facebook-icon {
+			background-image: url('img/icons/facebook.svg');
+			width: 24px;
+			height: 24px;
+			@extend %transition;
+		}
+	}
+}

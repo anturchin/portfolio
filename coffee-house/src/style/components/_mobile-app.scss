@@ -1,8 +1,9 @@
 .mobile-app {
 
 	&__wrapper {
-		max-width: 1360px;
+		max-width: $wrapper-width;
 		margin: 0 auto;
+		padding-bottom: 30px;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -44,20 +45,61 @@
 		width: 200px;
 		border-radius: 100px;
 		border: 1px solid $border-dark;
+		background-color: $main;
+		color: $text-dark;
+		cursor: pointer;
+		@extend %transition;
 
 		&:nth-child(2) {
-			margin-left: 21px;
+			margin-left: 20px;
 		}
+
+		&:hover {
+			background-color: $bg-dark;
+			color: $text-light;
+
+			.mobile-app__google {
+				background-image: url('img/icons/google-play-hover.svg');
+
+			}
+
+			.mobile-app__apple {
+				background-image: url('img/icons/app-store-hover.svg');
+			}
+		}
+	}
+
+	&__apple {
+		width: 36px;
+		height: 36px;
+		background-image: url('img/icons/app-store.svg');
+		@extend %transition;
+	}
+
+	&__google {
+		width: 36px;
+		height: 36px;
+		background-image: url('img/icons/google-play.svg');
+		@extend %transition;
 	}
 
 	&__text {
 		display: flex;
 		flex-direction: column;
-		font-size: 10px;
-		color: $text-dark;
 		font-weight: 600;
-		line-height: 140%;
-		/* 14px */
+		text-align: start;
+		padding-left: 7px;
+
+		p {
+			&:nth-child(1) {
+				font-size: 1rem;
+			}
+
+			&:nth-child(2) {
+				font-weight: 600;
+				line-height: 26px;
+			}
+		}
 	}
 
 	&__screens {

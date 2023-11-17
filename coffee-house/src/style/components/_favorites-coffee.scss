@@ -19,12 +19,11 @@
 
 	}
 
-	&__slides {
-		max-width: 1360px;
-		margin: 0 auto;
+	.wrapper {
 		margin-top: 40px;
 		position: relative;
 	}
+
 }
 
 .slides {
@@ -56,7 +55,7 @@
 	}
 
 	&__title {
-		margin-top: 15px;
+		margin-top: 18px;
 		text-align: center;
 		font-size: 2.4rem;
 		font-weight: 600;
@@ -129,7 +128,7 @@
 }
 
 .lines {
-	padding-top: 40px;
+	padding-top: 39px;
 	position: absolute;
 	left: 50%;
 	transform: translateX(calc(-50% + 6px));
