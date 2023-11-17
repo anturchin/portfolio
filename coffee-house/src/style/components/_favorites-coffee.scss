@@ -21,50 +21,58 @@
 
 	&__slides {
 		max-width: 1360px;
+		margin: 0 auto;
 		margin-top: 40px;
 		position: relative;
 	}
 }
 
-
 .slides {
 
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	color: $text-dark;
-	position: relative;
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__item {
+		order: 2;
+	}
+
+	&__button {
+
+		&:nth-child(1) {
+			order: 1;
+		}
+
+		&:nth-child(2) {
+			order: 3;
+		}
+
+	}
 
 	&__img {
-
-		img {
-			width: 91%;
-			object-fit: contain;
-			object-position: 65px;
-		}
+		text-align: center;
 	}
 
 	&__title {
-		margin-top: 16px;
+		margin-top: 15px;
 		text-align: center;
 		font-size: 2.4rem;
 		font-weight: 600;
 		line-height: 125%;
-		margin-left: 80px;
 	}
 
 	&__descr {
-		margin-top: 15px;
+		margin-top: 18px;
 		text-align: center;
-		margin-left: 80px;
 		max-width: 480px;
 		font-weight: 400;
-		line-height: 150%;
+		line-height: 145%;
 	}
 
 	&__price {
 		margin-top: 17px;
-		margin-left: 80px;
 		text-align: center;
 		font-size: 2.4rem;
 		font-weight: 600;
@@ -72,10 +80,8 @@
 	}
 
 	&__prev {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		left: 45px;
+		position: relative;
+		left: 4px;
 		width: 60px;
 		height: 60px;
 		display: flex;
@@ -97,13 +103,11 @@
 	}
 
 	&__next {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		right: -35px;
-		display: flex;
+		position: relative;
+		right: 4px;
 		width: 60px;
 		height: 60px;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		border: 1px solid $border-dark;
@@ -121,13 +125,14 @@
 		}
 	}
 
+
 }
 
 .lines {
-	padding-top: 38px;
+	padding-top: 40px;
 	position: absolute;
 	left: 50%;
-	transform: translateX(calc(-50% + 45px));
+	transform: translateX(calc(-50% + 6px));
 	display: flex;
 
 	&__item {
