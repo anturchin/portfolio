@@ -23,37 +23,70 @@
 
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, minmax(430px, 590px));
 		column-gap: 40px;
 		row-gap: 40px;
 	}
 
 	&__photo {
+		position: relative;
+		overflow: hidden;
+		border-radius: 20px;
 
 		img {
 			width: 100%;
-			border-radius: 20px;
-			object-fit: contain;
+			object-fit: fill;
+			transform: scale(1.1);
+			@extend %transition;
+
+			&:hover {
+				transform: scale(1.0);
+			}
 		}
+
 
 		&:nth-child(1) {
 			order: 1;
+			height: 590px;
 
+			img {
+				position: absolute;
+				top: -35px;
+			}
 		}
 
 		&:nth-child(2) {
 			position: relative;
 			top: -3px;
 			order: 3;
+			height: 430px;
+
+			img {
+				position: absolute;
+				top: -115px;
+			}
 		}
 
 		&:nth-child(3) {
 			order: 2;
+			overflow: hidden;
+			height: 430px;
+
+			img {
+				position: absolute;
+				top: -115px;
+			}
 		}
 
 		&:nth-child(4) {
 			position: relative;
 			top: -163px;
 			order: 4;
+
+			img {
+				position: absolute;
+				top: -35px;
+			}
 		}
 	}
 

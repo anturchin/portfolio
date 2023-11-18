@@ -25,6 +25,17 @@
 		align-items: center;
 		color: $text-dark;
 		text-decoration: none;
+		position: relative;
+
+		&::before {
+			@include line($text-dark);
+		}
+
+		&:hover::before,
+		&:focus::before {
+			visibility: visible;
+			transform: scaleX(1);
+		}
 	}
 
 	&__text {
@@ -47,8 +58,19 @@
 	color: $text-dark;
 
 	&__item {
+		position: relative;
 		list-style-type: none;
 		margin-right: 41px;
+
+		&::before {
+			@include line($text-dark);
+		}
+
+		&:hover::before,
+		&:focus::before {
+			visibility: visible;
+			transform: scaleX(1);
+		}
 
 		&:nth-child(4) {
 			margin-right: 0;

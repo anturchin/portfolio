@@ -1,5 +1,6 @@
 .contacts {
 	.wrapper {
+		padding-top: 35px;
 		padding-bottom: 40px;
 	}
 
@@ -46,18 +47,33 @@
 	&-navigate {
 
 		&__list {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
 			margin-top: 45px;
 			margin-left: 85px;
 		}
 
 		&__item {
 			display: flex;
+			position: relative;
 			align-items: center;
 			list-style-type: none;
 			margin-top: 22px;
+			cursor: pointer;
 
 			&:nth-child(1) {
 				margin-top: 0;
+			}
+
+			&:nth-child(-n+2)::before {
+				@include line($text-light, -7px);
+			}
+
+			&:nth-child(-n+2):hover::before,
+			&:nth-child(-n+2):focus::before {
+				visibility: visible;
+				transform: scaleX(1);
 			}
 
 		}
@@ -66,6 +82,7 @@
 			text-decoration: none;
 			color: $text-light;
 			padding-left: 9px;
+
 		}
 
 		&__pin-alt {
