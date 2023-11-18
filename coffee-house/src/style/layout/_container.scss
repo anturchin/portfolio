@@ -1,5 +1,6 @@
 .container {
-	max-width: $container-width;
+	// max-width: $container-width;
+	width: $container-width;
 	margin: 0 auto;
 	background-color: $main;
 }

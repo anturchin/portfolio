@@ -4,11 +4,130 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>menu</title>
+	<title>Coffee-House Menu</title>
 </head>
 
 <body>
-	<h1>menu2</h1>
+	<header class="header">
+		<div class="container">
+			<div class="wrapper">
+				<div class="header__menu">
+					<a href="/" class="header__logo">
+						<span class="header__resource"></span>
+					</a>
+					<nav>
+						<ul class="navigate">
+							<li class="navigate__item"><a href="#favorite-coffee">Favorite coffee</a></li>
+							<li class="navigate__item"><a href="#about">About</a></li>
+							<li class="navigate__item"><a href="#mobail-app">Mobile app</a></li>
+							<li class="navigate__item"><a href="#contacts-us">Contact us</a></li>
+						</ul>
+					</nav>
+					<a href="menu.html" class="header__link">
+						<span class="header__text">Menu</span>
+						<span class="header__cup"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="main">
+		<div class="menu">
+			<div class="container">
+				<h1 class="menu__title">
+					Behind each of our cups<br>hides an <span>amazing surprise</span>
+				</h1>
+				<div class="wrapper">
+					<div class="menu__filter">
+						<nav class="menu-navigate">
+							<ul class="menu-navigate__list">
+								<li class="menu-navigate__item menu-navigate__item_active">
+									<div class="menu-navigate__icon">
+										<span class="menu-navigate__icon-coffee">
+									</div>
+									<span class="menu-navigate__icon-text">Coffee</span>
+								</li>
+								<li class="menu-navigate__item">
+									<div class="menu-navigate__icon">
+										<span class="menu-navigate__icon-tea"></span>
+									</div>
+									<span class="menu-navigate__icon-text">Tea</span>
+								</li>
+								<li class="menu-navigate__item">
+									<div class="menu-navigate__icon">
+										<span class="menu-navigate__icon-dessert"></span>
+									</div>
+									<span class="menu-navigate__icon-text">Dessert</span>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<div class="menu-card__layout">
+						<div class="menu-card__item coffee">
+							<div class="menu-card__image">
+								<img src="img/menu-layout/coffee-1.jpg" alt="coffee-1">
+							</div>
+							<h3 class="menu-card__title">Irish coffee</h3>
+							<p class="menu-card__text">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+							<span class="menu-card__price">$7.00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer class="contacts" id="contacts-us">
+		<div class="container">
+			<div class="wrapper">
+				<div class="contacts__wrapper">
+					<div class="contacts__offer">
+						<h2 class="contacts__title">Sip, Savor, Smile. <span>It’s coffee time!</span></h2>
+						<nav>
+							<ul class="social-navigate">
+								<li class="social-navigate__item">
+									<a href="#" class="social-navigate__icon">
+										<span class="twitter-icon"></span>
+									</a>
+								</li>
+								<li class="social-navigate__item">
+									<a href="#" class="social-navigate__icon">
+										<span class="instagram-icon"></span>
+									</a>
+								</li>
+								<li class="social-navigate__item">
+									<a href="#" class="social-navigate__icon">
+										<span class="facebook-icon"></span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<div class="contacts__info">
+						<h3 class="contacts__subtitle">Contact us</h3>
+						<nav>
+							<ul class="contacts-navigate__list">
+								<li class="contacts-navigate__item">
+									<span class="contacts-navigate__pin-alt"></span>
+									<a class="contacts-navigate__link" href="#">8558 Green Rd., LA</a>
+								</li>
+								<li class="contacts-navigate__item">
+									<span class="contacts-navigate__phone"></span>
+									<a class="contacts-navigate__link" href="#">+1 (603) 555-0123</a>
+								</li>
+								<li class="contacts-navigate__item">
+									<span class="contacts-navigate__clock"></span>
+									<span class="contacts-navigate__link">Mon-Sat: 9:00 AM – 23:00 PM</span>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
 </body>
 
 </html>

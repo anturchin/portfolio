@@ -1,0 +1,121 @@
+.menu {
+
+	&__title {
+		text-align: center;
+		font-size: 6rem;
+		font-weight: 600;
+		line-height: 75px;
+		color: $text-dark;
+
+		span {
+			font-style: italic;
+			color: $text-accent;
+		}
+	}
+
+	&__filter {
+		margin-top: 40px;
+	}
+}
+
+.menu-navigate {
+
+	&__list {
+		display: flex;
+		justify-content: center;
+	}
+
+	&__item {
+		display: flex;
+		list-style-type: none;
+		background: transparent;
+		border: 1px solid $border-light;
+		border-radius: 100px;
+		padding: 8px 16px 8px 8px;
+		color: $text-dark;
+		margin-right: 16px;
+		cursor: pointer;
+		@extend %transition;
+
+		&:nth-child(3) {
+			margin-right: 0;
+		}
+
+		&:hover {
+			background-color: $bg-dark;
+			color: $text-light;
+
+			.menu-navigate__icon {
+				background-color: $main;
+			}
+		}
+
+		&_active {
+			background-color: $bg-dark;
+			color: $text-light;
+
+			.menu-navigate__icon {
+				background-color: $main;
+			}
+		}
+	}
+
+	&__icon {
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background-color: $border-light;
+	}
+
+	&__icon-coffee {
+		position: absolute;
+		width: 17px;
+		height: 17px;
+		background-image: url('img/menu-icons/coffee.svg');
+
+	}
+
+	&__icon-tea {
+		position: absolute;
+		width: 17px;
+		height: 17px;
+		background-image: url('img/menu-icons/tea.svg');
+	}
+
+	&__icon-dessert {
+		position: absolute;
+		width: 17px;
+		height: 17px;
+		background-image: url('img/menu-icons/dessert.svg');
+	}
+
+	&__icon-text {
+		display: flex;
+		align-items: center;
+		margin-left: 8px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+
+}
+
+.menu-card {
+
+	&__layout {}
+
+	&__item {}
+
+	&__image {}
+
+	&__title {}
+
+	&__text {}
+
+	&__price {}
+}
+
+.coffee {}

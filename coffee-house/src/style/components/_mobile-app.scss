@@ -40,17 +40,18 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		padding: 12px 20px 12px 20px;
 		width: 200px;
+		padding: 12px 0;
 		border-radius: 100px;
 		border: 1px solid $border-dark;
 		background-color: $main;
 		color: $text-dark;
+		text-decoration: none;
 		cursor: pointer;
 		@extend %transition;
 
 		&:nth-child(2) {
-			margin-left: 20px;
+			margin-left: 17px;
 		}
 
 		&:hover {
@@ -72,6 +73,7 @@
 		width: 36px;
 		height: 36px;
 		background-image: url('img/icons/app-store.svg');
+		margin-left: 19px;
 		@extend %transition;
 	}
 
@@ -79,6 +81,7 @@
 		width: 36px;
 		height: 36px;
 		background-image: url('img/icons/google-play.svg');
+		margin-left: 20px;
 		@extend %transition;
 	}
 
@@ -87,16 +90,17 @@
 		flex-direction: column;
 		font-weight: 600;
 		text-align: start;
-		padding-left: 7px;
+		margin-left: 8px;
 
 		span {
 			&:nth-child(1) {
 				font-size: 1rem;
+				margin-top: 2px;
 			}
 
 			&:nth-child(2) {
 				font-weight: 600;
-				line-height: 29px;
+				margin-top: 7px;
 			}
 		}
 	}
@@ -106,6 +110,7 @@
 		width: 45%;
 		top: -60px;
 		right: 18px;
+
 	}
 
 }
