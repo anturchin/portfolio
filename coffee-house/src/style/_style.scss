@@ -4,6 +4,10 @@
 @import 'abstract/placeholders';
 @import 'abstract/mixins';
 
+:root {
+	scroll-behavior: smooth;
+}
+
 html {
 	font-size: 10px;
 }
