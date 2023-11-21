@@ -52,6 +52,7 @@
 		&:hover {
 			.enjoy__svg {
 				z-index: 1;
+				opacity: 1;
 			}
 
 			.enjoy__menu {
@@ -69,6 +70,7 @@
 		z-index: -1;
 		top: 20px;
 		right: 65px;
+		opacity: 0;
 		@extend %transition;
 	}
 

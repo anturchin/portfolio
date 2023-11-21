@@ -120,6 +120,13 @@
 		flex-direction: column;
 		border-radius: 40px;
 		border: 1px solid $border-light;
+		cursor: pointer;
+
+		&:hover {
+			img {
+				transform: scale(1);
+			}
+		}
 	}
 
 	&__image {
@@ -131,10 +138,6 @@
 			width: 100%;
 			@extend %transition;
 			transform: scale(1.1);
-
-			&:hover {
-				transform: scale(1);
-			}
 		}
 	}
 

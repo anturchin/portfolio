@@ -1,8 +1,8 @@
-@import 'utils/normalize';
+@import 'base/normalize';
 @import 'fonts';
-@import 'abstract/constants';
-@import 'abstract/placeholders';
-@import 'abstract/mixins';
+@import 'abstracts/constants';
+@import 'abstracts/placeholders';
+@import 'abstracts/mixins';
 
 :root {
 	scroll-behavior: smooth;
@@ -15,7 +15,7 @@ html {
 body {
 	font-size: 1.6rem;
 	font-family: 'Inter', Verdana, sans-serif;
-	background-color: $bg;
+	background-color: $main;
 }
 
 @import 'layout/container';

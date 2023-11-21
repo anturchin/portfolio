@@ -4,6 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="img/favicon/site.webmanifest">
 	<title>Coffee-House Menu</title>
 </head>
 
@@ -12,18 +16,26 @@
 		<div class="container">
 			<div class="wrapper">
 				<div class="header__menu">
-					<a href="/" class="header__logo">
+					<a href="/" class="header__logo header__logo_active">
 						<span class="header__resource"></span>
 					</a>
 					<nav>
 						<ul class="navigate">
-							<li class="navigate__item"><a href="#">Favorite coffee</a></li>
-							<li class="navigate__item"><a href="#">About</a></li>
-							<li class="navigate__item"><a href="#">Mobile app</a></li>
-							<li class="navigate__item"><a href="#contacts-us">Contact us</a></li>
+							<li class="navigate__item">
+								<a href="./index.html#favorite-coffee">Favorite coffee</a>
+							</li>
+							<li class="navigate__item">
+								<a href="./index.html#about">About</a>
+							</li>
+							<li class="navigate__item">
+								<a href="./index.html#mobile-app">Mobile app</a>
+							</li>
+							<li class="navigate__item">
+								<a href="#contacts-us">Contact us</a>
+							</li>
 						</ul>
 					</nav>
-					<a href="menu.html" class="header__link">
+					<a href="menu.html" class="header__link header__link_active">
 						<span class="header__text">Menu</span>
 						<span class="header__cup"></span>
 					</a>
@@ -44,7 +56,7 @@
 							<ul class="menu-navigate__list">
 								<li class="menu-navigate__item menu-navigate__item_active">
 									<div class="menu-navigate__icon">
-										<span class="menu-navigate__icon-coffee">
+										<span class="menu-navigate__icon-coffee"></span>
 									</div>
 									<span class="menu-navigate__icon-text">Coffee</span>
 								</li>
@@ -166,11 +178,13 @@
 							<ul class="contacts-navigate__list">
 								<li class="contacts-navigate__item">
 									<span class="contacts-navigate__pin-alt"></span>
-									<a class="contacts-navigate__link" href="#">8558 Green Rd., LA</a>
+									<a target="_blank" class="contacts-navigate__link"
+										href="https://maps.app.goo.gl/DhBus4n7xaF66ahw5">8558 Green Rd.,
+										LA</a>
 								</li>
 								<li class="contacts-navigate__item">
 									<span class="contacts-navigate__phone"></span>
-									<a class="contacts-navigate__link" href="#">+1 (603) 555-0123</a>
+									<a class="contacts-navigate__link" href="tel:+16035550123">+1 (603) 555-0123</a>
 								</li>
 								<li class="contacts-navigate__item">
 									<span class="contacts-navigate__clock"></span>
