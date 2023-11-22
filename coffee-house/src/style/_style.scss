@@ -1,5 +1,5 @@
 @import 'base/normalize';
-@import 'fonts';
+@import 'base/fonts';
 @import 'abstracts/constants';
 @import 'abstracts/placeholders';
 @import 'abstracts/mixins';
@@ -27,3 +27,6 @@ body {
 @import 'components/mobile-app';
 @import 'components/contacts';
 @import 'components/menu';
+
+@import 'components/media-home';
+
