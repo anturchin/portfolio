@@ -15,20 +15,12 @@
 		max-width: 1140px;
 	}
 
-	.wrapper {
-		max-width: 100%;
-	}
-
 }
 
 @media(max-width: $desktop-small) {
 	
 	.container {
 		max-width: 960px;
-	}
-
-	.wrapper {
-		max-width: 920px;
 	}
 
 }
