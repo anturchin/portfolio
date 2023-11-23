@@ -1,6 +1,7 @@
 @media(max-width: $desktop) {}
+
 @media(max-width: $desktop-small) {
-	
+
 	.contacts {
 
 		&__wrapper {
@@ -22,8 +23,53 @@
 
 }
 
+@media(max-width: $tablet) {
+
+	.contacts {
+		margin-top: 70px;
+		&__wrapper {
+
+			flex-direction: column;
+			padding-bottom: 105px;
+		}
+
+		&__offer {
+			margin-left: 60px;
+			margin-top: 30px;
+			width: 80%;
+
+		}
+
+		&__subtitle {
+			margin-left: 60px;
+		}
+
+		&__info {
+			width: 100%;
+		}
+
+		&-navigate {
+			&__list {
+				margin-left: 60px;
+			}
+		}
+
+		.social-navigate {
+			&__item {
+				&:nth-child(1){
+					margin-left: -1px;
+				}
+			}
+		}
+
+	}
+
+}
+
 @media(max-width: $tablet) {}
-@media(max-width: $tablet) {}
+
 @media(max-width: $tablet-small) {}
+
 @media(max-width: $mobile) {}
+
 @media(max-width: $mobile-small) {}

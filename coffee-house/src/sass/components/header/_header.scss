@@ -2,6 +2,7 @@
 
 	&__menu {
 		display: flex;
+		position: relative;
 		justify-content: space-between;
 		align-items: center;
 		padding-top: 20px;
@@ -69,39 +70,55 @@
 		background-image: url('img/icons/coffee-cup.svg');
 	}
 
+	&__navigate {
+		flex-grow: 1;
+		
+		@extend %transition;
+	}
+
+	.navigate {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		font-weight: 600;
+		line-height: 24px;
+		color: $text-dark;
+	
+		&__item {
+			position: relative;
+			list-style-type: none;
+			margin-right: 41px;
+			margin-bottom: 2px;
+	
+			&::before {
+				@include line($text-dark);
+			}
+	
+			&:hover::before,
+			&:focus::before {
+				visibility: visible;
+				transform: scaleX(1);
+			}
+	
+			&:nth-child(4) {
+				margin-right: 365px;
+			}
+			
+			&:nth-child(5) {
+				margin-right: 0;
+			}
+	
+			a {
+				text-decoration: none;
+				color: $text-dark;
+			}
+		}
+	
+	}
 
 }
 
-.navigate {
-	display: flex;
-	align-items: center;
-	font-weight: 600;
-	line-height: 24px;
-	color: $text-dark;
 
-	&__item {
-		position: relative;
-		list-style-type: none;
-		margin-right: 41px;
-
-		&::before {
-			@include line($text-dark);
-		}
-
-		&:hover::before,
-		&:focus::before {
-			visibility: visible;
-			transform: scaleX(1);
-		}
-
-		&:nth-child(4) {
-			margin-right: 0;
-		}
-
-		a {
-			text-decoration: none;
-			color: $text-dark;
-		}
-	}
-
+.hamburger {
+	display: none;
 }

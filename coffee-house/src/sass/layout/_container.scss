@@ -25,7 +25,11 @@
 
 }
 
-@media(max-width: $tablet) {}
+@media(max-width: $tablet) {
+	.container {
+		max-width: 688px;
+	}
+}
 @media(max-width: $tablet) {}
 @media(max-width: $tablet-small) {}
 @media(max-width: $mobile) {}

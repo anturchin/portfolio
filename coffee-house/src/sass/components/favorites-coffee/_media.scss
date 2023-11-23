@@ -1,1 +1,13 @@
 
+@media(max-width: $tablet) {
+	.slides {
+
+		&__prev {
+			left: 1px;
+		}
+	
+		&__next {
+			right: 1px;
+			}
+		}
+}
