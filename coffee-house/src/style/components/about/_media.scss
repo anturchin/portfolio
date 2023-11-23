@@ -1,13 +1,5 @@
 @media(max-width: $desktop) {
 
-	.container {
-		max-width: 1140px;
-	}
-
-	.wrapper {
-		max-width: 100%;
-	}
-
 	.about {
 
 		&__title {
@@ -29,31 +21,9 @@
 		}
 	}
 
-	.mobile-app {
-		
-		&__screens {
-
-			width: 45%;
-			top: 0px;
-			right: 0px;
-
-			img {
-				width: 100%;
-			}
-		}
-	}
-
 }
 
 @media(max-width: $desktop-small) {
-	.container {
-		max-width: 960px;
-	}
-
-	.wrapper {
-		max-width: 920px;
-	}
-
 	
 	.about {
 
@@ -87,49 +57,9 @@
 		}
 	}
 
-	.mobile-app {
-		&__wrapper {
-			max-width: 920px;
-		}
-
-		&__screens {
-
-			display: flex;
-
-			img {
-				object-fit: contain;
-			}
-		}
-
-	}
-
-	.contacts {
-
-		&__wrapper {
-
-			padding-bottom: 70px;
-
-		}
-
-		&__offer {
-			width: 40%;
-			padding-top: 70px;
-		}
-
-
-		&__info {
-			margin-top: 70px;
-		}
-	}
-
 }
 
-@media(max-width: $tablet) {
-
-
-
-}
-
+@media(max-width: $tablet) {}
 @media(max-width: $tablet) {}
 @media(max-width: $tablet-small) {}
 @media(max-width: $mobile) {}

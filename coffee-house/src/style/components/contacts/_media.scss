@@ -1,0 +1,29 @@
+@media(max-width: $desktop) {}
+@media(max-width: $desktop-small) {
+	
+	.contacts {
+
+		&__wrapper {
+
+			padding-bottom: 70px;
+
+		}
+
+		&__offer {
+			width: 40%;
+			padding-top: 70px;
+		}
+
+
+		&__info {
+			margin-top: 70px;
+		}
+	}
+
+}
+
+@media(max-width: $tablet) {}
+@media(max-width: $tablet) {}
+@media(max-width: $tablet-small) {}
+@media(max-width: $mobile) {}
+@media(max-width: $mobile-small) {}

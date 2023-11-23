@@ -1,0 +1,43 @@
+@media(max-width: $desktop) {
+
+	.mobile-app {
+		
+		&__screens {
+
+			width: 45%;
+			top: 0px;
+			right: 0px;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+@media(max-width: $desktop-small) {
+
+	.mobile-app {
+		&__wrapper {
+			max-width: 920px;
+		}
+
+		&__screens {
+
+			display: flex;
+
+			img {
+				object-fit: contain;
+			}
+		}
+
+	}
+
+}
+
+@media(max-width: $tablet) {}
+@media(max-width: $tablet) {}
+@media(max-width: $tablet-small) {}
+@media(max-width: $mobile) {}
+@media(max-width: $mobile-small) {}
