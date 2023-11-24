@@ -33,10 +33,19 @@
 
 @media(max-width: $tablet-small) {
 	.container {
-		max-width: 570px;
+		max-width: 550px;
 	}
 }
+
 @media(max-width: $mobile) {
-	
+	.container {
+		max-width: 348px;
+	}
 }
-@media(max-width: $mobile-small) {}
+@media(max-width: $mobile-small) {
+
+	.container {
+		max-width: 310px;
+	}
+
+}

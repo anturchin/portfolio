@@ -62,7 +62,53 @@
 	}
 
 }
-@media(max-width: $tablet) {}
-@media(max-width: $tablet-small) {}
-@media(max-width: $mobile) {}
+
+@media(max-width: $tablet-small) {
+
+	.mobile-app {
+		
+		&__title {
+		font-size: 4.5rem;;
+		}
+
+		&__button {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		&__store {
+			&:nth-child(1){
+				margin-left: 0;
+			}
+			&:nth-child(2){
+				margin-left: 0;
+				margin-top: 20px;
+			}
+		}
+
+		&__screens {
+			margin-top: 40px;
+		}
+
+	}
+
+}
+@media(max-width: $mobile) {
+
+
+	.mobile-app {
+		
+		&__title {
+		font-size: 3.2rem;;
+		}
+
+		&__screens {
+			img {
+				width: 100%;
+			}
+		}
+
+	}
+
+}
 @media(max-width: $mobile-small) {}
