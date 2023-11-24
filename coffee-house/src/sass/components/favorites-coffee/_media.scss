@@ -11,3 +11,16 @@
 			}
 		}
 }
+
+@media(max-width: $tablet-small) {
+	.slides {
+
+		&__prev {
+			display: none;
+		}
+	
+		&__next {
+			display: none;
+			}
+		}
+}

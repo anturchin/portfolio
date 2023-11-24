@@ -30,7 +30,13 @@
 		max-width: 688px;
 	}
 }
-@media(max-width: $tablet) {}
-@media(max-width: $tablet-small) {}
-@media(max-width: $mobile) {}
+
+@media(max-width: $tablet-small) {
+	.container {
+		max-width: 570px;
+	}
+}
+@media(max-width: $mobile) {
+	
+}
 @media(max-width: $mobile-small) {}
