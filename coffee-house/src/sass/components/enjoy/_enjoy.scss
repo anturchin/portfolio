@@ -66,6 +66,9 @@
 	}
 
 	&__svg {
+		width: 20px;
+		height: 20px;
+		background-image: url('img/icons/coffee-cup.svg');
 		position: absolute;
 		z-index: -1;
 		top: 20px;
