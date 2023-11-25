@@ -75,14 +75,17 @@
 				margin-top: 23px;
 			}
 
-			&:nth-child(-n+2)::before {
-				@include line($text-light, -7px);
-			}
 
-			&:nth-child(-n+2):hover::before,
-			&:nth-child(-n+2):focus::before {
-				visibility: visible;
-				transform: scaleX(1);
+			@media(hover: hover){
+				&:nth-child(-n+2)::before {
+					@include line($text-light, -7px);
+				}
+	
+				&:nth-child(-n+2):hover::before,
+				&:nth-child(-n+2):focus::before {
+					visibility: visible;
+					transform: scaleX(1);
+				}
 			}
 
 		}
@@ -146,22 +149,26 @@
 			margin-left: 10px;
 		}
 
-		&:hover {
-			border-color: $border-dark;
-			background-color: $main;
 
-			.twitter-icon {
-				background-image: url('img/icons/twitter-dark.svg');
-			}
-
-			.instagram-icon {
-				background-image: url('img/icons/instagram-dark.svg');
-			}
-
-			.facebook-icon {
-				background-image: url('img/icons/facebook-dark.svg');
+		@media(hover: hover){
+			&:hover {
+				border-color: $border-dark;
+				background-color: $main;
+	
+				.twitter-icon {
+					background-image: url('img/icons/twitter-dark.svg');
+				}
+	
+				.instagram-icon {
+					background-image: url('img/icons/instagram-dark.svg');
+				}
+	
+				.facebook-icon {
+					background-image: url('img/icons/facebook-dark.svg');
+				}
 			}
 		}
+
 	}
 
 	&__icon {

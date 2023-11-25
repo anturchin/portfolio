@@ -54,19 +54,22 @@
 			margin-left: 17px;
 		}
 
-		&:hover {
-			background-color: $bg-dark;
-			color: $text-light;
+		@media(hover: hover) {
+			&:hover {
+				background-color: $bg-dark;
+				color: $text-light;
 
-			.mobile-app__google {
-				background-image: url('img/icons/google-play-hover.svg');
+				.mobile-app__google {
+					background-image: url('img/icons/google-play-hover.svg');
 
-			}
+				}
 
-			.mobile-app__apple {
-				background-image: url('img/icons/app-store-hover.svg');
+				.mobile-app__apple {
+					background-image: url('img/icons/app-store-hover.svg');
+				}
 			}
 		}
+
 	}
 
 	&__apple {

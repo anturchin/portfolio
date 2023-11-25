@@ -92,13 +92,17 @@
 		cursor: pointer;
 		@extend %transition;
 
-		&:hover {
-			background-color: $bg-dark;
-
-			.icon__svg {
-				stroke: $text-light;
+		@media(hover: hover) {
+			&:hover {
+				background-color: $bg-dark;
+	
+				.icon__svg {
+					stroke: $text-light;
+				}
 			}
 		}
+
+
 	}
 
 	&__next {
@@ -115,11 +119,13 @@
 		cursor: pointer;
 		@extend %transition;
 
-		&:hover {
-			background-color: $bg-dark;
-
-			.icon__svg {
-				stroke: $text-light;
+		@media(hover: hover){
+			&:hover {
+				background-color: $bg-dark;
+	
+				.icon__svg {
+					stroke: $text-light;
+				}
 			}
 		}
 	}
