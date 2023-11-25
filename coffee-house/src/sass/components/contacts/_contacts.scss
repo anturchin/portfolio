@@ -1,8 +1,7 @@
 .contacts {
-	.wrapper {
-		padding-top: 35px;
-		padding-bottom: 40px;
-	}
+
+	margin-top: 35px;
+	margin-bottom: 40px;
 
 	&__wrapper {
 		display: flex;
@@ -15,7 +14,7 @@
 
 	&__offer {
 		width: 40%;
-		padding-top: 100px;
+		padding-top: 98px;
 	}
 
 	&__title {
@@ -37,7 +36,7 @@
 	}
 
 	&__subtitle {
-		margin-top: 30px;
+		margin-top: 29px;
 		margin-left: 85px;
 		font-size: 2.4rem;
 		font-weight: 600;

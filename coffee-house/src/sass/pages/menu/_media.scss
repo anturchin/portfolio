@@ -15,12 +15,7 @@
 @media(max-width: $tablet) {
 
 	.menu{
-		
-		
-		.wrapper {
-			padding-bottom: 0px;
-		}
-		
+		margin-bottom: -8px;
 		&__title {
 
 			max-width: 688px;
