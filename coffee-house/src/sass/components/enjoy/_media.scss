@@ -6,14 +6,10 @@
 			padding: 100px 60px 100px 60px;
 		}
 
-
 			&__link {
-	
-	
 				.enjoy__menu {
 					margin-right: 27px;
 				}
-	
 			}
 	
 			&__svg {
@@ -25,17 +21,19 @@
 	}
 }
 
-@media(max-width: $tablet-small) {
-	
+@media(max-width: $mobile) {
+
 	.enjoy {
 		&__title {
-			font-size: 4.5rem;
+			font-size: 5rem;
 		}
 	}
 
+
 }
 
-@media(max-width: $mobile) {
+
+@media(max-width: $mobile-small) {
 	
 	.enjoy {
 

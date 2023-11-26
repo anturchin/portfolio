@@ -1,7 +1,8 @@
 .about {
 
 	&__title {
-		padding: 42px 40px 0px 40px;
+		margin-top: 40px;
+		padding: 0px 40px 0px 40px;
 		text-align: start;
 		font-size: 6rem;
 		font-weight: 600;
@@ -15,26 +16,43 @@
 		}
 	}
 
-	.wrapper {
+	&__wrapper {
+		max-width: $wrapper-width;
+		margin: 0 auto;
 		margin-top: 41px;
+		display: flex;
+		gap: 40px;
 	}
 
-	&__layout {
-
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, minmax(430px, 590px));
-		column-gap: 40px;
-		row-gap: 41px;
+	&__row{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		gap: 40px;
 	}
 
-	&__photo {
-		position: relative;
+	&__col {
 		overflow: hidden;
 		border-radius: 20px;
+		display: flex;
+		max-height: 590px;
+		
+		&_1 {
+			
+		}
+		&_2{
+			max-height: 430px;
+		}
+		&_3{
+			max-height: 430px;
+		}
+		&_4 {
+			
+		}
 
 		img {
 			width: 100%;
+			object-fit: cover;
 			transform: scale(1.1);
 			@extend %transition;
 
@@ -46,50 +64,6 @@
 			
 		}
 
-
-		&:nth-child(1) {
-			order: 1;
-			height: 590px;
-
-			img {
-				position: absolute;
-				top: -35px;
-			}
-		}
-
-		&:nth-child(2) {
-			position: relative;
-			top: -3px;
-			order: 3;
-			height: 430px;
-
-			img {
-				position: absolute;
-				top: -115px;
-			}
-		}
-
-		&:nth-child(3) {
-			order: 2;
-			overflow: hidden;
-			height: 430px;
-
-			img {
-				position: absolute;
-				top: -115px;
-			}
-		}
-
-		&:nth-child(4) {
-			position: relative;
-			top: -163px;
-			order: 4;
-
-			img {
-				position: absolute;
-				top: -35px;
-			}
-		}
 	}
 
 }

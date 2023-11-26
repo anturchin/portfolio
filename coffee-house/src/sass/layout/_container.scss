@@ -3,12 +3,6 @@
 	margin: 0 auto;
 }
 
-.wrapper {
-	max-width: $wrapper-width;
-	margin: 0 auto;
-}
-
-
 @media(max-width: $desktop) {
 
 	.container {
@@ -27,25 +21,31 @@
 
 @media(max-width: $tablet) {
 	.container {
-		max-width: 688px;
+		max-width: 740px;
 	}
 }
 
 @media(max-width: $tablet-small) {
 	.container {
-		max-width: 550px;
+		max-width: 688px;
+	}
+}
+
+@media(max-width: $tablet-small-2) {
+	.container {
+		max-width: 560px;
 	}
 }
 
 @media(max-width: $mobile) {
 	.container {
-		max-width: 348px;
+		max-width: 380px;
 	}
 }
 @media(max-width: $mobile-small) {
 
 	.container {
-		max-width: 310px;
+		max-width: 350px;
 	}
 
 }

@@ -3,6 +3,11 @@
 
 	margin-bottom: 99px;
 
+	&__wrapper {
+		margin: 0 auto;
+		max-width: $wrapper-width;
+	}
+
 	&__title {
 		text-align: center;
 		font-size: 6rem;

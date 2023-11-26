@@ -2,6 +2,7 @@
 
 	&__wrapper {
 		margin: 0 auto;
+		margin-top: 100px;
 		max-width: $wrapper-width;
 		display: flex;
 		justify-content: space-between;
@@ -12,7 +13,7 @@
 	}
 
 	&__title {
-		margin-top: 82px;
+		margin-top: 145px;
 		font-size: 6rem;
 		font-weight: 600;
 		line-height: 125%;
@@ -33,7 +34,7 @@
 
 	&__button {
 		display: flex;
-		margin-top: 40px;
+		margin-top: 39px;
 	}
 
 	&__store {
@@ -98,7 +99,6 @@
 		span {
 			&:nth-child(1) {
 				font-size: 1rem;
-				margin-top: 2px;
 			}
 
 			&:nth-child(2) {
@@ -106,14 +106,6 @@
 				margin-top: 7px;
 			}
 		}
-	}
-
-	&__screens {
-		position: relative;
-		width: 45%;
-		top: -60px;
-		right: 18px;
-
 	}
 
 }
