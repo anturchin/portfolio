@@ -1,10 +1,10 @@
 .contacts {
-	.wrapper {
-		padding-top: 35px;
-		padding-bottom: 40px;
-	}
+
+	margin-top: 97px;
+	margin-bottom: 40px;
 
 	&__wrapper {
+		max-width: $wrapper-width;
 		display: flex;
 		justify-content: center;
 		border-radius: 40px;
@@ -15,7 +15,7 @@
 
 	&__offer {
 		width: 40%;
-		padding-top: 100px;
+		padding-top: 98px;
 	}
 
 	&__title {
@@ -37,7 +37,7 @@
 	}
 
 	&__subtitle {
-		margin-top: 30px;
+		margin-top: 29px;
 		margin-left: 85px;
 		font-size: 2.4rem;
 		font-weight: 600;
@@ -76,14 +76,17 @@
 				margin-top: 23px;
 			}
 
-			&:nth-child(-n+2)::before {
-				@include line($text-light, -7px);
-			}
 
-			&:nth-child(-n+2):hover::before,
-			&:nth-child(-n+2):focus::before {
-				visibility: visible;
-				transform: scaleX(1);
+			@media(hover: hover) {
+				&:nth-child(-n+2)::before {
+					@include line($text-light, -7px);
+				}
+
+				&:nth-child(-n+2):hover::before,
+				&:nth-child(-n+2):focus::before {
+					visibility: visible;
+					transform: scaleX(1);
+				}
 			}
 
 		}
@@ -115,78 +118,81 @@
 		}
 	}
 
-
-}
-
-.social-navigate {
-	display: flex;
-	justify-content: flex-start;
-	padding-top: 40px;
-
-	&__item {
-		list-style-type: none;
+	.social-navigate {
 		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 60px;
-		height: 60px;
-		border: 1px solid $border-light;
-		border-radius: 100px;
-		cursor: pointer;
-		@extend %transition;
+		justify-content: flex-start;
+		margin-top: 40px;
 
-		&:nth-child(1) {
-			margin-left: -3px;
+		&__item {
+			list-style-type: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 60px;
+			height: 60px;
+			border: 1px solid $border-light;
+			border-radius: 100px;
+			cursor: pointer;
+			@extend %transition;
+
+			&:nth-child(1) {
+				margin-left: -3px;
+			}
+
+			&:nth-child(2) {
+				margin-left: 10px;
+			}
+
+			&:nth-child(3) {
+				margin-left: 10px;
+			}
+
+
+			@media(hover: hover) {
+				&:hover {
+					border-color: $border-dark;
+					background-color: $main;
+
+					.twitter-icon {
+						background-image: url('img/icons/twitter-dark.svg');
+					}
+
+					.instagram-icon {
+						background-image: url('img/icons/instagram-dark.svg');
+					}
+
+					.facebook-icon {
+						background-image: url('img/icons/facebook-dark.svg');
+					}
+				}
+			}
+
 		}
 
-		&:nth-child(2) {
-			margin-left: 10px;
-		}
-
-		&:nth-child(3) {
-			margin-left: 10px;
-		}
-
-		&:hover {
-			border-color: $border-dark;
-			background-color: $main;
+		&__icon {
+			display: flex;
 
 			.twitter-icon {
-				background-image: url('img/icons/twitter-dark.svg');
+				background-image: url('img/icons/twitter.svg');
+				width: 24px;
+				height: 24px;
+				@extend %transition;
 			}
 
 			.instagram-icon {
-				background-image: url('img/icons/instagram-dark.svg');
+				background-image: url('img/icons/instagram.svg');
+				width: 24px;
+				height: 24px;
+				@extend %transition;
 			}
 
 			.facebook-icon {
-				background-image: url('img/icons/facebook-dark.svg');
+				background-image: url('img/icons/facebook.svg');
+				width: 24px;
+				height: 24px;
+				@extend %transition;
 			}
 		}
 	}
 
-	&__icon {
-		display: flex;
-
-		.twitter-icon {
-			background-image: url('img/icons/twitter.svg');
-			width: 24px;
-			height: 24px;
-			@extend %transition;
-		}
-
-		.instagram-icon {
-			background-image: url('img/icons/instagram.svg');
-			width: 24px;
-			height: 24px;
-			@extend %transition;
-		}
-
-		.facebook-icon {
-			background-image: url('img/icons/facebook.svg');
-			width: 24px;
-			height: 24px;
-			@extend %transition;
-		}
-	}
 }

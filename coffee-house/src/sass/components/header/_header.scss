@@ -1,6 +1,8 @@
 .header {
 
 	&__menu {
+		max-width: $wrapper-width;
+		margin: 0 auto;
 		display: flex;
 		position: relative;
 		justify-content: space-between;
@@ -47,14 +49,16 @@
 			}
 		}
 
-		&::before {
-			@include line($text-dark);
-		}
+		@media(hover: hover) {
+			&::before {
+				@include line($text-dark);
+			}
 
-		&:hover::before,
-		&:focus::before {
-			visibility: visible;
-			transform: scaleX(1);
+			&:hover::before,
+			&:focus::before {
+				visibility: visible;
+				transform: scaleX(1);
+			}
 		}
 
 	}
@@ -72,7 +76,7 @@
 
 	&__navigate {
 		flex-grow: 1;
-		
+
 		@extend %transition;
 	}
 
@@ -83,37 +87,40 @@
 		font-weight: 600;
 		line-height: 24px;
 		color: $text-dark;
-	
+
 		&__item {
 			position: relative;
 			list-style-type: none;
 			margin-right: 41px;
 			margin-bottom: 2px;
-	
-			&::before {
-				@include line($text-dark);
+
+
+			@media(hover: hover) {
+				&::before {
+					@include line($text-dark);
+				}
+
+				&:hover::before,
+				&:focus::before {
+					visibility: visible;
+					transform: scaleX(1);
+				}
 			}
-	
-			&:hover::before,
-			&:focus::before {
-				visibility: visible;
-				transform: scaleX(1);
-			}
-	
+
 			&:nth-child(4) {
 				margin-right: 365px;
 			}
-			
+
 			&:nth-child(5) {
 				margin-right: 0;
 			}
-	
+
 			a {
 				text-decoration: none;
 				color: $text-dark;
 			}
 		}
-	
+
 	}
 
 }

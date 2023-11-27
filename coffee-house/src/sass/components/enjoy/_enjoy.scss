@@ -49,16 +49,21 @@
 		background: $button-light;
 		border-radius: 100px;
 
-		&:hover {
-			.enjoy__svg {
-				z-index: 1;
-				opacity: 1;
+		@media(hover: hover) {
+
+			&:hover {
+				.enjoy__svg {
+					z-index: 1;
+					opacity: 1;
+				}
+	
+				.enjoy__menu {
+					margin-right: 27px;
+				}
 			}
 
-			.enjoy__menu {
-				margin-right: 27px;
-			}
 		}
+		
 	}
 
 	&__menu {
