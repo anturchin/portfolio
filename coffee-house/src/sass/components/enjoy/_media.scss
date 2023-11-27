@@ -1,0 +1,52 @@
+@media(max-width: $tablet) {
+	.enjoy {
+		
+		&__offer {
+			max-width: 100%;
+			padding: 100px 60px 100px 60px;
+		}
+
+			&__link {
+				.enjoy__menu {
+					margin-right: 27px;
+				}
+			}
+	
+			&__svg {
+				z-index: 1;
+				opacity: 1;
+				top: 21px;
+			}
+
+	}
+}
+
+@media(max-width: $mobile) {
+
+	.enjoy {
+
+		&__offer {
+			padding: 60px 16px 60px 16px;
+		}
+
+		&__title {
+			font-size: 4.7rem;
+		}
+	}
+
+
+}
+
+
+@media(max-width: $mobile-small) {
+	
+	.enjoy {
+
+		&__title {
+			font-size: 4.2rem;
+			line-height: 115%;
+		}
+		
+	}
+
+}

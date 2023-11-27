@@ -1,0 +1,94 @@
+@media(max-width: $desktop) {
+
+	.mobile-app {
+
+		&__screens {
+
+			width: 45%;
+			top: 0px;
+			right: 0px;
+
+			img {
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+@media(max-width: $desktop-small) {
+
+	.mobile-app {
+		margin-top: 16px;
+
+		&__wrapper {
+			max-width: 920px;
+		}
+	}
+
+}
+
+@media(max-width: $tablet) {
+
+	.mobile-app {
+
+		&__wrapper {
+			flex-direction: column;
+		}
+
+		&__title {
+			margin-top: 0px;
+		}
+
+		&__offer {
+			width: 100%;
+		}
+
+		&__screens {
+			margin-top: 100px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			;
+			width: 100%;
+
+			img {
+				width: 92%;
+			}
+		}
+
+	}
+
+}
+
+
+@media(max-width: $mobile) {
+
+	.mobile-app {
+
+		&__title {
+			font-size: 3.2rem;
+			;
+		}
+
+		&__button {
+			flex-direction: column;
+		}
+
+		&__store {
+			&:nth-child(2) {
+				margin-left: 0px;
+				margin-top: 20px;
+			}
+		}
+
+		&__screens {
+			margin-top: 40px;
+			img{
+				width: 100%;
+			}
+		}
+
+	}
+
+}

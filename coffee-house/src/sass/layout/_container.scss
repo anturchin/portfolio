@@ -1,4 +1,55 @@
 .container {
 	max-width: $container-width;
 	margin: 0 auto;
+<<<<<<< HEAD
 }
+=======
+}
+
+@media(max-width: $desktop) {
+
+	.container {
+		max-width: 1140px;
+	}
+
+}
+
+@media(max-width: $desktop-small) {
+	
+	.container {
+		max-width: 960px;
+	}
+
+}
+
+@media(max-width: $tablet) {
+	.container {
+		max-width: 740px;
+	}
+}
+
+@media(max-width: $tablet-small) {
+	.container {
+		max-width: 688px;
+	}
+}
+
+@media(max-width: $tablet-small-2) {
+	.container {
+		max-width: 560px;
+	}
+}
+
+@media(max-width: $mobile) {
+	.container {
+		max-width: 380px;
+	}
+}
+@media(max-width: $mobile-small) {
+
+	.container {
+		max-width: 350px;
+	}
+
+}
+>>>>>>> coffee-house-week2

@@ -8,6 +8,7 @@ const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
 const devtool = devMode ? 'source-map' : undefined;
 
+
 module.exports = {
 	mode,
 	target,
@@ -25,11 +26,12 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, 'src', 'index.html')
+			template: path.resolve(__dirname, 'src', 'index.html'),
+			filename: 'index.html',
 		}),
 		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, 'src', 'menu.html'),
 			filename: 'menu.html',
-			template: path.resolve(__dirname, 'src', 'menu.html')
 		}),
 		new MiniCssExtractPlugin({
 			filename: '[name].[contenthash].css',
