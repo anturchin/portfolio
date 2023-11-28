@@ -64,6 +64,7 @@
 			&_active {
 				background-color: $bg-dark;
 				color: $text-light;
+				cursor: default;
 
 				.menu-navigate__icon {
 					background-color: $main;
