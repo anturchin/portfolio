@@ -1,11 +1,11 @@
 
-export function hamburger(selectorNavigate, selectorNavigateItem, selectorHamburger,) {
+export const hamburger = () => {
 
-	const navigate = document.querySelector(selectorNavigate);
-	const navigateItem = document.querySelectorAll(selectorNavigateItem);
-	const hamburger = document.querySelector(selectorHamburger);
+	const navigate = document.querySelector('.header__navigate');
+	const navigateItem = document.querySelectorAll('.navigate__item');
+	const hamburger = document.querySelector('.hamburger');
 	
-	function toggleHamburger() {
+	const toggleHamburger = () => {
 
 		hamburger.classList.toggle('hamburger_active');
 		navigate.classList.toggle('header__navigate_active');

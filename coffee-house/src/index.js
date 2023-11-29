@@ -3,11 +3,14 @@ import './menu.html';
 import './index.scss';
 
 import { hamburger } from './modules/hamburger';
+import { slider } from './modules/slider';
 
 window.addEventListener('DOMContentLoaded', () => {
 
 	'use strict';
-	hamburger('.header__navigate', '.navigate__item', '.hamburger');
+
+	hamburger();
+	slider();
 
 })
 
