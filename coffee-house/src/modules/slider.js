@@ -68,7 +68,7 @@ export const slider = () => {
 
 	const activateInterval = () => {
 		paused = setInterval(() => {
-			prevSlide();
+			nextSlide();
 		}, 5000);
 	}
 
