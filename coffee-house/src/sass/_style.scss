@@ -18,6 +18,8 @@ body {
 	background-color: $main;
 }
 
+@import './components/animation/';
+
 @import './layout/container';
 @import './components/header/';
 @import './components/enjoy/';
