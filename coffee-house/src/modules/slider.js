@@ -1,10 +1,9 @@
 
 export const slider = () => {
 
-	const slidesWrapper = document.querySelector('.slides__wrapper');
 	const slidesInner = document.querySelector('.slides__inner');
 	const slidesField = document.querySelector('.slides__coffee');
-	const slides = document.querySelectorAll('.slides__item');	
+	const slides = document.querySelectorAll('.slides__item');
 	const prev = document.querySelector('.prev');
 	const next = document.querySelector('.next');
 	const lines = document.querySelectorAll('.lines__item');
@@ -13,7 +12,11 @@ export const slider = () => {
 
 	let slideIndex = 1;
 	let offset = 0;
-	let paused = false;
+
+	let interval = 5000;
+	let intervalId;
+	let startTime;
+	let stopTime;
 
 	let isDragging = false;
 	let dragStartX = 0;
@@ -25,7 +28,18 @@ export const slider = () => {
 		slide.style.width = widthInner;
 	})
 
+	const updateLines = () => {
+		lines.forEach(line => {
+			line.classList.remove('lines__item_active');
+		});
+		lines[slideIndex - 1].classList.add('lines__item_active');
+	}
+
 	const nextSlide = () => {
+		
+		stopInterval();
+		resumeInterval();
+		
 		if (offset === +widthInner.slice(0, widthInner.length - 2) * (slides.length - 1)) {
 			offset = 0;
 		} else {
@@ -38,15 +52,15 @@ export const slider = () => {
 			slideIndex++;
 		}
 
-		lines.forEach(line => {
-			line.classList.remove('lines__item_active');
-		});
-
 		slidesField.style.transform = `translateX(-${offset}px)`;
-		lines[slideIndex - 1].classList.add('lines__item_active');
+		updateLines();
 	}
 
 	const prevSlide = () => {
+		
+		stopInterval();
+		resumeInterval();
+
 		if (offset === 0) {
 			offset = +widthInner.slice(0, widthInner.length - 2) * (slides.length - 1);
 		} else {
@@ -60,32 +74,46 @@ export const slider = () => {
 			slideIndex--;
 		}
 
-		lines.forEach(line => {
-			line.classList.remove('lines__item_active');
-		});
-
 		slidesField.style.transform = `translateX(-${offset}px)`;
-		lines[slideIndex - 1].classList.add('lines__item_active');
-
-		slidesField.style.transform = `translateX(-${offset}px)`;
+		updateLines();
 	}
 
-	const activateInterval = () => {
-		paused = setInterval(() => {
+	const startInterval = () => {
+		startTime = Date.now();
+		intervalId = setInterval(() => {
 			nextSlide();
-		}, 3000);
-	}
+		}, interval);
 
-	activateInterval();
+	};
+
+	const stopInterval = () => {
+		
+		stopTime = Date.now();
+		clearInterval(intervalId);
+		lines[slideIndex - 1].classList.add('lines__item_paused');
+
+	};
+
+	const resumeInterval = () => {
+		
+		lines[slideIndex - 1].classList.remove('lines__item_paused');
+		startInterval();
+		
+	};
+
 
 	const onPointerDown = (e) => {
+		
+		stopInterval();
 
 		isDragging = true;
 		dragStartX = e.clientX || e.touches[0].clientX;
-
+	
 	}
 
 	const onPointerMove = (e) => {
+
+		stopInterval();
 
 		if (!isDragging) return;
 
@@ -113,9 +141,12 @@ export const slider = () => {
 
 		dragDiff = 0;
 
+
 	}
 
 	const onPointerLeave = () => {
+
+		resumeInterval();
 
 		if (isDragging) {
 			isDragging = false;
@@ -128,44 +159,15 @@ export const slider = () => {
 	next.addEventListener('click', nextSlide);
 	prev.addEventListener('click', prevSlide);
 
-	slidesWrapper.addEventListener('pointerenter', () => {
-		clearInterval(paused);
-	})
+	slidesInner.addEventListener('mousedown', onPointerDown);
+	slidesInner.addEventListener('mousemove', onPointerMove);
+	slidesInner.addEventListener('mouseup', onPointerUp);
+	slidesInner.addEventListener('mouseleave', onPointerLeave);
+	slidesInner.addEventListener('touchstart', onPointerDown);
+	slidesInner.addEventListener('touchmove', onPointerMove);
+	slidesInner.addEventListener('touchend', onPointerUp);
+	slidesInner.addEventListener('touchcancel', onPointerLeave);
 
-	slidesWrapper.addEventListener('pointerleave', () => {
-		activateInterval();
-	});
-
-	slidesInner.addEventListener('mousedown', (e) => {
-		onPointerDown(e)
-	})
-
-	slidesInner.addEventListener('mousemove', (e) => {
-		onPointerMove(e);
-	})
-
-	slidesInner.addEventListener('mouseup', () => {
-		onPointerUp();
-	});
-
-	slidesInner.addEventListener('mouseleave', () => {
-		onPointerLeave();
-	});
-
-	slidesInner.addEventListener('touchstart', (e) => {
-		onPointerDown(e)
-	})
-
-	slidesInner.addEventListener('touchmove', (e) => {
-		onPointerMove(e);
-	})
-
-	slidesInner.addEventListener('touchend', () => {
-		onPointerUp();
-	});
-
-	slidesInner.addEventListener('touchcancel', () => {
-		onPointerLeave();
-	});
+  startInterval();
 
 }

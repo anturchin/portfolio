@@ -160,29 +160,38 @@
 		height: 4px;
 		background-color: $border-light;
 		margin-right: 12px;
-		@extend %transition;
 		position: relative;
 
 		&_active {
 
 			&::before {
 				content: "";
-					position: absolute;
-					height: 4px;
-					animation: progressAnimation 5s;
+				position: absolute;
+				height: 4px;
+				animation: progressAnimation 5s infinite;
 			}
-			}
+			
+		}
+		
+		&_paused {
 
+			&::before {
+				animation-play-state: paused;
+			}
+			
+		}
 	}
 }
 
+
 @keyframes progressAnimation {
-  0% {
-    width: 0%;
-    background: $text-dark;
-  }
-  100% {
-    width: 100%;
-    background: $text-dark;
-  }
+	0% {
+		width: 0%;
+		background: $text-dark;
+	}
+
+	100% {
+		width: 100%;
+		background: $text-dark;
+	}
 }
