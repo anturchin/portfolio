@@ -33,11 +33,12 @@
 		&__inner {
 			order: 2;
 			overflow: hidden;
+			max-width: 480px;
 		}
 
 		&__coffee {
 			display: flex;
-			@extend %transitionSlide;
+			@extend %transition;
 		}
 
 		&__button {
