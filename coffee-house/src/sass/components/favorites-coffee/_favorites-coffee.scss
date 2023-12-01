@@ -139,12 +139,9 @@
 			}
 		}
 
-
 	}
 
-
 }
-
 
 
 .lines {
@@ -163,22 +160,18 @@
 		position: relative;
 
 		&_active {
-
-			&::before {
-				content: "";
+			span {
+				display: inline-block;
 				position: absolute;
 				height: 4px;
-				animation: progressAnimation 5s infinite;
+				animation: progressAnimation 5s;
 			}
-			
 		}
 		
 		&_paused {
-
-			&::before {
+			span {
 				animation-play-state: paused;
 			}
-			
 		}
 	}
 }

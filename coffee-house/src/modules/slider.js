@@ -7,16 +7,14 @@ export const slider = () => {
 	const prev = document.querySelector('.prev');
 	const next = document.querySelector('.next');
 	const lines = document.querySelectorAll('.lines__item');
+	const lineAnimate = document.querySelectorAll('.lines__item span');
+
+	console.log(lineAnimate);
 
 	const widthInner = window.getComputedStyle(slidesInner).width;
 
 	let slideIndex = 1;
 	let offset = 0;
-
-	let interval = 5000;
-	let intervalId;
-	let startTime;
-	let stopTime;
 
 	let isDragging = false;
 	let dragStartX = 0;
@@ -28,18 +26,18 @@ export const slider = () => {
 		slide.style.width = widthInner;
 	})
 
-	const updateLines = () => {
+
+	function updateLines() {
 		lines.forEach(line => {
 			line.classList.remove('lines__item_active');
 		});
 		lines[slideIndex - 1].classList.add('lines__item_active');
 	}
 
-	const nextSlide = () => {
-		
-		stopInterval();
-		resumeInterval();
-		
+	updateLines();
+
+	function nextSlide() {
+
 		if (offset === +widthInner.slice(0, widthInner.length - 2) * (slides.length - 1)) {
 			offset = 0;
 		} else {
@@ -56,10 +54,7 @@ export const slider = () => {
 		updateLines();
 	}
 
-	const prevSlide = () => {
-		
-		stopInterval();
-		resumeInterval();
+	function prevSlide() {
 
 		if (offset === 0) {
 			offset = +widthInner.slice(0, widthInner.length - 2) * (slides.length - 1);
@@ -78,42 +73,19 @@ export const slider = () => {
 		updateLines();
 	}
 
-	const startInterval = () => {
-		startTime = Date.now();
-		intervalId = setInterval(() => {
-			nextSlide();
-		}, interval);
 
-	};
+	function onPointerDown(e) {
 
-	const stopInterval = () => {
-		
-		stopTime = Date.now();
-		clearInterval(intervalId);
 		lines[slideIndex - 1].classList.add('lines__item_paused');
-
-	};
-
-	const resumeInterval = () => {
-		
-		lines[slideIndex - 1].classList.remove('lines__item_paused');
-		startInterval();
-		
-	};
-
-
-	const onPointerDown = (e) => {
-		
-		stopInterval();
 
 		isDragging = true;
 		dragStartX = e.clientX || e.touches[0].clientX;
-	
+
 	}
 
-	const onPointerMove = (e) => {
+	function onPointerMove(e) {
 
-		stopInterval();
+		lines[slideIndex - 1].classList.add('lines__item_paused');
 
 		if (!isDragging) return;
 
@@ -125,7 +97,7 @@ export const slider = () => {
 
 	}
 
-	const onPointerUp = () => {
+	function onPointerUp() {
 
 		if (!isDragging) return;
 
@@ -144,9 +116,9 @@ export const slider = () => {
 
 	}
 
-	const onPointerLeave = () => {
+	function onPointerLeave() {
 
-		resumeInterval();
+		lines[slideIndex - 1].classList.remove('lines__item_paused');
 
 		if (isDragging) {
 			isDragging = false;
@@ -168,6 +140,10 @@ export const slider = () => {
 	slidesInner.addEventListener('touchend', onPointerUp);
 	slidesInner.addEventListener('touchcancel', onPointerLeave);
 
-  startInterval();
+	lineAnimate.forEach(line => {
+		line.addEventListener('animationend', () => {
+			nextSlide();
+		})
+	})
 
 }
