@@ -9,8 +9,6 @@ export const slider = () => {
 	const lines = document.querySelectorAll('.lines__item');
 	const lineAnimate = document.querySelectorAll('.lines__item span');
 
-	console.log(lineAnimate);
-
 	const widthInner = window.getComputedStyle(slidesInner).width;
 
 	let slideIndex = 1;
@@ -73,7 +71,6 @@ export const slider = () => {
 		updateLines();
 	}
 
-
 	function onPointerDown(e) {
 
 		lines[slideIndex - 1].classList.add('lines__item_paused');
@@ -98,6 +95,8 @@ export const slider = () => {
 	}
 
 	function onPointerUp() {
+
+		lines[slideIndex - 1].classList.remove('lines__item_paused');
 
 		if (!isDragging) return;
 
