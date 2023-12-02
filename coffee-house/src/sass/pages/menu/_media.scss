@@ -58,7 +58,7 @@
 					display: none;
 				}
 			}
-			&__pagination{
+			&__pagination {
 				margin: 0 auto;
 				margin-top: 40px;
 				display: flex;
@@ -68,6 +68,9 @@
 				height: 60px;
 				border-radius: 100px;
 				border: 1px solid $border-dark;
+				&_delete {
+					display: none;
+				}
 				span {
 					width: 24px;
 					height: 24px;
