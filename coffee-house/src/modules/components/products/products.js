@@ -24,7 +24,7 @@ export const createProductsCard = (filter = 'coffee') => {
 
 		btnPagination.classList.remove('menu-card__pagination_delete');
 
-		const showAllCards = e.matches;
+		const showNotAllCards = e.matches;
 
 		menuWrapper.innerHTML = '';
 
@@ -36,8 +36,9 @@ export const createProductsCard = (filter = 'coffee') => {
 
 				const menuItem = document.createElement('div');
 				menuItem.dataset.modal = '';
+				menuItem.dataset.cardId = card.id;
 
-				if (showAllCards) {
+				if (showNotAllCards) {
 					if (i < 4) {
 						menuItem.classList.add(style.MENU_CARD_ITEM, card.category, 'fade');
 					}
