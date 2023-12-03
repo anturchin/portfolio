@@ -1,3 +1,5 @@
+import { openModals } from '../modals/modals';
+
 const products = require('./data/products.json');
 
 export const createProductsCard = (filter = 'coffee') => {
@@ -33,6 +35,7 @@ export const createProductsCard = (filter = 'coffee') => {
 				const images = require(`../../../img/menu-layout/${card.category}-${i + 1}.jpg`);
 
 				const menuItem = document.createElement('div');
+				menuItem.dataset.modal = '';
 
 				if (showAllCards) {
 					if (i < 4) {
@@ -72,6 +75,8 @@ export const createProductsCard = (filter = 'coffee') => {
 				menuItem.append(menuPrice);
 
 				menuWrapper.append(menuItem);
+				
+				openModals();
 
 			});
 	}

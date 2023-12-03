@@ -6,6 +6,7 @@ import { hamburger } from './modules/components/hamburger/hamburger';
 import { slider } from './modules/components/slider/slider';
 import { createProductsCard } from './modules/components/products/products';
 import { filter } from './modules/components/filter/filter';
+import { openModals } from './modules/components/modals/modals';
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -32,6 +33,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	} catch (error) {
 		console.log(error);
 	}
+
+
+	openModals();
 
 })
 
