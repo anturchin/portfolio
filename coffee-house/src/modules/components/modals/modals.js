@@ -1,4 +1,6 @@
+
 const products = require('../products/data/products.json');
+
 
 export const modals = () => {
 
@@ -32,7 +34,7 @@ export const modals = () => {
 		})
 
 		additivesItem.forEach((additives, i) => {
-			additives.querySelector('span').textContent = additivesArray[i][0].toLocaleUpperCase();
+			additives.querySelector('span').textContent = +additivesArray[i][0] + 1;
 			additives.querySelector('input').value = additivesArray[i][1].name;
 			additives.querySelector('p').textContent = additivesArray[i][1].name;
 		})
@@ -52,7 +54,6 @@ export const modals = () => {
 
 	function showModal(card) {
 
-		console.log('hello');
 		const cardID = card.getAttribute('data-card-id');
 		const pathImg = card.querySelector('img').src;
 		const cardProduct = getDataCard(+cardID);
@@ -62,10 +63,6 @@ export const modals = () => {
 	}
 
 	function closeModal(e) {
-
-		if (e.target) {
-			e.preventDefault();
-		}
 
 		if (e.target === modal || e.target.getAttribute('data-close') == '') {
 			modal.classList.add('hide');

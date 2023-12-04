@@ -1,5 +1,4 @@
 .modal {
-
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -49,6 +48,9 @@
 
 	&__info {
 		padding-left: 20px;
+		@media(max-width: $tablet-small-2){
+			padding-left: 0px;
+		}
 	}
 
 	&__form {}
@@ -174,10 +176,11 @@
 		}
 		input {
 			display: none;
-			&:checked + label {
+			&:checked + label{
 				background-color: $bg-dark;
 				color: $text-light;
 			}
+
 			&:checked + label span {
 				background-color: $main;
 				color:$text-dark;

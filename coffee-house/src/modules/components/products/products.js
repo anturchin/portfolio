@@ -85,6 +85,7 @@ export const createProductsCard = (filter = 'coffee') => {
 		const cards = document.querySelectorAll('.menu-card__item');
 		cards.forEach(card => card.classList.remove(style.MENU_CARD_ITEM_NONE));
 		this.classList.add('menu-card__pagination_delete');
-	})
+	});
+
 
 }
