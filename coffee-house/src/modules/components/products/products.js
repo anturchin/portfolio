@@ -1,5 +1,3 @@
-import { openModals } from '../modals/modals';
-
 const products = require('./data/products.json');
 
 export const createProductsCard = (filter = 'coffee') => {
@@ -76,13 +74,11 @@ export const createProductsCard = (filter = 'coffee') => {
 				menuItem.append(menuPrice);
 
 				menuWrapper.append(menuItem);
-				
-				openModals();
 
 			});
 	}
 
-	handleMediaChange(mediaQuery);	
+	handleMediaChange(mediaQuery);
 	mediaQuery.addEventListener('change', handleMediaChange);
 
 	btnPagination.addEventListener('click', function (e) {

@@ -6,7 +6,7 @@ import { hamburger } from './modules/components/hamburger/hamburger';
 import { slider } from './modules/components/slider/slider';
 import { createProductsCard } from './modules/components/products/products';
 import { filter } from './modules/components/filter/filter';
-import { openModals } from './modules/components/modals/modals';
+import { modals } from './modules/components/modals/modals';
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -19,23 +19,26 @@ window.addEventListener('DOMContentLoaded', () => {
 		slider();
 		
 	} catch (error) {
-		console.log(error);
+		console.log(error.message);
 	}
 
 	try {
 		createProductsCard();
 	} catch (error) {
-		console.log(error);
+		console.log(error.message);
 	}
 
 	try {
 		filter();
 	} catch (error) {
-		console.log(error);
+		console.log(error.message);
 	}
 
-
-	openModals();
+	try {
+		modals();
+	} catch (error) {
+		console.log(error.message);
+	}
 
 })
 

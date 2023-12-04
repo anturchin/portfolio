@@ -1,4 +1,5 @@
 import { createProductsCard } from '../products/products'
+import { modals } from '../modals/modals';
 
 export const filter = () => {
 
@@ -13,6 +14,7 @@ export const filter = () => {
 			menuItem.forEach(item => item.classList.remove('menu-navigate__item_active'));
 			this.classList.add('menu-navigate__item_active');
 			createProductsCard(this.id);
+			modals();
 		})
 
 	}

@@ -154,26 +154,26 @@
 							<p class="tabs__name">
 								Size
 							</p>
-							<ul class="tabs__list">
+							<ul id="sizeList" class="tabs__list">
 								<li class="tabs__item">
 									<input checked name="size" type="radio" id="size" value="200 ml">
 									<label for="size">
 										<span>S</span>
-										200 ml
+										<p>200 ml</p>
 									</label>
 								</li>
 								<li class="tabs__item">
 									<input name="size" type="radio" id="size2" value="300 ml">
 									<label for="size2">
 										<span>M</span>
-										300 ml
+										<p>300 ml</p>
 									</label>
 								</li>
 								<li class="tabs__item">
 									<input name="size" type="radio" id="size3" value="400 ml">
 									<label for="size3">
-										<span>M</span>
-										400 ml
+										<span>L</span>
+										<p>400 ml</p>
 									</label>
 								</li>
 							</ul>
@@ -182,26 +182,26 @@
 							<p class="tabs__name">
 								Additives
 							</p>
-							<ul class="tabs__list">
+							<ul id="additivesList" class="tabs__list">
 								<li class="tabs__item">
 									<input name="additives" type="checkbox" id="additives" value="sugar">
 									<label for="additives">
 										<span>1</span>
-										Sugar
+										<p>Sugar</p>
 									</label>
 								</li>
 								<li class="tabs__item">
 									<input name="additives" type="checkbox" id="additives2" value="cinnamon">
 									<label for="additives2">
 										<span>2</span>
-										Cinnamon
+										<p>Cinnamon</p>
 									</label>
 								</li>
 								<li class="tabs__item">
 									<input name="additives" type="checkbox" id="additives3" value="syrup">
 									<label for="additives3">
 										<span>3</span>
-										Syrup
+										<p>Syrup</p>
 									</label>
 								</li>
 							</ul>
@@ -215,7 +215,7 @@
 								The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty
 								points and enjoy your favorite coffee with up to 20% discount.
 							</p>
-							<button class="modal__close">Close</button>
+							<button data-close class="modal__close">Close</button>
 						</div>
 					</form>
 				</div>
