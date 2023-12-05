@@ -1,6 +1,6 @@
+import { handleCalcForm } from './calculateForm';
 
 const products = require('../products/data/products.json');
-
 
 export const modals = () => {
 
@@ -14,9 +14,9 @@ export const modals = () => {
 		const title = modal.querySelector('.modal__title');
 		const description = modal.querySelector('.modal__descr');
 		const sizeList = modal.querySelector('[data-sizes]');
-		const sizeItem = sizeList.querySelectorAll('.tabs__item');
+		const sizeItems = sizeList.querySelectorAll('.tabs__item');
 		const additivesList = modal.querySelector('[data-additives]');
-		const additivesItem = additivesList.querySelectorAll('.tabs__item');
+		const additivesItems = additivesList.querySelectorAll('.tabs__item');
 		const price = modal.querySelector('.modal__price');
 
 		modal.querySelector('img').src = pathImg;
@@ -29,12 +29,15 @@ export const modals = () => {
 
 		function setValueInput(inputList, addArr) {
 
-			inputList.forEach((item, i) => {
+			inputList.forEach((item, i, arr) => {
 				
 				const input = item.querySelector('input');
 				
 				if(input.getAttribute('type') === 'radio'){
 					item.querySelector('span').textContent = addArr[i][0].toLocaleUpperCase();
+					if(i === 0){
+						input.checked = true;
+					}
 				} 
 				
 				if(input.getAttribute('type') === 'checkbox'){
@@ -49,8 +52,8 @@ export const modals = () => {
 
 		}
 
-		setValueInput(sizeItem, sizeArray);
-		setValueInput(additivesItem, additivesArray);
+		setValueInput(sizeItems, sizeArray);
+		setValueInput(additivesItems, additivesArray);
 
 		price.textContent = `$${cardProduct.price}`;
 
@@ -78,7 +81,7 @@ export const modals = () => {
 	function closeModal(e) {
 
 		if (e.target === modal || e.target.getAttribute('data-close') == '') {
-			document.querySelectorAll('input[type="checkbox"]').forEach(input => input.checked = false);
+			document.querySelectorAll('input').forEach((input)=> input.checked = false);
 			modal.classList.add('hide');
 			modal.classList.remove('show');
 			document.body.classList.remove('hidden');
@@ -92,5 +95,7 @@ export const modals = () => {
 	})
 
 	modal.addEventListener('click', closeModal)
+
+	handleCalcForm(products);
 
 }
