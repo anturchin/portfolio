@@ -76,6 +76,7 @@ export const createProductsCard = (filter = 'coffee') => {
 				menuWrapper.append(menuItem);
 
 			});
+
 	}
 
 	handleMediaChange(mediaQuery);
@@ -86,6 +87,5 @@ export const createProductsCard = (filter = 'coffee') => {
 		cards.forEach(card => card.classList.remove(style.MENU_CARD_ITEM_NONE));
 		this.classList.add('menu-card__pagination_delete');
 	});
-
 
 }

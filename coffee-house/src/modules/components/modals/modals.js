@@ -13,9 +13,9 @@ export const modals = () => {
 
 		const title = modal.querySelector('.modal__title');
 		const description = modal.querySelector('.modal__descr');
-		const sizeList = modal.querySelector('#sizeList');
+		const sizeList = modal.querySelector('[data-sizes]');
 		const sizeItem = sizeList.querySelectorAll('.tabs__item');
-		const additivesList = modal.querySelector('#additivesList');
+		const additivesList = modal.querySelector('[data-additives]');
 		const additivesItem = additivesList.querySelectorAll('.tabs__item');
 		const price = modal.querySelector('.modal__price');
 
@@ -27,19 +27,32 @@ export const modals = () => {
 		const sizeArray = Object.entries(cardProduct.sizes);
 		const additivesArray = Object.entries(cardProduct.additives);
 
-		sizeItem.forEach((size, i) => {
-			size.querySelector('span').textContent = sizeArray[i][0].toLocaleUpperCase();
-			size.querySelector('input').value = sizeArray[i][1].size;
-			size.querySelector('p').textContent = sizeArray[i][1].size;
-		})
+		function setValueInput(inputList, addArr) {
 
-		additivesItem.forEach((additives, i) => {
-			additives.querySelector('span').textContent = +additivesArray[i][0] + 1;
-			additives.querySelector('input').value = additivesArray[i][1].name;
-			additives.querySelector('p').textContent = additivesArray[i][1].name;
-		})
+			inputList.forEach((item, i) => {
+				
+				const input = item.querySelector('input');
+				
+				if(input.getAttribute('type') === 'radio'){
+					item.querySelector('span').textContent = addArr[i][0].toLocaleUpperCase();
+				} 
+				
+				if(input.getAttribute('type') === 'checkbox'){
+					item.querySelector('span').textContent = +addArr[i][0] + 1;
+				} 
 
-		price.textContent = cardProduct.price;
+				input.value = addArr[i][1][input.name];
+				item.querySelector('p').textContent = addArr[i][1][input.name];
+				item.dataset.productId = cardProduct.id;
+
+			})
+
+		}
+
+		setValueInput(sizeItem, sizeArray);
+		setValueInput(additivesItem, additivesArray);
+
+		price.textContent = `$${cardProduct.price}`;
 
 		modal.classList.add('show');
 		modal.classList.remove('hide');
@@ -65,6 +78,7 @@ export const modals = () => {
 	function closeModal(e) {
 
 		if (e.target === modal || e.target.getAttribute('data-close') == '') {
+			document.querySelectorAll('input[type="checkbox"]').forEach(input => input.checked = false);
 			modal.classList.add('hide');
 			modal.classList.remove('show');
 			document.body.classList.remove('hidden');
