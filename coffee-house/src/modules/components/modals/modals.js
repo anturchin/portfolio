@@ -34,18 +34,18 @@ export const modals = () => {
 				const input = item.querySelector('input');
 				
 				if(input.getAttribute('type') === 'radio'){
-					item.querySelector('span').textContent = addArr[i][0].toLocaleUpperCase();
+					item.querySelector('.tabs__option').textContent = addArr[i][0].toLocaleUpperCase();
 					if(i === 0){
 						input.checked = true;
 					}
 				} 
 				
 				if(input.getAttribute('type') === 'checkbox'){
-					item.querySelector('span').textContent = +addArr[i][0] + 1;
+					item.querySelector('.tabs__option').textContent = +addArr[i][0] + 1;
 				} 
 
 				input.value = addArr[i][1][input.name];
-				item.querySelector('p').textContent = addArr[i][1][input.name];
+				item.querySelector('.tabs__value').textContent = addArr[i][1][input.name];
 				item.dataset.productId = cardProduct.id;
 
 			})
