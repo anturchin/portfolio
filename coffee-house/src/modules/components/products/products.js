@@ -1,4 +1,5 @@
 const products = require('./data/products.json');
+import { modals } from '../modals/modals';
 
 export const createProductsCard = (filter = 'coffee') => {
 
@@ -73,10 +74,11 @@ export const createProductsCard = (filter = 'coffee') => {
 				menuItem.append(menuText);
 				menuItem.append(menuPrice);
 
-				menuWrapper.append(menuItem);
-
+				return menuItem;
 			});
 
+		menuWrapper.append(...menuCards);
+		modals();
 	}
 
 	handleMediaChange(mediaQuery);
