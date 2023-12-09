@@ -29,27 +29,40 @@
 			justify-content: space-between;
 			align-items: center;
 		}
-	
+
 		&__inner {
 			order: 2;
+			overflow: hidden;
+			max-width: 480px;
 		}
-	
+
+		&__coffee {
+			display: flex;
+			@extend %transition;
+		}
+
 		&__button {
-	
+
 			&:nth-child(1) {
 				order: 1;
 			}
-	
+
 			&:nth-child(2) {
 				order: 3;
 			}
-	
+
 		}
-	
+
+		&__item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
 		&__img {
 			text-align: center;
 		}
-	
+
 		&__title {
 			margin-top: 18px;
 			text-align: center;
@@ -57,7 +70,7 @@
 			font-weight: 600;
 			line-height: 125%;
 		}
-	
+
 		&__descr {
 			margin-top: 18px;
 			text-align: center;
@@ -65,7 +78,7 @@
 			font-weight: 400;
 			line-height: 145%;
 		}
-	
+
 		&__price {
 			margin-top: 17px;
 			text-align: center;
@@ -73,7 +86,7 @@
 			font-weight: 600;
 			line-height: 125%;
 		}
-	
+
 		&__prev {
 			position: relative;
 			left: 4px;
@@ -87,20 +100,20 @@
 			background: transparent;
 			cursor: pointer;
 			@extend %transition;
-	
+
 			@media(hover: hover) {
 				&:hover {
 					background-color: $bg-dark;
-		
+
 					.icon__svg {
 						stroke: $text-light;
 					}
 				}
 			}
-	
-	
+
+
 		}
-	
+
 		&__next {
 			position: relative;
 			right: 4px;
@@ -114,24 +127,21 @@
 			background: transparent;
 			cursor: pointer;
 			@extend %transition;
-	
-			@media(hover: hover){
+
+			@media(hover: hover) {
 				&:hover {
 					background-color: $bg-dark;
-		
+
 					.icon__svg {
 						stroke: $text-light;
 					}
 				}
 			}
 		}
-	
-	
+
 	}
 
-
 }
-
 
 
 .lines {
@@ -147,10 +157,34 @@
 		height: 4px;
 		background-color: $border-light;
 		margin-right: 12px;
-		@extend %transition;
+		position: relative;
 
 		&_active {
-			background-color: $border-dark;
+			span {
+				display: inline-block;
+				position: absolute;
+				height: 4px;
+				animation: progressAnimation 5s;
+			}
 		}
+		
+		&_paused {
+			span {
+				animation-play-state: paused;
+			}
+		}
+	}
+}
+
+
+@keyframes progressAnimation {
+	0% {
+		width: 0%;
+		background: $text-dark;
+	}
+
+	100% {
+		width: 100%;
+		background: $text-dark;
 	}
 }

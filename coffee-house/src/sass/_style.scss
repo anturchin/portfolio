@@ -18,6 +18,8 @@ body {
 	background-color: $main;
 }
 
+@import './components/animation/';
+
 @import './layout/container';
 @import './components/header/';
 @import './components/enjoy/';
@@ -26,5 +28,7 @@ body {
 @import './components/mobile-app/';
 @import './components/contacts/';
 @import './pages/menu/';
+@import './components/modals/';
+
 
 

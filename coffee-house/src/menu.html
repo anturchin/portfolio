@@ -34,7 +34,7 @@
 								<a href="#contacts-us">Contact us</a>
 							</li>
 							<li class="navigate__item navigate__item_active">
-								<a href="menu.html" id="active" class="header__link">
+								<a href="menu.html" class="header__link">
 									<span class="header__text">Menu</span>
 									<span class="header__cup"></span>
 								</a>
@@ -51,25 +51,25 @@
 		<div class="menu">
 			<div class="container">
 				<h1 class="menu__title">
-					Behind each of our cups  hides an <span>amazing surprise</span>
+					Behind each of our cups hides an <span>amazing surprise</span>
 				</h1>
 				<div class="menu__wrapper">
 					<div class="menu__filter">
 						<nav class="menu-navigate">
 							<ul class="menu-navigate__list">
-								<li class="menu-navigate__item menu-navigate__item_active">
+								<li id="coffee" class="menu-navigate__item menu-navigate__item_active">
 									<div class="menu-navigate__icon">
 										<span class="menu-navigate__icon-coffee"></span>
 									</div>
 									<span class="menu-navigate__icon-text">Coffee</span>
 								</li>
-								<li class="menu-navigate__item">
+								<li id="tea" class="menu-navigate__item">
 									<div class="menu-navigate__icon">
 										<span class="menu-navigate__icon-tea"></span>
 									</div>
 									<span class="menu-navigate__icon-text">Tea</span>
 								</li>
-								<li class="menu-navigate__item">
+								<li id="dessert" class="menu-navigate__item">
 									<div class="menu-navigate__icon">
 										<span class="menu-navigate__icon-dessert"></span>
 									</div>
@@ -78,72 +78,7 @@
 							</ul>
 						</nav>
 					</div>
-					<div class="menu-card__layout">
-						<div class="menu-card__item coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-1.jpg" alt="coffee-1">
-							</div>
-							<h3 class="menu-card__title">Irish coffee</h3>
-							<p class="menu-card__text">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
-							<span class="menu-card__price">$7.00</span>
-						</div>
-						<div class="menu-card__item coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-2.jpg" alt="coffee-2">
-							</div>
-							<h3 class="menu-card__title">Kahlua coffee</h3>
-							<p class="menu-card__text">Classic coffee with milk and Kahlua liqueur under a cap of frothed milk</p>
-							<span class="menu-card__price">$7.00</span>
-						</div>
-						<div class="menu-card__item coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-3.jpg" alt="coffee-3">
-							</div>
-							<h3 class="menu-card__title">Honey raf</h3>
-							<p class="menu-card__text">Espresso with frothed milk, cream and aromatic honey</p>
-							<span class="menu-card__price">$5.50</span>
-						</div>
-						<div class="menu-card__item coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-4.jpg" alt="coffee-4">
-							</div>
-							<h3 class="menu-card__title">Ice cappuccino</h3>
-							<p class="menu-card__text">Cappuccino with soft thick foam in summer version with ice</p>
-							<span class="menu-card__price">$5.00</span>
-						</div>
-						<div class="menu-card__item menu-card__item_none coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-5.jpg" alt="coffee-5">
-							</div>
-							<h3 class="menu-card__title">Espresso</h3>
-							<p class="menu-card__text">Classic black coffee</p>
-							<span class="menu-card__price">$4.50</span>
-						</div>
-						<div class="menu-card__item menu-card__item_none coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-6.jpg" alt="coffee-6">
-							</div>
-							<h3 class="menu-card__title">Latte</h3>
-							<p class="menu-card__text">Espresso coffee with the addition of steamed milk and dense milk foam</p>
-							<span class="menu-card__price">$5.50</span>
-						</div>
-						<div class="menu-card__item menu-card__item_none coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-7.jpg" alt="coffee-7">
-							</div>
-							<h3 class="menu-card__title">Latte macchiato</h3>
-							<p class="menu-card__text">Espresso with frothed milk and chocolate</p>
-							<span class="menu-card__price">$5.50</span>
-						</div>
-						<div class="menu-card__item menu-card__item_none coffee">
-							<div class="menu-card__image">
-								<img src="img/menu-layout/coffee-8.jpg" alt="coffee-8">
-							</div>
-							<h3 class="menu-card__title">Coffee with cognac</h3>
-							<p class="menu-card__text">Fragrant black coffee with cognac and whipped cream</p>
-							<span class="menu-card__price">$6.50</span>
-						</div>
-					</div>
+					<div class="menu-card__layout"></div>
 					<div class="menu-card__pagination">
 						<span></span>
 					</div>
@@ -203,6 +138,91 @@
 			</div>
 		</div>
 	</footer>
+
+
+	<div class="modal hide">
+		<div class="modal__dialog">
+			<div class="modal__wrapper">
+				<div class="modal__image">
+					<img src="img/menu-layout/coffee-1.jpg" alt="coffee-1">
+				</div>
+				<div class="modal__info">
+					<form class="modal__form" action="#">
+						<h3 class="modal__title">Irish coffee</h3>
+						<p class="modal__descr">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+						<div class="form__tabs">
+							<p class="tabs__name">
+								Size
+							</p>
+							<ul data-sizes="sizes" class="tabs__list">
+								<li class="tabs__item">
+									<input checked name="size" type="radio" id="size" value="200 ml">
+									<label for="size">
+										<span>S</span>
+										<p>200 ml</p>
+									</label>
+								</li>
+								<li class="tabs__item">
+									<input name="size" type="radio" id="size2" value="300 ml">
+									<label for="size2">
+										<span>M</span>
+										<p>300 ml</p>
+									</label>
+								</li>
+								<li class="tabs__item">
+									<input name="size" type="radio" id="size3" value="400 ml">
+									<label for="size3">
+										<span>L</span>
+										<p>400 ml</p>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<div class="form__tabs">
+							<p class="tabs__name">
+								Additives
+							</p>
+							<ul data-additives="additives" class="tabs__list">
+								<li class="tabs__item">
+									<input name="name" type="checkbox" id="name" value="sugar">
+									<label for="name">
+										<span>1</span>
+										<p>Sugar</p>
+									</label>
+								</li>
+								<li class="tabs__item">
+									<input name="name" type="checkbox" id="name2" value="cinnamon">
+									<label for="name2">
+										<span>2</span>
+										<p>Cinnamon</p>
+									</label>
+								</li>
+								<li class="tabs__item">
+									<input name="name" type="checkbox" id="name3" value="syrup">
+									<label for="name3">
+										<span>3</span>
+										<p>Syrup</p>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<div class="modal__total">
+							<p class="modal__subtitle">Total:</p>
+							<span class="modal__price">$7.00</span>
+						</div>
+						<div class="modal__footer">
+							<p class="modal__text">
+								The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty
+								points and enjoy your favorite coffee with up to 20% discount.
+							</p>
+						</div>
+					</form>
+					<div data-close class="modal__close">Close</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 
