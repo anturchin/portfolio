@@ -17,11 +17,12 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 		border-radius: 40px;
-		@media(max-width: $tablet){
-			width: 688px;
+
+		@media(max-width: $tablet) {
+			max-width: 688px;
 		}
 
-		@media(max-width: $tablet-small-2){
+		@media(max-width: $tablet-small-2) {
 			max-width: 342px;
 		}
 	}
@@ -29,26 +30,39 @@
 	&__wrapper {
 		padding: 16px;
 		display: flex;
+		// flex-wrap: wrap;
 	}
 
 	&__image {
-		min-width: 340px;
-		height: 100%;
+		align-self: flex-start;
+		max-width: 310px;
 		border-radius: 40px;
 		overflow: hidden;
-		@media(max-width: $tablet-small-2){
-			display: none;
+
+		@media(max-width: $tablet-small) {
+			max-width: 310px;
 		}
 
 		img {
 			width: 100%;
-			object-fit: cover;
+			height: 100%;
+			object-fit: contain;
+			transform: scale(1.1);
+			
+		}
+
+		@media(max-width: $tablet-small-2) {
+			display: none;
 		}
 	}
 
 	&__info {
 		padding-left: 20px;
-		@media(max-width: $tablet-small-2){
+		@media(max-width: $tablet-small) {
+			max-width: 326px;
+		}
+
+		@media(max-width: $tablet-small-2) {
 			padding-left: 0px;
 		}
 	}
@@ -83,7 +97,7 @@
 	&__price {}
 
 	&__footer {
-		margin-top: 20px;
+		margin-top: 19px;
 		padding: 12px 0 12px 0;
 		border-top: 1px solid $border-light;
 	}
@@ -108,7 +122,7 @@
 	}
 
 	&__close {
-		margin-top: 20px;
+		margin-top: 18px;
 		display: flex;
 		padding: 10px 78px;
 		justify-content: center;
@@ -142,8 +156,15 @@
 	}
 
 	&__item {
-		margin-right: 8px;
-		margin-top: 8px;
+		margin-right: 5px;
+		margin-top: 11px;
+		@media(max-width: $tablet-small) {
+			margin-top: 11px;
+			&:nth-child(3){
+				margin-top: 8px;
+			}
+		}
+
 		label {
 			display: flex;
 			justify-content: center;
@@ -159,7 +180,6 @@
 			position: relative;
 			font-weight: 600;
 			line-height: 150%;
-			padding: 8px 12px;
 			cursor: pointer;
 			@extend %transition;
 
@@ -173,20 +193,24 @@
 				background: $border-light;
 				border-radius: 100px;
 			}
+
+			.tabs__value {}
 		}
+
 		input {
 			display: none;
-			&:checked + label{
+
+			&:checked+label {
 				background-color: $bg-dark;
 				color: $text-light;
 			}
 
-			&:checked + label .tabs__option {
+			&:checked+label .tabs__option {
 				background-color: $main;
-				color:$text-dark;
+				color: $text-dark;
 			}
 		}
 	}
-	
+
 
 }

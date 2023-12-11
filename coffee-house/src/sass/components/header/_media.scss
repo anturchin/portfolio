@@ -71,7 +71,7 @@
 		}
 
 		.navigate {
-			margin-top: 140px;
+			margin-top: 160px;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
@@ -84,12 +84,21 @@
 				font-weight: 600;
 				line-height: 125%;
 
+				&:nth-child(2) {
+					margin-top: 20px;
+				}
+
+				&:nth-child(3) {
+					margin-top: 20px;
+				}
+
 				&:nth-child(4) {
+					margin-top: 20px;
 					margin-right: 0;
 				}
 				
 				&:nth-child(5) {
-					margin-top: 100px;
+					margin-top: 65px;
 				}
 
 				&_active {
