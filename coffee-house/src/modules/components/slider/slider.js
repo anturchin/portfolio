@@ -98,7 +98,7 @@ export const slider = () => {
 
 	}
 
-	function onPointerUp() {
+	function onPointerUp(e) {
 
 		lines[slideIndex - 1].classList.remove('lines__item_paused');
 
