@@ -19,6 +19,16 @@ export const createProductsCard = (filter = 'coffee') => {
 
 	const mediaQuery = window.matchMedia('(max-width: 768px)');
 
+	const checkNumberOfCards = () => {
+		
+		const itemCard = document.querySelectorAll('.menu-card__item');
+
+		if(itemCard.length < 5){
+			btnPagination.classList.add('menu-card__pagination_delete');
+		}
+
+	}
+
 	function handleMediaChange(e) {
 
 		btnPagination.classList.remove('menu-card__pagination_delete');
@@ -29,7 +39,8 @@ export const createProductsCard = (filter = 'coffee') => {
 
 		const menuCards = products
 			.filter(card => card.category === filter)
-			.map((card, i) => {
+			.map((card, i, arr) => {
+
 
 				const images = require(`../../../img/menu-layout/${card.category}-${i + 1}.jpg`);
 
@@ -38,6 +49,7 @@ export const createProductsCard = (filter = 'coffee') => {
 				menuItem.dataset.cardId = card.id;
 
 				if (showNotAllCards) {
+
 					if (i < 4) {
 						menuItem.classList.add(style.MENU_CARD_ITEM, card.category, 'fade');
 					}
@@ -79,6 +91,9 @@ export const createProductsCard = (filter = 'coffee') => {
 
 		menuWrapper.append(...menuCards);
 		modals();
+
+		checkNumberOfCards();
+
 	}
 
 	handleMediaChange(mediaQuery);

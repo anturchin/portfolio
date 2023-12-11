@@ -154,6 +154,8 @@
 	&__item {
 		cursor: pointer;
 		width: 40px;
+		border-radius: 100px;
+		overflow: hidden;
 		height: 4px;
 		background-color: $border-light;
 		margin-right: 12px;
