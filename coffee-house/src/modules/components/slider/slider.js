@@ -73,6 +73,8 @@ export const slider = () => {
 
 	function onPointerDown(e) {
 
+		e.preventDefault();
+
 		lines[slideIndex - 1].classList.add('lines__item_paused');
 
 		isDragging = true;
@@ -81,6 +83,8 @@ export const slider = () => {
 	}
 
 	function onPointerMove(e) {
+
+		e.preventDefault();
 
 		lines[slideIndex - 1].classList.add('lines__item_paused');
 
