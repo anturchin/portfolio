@@ -52,6 +52,7 @@ export const modals = () => {
 
 		}
 
+		sizeList.dataset.categoryCard = cardProduct.category;
 		setValueInput(sizeItems, sizeArray);
 		setValueInput(additivesItems, additivesArray);
 
