@@ -11,7 +11,7 @@ body {
   font-family: 'Inter', Verdana, sans-serif;
 }
 
+@import './components/header/header';
 @import './components/app/app';
 @import './components/hangman/hangman';
 @import './components/question/question';
-@import './components/footer/footer';

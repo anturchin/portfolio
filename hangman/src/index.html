@@ -6,6 +6,9 @@
     <title>Hangman Game</title>
   </head>
   <body>
+    <header class="header">
+      <h1 class="header__title">Hangman Game</h1>
+    </header>
     <main class="app">
       <div class="hangman">
         <div class="hangman__crossbar">
@@ -13,47 +16,57 @@
         </div>
         <div class="hangman__wrapper">
           <div class="hangman__head">
-            <img src="image/head.svg" alt="head" />
+            <img class="hidden" src="image/head.svg" alt="head" />
           </div>
           <div class="hangman__body">
-            <img src="image/hand-one.svg" alt="hand-one" />
-            <img src="image/body.svg" alt="body" />
-            <img src="image/hand-two.svg" alt="hand-two" />
+            <img class="hidden" src="image/hand-one.svg" alt="hand-one" />
+            <img class="hidden" src="image/body.svg" alt="body" />
+            <img class="hidden" src="image/hand-two.svg" alt="hand-two" />
           </div>
           <div class="hangman__leg">
-            <img src="image/leg-one.svg" alt="leg-one" />
-            <img src="image/leg-two.svg" alt="leg-two" />
+            <img class="hidden" src="image/leg-one.svg" alt="leg-one" />
+            <img class="hidden" src="image/leg-two.svg" alt="leg-two" />
           </div>
         </div>
       </div>
       <div class="question">
         <div class="question__word">
           <div class="question__wrapper">
-            <span class="question__letter question__letter_hidden">О</span>
+            <span class="question__letter question__letter_hidden">Б</span>
             <span class="question__line"></span>
           </div>
           <div class="question__wrapper">
-            <span class="question__letter">Т</span>
+            <span class="question__letter">Р</span>
             <span class="question__line question__line_delete"></span>
           </div>
           <div class="question__wrapper">
-            <span class="question__letter question__letter_hidden">В</span>
+            <span class="question__letter question__letter_hidden">А</span>
             <span class="question__line"></span>
           </div>
           <div class="question__wrapper">
-            <span class="question__letter question__letter_hidden">Е</span>
+            <span class="question__letter question__letter_hidden">З</span>
             <span class="question__line"></span>
           </div>
           <div class="question__wrapper">
-            <span class="question__letter">Т</span>
+            <span class="question__letter">И</span>
+            <span class="question__line question__line_delete"></span>
+          </div>
+          <div class="question__wrapper">
+            <span class="question__letter">Л</span>
+            <span class="question__line question__line_delete"></span>
+          </div>
+          <div class="question__wrapper">
+            <span class="question__letter">И</span>
+            <span class="question__line question__line_delete"></span>
+          </div>
+          <div class="question__wrapper">
+            <span class="question__letter">Я</span>
             <span class="question__line question__line_delete"></span>
           </div>
         </div>
         <p class="question__text">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum
-          eligendi ex dicta, vitae cumque obcaecati omnis! Dolorum cupiditate
-          natus iusto explicabo facere, pariatur, quisquam ratione ducimus, eius
-          itaque earum impedit.
+          Какая единственная страна принимала участие во всех чемпионатах мира
+          по футболу?
         </p>
         <div class="question__mistake">
           <p class="question__text">Неправильные попытки</p>
@@ -106,8 +119,5 @@
         </div>
       </div>
     </main>
-    <footer class="footer">
-      <h1 class="footer__title">Hangman Game</h1>
-    </footer>
   </body>
 </html>
