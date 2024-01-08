@@ -1,52 +1,111 @@
 .question {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	font-size: 2.2rem;
-	font-weight: 600;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+
+  @media(max-width: $desktop) {
+    gap: 25px;
+  }
+
+  @media(max-width: $tablet) {
+    font-size: 2rem;
+    gap: 25px;
+  }
+
+  @media(max-width: $mobile) {
+    font-size: 1.8rem;
+  }
 }
 
 .question__word {
-	display: flex;
+  display: flex;
 }
 
 .question__line {
-	border-bottom: 3px solid #000;
-	margin: 8px;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  border-bottom: 3px solid #000;
+  margin: 8px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .question__text {
-	margin-top: 35px;
-	line-height: 50px;
-	text-align: center;
+  margin-top: 35px;
+  line-height: 50px;
+  text-align: center;
+
+  @media(max-width: $desktop) {
+    margin-top: 0px;
+  }
+
+  @media(max-width: $mobile) {
+    line-height: 40px;
+  }
+
+}
+
+.question__mistake {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .question__text {
+    margin-top: 0;
+  }
+}
+
+.question__counter {
+  color: $counter-color;
+  margin-left: 15px;
 }
 
 .question__key {
-	margin-top: 50px;
+  margin-top: 50px;
+
+  @media(max-width: $desktop) {
+    margin-top: 20px;
+  }
 }
 
 .key__wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .key__item {
-	width: 60px;
-	height: 60px;
-	border-radius: 10px;
-	background: $key-bg-color;
-	color: $key-color;
-	margin: 8px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  background: $key-bg-color;
+  color: $key-color;
+  margin: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @media(hover: hover) {
+    &:hover {
+      background: $key-bg-hover;
+    }
+  }
+
+  @media(max-width: $mobile) {
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+  }
+
+  &_disabled {
+    background: $key-bg-hover;
+  }
+
 }
 
 .key__letter {}

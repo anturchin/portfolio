@@ -7,7 +7,7 @@
   </head>
   <body>
     <main class="app">
-      <section class="hangman">
+      <div class="hangman">
         <div class="hangman__crossbar">
           <img src="image/gallows.svg" alt="crossbar" />
         </div>
@@ -25,8 +25,8 @@
             <img src="image/leg-two.svg" alt="leg-two" />
           </div>
         </div>
-      </section>
-      <section class="question">
+      </div>
+      <div class="question">
         <p class="question__word">
           <span class="question__line">О</span>
           <span class="question__line">Т</span>
@@ -40,13 +40,25 @@
           natus iusto explicabo facere, pariatur, quisquam ratione ducimus, eius
           itaque earum impedit.
         </p>
+        <div class="question__mistake">
+          <p class="question__text">Неправильные попытки</p>
+          <div class="question__counter">
+            <span>0</span>
+            /
+            <span>6</span>
+          </div>
+        </div>
         <div class="question__key">
           <div class="key__wrapper">
-            <div class="key__item"><span class="key__letter">Й</span></div>
+            <div class="key__item key__item_disabled">
+              <span class="key__letter">Й</span>
+            </div>
             <div class="key__item"><span class="key__letter">Ц</span></div>
             <div class="key__item"><span class="key__letter">У</span></div>
             <div class="key__item"><span class="key__letter">К</span></div>
-            <div class="key__item"><span class="key__letter">Е</span></div>
+            <div class="key__item key__item_disabled">
+              <span class="key__letter">Е</span>
+            </div>
             <div class="key__item"><span class="key__letter">Ё</span></div>
             <div class="key__item"><span class="key__letter">Н</span></div>
             <div class="key__item"><span class="key__letter">Г</span></div>
@@ -77,7 +89,7 @@
             <div class="key__item"><span class="key__letter">Ю</span></div>
           </div>
         </div>
-      </section>
+      </div>
     </main>
     <footer class="footer">
       <h1 class="footer__title">Hangman Game</h1>
