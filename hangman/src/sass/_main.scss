@@ -1,5 +1,15 @@
 @import './vendors/normalize';
 @import './abstracts/variables';
+
+html {
+	font-size: 10px;
+}
+
+body {
+	font-size: 1.6rem;
+}
+
 @import './components/app/app';
 @import './components/hangman/hangman';
 @import './components/question/question';
+@import './components/footer/footer';
