@@ -1,109 +1,109 @@
 .hangman {
-	min-width: 600px;
-	position: relative;
-	display: flex;
-	align-self: flex-start;
+  min-width: 600px;
+  position: relative;
+  display: flex;
+  align-self: flex-start;
 
-	@media(max-width: $desktop) {
-		min-width: 400px;
-	}
+  @media(max-width: $desktop) {
+    min-width: 400px;
+  }
 
-	@media(max-width: $tablet) {
-		align-self: center;
-	}
+  @media(max-width: $tablet) {
+    align-self: center;
+  }
 
-	@media(max-width: $mobile) {
-		align-items: center;
-		min-width: 320px;
-	}
+  @media(max-width: $mobile) {
+    align-items: center;
+    min-width: 320px;
+  }
 }
 
 .hangman__crossbar {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 
-	img {
-		width: 100%;
-		object-fit: contain;
+  img {
+    width: 100%;
+    object-fit: contain;
 
-		@media(max-width: $mobile) {
-			width: 300px;
-			height: 450px;
-		}
-	}
+    @media(max-width: $mobile) {
+      width: 300px;
+      height: 450px;
+    }
+  }
 
 }
 
 .hangman__wrapper {
-	display: flex;
-	width: 200px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	top: 149px;
-	right: 197px;
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 149px;
+  right: 197px;
 
-	@media(max-width: $desktop) {
-		top: 149px;
-		right: -2px;
-	}
+  @media(max-width: $desktop) {
+    top: 149px;
+    right: -2px;
+  }
 
-	@media(max-width: $mobile) {
-		top: 115px;
-		right: 25px;
-		width: 100px;
-	}
+  @media(max-width: $mobile) {
+    top: 115px;
+    right: 25px;
+    width: 100px;
+  }
 
 }
 
 .hangman__head {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 
-	img {
-		width: 100%;
-		object-fit: contain;
+  img {
+    width: 100%;
+    object-fit: contain;
 
-		@media(max-width: $mobile) {
-			width: 70%;
-		}
+    @media(max-width: $mobile) {
+      width: 70%;
+    }
 
-	}
+  }
 
 }
 
 .hangman__body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-	img {
-		width: 100%;
-		object-fit: contain;
+  img {
+    width: 100%;
+    object-fit: contain;
 
-		@media(max-width: $mobile) {
-			width: 50%;
+    @media(max-width: $mobile) {
+      width: 50%;
 
-			&:nth-child(2) {
-				height: 100px;
-				width: 5px;
-			}
-		}
-	}
+      &:nth-child(2) {
+        height: 100px;
+        width: 5px;
+      }
+    }
+  }
 }
 
 .hangman__leg {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-	img {
-		width: 100%;
-		object-fit: contain;
+  img {
+    width: 100%;
+    object-fit: contain;
 
-		@media(max-width: $mobile) {
-			width: 50%;
-		}
-	}
+    @media(max-width: $mobile) {
+      width: 50%;
+    }
+  }
 }
