@@ -1,1 +1,5 @@
 @import './vendors/normalize';
+@import './abstracts/variables';
+@import './components/app/app';
+@import './components/hangman/hangman';
+@import './components/question/question';
