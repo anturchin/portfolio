@@ -18,94 +18,118 @@
   @media(max-width: $mobile) {
     font-size: 1.8rem;
   }
-}
 
-.question__word {
-  display: flex;
-}
-
-.question__letter {
-  border-bottom: 3px solid #000;
-  margin: 8px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.question__text {
-  margin-top: 35px;
-  line-height: 50px;
-  text-align: center;
-
-  @media(max-width: $desktop) {
-    margin-top: 0px;
+  &__word {
+    display: flex;
   }
 
-  @media(max-width: $mobile) {
-    line-height: 40px;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-}
+  &__letter {
+    margin: 8px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.question__mistake {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .question__text {
-    margin-top: 0;
-  }
-}
-
-.question__counter {
-  color: $counter-color;
-  margin-left: 15px;
-}
-
-.question__key {
-  margin-top: 50px;
-
-  @media(max-width: $desktop) {
-    margin-top: 20px;
-  }
-}
-
-.key__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.key__item {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  background: $key-bg-color;
-  color: $key-color;
-  margin: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  @media(hover: hover) {
-    &:hover {
-      background: $key-bg-hover;
+    &_hidden {
+      visibility: hidden;
     }
   }
 
-  @media(max-width: $mobile) {
-    width: 50px;
-    height: 50px;
-    margin: 3px;
+  &__line {
+    height: 3px;
+    width: 80%;
+    background: #000;
+
+    &_delete {
+      visibility: hidden;
+    }
   }
 
-  &_disabled {
-    background: $key-bg-hover;
+  &__text {
+    margin-top: 35px;
+    line-height: 50px;
+    text-align: center;
+
+    @media(max-width: $desktop) {
+      margin-top: 0px;
+    }
+
+    @media(max-width: $mobile) {
+      line-height: 40px;
+    }
+
+  }
+
+  &__mistake {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .question__text {
+      margin-top: 0;
+    }
+  }
+
+  &__counter {
+    color: $counter-color;
+    margin-left: 15px;
+  }
+
+  &__key {
+    margin-top: 50px;
+
+    @media(max-width: $desktop) {
+      margin-top: 20px;
+    }
   }
 
 }
 
-.key__letter {}
+.key {
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__item {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: $key-bg-color;
+    color: $key-color;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    @media(hover: hover) {
+      &:hover {
+        background: $key-bg-hover;
+      }
+    }
+
+    @media(max-width: $mobile) {
+      width: 50px;
+      height: 50px;
+      margin: 3px;
+    }
+
+    &_disabled {
+      background: $key-bg-hover;
+    }
+
+  }
+
+  &__letter {}
+}

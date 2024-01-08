@@ -11,13 +11,14 @@
     margin-top: 40px;
   }
 
-}
+  &__title {
+    text-align: center;
+    font-size: 4.5rem;
+    font-style: italic;
 
-.footer__title {
-  text-align: center;
-  font-size: 4.5rem;
-
-  @media(max-width: $mobile) {
-    font-size: 3.5rem;
+    @media(max-width: $mobile) {
+      font-size: 3.5rem;
+    }
   }
+
 }
