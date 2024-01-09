@@ -9,38 +9,91 @@ import { generateQuestionWord } from "./components/generate-question-word";
 import { generateQuestionText } from "./components/generate-question-text";
 import { generateQuestionMistake } from "./components/generate-question-mistake";
 import { generateKeyboard } from "./components/generate-keybord";
+import { updateHangmanDisplay } from "./helpers/update-hangman-display";
+import { updateWordDisplay } from "./helpers/update-word-display";
 
 const app = () => {
   const body = document.querySelector("body");
 
   const maxAttempts = 6;
-  let attemptsCounter = 0;
   let guessedLetters = [];
-  let secretWordArray = [];
+  let attemptsCounter = 0;
+  let secretWord = "";
 
-  const randomPair = getRandomQuestion(questions);
-  const randomQuestion = randomPair.question;
-  const randomAnswer = randomPair.answer;
+  const generateHtml = () => {
+    const randomPair = getRandomQuestion(questions);
+    const randomQuestion = randomPair.question;
+    const randomAnswer = randomPair.answer;
+    secretWord = randomAnswer.toLowerCase();
 
-  const header = generateHeader();
-  const main = generateMain();
-  const hangman = generateHangman();
-  const question = generateQuestion();
-  const questionWord = generateQuestionWord(randomAnswer);
-  const questionText = generateQuestionText(randomQuestion);
-  const questionMistake = generateQuestionMistake(maxAttempts);
-  const questionKey = generateKeyboard(keys);
+    const header = generateHeader();
+    const main = generateMain();
+    const hangman = generateHangman();
+    const question = generateQuestion();
+    const questionWord = generateQuestionWord(randomAnswer);
+    const questionText = generateQuestionText(randomQuestion);
+    const questionMistake = generateQuestionMistake(maxAttempts);
+    const questionKey = generateKeyboard(keys, handleKeyClick);
 
-  question.append(questionWord);
-  question.append(questionText);
-  question.append(questionMistake);
-  question.append(questionKey);
+    question.append(questionWord);
+    question.append(questionText);
+    question.append(questionMistake);
+    question.append(questionKey);
 
-  main.append(hangman);
-  main.append(question);
+    main.append(hangman);
+    main.append(question);
 
-  body.append(header);
-  body.append(main);
+    body.append(header);
+    body.append(main);
+  };
+
+  generateHtml();
+
+  document.addEventListener("keydown", handleKeyPress);
+
+  function handleKeyClick(event) {
+    const clickedLetter = event.currentTarget.dataset.letter;
+    if (clickedLetter) {
+      updateDisplay(clickedLetter);
+    }
+  }
+
+  function handleKeyPress(event) {
+    const key = event.code;
+    const pressetKey = keys.find((k) => k.code === key);
+
+    if (pressetKey) {
+      updateDisplay(pressetKey.value);
+    }
+  }
+
+  function updateDisplay(clickedLetter) {
+    if (secretWord.includes(clickedLetter)) {
+      for (let i = 0; i < secretWord.length; i++) {
+        if (secretWord[i] === clickedLetter) {
+          guessedLetters.push(clickedLetter);
+        }
+      }
+      updateWordDisplay(guessedLetters);
+    } else {
+      attemptsCounter++;
+      updateHangmanDisplay(attemptsCounter);
+    }
+
+    checkGameEnd();
+  }
+
+  function checkGameEnd() {
+    if (attemptsCounter === maxAttempts) {
+      setTimeout(() => {
+        body.innerHTML = "";
+        attemptsCounter = 0;
+        guessedLetters = [];
+        secretWord = "";
+        generateHtml();
+      }, 500);
+    }
+  }
 };
 
 export default app;

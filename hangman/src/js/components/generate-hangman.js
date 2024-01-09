@@ -12,24 +12,42 @@ export const generateHangman = () => {
 
   const hangmanHead = createHtmlElement("div", "hangman__head");
   const headPath = require("../../image/head.svg");
-  const headImgElem = createHtmlElement("img", "hidden", headPath, "head");
+  const headImgElem = createHtmlElement(
+    "img",
+    ["hidden"],
+    headPath,
+    "head",
+    null,
+    "head",
+  );
   hangmanHead.append(headImgElem);
 
   const hangmanBody = createHtmlElement("div", "hangman__body");
   const handOnePath = require("../../image/hand-one.svg");
   const handOneImgElem = createHtmlElement(
     "img",
-    "hidden",
+    ["hidden"],
     handOnePath,
+    "hand-one",
+    null,
     "hand-one",
   );
   const bodyPath = require("../../image/body.svg");
-  const bodyImgElem = createHtmlElement("img", "hidden", bodyPath, "body");
+  const bodyImgElem = createHtmlElement(
+    "img",
+    ["hidden"],
+    bodyPath,
+    "body",
+    null,
+    "body",
+  );
   const handTwoPath = require("../../image/hand-two.svg");
   const handTwoImgElem = createHtmlElement(
     "img",
-    "hidden",
+    ["hidden"],
     handTwoPath,
+    "hand-two",
+    null,
     "hand-two",
   );
   hangmanBody.append(handOneImgElem);
@@ -40,15 +58,19 @@ export const generateHangman = () => {
   const legOnePath = require("../../image/leg-one.svg");
   const legOneImgElem = createHtmlElement(
     "img",
-    "hidden",
+    ["hidden"],
     legOnePath,
+    "leg-one",
+    null,
     "leg-one",
   );
   const legTwoPath = require("../../image/leg-two.svg");
   const legTwoImgElem = createHtmlElement(
     "img",
-    "hidden",
+    ["hidden"],
     legTwoPath,
+    "leg-two",
+    null,
     "leg-two",
   );
   hangmanLeg.append(legOneImgElem);
