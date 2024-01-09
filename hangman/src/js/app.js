@@ -1,5 +1,6 @@
 import keys from "./keys";
 import questions from "./questions";
+import { getRandomQuestion } from "./helpers/get-random-question";
 import { generateHeader } from "./components/generate-header";
 import { generateMain } from "./components/generate-main";
 import { generateHangman } from "./components/generate-hangman";
@@ -17,14 +18,9 @@ const app = () => {
   let guessedLetters = [];
   let secretWordArray = [];
 
-  const randomPair = getRandomQuestion();
+  const randomPair = getRandomQuestion(questions);
   const randomQuestion = randomPair.question;
   const randomAnswer = randomPair.answer;
-
-  function getRandomQuestion() {
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    return questions[randomIndex];
-  }
 
   const header = generateHeader();
   const main = generateMain();
