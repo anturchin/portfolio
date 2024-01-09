@@ -11,5 +11,10 @@
   "plugins": ["prettier"],
   "rules": {
     "no-unused-vars": ["warn"]
+  },
+  "globals": {
+    "$": true,
+    "require": true,
+    "process": true
   }
 }

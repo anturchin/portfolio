@@ -1,4 +1,8 @@
 import "./index.html";
 import "./index.scss";
 
-import game from "./js/game";
+import app from "./js/app";
+
+document.addEventListener("DOMContentLoaded", () => {
+  app();
+});
