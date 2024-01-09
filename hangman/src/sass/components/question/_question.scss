@@ -21,6 +21,8 @@
 
   &__word {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     color: $key-bg-color;
   }
 
