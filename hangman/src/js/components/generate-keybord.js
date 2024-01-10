@@ -5,7 +5,7 @@ export const generateKeyboard = (keys, handleKeyClick) => {
   const questionKeyWrapper = createHtmlElement("div", "key__wrapper");
 
   const keyItems = keys.map((item) => {
-    const keyItem = createHtmlElement("div", "key__item");
+    const keyItem = createHtmlElement("button", "key__item");
     keyItem.dataset.letter = item.value;
     keyItem.addEventListener("click", handleKeyClick);
     const keyLetter = createHtmlElement(

@@ -10,10 +10,10 @@ export const generateQuestionWord = (answer) => {
       const questionWord = createHtmlElement("div", "question__wrapper");
       const questionLetter = createHtmlElement(
         "span",
-        ["question__letter", "question__letter_hidden"],
+        ["question__letter"],
         null,
         null,
-        item,
+        null,
       );
       const questionLine = createHtmlElement("span", ["question__line"]);
       questionWord.append(questionLetter);

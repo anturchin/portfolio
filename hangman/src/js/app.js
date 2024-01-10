@@ -25,6 +25,7 @@ const app = () => {
     const randomQuestion = randomPair.question;
     const randomAnswer = randomPair.answer;
     secretWord = randomAnswer.toLowerCase();
+    guessedLetters = Array(secretWord.length).fill("_");
 
     const header = generateHeader();
     const main = generateMain();
@@ -71,28 +72,39 @@ const app = () => {
     if (secretWord.includes(clickedLetter)) {
       for (let i = 0; i < secretWord.length; i++) {
         if (secretWord[i] === clickedLetter) {
-          guessedLetters.push(clickedLetter);
+          guessedLetters[i] = clickedLetter;
         }
       }
       updateWordDisplay(guessedLetters);
     } else {
       attemptsCounter++;
-      updateHangmanDisplay(attemptsCounter);
+      updateHangmanDisplay(attemptsCounter, clickedLetter);
     }
 
     checkGameEnd();
   }
 
   function checkGameEnd() {
+    const areEqual =
+      JSON.stringify(secretWord.split("")) === JSON.stringify(guessedLetters);
+
     if (attemptsCounter === maxAttempts) {
-      setTimeout(() => {
-        body.innerHTML = "";
-        attemptsCounter = 0;
-        guessedLetters = [];
-        secretWord = "";
-        generateHtml();
-      }, 500);
+      resetGame();
     }
+
+    if (areEqual) {
+      resetGame();
+    }
+  }
+
+  function resetGame() {
+    setTimeout(() => {
+      body.innerHTML = "";
+      attemptsCounter = 0;
+      guessedLetters = [];
+      secretWord = "";
+      generateHtml();
+    }, 1000);
   }
 };
 

@@ -1,10 +1,22 @@
-export const updateHangmanDisplay = (counter) => {
+export const updateHangmanDisplay = (counter, clickedLetter) => {
   const head = document.querySelector("#head");
   const body = document.querySelector("#body");
   const handOne = document.querySelector("#hand-one");
   const handTow = document.querySelector("#hand-two");
   const legOne = document.querySelector("#leg-one");
   const legTow = document.querySelector("#leg-two");
+  const attemptsCounter = document.querySelector("#attemptsCounter");
+  const keys = document.querySelectorAll(".key__item");
+
+  attemptsCounter.textContent = `${counter}`;
+
+  keys.forEach((key, index) => {
+    const letter = key.getAttribute("data-letter");
+    if (letter === clickedLetter) {
+      keys[index].classList.add("key__item_disabled");
+      keys[index].disabled = true;
+    }
+  });
 
   switch (counter) {
     case 1:

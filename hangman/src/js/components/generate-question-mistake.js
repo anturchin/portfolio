@@ -4,7 +4,7 @@ export const generateQuestionMistake = (attempts) => {
   const questionMistake = createHtmlElement("div", "question__mistake");
   const questionText = createHtmlElement(
     "p",
-    "question__mistake",
+    "question__attempts",
     null,
     null,
     "Неправильные попытки",
