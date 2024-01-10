@@ -1,6 +1,7 @@
 @import './vendors/normalize';
 @import './base/fonts';
 @import './abstracts/variables';
+@import './components/animate/animate';
 
 html {
   font-size: 10px;
@@ -15,3 +16,4 @@ body {
 @import './components/app/app';
 @import './components/hangman/hangman';
 @import './components/question/question';
+@import './components/modal/modal';

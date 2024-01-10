@@ -11,6 +11,7 @@ import { generateQuestionMistake } from "./components/generate-question-mistake"
 import { generateKeyboard } from "./components/generate-keybord";
 import { updateHangmanDisplay } from "./helpers/update-hangman-display";
 import { updateWordDisplay } from "./helpers/update-word-display";
+import { generateModal } from "./components/generate-modal";
 
 const app = () => {
   const body = document.querySelector("body");
@@ -19,6 +20,8 @@ const app = () => {
   let guessedLetters = [];
   let attemptsCounter = 0;
   let secretWord = "";
+  let timerModal = null;
+  let timerReset = null;
 
   const generateHtml = () => {
     const randomPair = getRandomQuestion(questions);
@@ -84,17 +87,32 @@ const app = () => {
     checkGameEnd();
   }
 
+  function closeModalAndNewGame() {
+    const modal = document.querySelector(".modal");
+    modal.classList.add("hide");
+    modal.classList.remove("show");
+    resetGame();
+  }
+
   function checkGameEnd() {
     const areEqual =
       JSON.stringify(secretWord.split("")) === JSON.stringify(guessedLetters);
 
     if (attemptsCounter === maxAttempts) {
-      resetGame();
+      const modal = generateModal(secretWord, false, closeModalAndNewGame);
+      openModal(modal);
     }
 
     if (areEqual) {
-      resetGame();
+      const modal = generateModal(secretWord, true, closeModalAndNewGame);
+      openModal(modal);
     }
+  }
+
+  function openModal(modal) {
+    setTimeout(() => {
+      body.append(modal);
+    }, 300);
   }
 
   function resetGame() {
@@ -104,7 +122,7 @@ const app = () => {
       guessedLetters = [];
       secretWord = "";
       generateHtml();
-    }, 1000);
+    }, 300);
   }
 };
 

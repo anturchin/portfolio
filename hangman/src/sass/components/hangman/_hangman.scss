@@ -110,26 +110,3 @@
   }
 
 }
-
-.hidden {
-  opacity: 0;
-}
-
-.show {
-  opacity: 1;
-}
-
-.fade {
-  animation-name: fade;
-  animation-duration: 0.9s;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0.1;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
