@@ -42,7 +42,7 @@ export const generateModal = (secretWord, win = true, closeModalAndNewGame) => {
     "modal__button",
     null,
     null,
-    "Начать заново",
+    "Играть еще раз",
   );
   button.addEventListener("click", closeModalAndNewGame);
   modalContent.append(button);

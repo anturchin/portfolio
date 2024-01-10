@@ -28,6 +28,7 @@ const app = () => {
     const randomQuestion = randomPair.question;
     const randomAnswer = randomPair.answer;
     secretWord = randomAnswer.toLowerCase();
+    console.log(randomAnswer);
     guessedLetters = Array(secretWord.length).fill("_");
 
     const header = generateHeader();
@@ -68,6 +69,10 @@ const app = () => {
   function handleKeyPress(event) {
     const key = event.code;
     const pressetKey = keys.find((k) => k.code === key);
+
+    if (attemptsCounter >= maxAttempts) {
+      return;
+    }
 
     if (pressetKey) {
       updateDisplay(pressetKey.value);
