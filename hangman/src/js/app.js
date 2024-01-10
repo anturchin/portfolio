@@ -94,6 +94,7 @@ const app = () => {
     const modal = document.querySelector(".modal");
     modal.classList.add("hide");
     modal.classList.remove("show");
+    body.classList.remove("body__hidden");
     resetGame();
   }
 
@@ -115,6 +116,7 @@ const app = () => {
   function openModal(modal) {
     timerModal = setTimeout(() => {
       body.append(modal);
+      body.classList.add("body__hidden");
     }, 300);
   }
 

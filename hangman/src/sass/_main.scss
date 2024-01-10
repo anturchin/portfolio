@@ -12,6 +12,10 @@ body {
   font-family: 'Inter', Verdana, sans-serif;
 }
 
+.body__hidden {
+  overflow: hidden;
+}
+
 @import './components/header/header';
 @import './components/app/app';
 @import './components/hangman/hangman';
