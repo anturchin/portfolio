@@ -49,6 +49,9 @@ const app = () => {
 
     body.append(header);
     body.append(main);
+
+    clearInterval(timerModal);
+    clearInterval(timerReset);
   };
 
   generateHtml();
@@ -110,13 +113,13 @@ const app = () => {
   }
 
   function openModal(modal) {
-    setTimeout(() => {
+    timerModal = setTimeout(() => {
       body.append(modal);
     }, 300);
   }
 
   function resetGame() {
-    setTimeout(() => {
+    timerReset = setTimeout(() => {
       body.innerHTML = "";
       attemptsCounter = 0;
       guessedLetters = [];
