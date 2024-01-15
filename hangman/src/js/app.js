@@ -18,17 +18,18 @@ const app = () => {
 
   const maxAttempts = 6;
   let guessedLetters = [];
+  let usedQuestions  = [];
   let attemptsCounter = 0;
   let secretWord = "";
   let timerModal = null;
   let timerReset = null;
 
   const generateHtml = () => {
-    const randomPair = getRandomQuestion(questions);
+    const randomPair = getRandomQuestion(questions, usedQuestions);
     const randomQuestion = randomPair.question;
     const randomAnswer = randomPair.answer;
-    secretWord = randomAnswer.toLowerCase();
     console.log(randomAnswer);
+    secretWord = randomAnswer.toLowerCase();
     guessedLetters = Array(secretWord.length).fill("_");
 
     const header = generateHeader();
