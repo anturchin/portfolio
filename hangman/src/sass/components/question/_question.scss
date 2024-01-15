@@ -74,7 +74,7 @@
   }
 
   &__mistake {
-    margin-top: 35px;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,7 +87,7 @@
   }
 
   &__key {
-    margin-top: 50px;
+    margin-top: 30px;
 
     @media(max-width: $desktop) {
       margin-top: 20px;
@@ -111,7 +111,7 @@
     border-radius: 10px;
     background: $key-bg-color;
     color: $key-color;
-    margin: 8px;
+    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;

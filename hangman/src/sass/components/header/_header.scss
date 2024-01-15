@@ -1,15 +1,7 @@
 .header {
   max-width: 1440px;
   margin: 0 auto;
-  margin-top: 80px;
-
-  @media(max-width: $desktop) {
-    margin-top: 60px;
-  }
-
-  @media(max-width: $mobile) {
-    margin-top: 40px;
-  }
+  margin-top: 40px;
 
   &__title {
     text-align: center;
