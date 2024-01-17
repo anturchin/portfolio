@@ -63,7 +63,8 @@ const app = () => {
 
   function handleKeyClick(event) {
     const clickedLetter = event.currentTarget.dataset.letter;
-    if (clickedLetter) {
+    if (clickedLetter && !keyState[clickedLetter]) {
+      keyState[clickedLetter]= true;
       updateDisplay(clickedLetter);
     }
   }
