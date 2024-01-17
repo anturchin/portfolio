@@ -19,6 +19,7 @@ const app = () => {
   const maxAttempts = 6;
   let guessedLetters = [];
   let usedQuestions  = [];
+  let keyState = {};
   let attemptsCounter = 0;
   let secretWord = "";
   let timerModal = null;
@@ -75,7 +76,8 @@ const app = () => {
       return;
     }
 
-    if (pressetKey) {
+    if (pressetKey && !keyState[pressetKey.value]) {
+      keyState[pressetKey.value] = true;
       updateDisplay(pressetKey.value);
     }
   }
@@ -131,6 +133,7 @@ const app = () => {
       body.innerHTML = "";
       attemptsCounter = 0;
       guessedLetters = [];
+      keyState = {};
       secretWord = "";
       generateHtml();
     }, 300);
