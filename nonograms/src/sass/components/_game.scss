@@ -6,11 +6,12 @@
 		display: grid;
 		justify-content: center;
 		grid-template-areas:
-			". top"
-			"left game"
-			"left game";
-		gap: 10px;
+			". top top"
+			"left game game"
+			"left game game";
+		gap: 1px;
 	}
+
 
 	&__grid {
 		grid-area: game;

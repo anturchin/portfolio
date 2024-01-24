@@ -15,3 +15,17 @@
 		background: rgba($color: $color-text-dark, $alpha: .8);
 	}
 }
+
+.hints__top {
+	.dark__hints {
+		border: 1px solid $color-text-dark;
+		border-top: none;
+	}
+}
+
+.hints__left {
+	.dark__hints {
+		border: 1px solid $color-text-dark;
+		border-left: none;
+	}
+}
