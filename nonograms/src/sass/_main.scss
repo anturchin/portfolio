@@ -18,6 +18,16 @@ body {
 	margin-top: 50px;
 }
 
+#toggle-theme {
+	display: block;
+	margin: 0 auto;
+	margin-top: 25px;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
 .main {
 	margin-top: 50px;
 }
@@ -28,4 +38,5 @@ body {
 	position: relative;
 }
 
+@import './components/timer';
 @import './components/game';

@@ -7,6 +7,11 @@
 	border: 1px solid $color-text-dark;
 }
 
-.dark__hints {
-	background: $color-theme-dark;
+.dark__button {
+	background: $color-text-dark;
+	color: $color-theme-dark;
+
+	&:hover {
+		background: rgba($color: $color-text-dark, $alpha: .8);
+	}
 }

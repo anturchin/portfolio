@@ -1,5 +1,9 @@
+import { toggleTheme } from "./helpers/toggle-theme";
+
 const app = () => {
-  console.log("hello");
+  const themeToggleBtn = document.querySelector("#toggle-theme");
+
+  themeToggleBtn.addEventListener("click", toggleTheme);
 };
 
 export default app;

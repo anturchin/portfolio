@@ -7,6 +7,11 @@
 	border: 1px solid $color-text-light;
 }
 
-.light__hints {
-	background: $color-theme-light;
+.light__button {
+	background: $color-text-light;
+	color: $color-theme-light;
+
+	&:hover {
+		background: rgba($color: $color-text-light, $alpha: .8);
+	}
 }
