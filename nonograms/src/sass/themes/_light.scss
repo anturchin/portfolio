@@ -16,6 +16,28 @@
 	}
 }
 
-.light__hints {
-	border: 1px solid $color-text-light;
+.hints__top {
+	.light__hints {
+		border: 1px solid $color-text-light;
+		border-top: none;
+	}
+}
+
+.hints__left {
+	.light__hints {
+		border: 1px solid $color-text-light;
+		border-left: none;
+	}
+}
+
+.light__grid {
+	border: 3px solid $color-text-light;
+}
+
+.light__left {
+	border: 3px solid $color-text-light;
+}
+
+.light__top {
+	border: 3px solid $color-text-light;
 }

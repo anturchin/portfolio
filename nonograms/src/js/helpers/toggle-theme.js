@@ -2,41 +2,37 @@ export const toggleTheme = (e) => {
   const target = e.target;
   const body = document.querySelector("body");
   const gameCell = document.querySelectorAll(".game__cell");
+  const hintsCell = document.querySelectorAll(".hints__cell");
   const gameLevel = document.querySelectorAll(".level__item");
+  const gameGrid = document.querySelector(".game__grid");
+  const hintsTop = document.querySelector(".hints__top");
+  const hintsLeft = document.querySelector(".hints__left");
 
-  if (target.classList.contains("dark__button")) {
-    target.classList.remove("dark__button");
-    target.classList.add("light__button");
-  } else {
-    target.classList.remove("light__button");
-    target.classList.add("dark__button");
-  }
+  const toggle = (elem, dark, light) => {
+    if (elem.classList.contains(dark)) {
+      elem.classList.remove(dark);
+      elem.classList.add(light);
+    } else {
+      elem.classList.remove(light);
+      elem.classList.add(dark);
+    }
+  };
 
-  if (body.classList.contains("dark-theme")) {
-    body.classList.remove("dark-theme");
-    body.classList.add("light-theme");
-  } else {
-    body.classList.remove("light-theme");
-    body.classList.add("dark-theme");
-  }
+  toggle(target, "dark__button", "light__button");
+  toggle(body, "dark-theme", "light-theme");
+  toggle(gameGrid, "dark__grid", "light__grid");
+  toggle(hintsTop, "dark__top", "light__top");
+  toggle(hintsLeft, "dark__left", "light__left");
 
   gameCell.forEach((cell) => {
-    if (cell.classList.contains("dark__cell")) {
-      cell.classList.remove("dark__cell");
-      cell.classList.add("light__cell");
-    } else {
-      cell.classList.remove("light__cell");
-      cell.classList.add("dark__cell");
-    }
+    toggle(cell, "dark__cell", "light__cell");
   });
 
   gameLevel.forEach((level) => {
-    if (level.classList.contains("dark__button")) {
-      level.classList.remove("dark__button");
-      level.classList.add("light__button");
-    } else {
-      level.classList.remove("light__button");
-      level.classList.add("dark__button");
-    }
+    toggle(level, "dark__button", "light__button");
+  });
+
+  hintsCell.forEach((hints) => {
+    toggle(hints, "dark__hints", "light__hints");
   });
 };
