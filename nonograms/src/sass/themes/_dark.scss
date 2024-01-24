@@ -1,0 +1,12 @@
+.dark-theme {
+	background: $color-theme-dark;
+	color: $color-text-dark;
+}
+
+.dark__cell {
+	border: 1px solid $color-text-dark;
+}
+
+.dark__hints {
+	background: $color-theme-dark;
+}
