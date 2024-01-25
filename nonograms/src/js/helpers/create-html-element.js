@@ -13,7 +13,9 @@ export const createHtmlElement = (
 
   if (Array.isArray(className)) {
     className.forEach((el) => {
-      htmlElement.classList.add(el);
+      if (el) {
+        htmlElement.classList.add(el);
+      }
     });
   }
 
