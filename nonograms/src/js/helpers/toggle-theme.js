@@ -13,7 +13,7 @@ export const toggleTheme = (e) => {
     if (elem.classList.contains(dark)) {
       elem.classList.remove(dark);
       elem.classList.add(light);
-    } else {
+    } else if (elem.classList.contains(light)) {
       elem.classList.remove(light);
       elem.classList.add(dark);
     }
@@ -27,6 +27,7 @@ export const toggleTheme = (e) => {
 
   gameCell.forEach((cell) => {
     toggle(cell, "dark__cell", "light__cell");
+    toggle(cell, "dark__checked", "light__checked");
   });
 
   gameLevel.forEach((level) => {
@@ -39,5 +40,6 @@ export const toggleTheme = (e) => {
 
   templateCell.forEach((template) => {
     toggle(template, "dark__cell", "light__cell");
+    toggle(template, "dark__checked", "light__checked");
   });
 };
