@@ -1,0 +1,23 @@
+.template {
+
+	margin-top: 100px;
+
+	&__wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	&__item_5x5 {
+		display: flex;
+		width: 90px;
+		height: 90px;
+		flex-wrap: wrap;
+	}
+
+	&__cell_5x5 {
+		width: 15px;
+		height: 15px;
+	}
+}

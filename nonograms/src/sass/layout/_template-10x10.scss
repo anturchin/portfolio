@@ -1,0 +1,23 @@
+.template {
+
+	margin-top: 100px;
+
+	&__wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	&__item_10x10 {
+		display: flex;
+		width: 180px;
+		height: 180px;
+		flex-wrap: wrap;
+	}
+
+	&__cell_10x10 {
+		width: 15px;
+		height: 15px;
+	}
+}

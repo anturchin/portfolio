@@ -4,6 +4,7 @@ export const toggleTheme = (e) => {
   const gameCell = document.querySelectorAll(".game__cell");
   const hintsCell = document.querySelectorAll(".hints__cell");
   const gameLevel = document.querySelectorAll(".level__item");
+  const templateCell = document.querySelectorAll(".template__cell");
   const gameGrid = document.querySelector(".game__grid");
   const hintsTop = document.querySelector(".hints__top");
   const hintsLeft = document.querySelector(".hints__left");
@@ -34,5 +35,9 @@ export const toggleTheme = (e) => {
 
   hintsCell.forEach((hints) => {
     toggle(hints, "dark__hints", "light__hints");
+  });
+
+  templateCell.forEach((template) => {
+    toggle(template, "dark__cell", "light__cell");
   });
 };
