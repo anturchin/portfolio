@@ -28,14 +28,20 @@ body {
 	cursor: pointer;
 }
 
-.main {
-	margin-top: 50px;
-}
+.main {}
 
 .container {
 	max-width: 1180px;
 	margin: 0 auto;
 	position: relative;
+}
+
+.select {
+	margin-top: 50px;
+}
+
+.nonograms {
+	margin-top: 50px;
 }
 
 @import './components/timer';

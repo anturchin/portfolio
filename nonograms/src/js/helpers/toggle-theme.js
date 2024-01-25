@@ -20,31 +20,52 @@ export const toggleTheme = (e) => {
     }
   };
 
-  toggle(target, "dark__button", "light__button");
-  toggle(body, "dark-theme", "light-theme");
-  toggle(gameGrid, "dark__grid", "light__grid");
-  toggle(hintsTop, "dark__top", "light__top");
-  toggle(hintsLeft, "dark__left", "light__left");
+  if (target) {
+    toggle(target, "dark__button", "light__button");
+  }
+  if (body) {
+    toggle(body, "dark-theme", "light-theme");
+  }
+  if (gameGrid) {
+    toggle(gameGrid, "dark__grid", "light__grid");
+  }
+  if (hintsTop) {
+    toggle(hintsTop, "dark__top", "light__top");
+  }
 
-  gameCell.forEach((cell) => {
-    toggle(cell, "dark__cell", "light__cell");
-    toggle(cell, "dark__checked", "light__checked");
-  });
+  if (hintsLeft) {
+    toggle(hintsLeft, "dark__left", "light__left");
+  }
 
-  gameLevel.forEach((level) => {
-    toggle(level, "dark__button", "light__button");
-  });
+  if (gameCell) {
+    gameCell.forEach((cell) => {
+      toggle(cell, "dark__cell", "light__cell");
+      toggle(cell, "dark__checked", "light__checked");
+    });
+  }
 
-  resetBtn.forEach((level) => {
-    toggle(level, "dark__button", "light__button");
-  });
+  if (gameLevel) {
+    gameLevel.forEach((level) => {
+      toggle(level, "dark__button", "light__button");
+    });
+  }
 
-  hintsCell.forEach((hints) => {
-    toggle(hints, "dark__hints", "light__hints");
-  });
+  if (resetBtn) {
+    resetBtn.forEach((level) => {
+      toggle(level, "dark__button", "light__button");
+    });
+  }
 
-  templateCell.forEach((template) => {
-    toggle(template, "dark__cell", "light__cell");
-    toggle(template, "dark__checked", "light__checked");
-  });
+  if (hintsCell) {
+    hintsCell.forEach((hints) => {
+      toggle(hints, "dark__hints", "light__hints");
+    });
+  }
+
+  if (templateCell) {
+    templateCell.forEach((template) => {
+      toggle(template, "dark__cell", "light__cell");
+      toggle(template, "dark__checked", "light__checked");
+    });
+  }
 };
