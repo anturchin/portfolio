@@ -15,7 +15,7 @@ body {
 
 .title {
 	text-align: center;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 #toggle-theme {
@@ -40,6 +40,8 @@ body {
 
 @import './components/timer';
 @import './components/level';
+@import './components/game';
+@import './components/reset';
 @import './layout/grid-5x5';
 @import './layout/grid-10x10';
 @import './layout/grid-15x15';

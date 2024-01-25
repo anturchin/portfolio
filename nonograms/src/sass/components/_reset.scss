@@ -1,0 +1,20 @@
+.reset {
+	margin-top: 50px;
+
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		list-style-type: none;
+	}
+
+	&__button {
+		margin-left: 15px;
+		margin-top: 10px;
+		cursor: pointer;
+		padding: 10px;
+		padding: 10px;
+		border: none;
+		border-radius: 10px;
+	}
+}

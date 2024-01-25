@@ -4,6 +4,7 @@ export const toggleTheme = (e) => {
   const gameCell = document.querySelectorAll(".game__cell");
   const hintsCell = document.querySelectorAll(".hints__cell");
   const gameLevel = document.querySelectorAll(".level__item");
+  const resetBtn = document.querySelectorAll(".reset__button");
   const templateCell = document.querySelectorAll(".template__cell");
   const gameGrid = document.querySelector(".game__grid");
   const hintsTop = document.querySelector(".hints__top");
@@ -31,6 +32,10 @@ export const toggleTheme = (e) => {
   });
 
   gameLevel.forEach((level) => {
+    toggle(level, "dark__button", "light__button");
+  });
+
+  resetBtn.forEach((level) => {
     toggle(level, "dark__button", "light__button");
   });
 
