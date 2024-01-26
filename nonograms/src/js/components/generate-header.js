@@ -1,4 +1,5 @@
 import { createHtmlElement } from "../helpers/create-html-element";
+import { toggleTheme } from "../handlers/toggle-theme";
 
 const theme = localStorage.getItem("theme");
 
@@ -16,6 +17,7 @@ export const generateHeader = () => {
   const header = createHtmlElement("header", STYLES.header);
   const title = createHtmlElement("h1", STYLES.title, h1Text);
   const button = createHtmlElement("button", STYLES.button, buttonText, null, buttonID);
+  button.addEventListener("click", toggleTheme);
   header.append(title);
   header.append(button);
   return header;

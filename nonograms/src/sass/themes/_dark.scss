@@ -18,6 +18,10 @@
 	&:hover {
 		background: rgba($color: $color-text-dark, $alpha: .8);
 	}
+
+	&_active {
+		background: rgba($color: $color-text-dark, $alpha: .8);
+	}
 }
 
 .hints__top {

@@ -1,4 +1,5 @@
 import { createHtmlElement } from "../helpers/create-html-element";
+import { onChangeLevel } from "../handlers/on-change-level";
 
 const theme = localStorage.getItem("theme");
 
@@ -35,6 +36,8 @@ export const generateLevel = () => {
 
   levelList.append(...levelItems);
   sectionLevel.append(levelList);
+
+  levelList.addEventListener("click", onChangeLevel);
 
   return sectionLevel;
 };
