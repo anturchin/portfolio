@@ -7,7 +7,7 @@ const STYLES = {
   container: "container",
   levelList: "level__list",
   levelItem: "level__item",
-  levelItemActive: "level__item_active",
+  levelItemActive: "light__button_active",
 };
 
 const options = [
@@ -18,11 +18,15 @@ const options = [
 
 export const generateLevel = () => {
   const themeBtn = getThemeLs({ light: "light__button", dark: "dark__button" });
+  const themeActive = getThemeLs({
+    light: "light__button_active",
+    dark: "dark__button_active",
+  });
 
   const sectionLevel = createHtmlElement("section", [STYLES.section, STYLES.container]);
   const levelList = createHtmlElement("ul", STYLES.levelList);
   const levelItems = options.map((item) => {
-    const active = item.id === "easy" ? STYLES.levelItemActive : "";
+    const active = item.id === "easy" ? themeActive : "";
     const levelItem = createHtmlElement(
       "li",
       [STYLES.levelItem, themeBtn, active],
