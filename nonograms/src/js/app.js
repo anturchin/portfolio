@@ -11,7 +11,14 @@ import { generateTemplate } from "./components/generate-template";
 
 const app = () => {
   const body = document.querySelector("body");
-  body.classList.add("dark-theme");
+  const theme = localStorage.getItem("theme");
+  let themeBody = "";
+  if (theme) {
+    themeBody = theme === "light" ? "light-theme" : "dark-theme";
+  } else {
+    themeBody = "light-theme";
+  }
+  body.classList.add(themeBody);
 
   const header = generateHeader();
   const main = generateMain();

@@ -1,6 +1,5 @@
 import { createHtmlElement } from "../helpers/create-html-element";
-
-const theme = localStorage.getItem("theme");
+import { getThemeLs } from "../helpers/get-theme-ls";
 
 const STYLES = {
   template: "template",
@@ -13,10 +12,11 @@ const STYLES = {
   templateSell_5: "template__cell_5x5",
   templateSell_10: "template__cell_10x10",
   templateSell_15: "template__cell_15x15",
-  darkOrLight: theme === "dark" ? "dark__cell" : "light__cell",
 };
 
 export const generateCellElements = (templates, size) => {
+  const themeCell = getThemeLs({ light: "light__cell", dark: "dark__cell" });
+
   const cells = [];
 
   templates.forEach(({ template }) => {
@@ -27,10 +27,13 @@ export const generateCellElements = (templates, size) => {
         const cell = createHtmlElement("div", [
           STYLES.templateSell,
           STYLES[`templateSell_${size}`],
-          STYLES.darkOrLight,
+          themeCell,
         ]);
         if (item === "X") {
-          const backGround = theme === "dark" ? "dark__checked" : "light__checked";
+          const backGround = getThemeLs({
+            light: "light__checked",
+            dark: "dark__checked",
+          });
           cell.classList.add(backGround);
         }
         templateCell.push(cell);

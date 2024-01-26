@@ -1,4 +1,3 @@
-import { checkLocalStorage } from "../helpers/change-local-storage";
 import { toggle } from "../helpers/toggle";
 
 export const toggleTheme = (e) => {
@@ -12,8 +11,6 @@ export const toggleTheme = (e) => {
   const gameGrid = document.querySelector(".game__grid");
   const hintsTop = document.querySelector(".hints__top");
   const hintsLeft = document.querySelector(".hints__left");
-
-  checkLocalStorage();
 
   if (target) toggle(target, "dark__button", "light__button");
   if (body) toggle(body, "dark-theme", "light-theme");
