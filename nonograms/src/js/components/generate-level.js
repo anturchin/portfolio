@@ -24,16 +24,20 @@ export const generateLevel = () => {
   });
 
   const sectionLevel = createHtmlElement("section", [STYLES.section, STYLES.container]);
-  const levelList = createHtmlElement("ul", STYLES.levelList);
+  const levelList = createHtmlElement("div", STYLES.levelList);
   const levelItems = options.map((item) => {
     const active = item.id === "easy" ? themeActive : "";
+    const disabled = item.id === "easy" ? true : false;
     const levelItem = createHtmlElement(
-      "li",
+      "button",
       [STYLES.levelItem, themeBtn, active],
       item.text,
       null,
       item.id,
     );
+    if (disabled) {
+      levelItem.disabled = true;
+    }
 
     return levelItem;
   });
