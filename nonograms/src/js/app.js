@@ -1,36 +1,27 @@
 import { easyTemplates } from "./easy-templates";
-import { mediumTemplates } from "./medium-templates";
-import { hardTemplates } from "./hard-templates";
-import { toggleTheme } from "./handlers/toggle-theme";
-import { onChangeLevel } from "./handlers/on-change-level";
+import { getThemeLs } from "./helpers/get-theme-ls";
 import { generateHeader } from "./components/generate-header";
-import { generateSelect } from "./components/generate-select";
-import { generateLevel } from "./components/generate-level";
 import { generateMain } from "./components/generate-main";
-import { generateTemplate } from "./components/generate-template";
+import { generateSelectedGame } from "./components/generate-selected-game";
 
-const app = () => {
+export const startGame = (elem) => {
+  const themeBody = getThemeLs({ light: "light-theme", dark: "dark-theme" });
   const body = document.querySelector("body");
-  const theme = localStorage.getItem("theme");
-  let themeBody = "";
-  if (theme) {
-    themeBody = theme === "light" ? "light-theme" : "dark-theme";
-  } else {
-    themeBody = "light-theme";
-  }
   body.classList.add(themeBody);
-
   const header = generateHeader();
   const main = generateMain();
-  const selectBlock = generateSelect();
-  const levelList = generateLevel();
-  const selectTemplates = generateTemplate(easyTemplates);
-
-  selectBlock.append(levelList);
-  main.append(selectBlock);
-  main.append(selectTemplates);
+  main.append(elem);
   body.append(header);
   body.append(main);
+};
+
+const init = () => {
+  const selectTemplateGame = generateSelectedGame(easyTemplates);
+  startGame(selectTemplateGame);
+};
+
+const app = () => {
+  init();
 };
 
 export default app;

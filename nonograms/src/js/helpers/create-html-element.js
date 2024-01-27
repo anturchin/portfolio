@@ -24,7 +24,7 @@ export const createHtmlElement = (
   }
 
   if (dataAttribute) {
-    htmlElement.dataset[dataAttribute] = true;
+    htmlElement.dataset[dataAttribute] = dataAttribute;
   }
 
   if (id) {

@@ -32,7 +32,7 @@
 	&__top_15x15 {
 		grid-area: top;
 		display: grid;
-		grid-template-columns: repeat(10, auto);
+		grid-template-columns: repeat(15, auto);
 		border-top: none;
 
 		.hints__cell_15x15 {
@@ -45,7 +45,7 @@
 	&__left_15x15 {
 		grid-area: left;
 		display: grid;
-		grid-template-rows: repeat(10, auto);
+		grid-template-rows: repeat(15, auto);
 		border-left: none;
 
 		.hints__cell_15x15 {

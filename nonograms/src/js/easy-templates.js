@@ -23,6 +23,7 @@ export const easyTemplates = [
         [1, 1, 1],
       ],
     },
+    level: "easy",
   },
   {
     template: [
@@ -36,6 +37,7 @@ export const easyTemplates = [
       rows: [[5], [1, 1, 1], [5], [1, 1, 1], [5]],
       cols: [[5], [1, 1, 1], [5], [1, 1, 1], [5]],
     },
+    level: "easy",
   },
   {
     template: [
@@ -61,6 +63,7 @@ export const easyTemplates = [
         [1, 1],
       ],
     },
+    level: "easy",
   },
   {
     template: [
@@ -74,6 +77,7 @@ export const easyTemplates = [
       rows: [[2], [1], [2], [1], [1]],
       cols: [[5], [1, 1]],
     },
+    level: "easy",
   },
   {
     template: [
@@ -87,5 +91,6 @@ export const easyTemplates = [
       rows: [[1], [2], [1], [1], [1]],
       cols: [[2], [3, 1]],
     },
+    level: "easy",
   },
 ];

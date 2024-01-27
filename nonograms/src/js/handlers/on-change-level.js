@@ -20,17 +20,21 @@ const updateTemplateDisplay = (level) => {
   }
 };
 
+const updateActivityClasses = () => {
+  const listLevel = document.querySelector(".level__list");
+  listLevel.querySelectorAll("button").forEach((item) => {
+    item.disabled = false;
+    if (item.classList.contains("dark__button"))
+      item.classList.remove("dark__button_active");
+    else item.classList.remove("light__button_active");
+  });
+};
+
 export const onChangeLevel = (e) => {
   const target = e.target;
   if (target && target.nodeName === "BUTTON") {
     updateTemplateDisplay(target);
-    const listLevel = document.querySelector(".level__list");
-    listLevel.querySelectorAll("button").forEach((item) => {
-      item.disabled = false;
-      if (item.classList.contains("dark__button"))
-        item.classList.remove("dark__button_active");
-      else item.classList.remove("light__button_active");
-    });
+    updateActivityClasses();
     if (target.classList.contains("dark__button"))
       target.classList.add("dark__button_active");
     else target.classList.add("light__button_active");

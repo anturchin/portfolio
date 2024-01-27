@@ -1,5 +1,7 @@
+import { startGame } from "../app";
 import { createHtmlElement } from "../helpers/create-html-element";
 import { getThemeLs } from "../helpers/get-theme-ls";
+import { generateGameBoardAndHints } from "./generate-game-board-and-hints";
 
 const STYLES = {
   template: "template",
@@ -14,13 +16,30 @@ const STYLES = {
   templateSell_15: "template__cell_15x15",
 };
 
+const onSelectedGame = (e) => {
+  if (e.currentTarget) {
+    const id = e.currentTarget.id;
+    const level = Object.values(e.currentTarget.dataset)[0];
+    const game = generateGameBoardAndHints(id, level);
+    const body = document.querySelector("body");
+    body.innerHTML = "";
+    startGame(game);
+  }
+};
+
 export const generateCellElements = (templates, size) => {
   const themeCell = getThemeLs({ light: "light__cell", dark: "dark__cell" });
 
   const cells = [];
 
-  templates.forEach(({ template }) => {
-    const templateItem = createHtmlElement("div", STYLES[`templateItem_${size}`]);
+  templates.forEach(({ template, level }, index) => {
+    const templateItem = createHtmlElement(
+      "div",
+      STYLES[`templateItem_${size}`],
+      null,
+      level,
+      index + 1,
+    );
     template.forEach((items) => {
       const templateCell = [];
       items.forEach((item) => {
@@ -39,6 +58,7 @@ export const generateCellElements = (templates, size) => {
         templateCell.push(cell);
       });
       templateItem.append(...templateCell);
+      templateItem.addEventListener("click", onSelectedGame);
       cells.push(templateItem);
     });
   });
