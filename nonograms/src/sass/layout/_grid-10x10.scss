@@ -17,6 +17,16 @@
 		grid-template-columns: repeat(10, 50px);
 		grid-template-rows: repeat(10, 50px);
 		gap: 1px;
+
+		@media(max-width: 770px) {
+			grid-template-columns: repeat(10, 30px);
+			grid-template-rows: repeat(10, 30px);
+		}
+
+		@media(max-width: 450px) {
+			grid-template-columns: repeat(10, 20px);
+			grid-template-rows: repeat(10, 20px);
+		}
 	}
 
 	&__cell_10x10 {
@@ -67,6 +77,10 @@
 		align-items: center;
 		justify-content: center;
 		margin-left: 5px;
+
+		@media(max-width: 450px) {
+			font-size: 1.2rem;
+		}
 	}
 
 }

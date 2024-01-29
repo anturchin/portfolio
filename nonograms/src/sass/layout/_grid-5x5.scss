@@ -17,6 +17,11 @@
 		grid-template-columns: repeat(5, 50px);
 		grid-template-rows: repeat(5, 50px);
 		gap: 1px;
+
+		@media(max-width: 450px) {
+			grid-template-columns: repeat(5, 40px);
+			grid-template-rows: repeat(5, 40px);
+		}
 	}
 
 	&__cell_5x5 {
@@ -67,6 +72,10 @@
 		align-items: center;
 		justify-content: center;
 		margin-left: 5px;
+
+		@media(max-width: 450px) {
+			// font-size: 1.2rem;
+		}
 	}
 
 }

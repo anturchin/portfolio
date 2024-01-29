@@ -14,9 +14,19 @@
 	&__grid_15x15 {
 		grid-area: game;
 		display: grid;
-		grid-template-columns: repeat(15, 50px);
-		grid-template-rows: repeat(15, 50px);
+		grid-template-columns: repeat(15, 40px);
+		grid-template-rows: repeat(15, 40px);
 		gap: 1px;
+
+		@media(max-width: 770px) {
+			grid-template-columns: repeat(15, 20px);
+			grid-template-rows: repeat(15, 20px);
+		}
+
+		@media(max-width: 450px) {
+			grid-template-columns: repeat(15, 15px);
+			grid-template-rows: repeat(15, 15px);
+		}
 	}
 
 	&__cell_15x15 {
@@ -48,6 +58,10 @@
 		grid-template-rows: repeat(15, auto);
 		border-left: none;
 
+		@media(max-width: 450px) {
+			grid-template-rows: repeat(15, 16px);
+		}
+
 		.hints__cell_15x15 {
 			flex-direction: row;
 			align-items: center;
@@ -67,6 +81,10 @@
 		align-items: center;
 		justify-content: center;
 		margin-left: 5px;
+
+		@media(max-width: 450px) {
+			font-size: 1.2rem;
+		}
 	}
 
 }
