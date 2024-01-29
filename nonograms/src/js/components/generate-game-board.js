@@ -38,9 +38,7 @@ const checkIfGameIsFinished = (cell) => {
   const level = cell.parentElement.dataset.level;
   const size = templates[level][id - 1].template.length;
   const template = templates[level][id - 1].template;
-  const hints = templates[level][id - 1].hints;
   const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
-  console.log(hints);
 
   for (let i = 0; i < cells.length; i++) {
     const cell = cells[i];
