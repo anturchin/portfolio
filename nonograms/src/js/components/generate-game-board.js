@@ -3,6 +3,7 @@ import { easyTemplates } from "../easy-templates";
 import { mediumTemplates } from "../medium-templates";
 import { hardTemplates } from "../hard-templates";
 import { getThemeLs } from "../helpers/get-theme-ls";
+import { generateModal } from "./generate-modal";
 
 const STYLES = {
   gameWrapper_5: "game__wrapper_5x5",
@@ -23,6 +24,12 @@ const templates = {
 };
 
 let isGameFinished = false;
+
+const openModal = (modal) => {
+  const body = document.querySelector("body");
+  body.append(modal);
+  body.classList.add("body__hidden");
+};
 
 const checkIfGameIsFinished = (cell) => {
   const parent = cell.parentElement;
@@ -60,9 +67,12 @@ const handleCellClick = (e) => {
       cell.classList.remove(crossTheme);
     }
     cell.classList.toggle(checkedTheme);
-    if (checkIfGameIsFinished(cell)) {
-      alert("вы победили");
-    }
+    setTimeout(() => {
+      if (checkIfGameIsFinished(cell)) {
+        const modal = generateModal();
+        openModal(modal);
+      }
+    }, 300);
   }
 };
 

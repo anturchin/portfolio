@@ -1,0 +1,78 @@
+.modal-light {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1050;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: rgba($color: #000, $alpha: .9);
+
+	&__content {
+		width: 600px;
+		position: absolute;
+		background: $color-theme-light;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 15px;
+		padding: 35px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		text-align: center;
+
+		@media(max-width: 780px) {
+			max-width: 400px;
+		}
+
+		@media(max-width: 500px) {
+			max-width: 250px;
+		}
+	}
+
+	&__title {
+		font-size: 3.4rem;
+	}
+
+
+	&__button {
+		margin-top: 25px;
+		padding: 15px 0 15px 0;
+		border: none;
+		background: $color-text-light;
+		font-size: 2.0rem;
+		color: $color-theme-light;
+		border-radius: 15px;
+		cursor: pointer;
+
+		&:hover {
+			background: rgba($color: $color-text-light, $alpha: .8);
+		}
+
+	}
+
+	&__show {
+		display: block;
+	}
+
+	&__hide {
+		display: none;
+	}
+
+	&__fade {
+		animation-name: modal__fade;
+		animation-duration: 0.4s;
+	}
+
+	@keyframes modal__fade {
+		from {
+			opacity: 0.1;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+}

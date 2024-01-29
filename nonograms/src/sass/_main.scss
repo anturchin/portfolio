@@ -13,6 +13,10 @@ body {
 	font-family: 'Inter', Verdana, sans-serif;
 }
 
+.body__hidden {
+	overflow: hidden;
+}
+
 .title {
 	text-align: center;
 	margin-top: 25px;
@@ -54,3 +58,5 @@ body {
 @import './layout/template-5x5';
 @import './layout/template-10x10';
 @import './layout/template-15x15';
+@import './themes/modals-light';
+@import './themes/modals-dark';
