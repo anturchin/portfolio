@@ -11,6 +11,29 @@
 	border: 1px solid $color-text-dark;
 }
 
+.dark__cross {
+	position: relative;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 70%;
+		height: 2px;
+		background-color: $color-text-dark;
+	}
+
+	&::before {
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	&::after {
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+}
+
 .dark__button {
 	background: $color-text-dark;
 	color: $color-theme-dark;

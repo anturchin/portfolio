@@ -12,7 +12,9 @@ export const toggleTheme = (e) => {
   const gameLevel = document.querySelectorAll(".level__item");
   const resetBtn = document.querySelectorAll(".reset__button");
   const templateCell = document.querySelectorAll(".template__cell");
-  const gameGrid = document.querySelector(".game__grid");
+  const gameGrid_5 = document.querySelector(".game__grid_5x5");
+  const gameGrid_10 = document.querySelector(".game__grid_10x10");
+  const gameGrid_15 = document.querySelector(".game__grid_15x15");
   const hintsTop_5 = document.querySelector(".hints__top_5x5");
   const hintsTop_10 = document.querySelector(".hints__top_10x10");
   const hintsTop_15 = document.querySelector(".hints__top_15x15");
@@ -22,7 +24,9 @@ export const toggleTheme = (e) => {
 
   if (target) toggle(target, "dark__button", "light__button");
   if (body) toggle(body, "dark-theme", "light-theme");
-  if (gameGrid) toggle(gameGrid, "dark__grid", "light__grid");
+  if (gameGrid_5) toggle(gameGrid_5, "dark__grid", "light__grid");
+  if (gameGrid_10) toggle(gameGrid_10, "dark__grid", "light__grid");
+  if (gameGrid_15) toggle(gameGrid_15, "dark__grid", "light__grid");
   if (hintsTop_5) toggle(hintsTop_5, "dark__top", "light__top");
   if (hintsTop_10) toggle(hintsTop_10, "dark__top", "light__top");
   if (hintsTop_15) toggle(hintsTop_15, "dark__top", "light__top");
@@ -34,16 +38,19 @@ export const toggleTheme = (e) => {
     gameCell_5.forEach((cell) => {
       toggle(cell, "dark__cell", "light__cell");
       toggle(cell, "dark__checked", "light__checked");
+      toggle(cell, "dark__cross", "light__cross");
     });
   if (gameCell_10)
     gameCell_10.forEach((cell) => {
       toggle(cell, "dark__cell", "light__cell");
       toggle(cell, "dark__checked", "light__checked");
+      toggle(cell, "dark__cross", "light__cross");
     });
   if (gameCell_15)
     gameCell_15.forEach((cell) => {
       toggle(cell, "dark__cell", "light__cell");
       toggle(cell, "dark__checked", "light__checked");
+      toggle(cell, "dark__cross", "light__cross");
     });
   if (gameLevel)
     gameLevel.forEach((level) => {
