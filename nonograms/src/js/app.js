@@ -15,13 +15,13 @@ export const startGame = (elem) => {
   body.append(main);
 };
 
-const init = () => {
+export const newGame = () => {
   const selectTemplateGame = generateSelectedGame(easyTemplates);
   startGame(selectTemplateGame);
 };
 
 const app = () => {
-  init();
+  newGame();
 };
 
 export default app;

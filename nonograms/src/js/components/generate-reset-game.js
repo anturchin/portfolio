@@ -1,3 +1,4 @@
+import { newGame } from "../app";
 import { createHtmlElement } from "../helpers/create-html-element";
 import { getThemeLs } from "../helpers/get-theme-ls";
 
@@ -28,7 +29,9 @@ export const generateResetGame = () => {
   });
 
   resetButtonTwo.addEventListener("click", () => {
-    console.log("new game");
+    const body = document.querySelector("body");
+    body.innerHTML = "";
+    newGame();
   });
   resetList.append(resetButton);
   resetList.append(resetButtonTwo);

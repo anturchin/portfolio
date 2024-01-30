@@ -1,5 +1,6 @@
 import { createHtmlElement } from "../helpers/create-html-element";
 import { getThemeLs } from "../helpers/get-theme-ls";
+import { newGame } from "../app";
 
 const STYLES_DARK = {
   modalDark: "modal-dark",
@@ -21,6 +22,13 @@ const STYLES_LIGHT = {
   modalLightFade: "modal-light__fade",
 };
 
+export const openModal = () => {
+  const body = document.querySelector("body");
+  const modal = generateModal();
+  body.append(modal);
+  body.classList.add("body__hidden");
+};
+
 const closeModalAndNewGame = () => {
   const body = document.querySelector("body");
   const modalTheme = getThemeLs({
@@ -32,7 +40,6 @@ const closeModalAndNewGame = () => {
     light: STYLES_LIGHT.modalLightHide,
     dark: STYLES_DARK.modalDarkHide,
   });
-
   const show = getThemeLs({
     light: STYLES_LIGHT.modalLightShow,
     dark: STYLES_DARK.modalDarkShow,
@@ -40,7 +47,8 @@ const closeModalAndNewGame = () => {
   modal.classList.add(hide);
   modal.classList.remove(show);
   body.classList.remove("body__hidden");
-  // resetGame();
+  body.innerHTML = "";
+  newGame();
 };
 
 export const generateModal = () => {
@@ -70,16 +78,16 @@ export const generateModal = () => {
   const modal = createHtmlElement("div", [modalTheme, modalShowTheme]);
   const modalContent = createHtmlElement("div", modalContentTheme);
 
-  const textContent = "you won";
+  const textContent = "Great! You have solved the nonogram!";
 
   const modalTitle = createHtmlElement(
-    "h2",
+    "h3",
     modalTitleTheme,
     textContent.toLocaleUpperCase(),
   );
   modalContent.append(modalTitle);
 
-  const button = createHtmlElement("button", buttonTheme, "Close");
+  const button = createHtmlElement("button", buttonTheme, "New Game");
 
   button.addEventListener("click", closeModalAndNewGame);
 
