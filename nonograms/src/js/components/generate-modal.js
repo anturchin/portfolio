@@ -1,6 +1,7 @@
 import { createHtmlElement } from "../helpers/create-html-element";
 import { getThemeLs } from "../helpers/get-theme-ls";
 import { newGame } from "../app";
+import { generateTemplateForModal } from "./generate-template-for-modal";
 
 const STYLES_DARK = {
   modalDark: "modal-dark",
@@ -22,9 +23,13 @@ const STYLES_LIGHT = {
   modalLightFade: "modal-light__fade",
 };
 
-export const openModal = () => {
+export const openModal = (cell) => {
   const body = document.querySelector("body");
-  const modal = generateModal();
+  const parent = cell.parentElement;
+  const id = +parent.id;
+  const level = parent.dataset.level;
+  const template = generateTemplateForModal(id, level);
+  const modal = generateModal(template);
   body.append(modal);
   body.classList.add("body__hidden");
 };
@@ -51,7 +56,7 @@ const closeModalAndNewGame = () => {
   newGame();
 };
 
-export const generateModal = () => {
+export const generateModal = (template = null) => {
   const modalTheme = getThemeLs({
     light: STYLES_LIGHT.modalLight,
     dark: STYLES_DARK.modalDark,
@@ -86,6 +91,9 @@ export const generateModal = () => {
     textContent.toLocaleUpperCase(),
   );
   modalContent.append(modalTitle);
+  if (template) {
+    modalContent.append(template);
+  }
 
   const button = createHtmlElement("button", buttonTheme, "New Game");
 

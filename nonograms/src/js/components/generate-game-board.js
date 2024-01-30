@@ -66,7 +66,7 @@ const handleCellClick = (e) => {
       cell.classList.toggle(checkedTheme);
       setTimeout(() => {
         if (checkIfGameIsFinished(cell)) {
-          openModal();
+          openModal(cell);
         }
       }, 300);
     }
