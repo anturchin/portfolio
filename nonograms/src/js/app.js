@@ -16,6 +16,7 @@ export const startGame = (elem) => {
 };
 
 export const newGame = () => {
+  console.clear();
   const selectTemplateGame = generateSelectedGame(easyTemplates);
   startGame(selectTemplateGame);
 };

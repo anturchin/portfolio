@@ -35,12 +35,12 @@ const checkIfGameIsFinished = (cell) => {
   const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
 
   for (let i = 0; i < cells.length; i++) {
-    const cell = cells[i];
+    const currentCell = cells[i];
     const row = Math.floor(i / size);
     const col = i % size;
 
     const shouldBeBlack = template[row][col] === "X";
-    const isCellFilled = cell.classList.contains(checkedTheme);
+    const isCellFilled = currentCell.classList.contains(checkedTheme);
 
     if ((shouldBeBlack && !isCellFilled) || (!shouldBeBlack && isCellFilled)) {
       return false;
@@ -53,17 +53,23 @@ const checkIfGameIsFinished = (cell) => {
 const handleCellClick = (e) => {
   if (!isGameFinished) {
     const cell = e.target;
-    const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
-    const crossTheme = getThemeLs({ light: "light__cross", dark: "dark__cross" });
-    if (cell.classList.contains(crossTheme)) {
-      cell.classList.remove(crossTheme);
-    }
-    cell.classList.toggle(checkedTheme);
-    setTimeout(() => {
-      if (checkIfGameIsFinished(cell)) {
-        openModal();
+    const isCell =
+      cell.classList.contains(STYLES.gameCell_5) ||
+      cell.classList.contains(STYLES.gameCell_10) ||
+      cell.classList.contains(STYLES.gameCell_15);
+    if (isCell) {
+      const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
+      const crossTheme = getThemeLs({ light: "light__cross", dark: "dark__cross" });
+      if (cell.classList.contains(crossTheme)) {
+        cell.classList.remove(crossTheme);
       }
-    }, 300);
+      cell.classList.toggle(checkedTheme);
+      setTimeout(() => {
+        if (checkIfGameIsFinished(cell)) {
+          openModal();
+        }
+      }, 300);
+    }
   }
 };
 
@@ -78,7 +84,7 @@ const handleCellRightClick = (e) => {
   cell.classList.toggle(crossTheme);
 };
 
-const createGameGrid = (id, level, size) => {
+export const createGameGrid = (id, level, size) => {
   const gridTheme = getThemeLs({ light: "light__grid", dark: "dark__grid" });
   const cellTheme = getThemeLs({ light: "light__cell", dark: "dark__cell" });
   const template = templates[level][id - 1].template;
