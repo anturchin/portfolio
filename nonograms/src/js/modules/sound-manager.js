@@ -1,9 +1,12 @@
+import blackCellSound from "../../assets/audio/click.mp3";
+import xCellSound from "../../assets/audio/click_two.mp3";
+import victorySound from "../../assets/audio/finish.mp3";
+
 export class SoundManager {
   constructor() {
-    this.blackCellSound = new Audio();
-    this.xCellSound = new Audio();
-    this.emptyCellSound = new Audio();
-    this.victorySound = new Audio();
+    this.blackCellSound = new Audio(blackCellSound);
+    this.xCellSound = new Audio(xCellSound);
+    this.victorySound = new Audio(victorySound);
   }
 
   playBlackCellSound() {
@@ -14,10 +17,6 @@ export class SoundManager {
     this.xCellSound.play();
   }
 
-  playEmptyCellSound() {
-    this.emptyCellSound.play();
-  }
-
   playVictorySound() {
     this.victorySound.play();
   }
@@ -25,7 +24,6 @@ export class SoundManager {
   pauseAllSounds() {
     this.blackCellSound.pause();
     this.xCellSound.pause();
-    this.emptyCellSound.pause();
     this.victorySound.pause();
   }
 }

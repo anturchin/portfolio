@@ -16,7 +16,7 @@ const STYLES = {
   templateSell_15: "template__cell_15x15",
 };
 
-const onSelectedGame = (e, timer) => {
+const onSelectedGame = (e, timer, sound) => {
   const targetItem =
     e.target.closest(`.${STYLES.templateItem_5}`) ||
     e.target.closest(`.${STYLES.templateItem_10}`) ||
@@ -24,7 +24,7 @@ const onSelectedGame = (e, timer) => {
   if (targetItem) {
     const id = targetItem.id;
     const level = Object.values(targetItem.dataset)[0];
-    const game = generateGameBoardAndHints(id, level, timer);
+    const game = generateGameBoardAndHints(id, level, timer, sound);
     const body = document.querySelector("body");
     body.innerHTML = "";
     startGame(game);
@@ -69,7 +69,7 @@ export const generateCellElements = (templates, size) => {
   return cells;
 };
 
-export const generateTemplate = (templates, timer) => {
+export const generateTemplate = (templates, timer, sound) => {
   const size = templates[0].template.length;
   const templateContainer = createHtmlElement("section", [
     STYLES.template,
@@ -78,7 +78,7 @@ export const generateTemplate = (templates, timer) => {
   const templateWrapper = createHtmlElement("div", STYLES.templateWrapper);
   templateWrapper.append(...generateCellElements(templates, size, timer));
   templateWrapper.addEventListener("click", (e) => {
-    onSelectedGame(e, timer);
+    onSelectedGame(e, timer, sound);
   });
   templateContainer.append(templateWrapper);
   return templateContainer;

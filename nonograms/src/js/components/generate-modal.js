@@ -23,18 +23,19 @@ const STYLES_LIGHT = {
   modalLightFade: "modal-light__fade",
 };
 
-export const openModal = (cell, time) => {
+export const openModal = (cell, time, sound) => {
   const body = document.querySelector("body");
   const parent = cell.parentElement;
   const id = +parent.id;
   const level = parent.dataset.level;
   const template = generateTemplateForModal(id, level);
-  const modal = generateModal(template, time);
+  const modal = generateModal(template, time, sound);
   body.append(modal);
   body.classList.add("body__hidden");
 };
 
-const closeModalAndNewGame = () => {
+const closeModalAndNewGame = (sound) => {
+  sound.pauseAllSounds();
   const body = document.querySelector("body");
   const modalTheme = getThemeLs({
     light: STYLES_LIGHT.modalLight,
@@ -56,7 +57,7 @@ const closeModalAndNewGame = () => {
   newGame();
 };
 
-export const generateModal = (template = null, time) => {
+export const generateModal = (template = null, time, sound) => {
   const modalTheme = getThemeLs({
     light: STYLES_LIGHT.modalLight,
     dark: STYLES_DARK.modalDark,
@@ -97,7 +98,9 @@ export const generateModal = (template = null, time) => {
 
   const button = createHtmlElement("button", buttonTheme, "New Game");
 
-  button.addEventListener("click", closeModalAndNewGame);
+  button.addEventListener("click", () => {
+    closeModalAndNewGame(sound);
+  });
 
   modalContent.append(button);
   modal.append(modalContent);

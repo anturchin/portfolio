@@ -12,7 +12,7 @@ const STYLES = {
   container: "container",
 };
 
-export const generateGameBoardAndHints = (id, level, timer) => {
+export const generateGameBoardAndHints = (id, level, timer, sound) => {
   const gameBoard = createHtmlElement("div", [STYLES.game, STYLES.container]);
   const gameSection = generateGameSection();
   const resetGame = generateResetGame(timer);
@@ -22,7 +22,7 @@ export const generateGameBoardAndHints = (id, level, timer) => {
   gameSection.append(resetGame);
   gameSection.append(resetGame);
 
-  const gameWrapper = generateGameBoard(id, level, timer);
+  const gameWrapper = generateGameBoard(id, level, timer, sound);
 
   const hintsWrapperTop = generateHintsWrapperTop(level);
   const hintsTop = generateHints(id, level, "cols");

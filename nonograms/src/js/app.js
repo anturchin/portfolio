@@ -4,8 +4,10 @@ import { generateHeader } from "./components/generate-header";
 import { generateMain } from "./components/generate-main";
 import { generateSelectedGame } from "./components/generate-selected-game";
 import { Timer } from "./modules/timer";
+import { SoundManager } from "./modules/sound-manager";
 
 const timer = new Timer();
+const sound = new SoundManager();
 
 export const startGame = (elem) => {
   const themeBody = getThemeLs({ light: "light-theme", dark: "dark-theme" });
@@ -19,8 +21,8 @@ export const startGame = (elem) => {
 };
 
 export const newGame = () => {
-  console.clear();
-  const selectTemplateGame = generateSelectedGame(easyTemplates, timer);
+  // console.clear();
+  const selectTemplateGame = generateSelectedGame(easyTemplates, timer, sound);
   startGame(selectTemplateGame);
 };
 
