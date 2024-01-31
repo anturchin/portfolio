@@ -1,6 +1,6 @@
-import { createHtmlElement } from "../helpers/create-html-element";
+import { createHtmlElement } from "../utils/create-html-element";
 import { toggleTheme } from "../handlers/toggle-theme";
-import { getThemeLs } from "../helpers/get-theme-ls";
+import { getThemeLs } from "../utils/get-theme-ls";
 
 const STYLES = {
   header: "container",

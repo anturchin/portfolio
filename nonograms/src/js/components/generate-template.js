@@ -1,6 +1,6 @@
 import { startGame } from "../app";
-import { createHtmlElement } from "../helpers/create-html-element";
-import { getThemeLs } from "../helpers/get-theme-ls";
+import { createHtmlElement } from "../utils/create-html-element";
+import { getThemeLs } from "../utils/get-theme-ls";
 import { generateGameBoardAndHints } from "./generate-game-board-and-hints";
 
 const STYLES = {

@@ -1,6 +1,6 @@
-import { createHtmlElement } from "../helpers/create-html-element";
+import { createHtmlElement } from "../utils/create-html-element";
 import { onChangeLevel } from "../handlers/on-change-level";
-import { getThemeLs } from "../helpers/get-theme-ls";
+import { getThemeLs } from "../utils/get-theme-ls";
 
 const STYLES = {
   section: "level",

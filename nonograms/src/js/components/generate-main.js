@@ -1,4 +1,4 @@
-import { createHtmlElement } from "../helpers/create-html-element";
+import { createHtmlElement } from "../utils/create-html-element";
 
 const STYLES = {
   main: "main",

@@ -1,9 +1,9 @@
-import { easyTemplates } from "./easy-templates";
-import { getThemeLs } from "./helpers/get-theme-ls";
+import { easyTemplates } from "./modules/easy-templates";
+import { getThemeLs } from "./utils/get-theme-ls";
 import { generateHeader } from "./components/generate-header";
 import { generateMain } from "./components/generate-main";
 import { generateSelectedGame } from "./components/generate-selected-game";
-import { Timer } from "./helpers/timer";
+import { Timer } from "./modules/timer";
 
 const timer = new Timer();
 

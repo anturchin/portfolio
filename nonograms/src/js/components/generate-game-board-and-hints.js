@@ -5,7 +5,7 @@ import { generateHints } from "./generate-hints";
 import { generateResetGame } from "./generate-reset-game";
 import { generateHintsWrapperTop } from "./generate-hints-wrapper-top";
 import { generateHintsWrapperLeft } from "./generate-hints-wrapper-left";
-import { createHtmlElement } from "../helpers/create-html-element";
+import { createHtmlElement } from "../utils/create-html-element";
 
 const STYLES = {
   game: "game",

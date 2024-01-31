@@ -1,8 +1,8 @@
-import { createHtmlElement } from "../helpers/create-html-element";
-import { easyTemplates } from "../easy-templates";
-import { mediumTemplates } from "../medium-templates";
-import { hardTemplates } from "../hard-templates";
-import { getThemeLs } from "../helpers/get-theme-ls";
+import { createHtmlElement } from "../utils/create-html-element";
+import { easyTemplates } from "../modules/easy-templates";
+import { mediumTemplates } from "../modules/medium-templates";
+import { hardTemplates } from "../modules/hard-templates";
+import { getThemeLs } from "../utils/get-theme-ls";
 
 const STYLES = {
   hintsCell_5: "hints__cell_5x5",

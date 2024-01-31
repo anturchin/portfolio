@@ -1,8 +1,8 @@
-import { createHtmlElement } from "../helpers/create-html-element";
-import { getThemeLs } from "../helpers/get-theme-ls";
-import { easyTemplates } from "../easy-templates";
-import { mediumTemplates } from "../medium-templates";
-import { hardTemplates } from "../hard-templates";
+import { createHtmlElement } from "../utils/create-html-element";
+import { getThemeLs } from "../utils/get-theme-ls";
+import { easyTemplates } from "../modules/easy-templates";
+import { mediumTemplates } from "../modules/medium-templates";
+import { hardTemplates } from "../modules/hard-templates";
 
 const STYLES = {
   hintsLeft_5: "hints__left_5x5",
