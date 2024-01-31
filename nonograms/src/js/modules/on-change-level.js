@@ -33,6 +33,9 @@ const updateActivityClasses = () => {
 export const onChangeLevel = (e) => {
   const target = e.target;
   if (target && target.nodeName === "BUTTON") {
+    if (target.classList.contains("level__item_continue")) {
+      return;
+    }
     updateTemplateDisplay(target);
     updateActivityClasses();
     if (target.classList.contains("dark__button"))

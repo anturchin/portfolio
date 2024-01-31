@@ -7,6 +7,7 @@ const STYLES = {
   container: "container",
   levelList: "level__list",
   levelItem: "level__item",
+  levelContinue: "level__item_continue",
   levelItemActive: "light__button_active",
 };
 
@@ -42,7 +43,14 @@ export const generateLevel = () => {
     return levelItem;
   });
 
+  const continueBtn = createHtmlElement(
+    "button",
+    [STYLES.levelItem, STYLES.levelContinue, themeBtn],
+    "Continue Game",
+  );
+
   levelList.append(...levelItems);
+  levelList.append(continueBtn);
   sectionLevel.append(levelList);
 
   levelList.addEventListener("click", onChangeLevel);

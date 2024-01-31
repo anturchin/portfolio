@@ -43,6 +43,11 @@ export const generateResetGame = (timer) => {
     [STYLES.resetButton, themeBtn],
     "New Game",
   );
+  const saveButton = createHtmlElement(
+    "button",
+    [STYLES.resetButton, themeBtn],
+    "Save Game",
+  );
   resetButton.addEventListener("click", () => {
     const timerDuration = document.querySelector(".timer__duration");
     timerDuration.innerHTML = "00 : 00";
@@ -57,6 +62,7 @@ export const generateResetGame = (timer) => {
     newGame();
   });
   resetList.append(resetButton);
+  resetList.append(saveButton);
   resetList.append(resetButtonTwo);
   resetWrapper.append(resetList);
   return resetWrapper;
