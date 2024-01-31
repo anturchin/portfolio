@@ -28,7 +28,7 @@ const resetGame = () => {
   parent.append(...cells);
 };
 
-export const generateResetGame = () => {
+export const generateResetGame = (timer) => {
   const themeBtn = getThemeLs({ light: "light__button", dark: "dark__button" });
 
   const resetWrapper = createHtmlElement("section", [STYLES.reset, STYLES.container]);
@@ -43,9 +43,15 @@ export const generateResetGame = () => {
     [STYLES.resetButton, themeBtn],
     "New Game",
   );
-  resetButton.addEventListener("click", resetGame);
+  resetButton.addEventListener("click", () => {
+    const timerDuration = document.querySelector(".timer__duration");
+    timerDuration.innerHTML = "00 : 00";
+    timer.stop();
+    resetGame();
+  });
 
   resetButtonTwo.addEventListener("click", () => {
+    timer.stop();
     const body = document.querySelector("body");
     body.innerHTML = "";
     newGame();

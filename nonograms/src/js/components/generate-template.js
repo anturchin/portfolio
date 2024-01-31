@@ -16,11 +16,15 @@ const STYLES = {
   templateSell_15: "template__cell_15x15",
 };
 
-const onSelectedGame = (e) => {
-  if (e.currentTarget) {
-    const id = e.currentTarget.id;
-    const level = Object.values(e.currentTarget.dataset)[0];
-    const game = generateGameBoardAndHints(id, level);
+const onSelectedGame = (e, timer) => {
+  const targetItem =
+    e.target.closest(`.${STYLES.templateItem_5}`) ||
+    e.target.closest(`.${STYLES.templateItem_10}`) ||
+    e.target.closest(`.${STYLES.templateItem_15}`);
+  if (targetItem) {
+    const id = targetItem.id;
+    const level = Object.values(targetItem.dataset)[0];
+    const game = generateGameBoardAndHints(id, level, timer);
     const body = document.querySelector("body");
     body.innerHTML = "";
     startGame(game);
@@ -58,7 +62,6 @@ export const generateCellElements = (templates, size) => {
         templateCell.push(cell);
       });
       templateItem.append(...templateCell);
-      templateItem.addEventListener("click", onSelectedGame);
       cells.push(templateItem);
     });
   });
@@ -66,14 +69,17 @@ export const generateCellElements = (templates, size) => {
   return cells;
 };
 
-export const generateTemplate = (templates) => {
+export const generateTemplate = (templates, timer) => {
   const size = templates[0].template.length;
   const templateContainer = createHtmlElement("section", [
     STYLES.template,
     STYLES.container,
   ]);
   const templateWrapper = createHtmlElement("div", STYLES.templateWrapper);
-  templateWrapper.append(...generateCellElements(templates, size));
+  templateWrapper.append(...generateCellElements(templates, size, timer));
+  templateWrapper.addEventListener("click", (e) => {
+    onSelectedGame(e, timer);
+  });
   templateContainer.append(templateWrapper);
   return templateContainer;
 };

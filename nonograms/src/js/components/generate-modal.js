@@ -23,13 +23,13 @@ const STYLES_LIGHT = {
   modalLightFade: "modal-light__fade",
 };
 
-export const openModal = (cell) => {
+export const openModal = (cell, time) => {
   const body = document.querySelector("body");
   const parent = cell.parentElement;
   const id = +parent.id;
   const level = parent.dataset.level;
   const template = generateTemplateForModal(id, level);
-  const modal = generateModal(template);
+  const modal = generateModal(template, time);
   body.append(modal);
   body.classList.add("body__hidden");
 };
@@ -56,7 +56,7 @@ const closeModalAndNewGame = () => {
   newGame();
 };
 
-export const generateModal = (template = null) => {
+export const generateModal = (template = null, time) => {
   const modalTheme = getThemeLs({
     light: STYLES_LIGHT.modalLight,
     dark: STYLES_DARK.modalDark,
@@ -83,7 +83,7 @@ export const generateModal = (template = null) => {
   const modal = createHtmlElement("div", [modalTheme, modalShowTheme]);
   const modalContent = createHtmlElement("div", modalContentTheme);
 
-  const textContent = "Great! You have solved the nonogram!";
+  const textContent = `Great! You have solved the nonogram in time ${time.formatMinutes} : ${time.formatSeconds} !`;
 
   const modalTitle = createHtmlElement(
     "h3",

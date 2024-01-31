@@ -4,7 +4,6 @@ import { mediumTemplates } from "../medium-templates";
 import { hardTemplates } from "../hard-templates";
 import { getThemeLs } from "../helpers/get-theme-ls";
 import { openModal } from "./generate-modal";
-import { Timer } from "../helpers/timer";
 
 const STYLES = {
   gameWrapper_5: "game__wrapper_5x5",
@@ -54,7 +53,7 @@ const checkIfGameIsFinished = (cell) => {
 const handleCellClick = (e, timer) => {
   if (!isGameFinished) {
     if (!timer.startTime) {
-      timer.start();
+      timer.start("timer__duration");
     }
 
     const cell = e.target;
@@ -70,10 +69,10 @@ const handleCellClick = (e, timer) => {
       }
       cell.classList.toggle(checkedTheme);
       if (checkIfGameIsFinished(cell)) {
+        const formatTime = timer.formatTime();
         timer.stop();
-        console.log(`время: ${timer.formatTime(timer.elapsedSeconds)}`);
         setTimeout(() => {
-          openModal(cell);
+          openModal(cell, formatTime);
         }, 200);
       }
     }
@@ -83,7 +82,7 @@ const handleCellClick = (e, timer) => {
 const handleCellRightClick = (e, timer) => {
   e.preventDefault();
   if (!timer.startTime) {
-    timer.start();
+    timer.start("timer__duration");
   }
   const cell = e.target;
   const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
@@ -94,8 +93,7 @@ const handleCellRightClick = (e, timer) => {
   cell.classList.toggle(crossTheme);
 };
 
-export const createGameGrid = (id, level, size) => {
-  const timer = new Timer();
+export const createGameGrid = (id, level, size, timer) => {
   const gridTheme = getThemeLs({ light: "light__grid", dark: "dark__grid" });
   const cellTheme = getThemeLs({ light: "light__cell", dark: "dark__cell" });
   const template = templates[level][id - 1].template;
@@ -121,10 +119,10 @@ export const createGameGrid = (id, level, size) => {
   return gameContainer;
 };
 
-export const generateGameBoard = (id, level) => {
+export const generateGameBoard = (id, level, timer) => {
   const size = templates[level][0].template.length;
   const gameWrapper = createHtmlElement("div", STYLES[`gameWrapper_${size}`]);
-  const gameGrid = createGameGrid(id, level, size);
+  const gameGrid = createGameGrid(id, level, size, timer);
   gameWrapper.append(gameGrid);
   console.table(templates[level][id - 1].template);
   return gameWrapper;
