@@ -1,5 +1,5 @@
 import { createHtmlElement } from "../utils/create-html-element";
-import { onChangeLevel } from "../handlers/on-change-level";
+import { onChangeLevel } from "../modules/on-change-level";
 import { getThemeLs } from "../utils/get-theme-ls";
 
 const STYLES = {

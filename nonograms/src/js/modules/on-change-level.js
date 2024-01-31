@@ -1,7 +1,7 @@
 import { generateCellElements } from "../components/generate-template";
-import { easyTemplates } from "../modules/easy-templates";
-import { mediumTemplates } from "../modules/medium-templates";
-import { hardTemplates } from "../modules/hard-templates";
+import { easyTemplates } from "./easy-templates";
+import { mediumTemplates } from "./medium-templates";
+import { hardTemplates } from "./hard-templates";
 
 const templateAll = {
   ["easy"]: easyTemplates,
