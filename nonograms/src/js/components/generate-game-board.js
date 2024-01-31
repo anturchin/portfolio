@@ -4,6 +4,7 @@ import { mediumTemplates } from "../medium-templates";
 import { hardTemplates } from "../hard-templates";
 import { getThemeLs } from "../helpers/get-theme-ls";
 import { openModal } from "./generate-modal";
+import { Timer } from "../helpers/timer";
 
 const STYLES = {
   gameWrapper_5: "game__wrapper_5x5",
@@ -50,8 +51,12 @@ const checkIfGameIsFinished = (cell) => {
   return true;
 };
 
-const handleCellClick = (e) => {
+const handleCellClick = (e, timer) => {
   if (!isGameFinished) {
+    if (!timer.startTime) {
+      timer.start();
+    }
+
     const cell = e.target;
     const isCell =
       cell.classList.contains(STYLES.gameCell_5) ||
@@ -64,17 +69,22 @@ const handleCellClick = (e) => {
         cell.classList.remove(crossTheme);
       }
       cell.classList.toggle(checkedTheme);
-      setTimeout(() => {
-        if (checkIfGameIsFinished(cell)) {
+      if (checkIfGameIsFinished(cell)) {
+        timer.stop();
+        console.log(`время: ${timer.formatTime(timer.elapsedSeconds)}`);
+        setTimeout(() => {
           openModal(cell);
-        }
-      }, 300);
+        }, 200);
+      }
     }
   }
 };
 
-const handleCellRightClick = (e) => {
+const handleCellRightClick = (e, timer) => {
   e.preventDefault();
+  if (!timer.startTime) {
+    timer.start();
+  }
   const cell = e.target;
   const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
   const crossTheme = getThemeLs({ light: "light__cross", dark: "dark__cross" });
@@ -85,6 +95,7 @@ const handleCellRightClick = (e) => {
 };
 
 export const createGameGrid = (id, level, size) => {
+  const timer = new Timer();
   const gridTheme = getThemeLs({ light: "light__grid", dark: "dark__grid" });
   const cellTheme = getThemeLs({ light: "light__cell", dark: "dark__cell" });
   const template = templates[level][id - 1].template;
@@ -101,8 +112,12 @@ export const createGameGrid = (id, level, size) => {
   gameContainer.id = id;
   gameContainer.dataset.level = level;
 
-  gameContainer.addEventListener("click", handleCellClick);
-  gameContainer.addEventListener("contextmenu", handleCellRightClick);
+  gameContainer.addEventListener("click", (e) => {
+    handleCellClick(e, timer);
+  });
+  gameContainer.addEventListener("contextmenu", (e) => {
+    handleCellRightClick(e, timer);
+  });
   return gameContainer;
 };
 
