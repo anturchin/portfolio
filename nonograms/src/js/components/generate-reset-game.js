@@ -3,6 +3,7 @@ import { createHtmlElement } from "../utils/create-html-element";
 import { getThemeLs } from "../utils/get-theme-ls";
 import { createGameGrid } from "./generate-game-board";
 import { createStateCellsMatrix } from "../utils/create-state-cells-matrix";
+import { showMessage } from "../utils/show-message";
 
 const STYLES = {
   reset: "reset",
@@ -34,6 +35,7 @@ const saveGameState = (timer) => {
   };
   const jsonToLocalStorage = JSON.stringify(saveGameSate);
   localStorage.setItem("saveGame", jsonToLocalStorage);
+  showMessage();
 };
 
 const openCellsWithSolution = () => {

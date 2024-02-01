@@ -43,14 +43,19 @@ export const generateLevel = () => {
     return levelItem;
   });
 
-  const continueBtn = createHtmlElement(
-    "button",
-    [STYLES.levelItem, STYLES.levelContinue, themeBtn],
-    "Continue Game",
-  );
-
   levelList.append(...levelItems);
-  levelList.append(continueBtn);
+
+  const saveGame = localStorage.getItem("saveGame");
+
+  if (saveGame) {
+    const continueBtn = createHtmlElement(
+      "button",
+      [STYLES.levelItem, STYLES.levelContinue, themeBtn],
+      "Continue Game",
+    );
+    levelList.append(continueBtn);
+  }
+
   sectionLevel.append(levelList);
 
   levelList.addEventListener("click", onChangeLevel);
