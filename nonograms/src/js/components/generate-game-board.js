@@ -101,6 +101,10 @@ export const createGameGrid = (id, level, size, timer, sound) => {
   const cellTheme = getThemeLs({ light: "light__cell", dark: "dark__cell" });
   const template = templates[level][id - 1].template;
   const gameContainer = createHtmlElement("div", [STYLES[`gameGrid_${size}`], gridTheme]);
+
+  const clickHandler = (e) => handleCellClick(e, timer, sound);
+  const contextMenuHandler = (e) => handleCellRightClick(e, timer, sound);
+
   template.forEach((row) => {
     row.forEach((col) => {
       const gameCell = createHtmlElement("div", [STYLES[`gameCell_${size}`], cellTheme]);
@@ -113,12 +117,12 @@ export const createGameGrid = (id, level, size, timer, sound) => {
   gameContainer.id = id;
   gameContainer.dataset.level = level;
 
-  gameContainer.addEventListener("click", (e) => {
-    handleCellClick(e, timer, sound);
-  });
-  gameContainer.addEventListener("contextmenu", (e) => {
-    handleCellRightClick(e, timer, sound);
-  });
+  gameContainer.addEventListener("click", clickHandler);
+  gameContainer.addEventListener("contextmenu", contextMenuHandler);
+
+  gameContainer.clickHandler = clickHandler;
+  gameContainer.contextMenuHandler = contextMenuHandler;
+
   return gameContainer;
 };
 

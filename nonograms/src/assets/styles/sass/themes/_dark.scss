@@ -45,6 +45,11 @@
 	&_active {
 		background: rgba($color: $color-text-dark, $alpha: .8);
 	}
+
+}
+
+.dark__button[disabled] {
+	background: rgba($color: $color-text-dark, $alpha: .8);
 }
 
 .hints__top {

@@ -1,5 +1,5 @@
 import { createHtmlElement } from "../utils/create-html-element";
-import { toggleTheme } from "../utils/toggle-theme";
+import { toggleTheme } from "../modules/toggle-theme";
 import { getThemeLs } from "../utils/get-theme-ls";
 
 const STYLES = {

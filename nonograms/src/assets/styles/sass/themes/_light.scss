@@ -47,6 +47,10 @@
 	}
 }
 
+.light__button[disabled] {
+	background: rgba($color: $color-text-light, $alpha: .8);
+}
+
 .hints__top {
 	.light__hints {
 		border: 1px solid $color-text-light;

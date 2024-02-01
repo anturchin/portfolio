@@ -1,4 +1,4 @@
-import { toggle } from "./toggle";
+import { toggle } from "../utils/toggle";
 
 export const toggleTheme = (e) => {
   const target = e.target;
