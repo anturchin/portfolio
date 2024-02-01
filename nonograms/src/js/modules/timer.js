@@ -36,8 +36,15 @@ export class Timer {
     this.displayTime = document.querySelector(`.${className}`);
     if (this.displayTime) {
       const { formatMinutes, formatSeconds } = this.formatTime();
-      this.displayTime.innerHTML = "";
-      this.displayTime.innerHTML = `${formatMinutes} : ${formatSeconds}`;
+      this.displayTime.textContent = "";
+      this.displayTime.textContent = `${formatMinutes} : ${formatSeconds}`;
     }
   }
+  saveState() {
+    return {
+      startTime: this.startTime,
+      elapsedSeconds: this.elapsedSeconds,
+    };
+  }
+  restoreState(state) {}
 }

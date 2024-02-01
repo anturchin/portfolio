@@ -2,6 +2,7 @@ import { newGame } from "../app";
 import { createHtmlElement } from "../utils/create-html-element";
 import { getThemeLs } from "../utils/get-theme-ls";
 import { createGameGrid } from "./generate-game-board";
+import { createStateCellsMatrix } from "../utils/create-state-cells-matrix";
 
 const STYLES = {
   reset: "reset",
@@ -18,8 +19,26 @@ const SIZE_GRID = {
   hard: 15,
 };
 
+const saveGameState = (timer) => {
+  const cells = document.querySelectorAll(".light__cell, .dark__cell");
+  const templateId = cells[0].parentElement.id;
+  const templateLevel = cells[0].parentElement.dataset.level;
+
+  const saveStateCellsMatrix = createStateCellsMatrix(cells, SIZE_GRID, templateLevel);
+
+  const saveGameSate = {
+    saveStateCellsMatrix,
+    templateLevel,
+    templateId,
+    time: timer.saveState(),
+  };
+  const jsonToLocalStorage = JSON.stringify(saveGameSate);
+  localStorage.setItem("saveGame", jsonToLocalStorage);
+};
+
 const openCellsWithSolution = () => {
   const checkedTheme = getThemeLs({ light: "light__checked", dark: "dark__checked" });
+  const crossTheme = getThemeLs({ light: "light__cross", dark: "dark__cross" });
 
   const cellsMark = document.querySelectorAll('[data-mark="X"]');
   const parent = cellsMark[0].parentElement;
@@ -30,7 +49,7 @@ const openCellsWithSolution = () => {
   const cellsForCleaning = parent.querySelectorAll("div");
 
   for (const cell of cellsForCleaning) {
-    cell.classList.remove(checkedTheme);
+    cell.classList.remove(checkedTheme, crossTheme);
   }
 
   for (const cell of cellsMark) {
@@ -105,6 +124,10 @@ export const generateResetGame = (timer) => {
   solutionButton.addEventListener("click", () => {
     timer.stop();
     showSolution();
+  });
+
+  saveButton.addEventListener("click", () => {
+    saveGameState(timer);
   });
 
   resetList.append(resetButton);
