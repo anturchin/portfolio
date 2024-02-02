@@ -7,6 +7,7 @@ const STYLES = {
   template: "template",
   container: "container",
   templateWrapper: "template__wrapper",
+  templateImages: "template__images",
   templateItem_5: "template__item_5x5",
   templateItem_10: "template__item_10x10",
   templateItem_15: "template__item_15x15",
@@ -36,7 +37,9 @@ export const generateCellElements = (templates, size) => {
 
   const cells = [];
 
-  templates.forEach(({ template, level }, index) => {
+  templates.forEach(({ template, level, name }, index) => {
+    const wrapper = createHtmlElement("div", STYLES.templateImages);
+    const templateName = createHtmlElement("p", null, name);
     const templateItem = createHtmlElement(
       "div",
       STYLES[`templateItem_${size}`],
@@ -62,7 +65,9 @@ export const generateCellElements = (templates, size) => {
         templateCell.push(cell);
       });
       templateItem.append(...templateCell);
-      cells.push(templateItem);
+      wrapper.append(templateName);
+      wrapper.append(templateItem);
+      cells.push(wrapper);
     });
   });
 
