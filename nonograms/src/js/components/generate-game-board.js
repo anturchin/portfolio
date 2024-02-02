@@ -4,6 +4,7 @@ import { mediumTemplates } from "../modules/medium-templates";
 import { hardTemplates } from "../modules/hard-templates";
 import { getThemeLs } from "../utils/get-theme-ls";
 import { openModal } from "./generate-modal";
+import { saveResultGameToLocalStorage } from "../modules/save-result-game-to-local-storage";
 
 const STYLES = {
   gameWrapper_5: "game__wrapper_5x5",
@@ -72,6 +73,7 @@ const handleCellClick = (e, timer, sound) => {
       sound.playBlackCellSound();
       if (checkIfGameIsFinished(cell)) {
         const formatTime = timer.formatTime();
+        saveResultGameToLocalStorage(formatTime, cell);
         timer.stop();
         sound.playVictorySound();
         setTimeout(() => {
@@ -121,6 +123,7 @@ export const createGameGrid = (id, level, size, timer, sound) => {
   });
   gameContainer.id = id;
   gameContainer.dataset.level = level;
+  gameContainer.dataset.name = templates[level][id - 1].name;
 
   gameContainer.addEventListener("click", clickHandler);
   gameContainer.addEventListener("contextmenu", contextMenuHandler);
