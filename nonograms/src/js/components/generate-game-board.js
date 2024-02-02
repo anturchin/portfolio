@@ -136,6 +136,5 @@ export const generateGameBoard = (id, level, timer, sound) => {
   const gameWrapper = createHtmlElement("div", STYLES[`gameWrapper_${size}`]);
   const gameGrid = createGameGrid(id, level, size, timer, sound);
   gameWrapper.append(gameGrid);
-  console.table(templates[level][id - 1].template);
   return gameWrapper;
 };
