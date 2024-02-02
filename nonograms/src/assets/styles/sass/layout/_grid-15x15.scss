@@ -19,8 +19,9 @@
 		gap: 1px;
 
 		@media(max-width: 770px) {
-			grid-template-columns: repeat(15, 20px);
-			grid-template-rows: repeat(15, 20px);
+			grid-template-columns: repeat(15, 21px);
+			grid-template-rows: repeat(15, 21px);
+			gap: 2px;
 		}
 
 		@media(max-width: 450px) {
@@ -59,7 +60,7 @@
 		border-left: none;
 
 		@media(max-width: 450px) {
-			grid-template-rows: repeat(15, 16px);
+			grid-template-rows: repeat(15, 16.7px);
 		}
 
 		.hints__cell_15x15 {
