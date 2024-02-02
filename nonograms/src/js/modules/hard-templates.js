@@ -54,6 +54,7 @@ export const hardTemplates = [
       ],
     },
     level: "hard",
+    name: "ducks",
   },
   {
     template: [
@@ -110,6 +111,7 @@ export const hardTemplates = [
       ],
     },
     level: "hard",
+    name: "house",
   },
   {
     template: [
@@ -166,6 +168,7 @@ export const hardTemplates = [
       ],
     },
     level: "hard",
+    name: "heart",
   },
   {
     template: [
@@ -222,6 +225,7 @@ export const hardTemplates = [
       ],
     },
     level: "hard",
+    name: "flowers",
   },
   {
     template: [
@@ -278,5 +282,6 @@ export const hardTemplates = [
       ],
     },
     level: "hard",
+    name: "dolphin",
   },
 ];

@@ -12,6 +12,7 @@ export const easyTemplates = [
       cols: [[1, 1], [3], [3], [3], [1, 1]],
     },
     level: "easy",
+    name: "sun",
   },
   {
     template: [
@@ -26,6 +27,7 @@ export const easyTemplates = [
       cols: [[5], [1, 1, 1], [5], [1, 1, 1], [5]],
     },
     level: "easy",
+    name: "grid",
   },
   {
     template: [
@@ -40,6 +42,7 @@ export const easyTemplates = [
       cols: [[1, 1], [2, 2], [1], [2, 2], [1, 1]],
     },
     level: "easy",
+    name: "flower",
   },
   {
     template: [
@@ -54,6 +57,7 @@ export const easyTemplates = [
       cols: [[4], [3], [1, 2], [1, 1], [2, 1]],
     },
     level: "easy",
+    name: "tetris",
   },
   {
     template: [
@@ -68,5 +72,6 @@ export const easyTemplates = [
       cols: [[5], [1], [3], [1], [5]],
     },
     level: "easy",
+    name: "panzer",
   },
 ];

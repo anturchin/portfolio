@@ -39,6 +39,7 @@ export const mediumTemplates = [
       ],
     },
     level: "medium",
+    name: "sad smile",
   },
   {
     template: [
@@ -69,6 +70,7 @@ export const mediumTemplates = [
       cols: [[3, 3], [1, 1], [1, 1], [1, 1], [6], [6], [1, 1], [1, 1], [1, 1], [3, 3]],
     },
     level: "medium",
+    name: "spider",
   },
   {
     template: [
@@ -110,6 +112,7 @@ export const mediumTemplates = [
       ],
     },
     level: "medium",
+    name: "happy smile",
   },
   {
     template: [
@@ -140,6 +143,7 @@ export const mediumTemplates = [
       cols: [[1, 2], [4, 1, 1], [3, 6], [7], [3, 6], [4, 4], [1, 3], [2], [3, 1], [2, 3]],
     },
     level: "medium",
+    name: "puppy",
   },
   {
     template: [
@@ -159,5 +163,6 @@ export const mediumTemplates = [
       cols: [[3], [5], [7, 2], [10], [4, 1], [4, 1], [10], [7, 2], [5], [3]],
     },
     level: "medium",
+    name: "rabbit",
   },
 ];
