@@ -12,6 +12,7 @@ const STYLES = {
   gameGrid_5: "game__grid_5x5",
   gameGrid_10: "game__grid_10x10",
   gameGrid_15: "game__grid_15x15",
+  gameCell: "game__cell",
   gameCell_5: "game__cell_5x5",
   gameCell_10: "game__cell_10x10",
   gameCell_15: "game__cell_15x15",
@@ -107,7 +108,11 @@ export const createGameGrid = (id, level, size, timer, sound) => {
 
   template.forEach((row) => {
     row.forEach((col) => {
-      const gameCell = createHtmlElement("div", [STYLES[`gameCell_${size}`], cellTheme]);
+      const gameCell = createHtmlElement("div", [
+        STYLES.gameCell,
+        STYLES[`gameCell_${size}`],
+        cellTheme,
+      ]);
       if (col === "X") {
         gameCell.dataset.mark = col;
       }

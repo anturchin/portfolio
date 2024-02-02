@@ -6,9 +6,12 @@ export class Timer {
     this.displayTime = null;
   }
 
-  start(className) {
-    this.reset();
-    this.startTime = new Date().getTime();
+  start(className, isContinue = false) {
+    if (!isContinue) {
+      this.reset();
+      this.startTime = new Date().getTime();
+    }
+
     this.intervalId = setInterval(this.update.bind(this, className), 1000);
   }
   reset() {
@@ -46,5 +49,11 @@ export class Timer {
       elapsedSeconds: this.elapsedSeconds,
     };
   }
-  restoreState(state) {}
+  restoreState(state, className) {
+    if (state.startTime !== null && state.elapsedSeconds !== null) {
+      this.elapsedSeconds = state.elapsedSeconds;
+      this.startTime = new Date().getTime() - this.elapsedSeconds * 1000;
+      this.start(className, true);
+    }
+  }
 }
