@@ -3,6 +3,7 @@ import { createHtmlElement } from "../utils/create-html-element";
 import { getThemeLs } from "../utils/get-theme-ls";
 import { generateGameBoardAndHints } from "./generate-game-board-and-hints";
 import { getRandomTemplate } from "../utils/get-random-template";
+import { generateTableResults } from "./generate-table-results";
 
 const STYLES = {
   section: "level",
@@ -13,21 +14,38 @@ const STYLES = {
   levelItemActive: "light__button_active",
 };
 
+let tableVisible = false;
+
+const updateActivityClasses = (button) => {
+  const themeBtnActive = getThemeLs({
+    light: "light__button_active",
+    dark: "dark__button_active",
+  });
+  button.classList.toggle(themeBtnActive);
+};
+
+const showTableResults = (e) => {
+  const select = document.querySelector(".select");
+  const oldTable = document.querySelector(".table");
+  tableVisible = !tableVisible;
+  if (tableVisible) {
+    const table = generateTableResults();
+    updateActivityClasses(e.target);
+    select.append(table);
+  } else {
+    if (oldTable) {
+      updateActivityClasses(e.target);
+      oldTable.remove();
+    }
+  }
+};
+
 const createRandomGame = (timer, sound) => {
   const { randomGameIndex, randomGame } = getRandomTemplate();
   const game = generateGameBoardAndHints(randomGameIndex + 1, randomGame, timer, sound);
   const body = document.querySelector("body");
   body.innerHTML = "";
   startGame(game);
-};
-
-const updateActivityClasses = (listLevel) => {
-  listLevel.querySelectorAll("button").forEach((item) => {
-    item.disabled = false;
-    if (item.classList.contains("dark__button"))
-      item.classList.remove("dark__button_active");
-    else item.classList.remove("light__button_active");
-  });
 };
 
 const updateCells = (saveStateCellsMatrix) => {
@@ -85,6 +103,10 @@ export const generateOptionGame = (timer, sound) => {
     "Results Games",
   );
 
+  resultTableBtn.addEventListener("click", (e) => {
+    showTableResults(e);
+  });
+
   levelList.append(randomBtn);
   levelList.append(resultTableBtn);
 
@@ -101,17 +123,6 @@ export const generateOptionGame = (timer, sound) => {
       continueGame(timer, sound);
     });
   }
-
-  levelList.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target && target.nodeName === "BUTTON") {
-      updateActivityClasses(levelList);
-      if (target.classList.contains("dark__button"))
-        target.classList.add("dark__button_active");
-      else target.classList.add("light__button_active");
-      target.disabled = true;
-    }
-  });
 
   sectionLevel.append(levelList);
 
