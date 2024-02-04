@@ -21,18 +21,32 @@ const templates = {
 
 export const generateHints = (id, level, direction) => {
   const theme = getThemeLs({ light: "light__hints", dark: "dark__hints" });
+  const cellTheme = getThemeLs({ light: "light__cell", dark: "dark__cell" });
   const size = templates[level][0].template.length;
   const hints = templates[level][id - 1].hints[direction];
   const fragment = new DocumentFragment();
+  const longestArrayHints = hints.reduce((acc, currentArr) => {
+    return currentArr.length > acc.length ? currentArr : acc;
+  }, []);
 
-  hints.forEach((row) => {
+  for (let i = 0; i < hints.length; i++) {
     const hintsCell = createHtmlElement("div", [STYLES[`hintsCell_${size}`], theme]);
-    row.forEach((col) => {
-      const hintsNum = createHtmlElement("span", [STYLES[`hintsNum_${size}`]], col);
-      hintsCell.append(hintsNum);
-    });
+    for (let j = 0; j < longestArrayHints.length; j++) {
+      const value = hints[i][j];
+      const content = value ? value : "";
+      const hintsNum = createHtmlElement(
+        "span",
+        [STYLES[`hintsNum_${size}`], cellTheme],
+        content,
+      );
+      if (content) {
+        hintsCell.append(hintsNum);
+      } else {
+        hintsCell.prepend(hintsNum);
+      }
+    }
     fragment.append(hintsCell);
-  });
+  }
 
   return fragment;
 };

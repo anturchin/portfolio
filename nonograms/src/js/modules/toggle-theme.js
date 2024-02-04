@@ -21,6 +21,9 @@ export const toggleTheme = (e) => {
   const hintsLeft_5 = document.querySelector(".hints__left_5x5");
   const hintsLeft_10 = document.querySelector(".hints__left_10x10");
   const hintsLeft_15 = document.querySelector(".hints__left_15x15");
+  const hintsNum_5 = document.querySelectorAll(".hints__num_5x5");
+  const hintsNum_10 = document.querySelectorAll(".hints__num_10x10");
+  const hintsNum_15 = document.querySelectorAll(".hints__num_15x15");
 
   if (target) toggle(target, "dark__button", "light__button");
   if (body) toggle(body, "dark-theme", "light-theme");
@@ -77,5 +80,17 @@ export const toggleTheme = (e) => {
     templateCell.forEach((template) => {
       toggle(template, "dark__cell", "light__cell");
       toggle(template, "dark__checked", "light__checked");
+    });
+  if (hintsNum_5)
+    hintsNum_5.forEach((num) => {
+      toggle(num, "dark__cell", "light__cell");
+    });
+  if (hintsNum_10)
+    hintsNum_10.forEach((num) => {
+      toggle(num, "dark__cell", "light__cell");
+    });
+  if (hintsNum_15)
+    hintsNum_15.forEach((num) => {
+      toggle(num, "dark__cell", "light__cell");
     });
 };

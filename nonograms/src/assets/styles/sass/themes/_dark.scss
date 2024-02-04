@@ -7,8 +7,11 @@
 	background: $color-text-dark;
 }
 
+// .dark__cell {
+// 	border: 1px solid $color-text-dark;
+// }
 .dark__cell {
-	border: 1px solid $color-text-dark;
+	border: 1px solid #fff;
 }
 
 .dark__cross {
@@ -52,28 +55,30 @@
 	background: rgba($color: $color-text-dark, $alpha: .8);
 }
 
-.hints__top {
-	.dark__hints {
-		border: 1px solid $color-text-dark;
-		border-top: none;
-	}
+// .dark__hints {
+// 	border: 1px solid $color-text-dark;
+// }
+.dark__hints {
+	border: 1px solid #fff;
 }
 
-.hints__left {
-	.dark__hints {
-		border: 1px solid $color-text-dark;
-		border-left: none;
-	}
-}
-
+// .dark__grid {
+// 	border: 1px solid $color-text-dark;
+// }
 .dark__grid {
-	border: 2px solid $color-text-dark;
+	border: 1px solid #fff;
 }
 
+// .dark__left {
+// 	border: 1px solid $color-text-dark;
+// }
 .dark__left {
-	border: 2px solid $color-text-dark;
+	border: 1px solid #fff;
 }
 
+// .dark__top {
+// 	border: 1px solid $color-text-dark;
+// }
 .dark__top {
-	border: 2px solid $color-text-dark;
+	border: 1px solid #fff;
 }

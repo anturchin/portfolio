@@ -7,8 +7,11 @@
 	background: $color-text-light;
 }
 
+// .light__cell {
+// 	border: 1px solid $color-text-light;
+// }
 .light__cell {
-	border: 1px solid $color-text-light;
+	border: 1px solid #000;
 }
 
 .light__cross {
@@ -51,28 +54,31 @@
 	background: rgba($color: $color-text-light, $alpha: .8);
 }
 
-.hints__top {
-	.light__hints {
-		border: 1px solid $color-text-light;
-		border-top: none;
-	}
+// .light__hints {
+// 	border: 1px solid $color-text-light;
+// }
+.light__hints {
+	border: 1px solid #000;
 }
 
-.hints__left {
-	.light__hints {
-		border: 1px solid $color-text-light;
-		border-left: none;
-	}
-}
 
+// .light__grid {
+// 	border: 1px solid $color-text-light;
+// }
 .light__grid {
-	border: 2px solid $color-text-light;
+	border: 1px solid #000;
 }
 
+// .light__left {
+// 	border: 1px solid $color-text-light;
+// }
 .light__left {
-	border: 2px solid $color-text-light;
+	border: 1px solid #000;
 }
 
+// .light__top {
+// 	border: 1px solid $color-text-light;
+// }
 .light__top {
-	border: 2px solid $color-text-light;
+	border: 1px solid #000;
 }
