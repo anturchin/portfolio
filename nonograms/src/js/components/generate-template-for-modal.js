@@ -21,10 +21,11 @@ const STYLES = {
   templateSell_15: "template__cell_15x15",
 };
 
-export const generateTemplateForModal = (id, level) => {
+export const generateTemplateForModal = (id, level, name) => {
   const template = templates[level][id - 1].template;
   const size = template.length;
   const templateWrapper = createHtmlElement("div", STYLES.templateWrapper);
+  const templateName = createHtmlElement("p", null, name);
   const templateItem = createHtmlElement("div", STYLES[`templateItem_${size}`]);
   const cells = [];
 
@@ -48,6 +49,7 @@ export const generateTemplateForModal = (id, level) => {
   });
 
   templateItem.append(...cells);
+  templateWrapper.append(templateName);
   templateWrapper.append(templateItem);
   return templateWrapper;
 };

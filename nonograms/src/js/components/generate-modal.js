@@ -28,7 +28,8 @@ export const openModal = (cell, time, sound) => {
   const parent = cell.parentElement;
   const id = +parent.id;
   const level = parent.dataset.level;
-  const template = generateTemplateForModal(id, level);
+  const templateName = parent.dataset.name;
+  const template = generateTemplateForModal(id, level, templateName);
   const modal = generateModal(template, time, sound);
   body.append(modal);
   body.classList.add("body__hidden");
