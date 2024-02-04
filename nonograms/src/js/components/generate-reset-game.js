@@ -21,7 +21,7 @@ const SIZE_GRID = {
 };
 
 const saveGameState = (timer) => {
-  const cells = document.querySelectorAll(".light__cell, .dark__cell");
+  const cells = document.querySelectorAll(".game__cell");
   const templateId = cells[0].parentElement.id;
   const templateLevel = cells[0].parentElement.dataset.level;
 

@@ -1,6 +1,6 @@
 .template {
 
-	margin-top: 50px;
+	margin-top: 25px;
 
 	&__wrapper {
 		max-width: 600px;
@@ -27,7 +27,6 @@
 		width: 115px;
 		flex-wrap: wrap;
 		cursor: pointer;
-		gap: 1px;
 	}
 
 	&__cell_5x5 {
