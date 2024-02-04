@@ -29,6 +29,18 @@
 
 	&__cell_10x10 {
 		cursor: pointer;
+
+		&:nth-child(5n) {
+			border-right-width: 3px
+		}
+
+		&:nth-child(n+41):nth-child(-n+50) {
+			border-bottom-width: 3px
+		}
+
+		&:nth-child(n+91) {
+			border-bottom-width: 3px
+		}
 	}
 
 }
