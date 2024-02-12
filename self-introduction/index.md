@@ -1,7 +1,5 @@
 ## link to the video <https://youtu.be/nzKug1lWzAQ>
 
----
-
 ## About Me
 
 Hello! My name is Andrey, I am 32 years old. I live in Saint Petersburg. By education, I am a manager, but my passion for computer technology completely changed my career path. For the past two years, I have been working in technical support, and before that, I was involved in procurement.
