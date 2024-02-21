@@ -13,6 +13,14 @@ export interface ISources {
     publishedAt: string;
 }
 
+export type Articles = {
+    articles: ISources[];
+};
+
+export type Sources = {
+    sources: ISource[];
+};
+
 export interface IResponse {
     status: string;
     articles: ISources[];
