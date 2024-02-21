@@ -26,6 +26,7 @@ export interface IResponse {
     status: number;
     statusText: string;
     articles: ISources[];
+    sources: ISource[];
 }
 
 export interface IOptions {
