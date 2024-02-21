@@ -1,9 +1,5 @@
 import './news.scss';
-import { ISources } from '../../../types/';
-
-interface INews<T> {
-    draw(data: T[]): void;
-}
+import { ISources, INews } from '../../../types/';
 
 class News implements INews<ISources> {
     draw(data: ISources[]): void {

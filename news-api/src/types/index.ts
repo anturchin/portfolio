@@ -17,3 +17,7 @@ export interface IResponse {
     status: string;
     articles: ISources[];
 }
+
+export interface INews<T> {
+    draw(data: T[]): void;
+}
