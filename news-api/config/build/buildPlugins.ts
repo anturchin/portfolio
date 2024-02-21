@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import EslingPlugin from 'eslint-webpack-plugin';
 import webpack, { Configuration } from 'webpack';
 import { IBuildOptions } from './types/types';
 
@@ -7,7 +8,10 @@ export const buildPlugins = ({ mode, paths }: IBuildOptions): Configuration['plu
     const isDev = mode === 'development';
     const isProd = mode === 'production';
 
-    const plugins: Configuration['plugins'] = [new HtmlWebpackPlugin({ template: paths.html })];
+    const plugins: Configuration['plugins'] = [
+        new HtmlWebpackPlugin({ template: paths.html }),
+        new EslingPlugin({ extensions: ['ts'] }),
+    ];
 
     if (isDev) {
         plugins.push(new webpack.ProgressPlugin());

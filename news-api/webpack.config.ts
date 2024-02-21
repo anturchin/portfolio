@@ -12,7 +12,7 @@ interface IEnv {
 export default (env: IEnv) => {
     const paths: IBuildPaths = {
         output: path.resolve(__dirname, 'build'),
-        entry: path.resolve(__dirname, 'src', 'index.ts'),
+        entry: path.resolve(__dirname, 'src', 'main.ts'),
         html: path.resolve(__dirname, 'src', 'index.html'),
     };
     const config: webpack.Configuration = buildWebpack({
