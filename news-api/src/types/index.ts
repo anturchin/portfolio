@@ -1,14 +1,19 @@
-export interface ISources {
+export interface ISource {
     id: string;
     name: string;
+}
+
+export interface ISources {
+    source: ISource;
+    author: string;
+    title: string;
     description: string;
     url: string;
-    category: string;
-    language: string;
-    country: string;
+    urlToImage: string;
+    publishedAt: string;
 }
 
 export interface IResponse {
     status: string;
-    sources: ISources[];
+    articles: ISources[];
 }
