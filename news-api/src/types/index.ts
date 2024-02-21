@@ -22,10 +22,25 @@ export type Sources = {
 };
 
 export interface IResponse {
-    status: string;
+    ok: boolean;
+    status: number;
+    statusText: string;
     articles: ISources[];
 }
 
+export interface IOptions {
+    [key: string]: string;
+}
+
+export type TypeResp = {
+    endpoint: string;
+    options: IOptions;
+};
+
 export interface INews<T> {
     draw(data: T[]): void;
+}
+
+export interface ICallback {
+    (res: IResponse): void;
 }
