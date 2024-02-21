@@ -34,7 +34,7 @@ export interface IOptions {
 
 export type TypeResp = {
     endpoint: string;
-    options: IOptions;
+    options?: IOptions;
 };
 
 export interface INews<T> {
@@ -42,5 +42,5 @@ export interface INews<T> {
 }
 
 export interface ICallback {
-    (res: IResponse): void;
+    (res?: IResponse): void;
 }
