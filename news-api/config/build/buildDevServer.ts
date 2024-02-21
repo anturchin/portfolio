@@ -3,7 +3,7 @@ import { IBuildOptions } from './types/types';
 
 export const buildDevServer = (options: IBuildOptions): DevServerConfiguration => {
     return {
-        port: options.port ?? 3000,
+        port: options.port ?? 5000,
         open: true,
     };
 };

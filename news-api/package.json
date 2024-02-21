@@ -18,6 +18,7 @@
     "license": "ISC",
     "homepage": "",
     "devDependencies": {
+        "@types/dotenv-webpack": "^7.0.7",
         "@types/node": "^20.11.19",
         "@types/webpack": "^5.28.5",
         "@types/webpack-dev-server": "^4.7.2",
