@@ -45,3 +45,10 @@ export interface INews<T> {
 export interface ICallback {
     (res?: IResponse): void;
 }
+
+export type TypeMethod = 'GET' | 'POST';
+
+export enum StatusCode {
+    Unauthorized = 401,
+    NotFound = 404,
+}
