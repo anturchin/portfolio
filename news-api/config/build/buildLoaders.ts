@@ -13,5 +13,9 @@ export const buildLoaders = ({ mode }: IBuildOptions): ModuleOptions['rules'] =>
         use: 'ts-loader',
         exclude: /node_modules/,
     };
-    return [scssLoader, tsLoader];
+    const htmlLoader = {
+        test: /\.html$/i,
+        loader: 'html-loader',
+    };
+    return [scssLoader, tsLoader, htmlLoader];
 };

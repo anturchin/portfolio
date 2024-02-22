@@ -1,3 +1,4 @@
+import './index.html';
 import App from './components/app/app';
 import './global.scss';
 
