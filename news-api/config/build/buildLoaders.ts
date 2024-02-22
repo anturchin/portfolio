@@ -14,7 +14,7 @@ export const buildLoaders = ({ mode }: IBuildOptions): ModuleOptions['rules'] =>
     };
 
     const assetLoader = {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|webp|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
         generator: {
             filename: 'images/[name].[ext]',
