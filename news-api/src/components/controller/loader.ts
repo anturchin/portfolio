@@ -1,4 +1,4 @@
-import { IOptions, TypeResp, IResponse, ICallback } from '../../types';
+import { IOptions, TypeResp, IResponse, ICallback, TypeMethod, StatusCode } from '../../types';
 
 class Loader {
     private baseLink: string;
@@ -20,7 +20,7 @@ class Loader {
 
     private async errorHandler(res: Response): Promise<IResponse> {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === StatusCode.NotFound || res.status === StatusCode.Unauthorized)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
@@ -39,7 +39,12 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private async load(method: string, endpoint: string, callback: ICallback, options: IOptions = {}): Promise<void> {
+    private async load(
+        method: TypeMethod,
+        endpoint: string,
+        callback: ICallback,
+        options: IOptions = {}
+    ): Promise<void> {
         try {
             const response = await fetch(this.makeUrl(options, endpoint), { method });
             const responseData = await this.errorHandler(response);
