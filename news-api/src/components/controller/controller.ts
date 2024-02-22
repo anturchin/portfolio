@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { ICallback } from '../../types';
 
 class AppController extends AppLoader {
-    getSources(callback: ICallback) {
+    public getSources(callback: ICallback) {
         super.getResp(
             {
                 endpoint: 'sources',
@@ -11,7 +11,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: MouseEvent, callback: ICallback) {
+    public getNews(e: MouseEvent, callback: ICallback) {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 

@@ -2,7 +2,7 @@ import './news.scss';
 import { ISources, INews } from '../../../types/';
 
 class News implements INews<ISources> {
-    draw(data: ISources[]): void {
+    public draw(data: ISources[]): void {
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
         const fragment = document.createDocumentFragment() as DocumentFragment;
