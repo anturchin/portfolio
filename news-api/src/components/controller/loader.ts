@@ -2,9 +2,9 @@ import { IOptions, TypeResp, IResponse, ICallback, TypeMethod, StatusCode } from
 
 class Loader {
     private baseLink: string;
-    private options: IOptions;
+    private options: Partial<IOptions>;
 
-    constructor(baseLink: string, options: IOptions) {
+    constructor(baseLink: string, options: Partial<IOptions>) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -24,11 +24,11 @@ class Loader {
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
-        const data = await res.json();
-        return data as IResponse;
+        const data: Promise<IResponse> = await res.json();
+        return data;
     }
 
-    public makeUrl(options: IOptions, endpoint: string): string {
+    public makeUrl(options: Partial<IOptions>, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -43,7 +43,7 @@ class Loader {
         method: TypeMethod,
         endpoint: string,
         callback: ICallback,
-        options: IOptions = {}
+        options: Partial<IOptions> = {}
     ): Promise<void> {
         try {
             const response = await fetch(this.makeUrl(options, endpoint), { method });
