@@ -1,32 +1,32 @@
 export interface ISource {
-    readonly id: string;
-    readonly name: string;
+    id: string;
+    name: string;
 }
 
 export interface ISources {
-    readonly source: ISource;
-    readonly author: string;
-    readonly title: string;
-    readonly description: string;
-    readonly url: string;
-    readonly urlToImage: string;
-    readonly publishedAt: string;
+    source: ISource;
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
 }
 
 export type Articles = {
-    readonly articles: ISources[];
+    articles: ISources[];
 };
 
 export type Sources = {
-    readonly sources: ISource[];
+    sources: ISource[];
 };
 
 export interface IResponse {
-    readonly ok: boolean;
-    readonly status: number;
-    readonly statusText: string;
-    readonly articles: ISources[];
-    readonly sources: ISource[];
+    ok: boolean;
+    status: number;
+    statusText: string;
+    articles: ISources[];
+    sources: ISource[];
 }
 
 export interface IOptions {
