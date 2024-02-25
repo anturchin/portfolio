@@ -23,5 +23,8 @@ export const buildWebpack = (options: IBuildOptions): webpack.Configuration => {
         resolve: buildResolvers(),
         devtool: isDev ? 'inline-source-map' : false,
         devServer: isDev ? buildDevServer(options) : undefined,
+        watchOptions: {
+            poll: 1000,
+        },
     };
 };
