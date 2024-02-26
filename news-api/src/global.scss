@@ -24,6 +24,9 @@ footer .copyright {
     color: #fff;
     text-align: left;
     padding: 25px;
+    @media(max-width: 720px){
+        text-align: center;
+    }
 }
 footer .copyright a {
     color: #fff;
@@ -39,9 +42,10 @@ footer .copyright:before {
 
 .footer {
     margin-top: 50px;
+    padding: 0 25px 0 25px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     @media(max-width: 720px){
         flex-direction: column;
         gap: 25px;
