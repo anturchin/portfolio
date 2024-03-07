@@ -11,7 +11,7 @@
         "lint:fix": "eslint . --ext .ts --fix",
         "format": "prettier --write .",
         "ci:format": "prettier --check .",
-        "precommit": "npm run ci:format"
+        "prepare": "cd .. && husky rss-puzzle/.husky"
     },
     "author": "andrey_turchin",
     "license": "MIT",
@@ -48,9 +48,8 @@
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^5.0.0"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run precommit"
-        }
+    "validate-branch-name": {
+        "pattern": "^(feat|fix|refactor|docs)/(RSS-PZ-[0-9]{2}_.*$)",
+        "errorMsg": "Invalid branch name. Branches must start with feat/, fix/, refactor/, or docs/ followed by RSS-PZ-XX_"
     }
 }

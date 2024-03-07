@@ -1,0 +1,14 @@
+@import './assets/styles/base/normalize';
+
+html {
+    font-size: 10px;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    font-size: 1.6rem;
+    font-family: 'Inter', sans-serif;
+}

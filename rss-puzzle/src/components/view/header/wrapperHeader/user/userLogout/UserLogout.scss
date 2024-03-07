@@ -1,0 +1,22 @@
+.user {
+    &__logout {
+        padding: 8px;
+        background-color: #ffa500;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 600;
+        transition: all 250ms;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background-color: #78b159;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        }
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
+}

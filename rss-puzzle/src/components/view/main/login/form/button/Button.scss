@@ -1,0 +1,20 @@
+.login__button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: #ffa500;
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        background-color: #78b159;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    }
+    &:hover {
+        transform: translateY(-1px);
+    }
+}
