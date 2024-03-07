@@ -17,4 +17,9 @@
     &:hover {
         transform: translateY(-1px);
     }
+    &:disabled {
+        opacity: 0.3;
+        background-color: #ff8c69;
+        cursor: auto;
+    }
 }

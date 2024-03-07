@@ -1,11 +1,16 @@
 .login__form-field {
     border: none;
+    color: #78b159;
     border-bottom: 1px solid #3a3a3a;
     margin-bottom: 10px;
     border-radius: 3px;
     outline: none;
-    padding: 0px 0px 5px 5px;
+    padding: 10px;
     &::placeholder {
         text-align: center;
     }
+}
+
+.error {
+    color: #ff2400;
 }
