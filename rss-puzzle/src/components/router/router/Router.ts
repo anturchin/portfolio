@@ -6,24 +6,30 @@ import { IRouter } from './Router.interface';
 export class Router implements IRouter {
     private routes: Route[];
 
-    private mainInstance: Main;
+    private mainInstance: Main | null;
 
-    constructor(mainInstance: Main) {
+    constructor() {
         this.routes = [];
-        this.mainInstance = mainInstance;
+        this.mainInstance = null;
     }
 
     public addRoute({ path, callback }: IRoute): void {
         this.routes.push(new Route({ path, callback }));
     }
 
+    public addMainInstance(mainInstance: Main): void {
+        this.mainInstance = mainInstance;
+    }
+
     public async navigate(path: string): Promise<void> {
         const route = this.routes.find((r) => r.path === path);
         if (route) {
-            await route.callback(this.mainInstance);
-            console.log(`route ${path}`);
+            if (this.mainInstance) {
+                await route.callback(this.mainInstance, this);
+                console.log(`route: ${path}`);
+            }
         } else {
-            console.error(`not found route ${path}`);
+            console.error(`not found route: ${path}`);
         }
     }
 }

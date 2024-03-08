@@ -1,12 +1,16 @@
 import { View } from '../../View';
 import { Form } from './form/Form';
 import { Title } from './title/Title';
+import { Router } from '../../../router/router/Router';
 
 import './Login.scss';
 
 export class Login extends View {
-    constructor() {
+    private router: Router;
+
+    constructor(router: Router) {
         super({ tag: 'div', classNames: ['login'], callback: null });
+        this.router = router;
         this.setupLoginContent();
     }
 
