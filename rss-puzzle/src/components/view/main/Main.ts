@@ -1,4 +1,5 @@
 import { View } from '../View';
+import { IView } from '../View.interface';
 import { Container } from '../container/Container';
 
 import './Main.scss';
@@ -14,11 +15,8 @@ export class Main extends View {
         this.viewHtmlElementCreator.addInnerElement(container);
     }
 
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
+    override render(component: IView): void {
+        console.log(this.viewHtmlElementCreator.getElement());
+        console.log(component);
     }
 }

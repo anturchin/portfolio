@@ -63,14 +63,6 @@ export class Form extends View {
         });
     }
 
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
-    }
-
     private setupEventListener(): void {
         const form = this.viewHtmlElementCreator.getElement();
         form.addEventListener('submit', this.onHandleSubmit.bind(this));

@@ -22,7 +22,7 @@ export abstract class View implements IView {
         this.viewHtmlElementCreator.addInnerElement(innerElement);
     }
 
-    abstract render(): void;
-
-    abstract destroy(): void;
+    render(component: IView): void {
+        console.log(component);
+    }
 }

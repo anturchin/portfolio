@@ -15,12 +15,4 @@ export class Login extends View {
         const form = new Form().getElement();
         [title, form].forEach((elem) => this.viewHtmlElementCreator.addInnerElement(elem));
     }
-
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
-    }
 }

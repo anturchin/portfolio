@@ -11,12 +11,4 @@ export class Title extends View {
             textContent: 'Login',
         });
     }
-
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
-    }
 }
