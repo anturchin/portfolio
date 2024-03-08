@@ -1,6 +1,6 @@
 import { View } from '../../View';
 
-export class StartScreen extends View {
+export class Game extends View {
     constructor() {
         super({ tag: 'section', callback: null });
     }
