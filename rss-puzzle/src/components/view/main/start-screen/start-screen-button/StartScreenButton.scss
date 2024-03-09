@@ -1,0 +1,24 @@
+.start-screen__button {
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 3.2rem;
+    color: white;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: #e6d13a;
+    transition: all 250ms;
+    outline: none;
+    width: 50%;
+    align-self: center;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        background-color: #b9d04b;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    }
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
