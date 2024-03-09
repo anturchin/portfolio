@@ -3,6 +3,9 @@ import { Input } from './input/Input';
 import { Button } from './button/Button';
 import { InputValidator } from '../../../../utils/inputValidator/InputValidator';
 import { ErrorManager } from '../../../../utils/errorManager/ErrorManager';
+import { UserDataType } from '../../../../utils/localStorageManager/types';
+import { LocalStorageManager } from '../../../../utils/localStorageManager/LocalStorageManager';
+import { Router } from '../../../../router/router/Router';
 
 import './Form.scss';
 
@@ -23,7 +26,9 @@ export class Form extends View {
 
     private loginButton: Button | null;
 
-    constructor(minimumLengthName: number = 3, minimumLengthSurname: number = 4) {
+    private router: Router;
+
+    constructor(router: Router, minimumLengthName: number = 3, minimumLengthSurname: number = 4) {
         super({
             tag: 'form',
             classNames: ['login__form'],
@@ -31,6 +36,7 @@ export class Form extends View {
         });
         this.minimumLengthName = minimumLengthName;
         this.minimumLengthSurname = minimumLengthSurname;
+        this.router = router;
         this.firstNameInput = null;
         this.surnameInput = null;
         this.loginButton = null;
@@ -92,15 +98,21 @@ export class Form extends View {
 
     private onHandleSubmit(event: Event): void {
         event.preventDefault();
-        const inputValueName = (this.firstNameInput?.getElement() as HTMLInputElement).value;
-        const inputValueSurname = (this.surnameInput?.getElement() as HTMLInputElement).value;
-        const isValidName = this.validate(inputValueName, this.minimumLengthName);
-        const isValidSurname = this.validate(inputValueSurname, this.minimumLengthSurname);
+        const firstName = (this.firstNameInput?.getElement() as HTMLInputElement).value;
+        const lastName = (this.surnameInput?.getElement() as HTMLInputElement).value;
+        const isValidName = this.validate(firstName, this.minimumLengthName);
+        const isValidSurname = this.validate(lastName, this.minimumLengthSurname);
         if (!isValidName || !isValidSurname) {
             this.showErrorMessage();
             return;
         }
         (this.firstNameInput?.getElement() as HTMLInputElement).value = '';
         (this.surnameInput?.getElement() as HTMLInputElement).value = '';
+        this.saveUserDataToLocalStorage({ firstName, lastName });
+        this.router.navigate('/start');
+    }
+
+    private saveUserDataToLocalStorage({ firstName, lastName }: UserDataType): void {
+        LocalStorageManager.saveUserData({ firstName, lastName });
     }
 }

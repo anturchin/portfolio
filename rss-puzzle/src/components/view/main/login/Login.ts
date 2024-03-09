@@ -5,6 +5,8 @@ import { Router } from '../../../router/router/Router';
 
 import './Login.scss';
 
+const minimumLengthName = 3;
+const minimumLengthSurname = 4;
 export class Login extends View {
     private router: Router;
 
@@ -16,7 +18,7 @@ export class Login extends View {
 
     setupLoginContent(): void {
         const title = new Title().getElement();
-        const form = new Form().getElement();
+        const form = new Form(this.router, minimumLengthName, minimumLengthSurname).getElement();
         [title, form].forEach((elem) => this.viewHtmlElementCreator.addInnerElement(elem));
     }
 }
