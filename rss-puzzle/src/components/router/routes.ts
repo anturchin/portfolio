@@ -3,9 +3,11 @@ import { Route } from './route/Route';
 export const routes: Route[] = [
     {
         path: '/login',
-        callback: async (mainInstance, router) => {
+        callback: async (mainInstance, router, headerInstance) => {
             const { Login } = await import('../view/main/login/Login');
-            mainInstance.render(new Login(router));
+            if (headerInstance) {
+                mainInstance.render(new Login(router, headerInstance));
+            }
         },
     },
     {

@@ -14,4 +14,8 @@ export class LocalStorageManager {
         }
         return null;
     }
+
+    public static removeUserData(): void {
+        localStorage.removeItem('userData');
+    }
 }

@@ -8,16 +8,8 @@ export class Logo extends View {
         this.setImgPath();
     }
 
-    setImgPath(): void {
+    private setImgPath(): void {
         const logo = this.viewHtmlElementCreator.getElement();
         logo.setAttribute('src', img);
-    }
-
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
     }
 }

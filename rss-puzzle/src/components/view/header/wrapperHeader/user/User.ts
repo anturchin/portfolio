@@ -3,28 +3,27 @@ import { UserLogout } from './userLogout/UserLogout';
 import { UserName } from './userName/UserName';
 
 import './User.scss';
+import { Router } from '../../../../router/router/Router';
+import { Header } from '../../Header';
 
 export class User extends View {
-    constructor() {
+    constructor(firstName: string, lastName: string, router: Router, header: Header) {
         super({
             tag: 'div',
             classNames: ['user'],
             callback: null,
         });
-        this.setupUserContent();
+        this.setupUserContent(firstName, lastName, router, header);
     }
 
-    setupUserContent(): void {
-        const userName = new UserName().getElement();
-        const userLogout = new UserLogout().getElement();
+    private setupUserContent(
+        firstName: string,
+        lastName: string,
+        router: Router,
+        header: Header
+    ): void {
+        const userName = new UserName(firstName, lastName).getElement();
+        const userLogout = new UserLogout(router, header).getElement();
         [userName, userLogout].forEach((elem) => this.viewHtmlElementCreator.addInnerElement(elem));
-    }
-
-    render(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    destroy(): void {
-        throw new Error('Method not implemented.');
     }
 }

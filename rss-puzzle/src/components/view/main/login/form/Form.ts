@@ -8,6 +8,7 @@ import { LocalStorageManager } from '../../../../utils/localStorageManager/Local
 import { Router } from '../../../../router/router/Router';
 
 import './Form.scss';
+import { Header } from '../../../header/Header';
 
 const ERROR_MESSAGE: string = `
     The name field must contain at least 3 characters,
@@ -28,7 +29,14 @@ export class Form extends View {
 
     private router: Router;
 
-    constructor(router: Router, minimumLengthName: number = 3, minimumLengthSurname: number = 4) {
+    private headerInstance: Header;
+
+    constructor(
+        router: Router,
+        headerInstance: Header,
+        minimumLengthName: number = 3,
+        minimumLengthSurname: number = 4
+    ) {
         super({
             tag: 'form',
             classNames: ['login__form'],
@@ -37,6 +45,7 @@ export class Form extends View {
         this.minimumLengthName = minimumLengthName;
         this.minimumLengthSurname = minimumLengthSurname;
         this.router = router;
+        this.headerInstance = headerInstance;
         this.firstNameInput = null;
         this.surnameInput = null;
         this.loginButton = null;
@@ -114,5 +123,6 @@ export class Form extends View {
 
     private saveUserDataToLocalStorage({ firstName, lastName }: UserDataType): void {
         LocalStorageManager.saveUserData({ firstName, lastName });
+        this.headerInstance.updateWrapperHeader();
     }
 }
