@@ -7,7 +7,7 @@ export class UserName extends View {
             tag: 'p',
             classNames: ['user__name'],
             callback: null,
-            textContent: `Hello, ${firstName} ${lastName}`,
+            textContent: `${firstName} ${lastName}`,
         });
     }
 }
