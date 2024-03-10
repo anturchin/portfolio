@@ -1,9 +1,9 @@
 import { Router } from '../../../router/router/Router';
 import { View } from '../../View';
-import { BlockImage } from './block-image/BlockImage';
-import { StartScreenButton } from './start-screen-button/StartScreenButton';
-import { StartScreenTitle } from './start-screen-title/StartScreenTitle';
-import { StartScreenUser } from './start-screen-user/StartScreenUser';
+import { BlockImage } from './blockImage/BlockImage';
+import { StartScreenButton } from './startScreenButton/StartScreenButton';
+import { StartScreenTitle } from './startScreenTitle/StartScreenTitle';
+import { StartScreenUser } from './startScreenUser/StartScreenUser';
 
 import './StartScreen.scss';
 

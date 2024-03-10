@@ -1,5 +1,5 @@
 import { View } from '../../../View';
-import { ImageStartScreen } from './image-start-screen/ImageStartScreen';
+import { ImageStartScreen } from './imageStartScreen/ImageStartScreen';
 
 export class BlockImage extends View {
     constructor() {

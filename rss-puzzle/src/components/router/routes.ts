@@ -13,7 +13,7 @@ export const routes: Route[] = [
     {
         path: '/start',
         callback: async (mainInstance, router) => {
-            const { StartScreen } = await import('../view/main/start-screen/StartScreen');
+            const { StartScreen } = await import('../view/main/startScreen/StartScreen');
             mainInstance.render(new StartScreen(router));
         },
     },

@@ -1,7 +1,7 @@
 import { Router } from '../../../router/router/Router';
 import { View } from '../../View';
-import { FileLoaderService } from '../../../services/file-loader/FileLoaderService';
-import { DataParserService } from '../../../services/data-parser-service/DataParserService';
+import { FileLoaderService } from '../../../services/fileLoader/FileLoaderService';
+import { DataParserService } from '../../../services/dataParserService/DataParserService';
 import { IRounds } from '../../../services/types';
 import { PathToFilesJSONType, basePath } from '../../../services/pathToFilesJSON';
 
