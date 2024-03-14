@@ -27,7 +27,7 @@
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": "off",
         "arrow-body-style": "off",
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "comma-dangle": "off",
         "no-unused-vars": 0,
         "prettier/prettier": ["error", { "endOfLine": "auto" }]

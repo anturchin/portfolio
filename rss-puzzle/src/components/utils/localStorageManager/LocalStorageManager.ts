@@ -1,4 +1,4 @@
-import { UserDataType } from './types';
+import { UserDataType, GameStateType } from './types';
 
 export class LocalStorageManager {
     public static saveUserData({ firstName, lastName }: UserDataType): void {
@@ -17,5 +17,22 @@ export class LocalStorageManager {
 
     public static removeUserData(): void {
         localStorage.removeItem('userData');
+    }
+
+    public static saveGameIndexes({
+        currentRoundIndex,
+        currentSentenceIndex,
+    }: GameStateType): void {
+        const gameIndexes = { currentRoundIndex, currentSentenceIndex };
+        const gameIndexesJson = JSON.stringify(gameIndexes);
+        localStorage.setItem('gameIndexes', gameIndexesJson);
+    }
+
+    public static getGameIndexes(): GameStateType | null {
+        const gameIndexesString = localStorage.getItem('gameIndexes');
+        if (gameIndexesString) {
+            return JSON.parse(gameIndexesString);
+        }
+        return null;
     }
 }

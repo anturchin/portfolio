@@ -20,7 +20,3 @@ export type RoundData = {
     levelData: LevelDataType;
     words: WordType[];
 };
-
-export interface IStateGame {
-    rounds: RoundData[];
-}

@@ -1,5 +1,11 @@
 @import './assets/styles/base/normalize';
 
+:root {
+    --game-row-size: 40px;
+    --game-puzzle-size: 400px;
+    --game-wrapper-size: 700px;
+}
+
 html {
     font-size: 10px;
 }
