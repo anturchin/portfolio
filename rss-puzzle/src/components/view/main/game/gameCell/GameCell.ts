@@ -42,6 +42,23 @@ export class GameCell extends View {
             }
         };
         this.viewHtmlElementCreator.getElement().addEventListener('click', onCellClick);
+        this.setDragAndDrop();
+    }
+
+    private setDragAndDrop(): void {
+        const onDragStartCell = (event: DragEvent) => {
+            const target = event.target as HTMLElement;
+            event.dataTransfer?.setData('id', target.id);
+            target?.classList.add('over');
+        };
+
+        const onDragEndCell = (event: DragEvent) => {
+            const target = event.target as HTMLElement;
+            target?.classList.remove('over');
+        };
+
+        this.viewHtmlElementCreator.getElement().addEventListener('dragstart', onDragStartCell);
+        this.viewHtmlElementCreator.getElement().addEventListener('dragend', onDragEndCell);
     }
 
     private createImages(rowIndex: number, pathImage: string): void {
