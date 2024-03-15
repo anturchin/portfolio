@@ -6,9 +6,10 @@ import { ErrorManager } from '../../../../utils/errorManager/ErrorManager';
 import { UserDataType } from '../../../../utils/localStorageManager/types';
 import { LocalStorageManager } from '../../../../utils/localStorageManager/LocalStorageManager';
 import { Router } from '../../../../router/router/Router';
+import { IView } from '../../../View.interface';
+import { Header } from '../../../header/Header';
 
 import './Form.scss';
-import { Header } from '../../../header/Header';
 
 const ERROR_MESSAGE: string = `
     The name field must contain at least 3 characters,
@@ -94,15 +95,35 @@ export class Form extends View {
         return this.validate(value, minimumLength);
     }
 
-    private closeErrorMessage(): void {
-        ErrorManager.hideError();
-        (this.loginButton?.getElement() as HTMLButtonElement).disabled = false;
+    private closeErrorMessage(errorInputOne: ErrorManager, errorInputTwo?: ErrorManager): void {
+        if (!errorInputTwo) {
+            errorInputOne.hideError();
+            (this.loginButton?.getElement() as HTMLButtonElement).disabled = false;
+        } else {
+            errorInputOne.hideError();
+            errorInputTwo.hideError();
+            (this.loginButton?.getElement() as HTMLButtonElement).disabled = false;
+        }
     }
 
-    private showErrorMessage(): void {
-        ErrorManager.showError(ERROR_MESSAGE, this.viewHtmlElementCreator.getElement());
-        (this.loginButton?.getElement() as HTMLButtonElement).disabled = true;
-        setTimeout(this.closeErrorMessage.bind(this), DELAY);
+    private showErrorMessage(inputOne: IView, inputTwo?: IView): void {
+        if (!inputTwo) {
+            const error = new ErrorManager(ERROR_MESSAGE);
+            error.showError(inputOne.getElement());
+            (this.loginButton?.getElement() as HTMLButtonElement).disabled = true;
+            setTimeout(() => {
+                this.closeErrorMessage(error);
+            }, DELAY);
+        } else {
+            const errorInputOne = new ErrorManager(ERROR_MESSAGE);
+            const errorInputTwo = new ErrorManager(ERROR_MESSAGE);
+            errorInputOne.showError(inputOne.getElement());
+            errorInputTwo.showError(inputTwo.getElement());
+            (this.loginButton?.getElement() as HTMLButtonElement).disabled = true;
+            setTimeout(() => {
+                this.closeErrorMessage(errorInputOne, errorInputTwo);
+            }, DELAY);
+        }
     }
 
     private onHandleSubmit(event: Event): void {
@@ -111,8 +132,16 @@ export class Form extends View {
         const lastName = (this.surnameInput?.getElement() as HTMLInputElement).value;
         const isValidName = this.validate(firstName, this.minimumLengthName);
         const isValidSurname = this.validate(lastName, this.minimumLengthSurname);
-        if (!isValidName || !isValidSurname) {
-            this.showErrorMessage();
+        if (this.firstNameInput && !isValidName && isValidSurname) {
+            this.showErrorMessage(this.firstNameInput);
+            return;
+        }
+        if (this.surnameInput && !isValidSurname && isValidName) {
+            this.showErrorMessage(this.surnameInput);
+            return;
+        }
+        if (this.surnameInput && this.firstNameInput && !isValidSurname && !isValidName) {
+            this.showErrorMessage(this.firstNameInput, this.surnameInput);
             return;
         }
         (this.firstNameInput?.getElement() as HTMLInputElement).value = '';

@@ -2,26 +2,28 @@ import { HTMLElementCreator } from '../HtmlElementCreator';
 import './ErrorManager.scss';
 
 export class ErrorManager {
-    private static errorMessageElement: HTMLElement | null;
+    private errorMessageElement: HTMLElementCreator | null;
 
-    public static showError(message: string, targetElement: HTMLElement): void {
-        if (!ErrorManager.errorMessageElement) {
-            const props = {
-                tag: 'div',
-                classNames: ['error__massage'],
-                textContent: message,
-                callback: null,
-            };
-            ErrorManager.errorMessageElement = new HTMLElementCreator(props).getElement();
-            ErrorManager.errorMessageElement.textContent = message;
-            targetElement.append(ErrorManager.errorMessageElement);
+    constructor(message: string) {
+        const props = {
+            tag: 'div',
+            classNames: ['error__massage'],
+            textContent: message,
+            callback: null,
+        };
+        this.errorMessageElement = new HTMLElementCreator(props);
+    }
+
+    public showError(targetElement: HTMLElement): void {
+        if (this.errorMessageElement) {
+            targetElement.after(this.errorMessageElement.getElement());
         }
     }
 
-    public static hideError(): void {
-        if (ErrorManager.errorMessageElement) {
-            ErrorManager.errorMessageElement.remove();
-            ErrorManager.errorMessageElement = null;
+    public hideError(): void {
+        if (this.errorMessageElement) {
+            this.errorMessageElement.getElement().remove();
+            this.errorMessageElement = null;
         }
     }
 }
