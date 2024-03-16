@@ -24,6 +24,7 @@ export class GameEventController {
                 this.logicController.checkWordValidity();
             } else {
                 this.logicController.disabledButtonCheck();
+                this.logicController.disabledButtonContinue();
             }
         };
     }

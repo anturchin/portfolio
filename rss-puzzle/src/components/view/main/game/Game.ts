@@ -4,7 +4,7 @@ import { GamePuzzle } from './gamePuzzle/GamePuzzle';
 import { GamePuzzleLine } from './gamePuzzleLine/GamePuzzleLine';
 import { GameSource } from './gameSource/GameSource';
 import { GameSourceLine } from './gameSourceLine/GameSourceLine';
-import { WordShuffler } from '../../../helpers/WordShuffler';
+// import { WordShuffler } from '../../../helpers/WordShuffler';
 import { GameCell } from './gameCell/GameCell';
 import { ToolBarBottom } from './toolBar/toolBarBottom/ToolBarBottom';
 import { GameController } from '../../../controller/GameController';
@@ -96,8 +96,8 @@ export class Game extends View {
         const textExample = this.controller.getTextExample();
         this.cells = [];
         if (textExample) {
-            const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
-            // const shuffledWords = textExample.split(' ');
+            // const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
+            const shuffledWords = textExample.split(' ');
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
                 const cell = new GameCell(word, index, textExample, callback);
