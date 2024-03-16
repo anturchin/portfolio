@@ -15,6 +15,35 @@ export class State {
         this.setupGameState();
     }
 
+    public restartGame(): void {
+        this.currentRoundIndex = 0;
+        this.currentSentenceIndex = 0;
+
+        this.saveStateToLocalStorage();
+    }
+
+    public moveToNextRound(): void {
+        if (this.gameData && this.currentRoundIndex < this.gameData.length - 1) {
+            this.currentRoundIndex += 1;
+            this.currentSentenceIndex = 0;
+            if (this.currentRoundIndex > this.gameData.length - 1) {
+                this.restartGame();
+            }
+        }
+        this.saveStateToLocalStorage();
+    }
+
+    public moveToNextWord(): void {
+        const currentRound = this.getCurrentRound();
+        if (currentRound && this.currentSentenceIndex < currentRound.words.length - 1) {
+            this.currentSentenceIndex += 1;
+            if (this.currentSentenceIndex === currentRound.words.length - 1) {
+                this.moveToNextRound();
+            }
+            this.saveStateToLocalStorage();
+        }
+    }
+
     public getGameData(): RoundData[] | null {
         return this.gameData;
     }
@@ -34,12 +63,30 @@ export class State {
     }
 
     public getCurrentRound(): RoundData | null {
-        return this.gameData?.[this.currentRoundIndex] ?? null;
+        if (this.gameData) {
+            return this.gameData[this.currentRoundIndex];
+        }
+        return null;
+    }
+
+    public getCurrentSentenceIndex(): number {
+        return this.currentSentenceIndex;
     }
 
     public getCurrentSentence(): string | null {
         const currentRound = this.getCurrentRound();
-        return currentRound?.words?.[this.currentSentenceIndex]?.textExample ?? null;
+        if (currentRound) {
+            return currentRound.words[this.currentSentenceIndex].textExample;
+        }
+        return null;
+    }
+
+    public getCurrentImagePath(): string | null {
+        const currentRound = this.getCurrentRound();
+        if (currentRound) {
+            return currentRound.levelData.imageSrc;
+        }
+        return null;
     }
 
     private setupGameState(): void {

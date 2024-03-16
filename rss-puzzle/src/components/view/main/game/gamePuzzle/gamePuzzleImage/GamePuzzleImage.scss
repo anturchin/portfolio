@@ -1,7 +1,8 @@
-.game__puzzle {
-    img {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
+.images {
+    pointer-events: none;
+    position: absolute;
+    object-fit: cover;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
 }

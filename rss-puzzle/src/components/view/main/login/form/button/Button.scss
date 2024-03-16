@@ -9,12 +9,12 @@
     transition: all 250ms;
     outline: none;
     cursor: pointer;
-    &:hover,
-    &:focus {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
         background-color: #78b159;
         box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     }
-    &:hover {
+    &:hover:not(:disabled) {
         transform: translateY(-1px);
     }
     &:disabled {

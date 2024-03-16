@@ -1,9 +1,7 @@
-.game {
-    &__wrapper {
-        width: var(--game-wrapper-size);
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-    }
+.game__wrapper {
+    width: var(--game-wrapper-size);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }

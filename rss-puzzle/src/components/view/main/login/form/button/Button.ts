@@ -9,11 +9,11 @@ export class Button extends View {
         this.setupInput(props);
     }
 
-    setupInput(props: ButtonType): void {
-        const button = this.viewHtmlElementCreator.getElement();
+    private setupInput(props: ButtonType): void {
+        const button = this.viewHtmlElementCreator.getElement() as HTMLButtonElement;
         button.textContent = props.label;
         if (props.disabled) {
-            button.setAttribute('disabled', `${props.disabled}`);
+            button.disabled = props.disabled;
         }
     }
 }

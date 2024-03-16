@@ -1,23 +1,29 @@
-.start-screen__button {
-    padding: 20px;
+.toolbar-bottom__btn {
+    padding: 15px 50px;
     border: none;
     border-radius: 10px;
     color: white;
     font-size: 1.6rem;
     text-transform: uppercase;
     font-weight: 600;
-    background-color: #e6d13a;
+    background-color: #5da4d1;
     transition: all 250ms;
     outline: none;
-    width: 50%;
     align-self: center;
     cursor: pointer;
-    &:hover,
-    &:focus {
-        background-color: #b9d04b;
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background-color: #e8d33b;
         box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     }
-    &:hover {
+
+    &:hover:not(:disabled) {
         transform: translateY(-2px);
+    }
+    &:disabled {
+        opacity: 0.3;
+        background-color: #5da4d1;
+        cursor: auto;
     }
 }

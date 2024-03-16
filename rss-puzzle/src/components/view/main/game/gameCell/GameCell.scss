@@ -5,9 +5,16 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #e5e3df;
-    color: #e5e3df;
+    color: #7b001c;
     cursor: move;
     z-index: 10;
+    span {
+        pointer-events: none;
+        background-color: #e5e3df;
+        opacity: 0.8;
+        padding: 2px 3px;
+        border-radius: 5px;
+    }
 }
 
 .game__cell {

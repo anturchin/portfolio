@@ -33,5 +33,6 @@ export class UserLogout extends View {
 
     private clearDataUserInLocalStorage(): void {
         LocalStorageManager.removeUserData();
+        LocalStorageManager.removeGameIndexes();
     }
 }

@@ -4,7 +4,7 @@ import './GamePuzzleImage.scss';
 
 export class GamePuzzleImage extends View {
     constructor(pathImage: string) {
-        super({ tag: 'img', classNames: ['game__puzzle'], callback: null });
+        super({ tag: 'img', classNames: ['images'], callback: null });
         this.setupGamePuzzleImage(pathImage);
     }
 
@@ -12,5 +12,6 @@ export class GamePuzzleImage extends View {
         const image = this.viewHtmlElementCreator.getElement();
         image.setAttribute('src', pathImage);
         image.setAttribute('alt', 'image puzzle');
+        image.draggable = false;
     }
 }

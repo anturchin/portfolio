@@ -5,6 +5,9 @@
     font-weight: 400;
     font-style: italic;
     color: #78b159;
+    @media (max-width: 1140px) {
+        font-size: 2.2rem;
+    }
     span {
         color: #5da5d2;
         text-transform: uppercase;

@@ -35,4 +35,8 @@ export class LocalStorageManager {
         }
         return null;
     }
+
+    public static removeGameIndexes(): void {
+        localStorage.removeItem('gameIndexes');
+    }
 }

@@ -1,128 +1,98 @@
+import { TotalCharacters } from '../../../../helpers/TotalCharacters';
 import { View } from '../../../View';
 
 import './GameCell.scss';
 
 export class GameCell extends View {
-    private offsetHeight: number;
+    public onCellsChecked?: () => void;
 
-    private offsetWidth: number;
-
-    constructor(
-        word: string,
-        shuffledWords: string[],
-        originWords: string[],
-        index: number,
-        sourceRowWidth: number,
-        rowIndex: number,
-        pathImage: string
-    ) {
+    constructor(word: string, index: number, originalText: string, onCellsChecked: () => void) {
         super({
             tag: 'li',
             callback: null,
             classNames: ['game__cell'],
         });
-        this.offsetHeight = 0;
-        this.offsetWidth = 0;
-        this.setupGameCell(word, shuffledWords, originWords, index, sourceRowWidth);
-        this.createImages(rowIndex, pathImage);
-        this.setEventListener();
+        this.onCellsChecked = onCellsChecked;
+        this.onCellClick = this.onCellClick.bind(this);
+        this.onDragStartCell = this.onDragStartCell.bind(this);
+        this.onDragEndCell = this.onDragEndCell.bind(this);
+        this.setupGameCell(word, index, originalText);
+        this.setupEventListener();
     }
 
-    private setEventListener(): void {
-        const onCellClick = (evt: Event): void => {
-            const clickedElement = evt.target as HTMLElement;
-            const sourceRow = document.querySelector<HTMLElement>('.source__row');
-            const gameRow = document.querySelector<HTMLElement>('.game__row');
-            if (sourceRow && gameRow) {
-                if (sourceRow.contains(clickedElement)) {
-                    gameRow.appendChild(clickedElement);
-                } else if (gameRow.contains(clickedElement)) {
-                    sourceRow.appendChild(clickedElement);
-                }
-            }
-        };
-        this.viewHtmlElementCreator.getElement().addEventListener('click', onCellClick);
-        this.setDragAndDrop();
-    }
-
-    private setDragAndDrop(): void {
-        const onDragStartCell = (event: DragEvent) => {
-            const target = event.target as HTMLElement;
-            event.dataTransfer?.setData('id', target.id);
-            target?.classList.add('over');
-        };
-
-        const onDragEndCell = (event: DragEvent) => {
-            const target = event.target as HTMLElement;
-            target?.classList.remove('over');
-        };
-
-        this.viewHtmlElementCreator.getElement().addEventListener('dragstart', onDragStartCell);
-        this.viewHtmlElementCreator.getElement().addEventListener('dragend', onDragEndCell);
-    }
-
-    private createImages(rowIndex: number, pathImage: string): void {
-        const puzzleImage = document.querySelector<HTMLElement>('.game__puzzle');
-        const sourceRow = document.querySelector<HTMLElement>('.source__row');
-        if (sourceRow) {
-            this.offsetHeight = sourceRow.offsetHeight;
-        }
-        if (!puzzleImage) {
-            console.error('Image not found in PuzzleImagesCreator.createImages');
-            return;
-        }
-
-        const imageWidth = puzzleImage ? puzzleImage.offsetWidth : null;
-        const imageHeight = puzzleImage ? puzzleImage.offsetHeight : null;
+    public removeAttributes(): void {
         const cell = this.viewHtmlElementCreator.getElement();
-        const cellHeight = this.offsetHeight;
-        const cellWidth = this.offsetWidth;
-        const dataWordOriginId = cell.getAttribute('data-word-origin-id');
-        const wordIndex = dataWordOriginId ? parseInt(dataWordOriginId, 10) : -1;
-
-        const image = new Image();
-        image.src = pathImage;
-        image.alt = 'puzzle piece';
-        image.draggable = false;
-        image.classList.add('puzzle-image');
-
-        let leftPosition = wordIndex * cellWidth;
-        if (imageWidth !== null && leftPosition < -imageWidth) {
-            leftPosition = -imageWidth;
-        } else if (leftPosition > cellWidth) {
-            leftPosition = cellWidth;
-        }
-        const topPosition = rowIndex * cellHeight;
-
-        image.style.width = `${imageWidth}px`;
-        image.style.height = `${imageHeight}px`;
-        image.style.top = `${topPosition}px`;
-        image.style.left = `-${leftPosition}px`;
-
-        cell.appendChild(image);
+        cell.id = '';
+        cell.draggable = false;
+        cell.removeAttribute('data-width');
+        cell.removeAttribute('data-word');
+        cell.removeAttribute('data-word-origin');
+        cell.removeAttribute('data-word-origin-id');
+        cell.removeAttribute('data-is-result-block');
     }
 
-    private setupGameCell(
-        word: string,
-        shuffledWords: string[],
-        originWords: string[],
-        index: number,
-        sourceRowWidth: number
-    ): void {
-        const totalCharacters = shuffledWords.reduce((total, _word) => total + _word.length, 0);
-        const wordElement = this.viewHtmlElementCreator.getElement();
-        wordElement.id = `${index + 1}`;
-        wordElement.draggable = true;
+    public removeEventListener(): void {
+        this.removeAttributes();
+        this.viewHtmlElementCreator.getElement().removeEventListener('click', this.onCellClick);
+        this.viewHtmlElementCreator
+            .getElement()
+            .removeEventListener('dragstart', this.onDragStartCell);
+        this.viewHtmlElementCreator.getElement().removeEventListener('dragend', this.onDragEndCell);
+    }
 
-        const wordLength = word.length;
-        this.offsetWidth = (wordLength / totalCharacters) * sourceRowWidth;
+    private setupEventListener(): void {
+        this.viewHtmlElementCreator.getElement().addEventListener('click', this.onCellClick);
+        this.viewHtmlElementCreator
+            .getElement()
+            .addEventListener('dragstart', this.onDragStartCell);
+        this.viewHtmlElementCreator.getElement().addEventListener('dragend', this.onDragEndCell);
+    }
 
-        wordElement.style.width = `${this.offsetWidth}px`;
-        wordElement.setAttribute('data-width', `${this.offsetWidth}`);
-        wordElement.setAttribute('data-word', word);
-        wordElement.setAttribute('data-word-origin', originWords[index]);
-        wordElement.setAttribute('data-word-origin-id', `${originWords.indexOf(word)}`);
+    private onCellClick(evt: Event): void {
+        const clickedElement = evt.target as HTMLElement;
+        const sourceRow = document.querySelector<HTMLElement>('.source__row');
+        const gameRow = document.querySelector<HTMLElement>('.game__row.active');
+        if (sourceRow && gameRow) {
+            if (sourceRow.contains(clickedElement)) {
+                clickedElement.setAttribute('data-is-result-block', 'true');
+                gameRow.appendChild(clickedElement);
+            } else if (gameRow.contains(clickedElement)) {
+                clickedElement.setAttribute('data-is-result-block', 'false');
+                sourceRow.appendChild(clickedElement);
+            }
+            this.onCellsChecked?.();
+        }
+    }
 
-        wordElement.textContent = word;
+    private onDragStartCell(event: DragEvent): void {
+        event.dataTransfer?.setData('id', this.viewHtmlElementCreator.getElement().id);
+        this.viewHtmlElementCreator.getElement().classList.add('over');
+    }
+
+    private onDragEndCell(): void {
+        this.viewHtmlElementCreator.getElement().classList.remove('over');
+    }
+
+    private setupGameCell(word: string, index: number, originalText: string): void {
+        const sourceRow: HTMLElement | null = document.querySelector('.source__row');
+        const originalWords = originalText.split(' ');
+        if (sourceRow) {
+            const sourceRowWidth = sourceRow.offsetWidth;
+            const totalCharacters = TotalCharacters.sum(originalText);
+            const cell = this.viewHtmlElementCreator.getElement();
+            cell.id = `${index + 1}`;
+            cell.draggable = true;
+
+            const wordLength = word.length;
+            const proportionalWidth = (wordLength / totalCharacters) * sourceRowWidth;
+            cell.style.width = `${proportionalWidth}px`;
+            cell.setAttribute('data-width', `${proportionalWidth}`);
+            cell.setAttribute('data-word', word);
+            cell.setAttribute('data-word-origin', originalWords[index]);
+            cell.setAttribute('data-word-origin-id', `${originalWords.indexOf(word)}`);
+            cell.setAttribute('data-is-result-block', 'false');
+
+            cell.innerHTML = `<span>${word}</span>`;
+        }
     }
 }
