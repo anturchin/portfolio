@@ -97,6 +97,7 @@ export class Game extends View {
         this.cells = [];
         if (textExample) {
             const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
+            // const shuffledWords = textExample.split(' ');
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
                 const cell = new GameCell(word, index, textExample, callback);
