@@ -9,9 +9,10 @@ import { GameCell } from './gameCell/GameCell';
 import { ToolBarBottom } from './toolBar/toolBarBottom/ToolBarBottom';
 import { GameController } from '../../../controller/GameController';
 import { PuzzleImageCreator } from '../../../utils/puzzleImageCreator/PuzzleImageCreator';
+import { ButtonContinue } from './toolBar/toolBarBottom/buttonContinue/ButtonContinue';
+import { ButtonCheck } from './toolBar/toolBarBottom/buttonCheck/ButtonCheck';
 
 import './Game.scss';
-import { ButtonContinue } from './toolBar/toolBarBottom/buttonContinue/ButtonContinue';
 
 export class Game extends View {
     private controller: GameController;
@@ -19,6 +20,8 @@ export class Game extends View {
     public onCellsChecked?: () => void;
 
     public onHandleClickContinue?: () => void;
+
+    public onHandleClickCheck?: () => void;
 
     public cells: GameCell[];
 
@@ -28,6 +31,8 @@ export class Game extends View {
 
     public buttonContinue: ButtonContinue | null;
 
+    public buttonCheck: ButtonCheck | null;
+
     constructor(router: Router) {
         super({ tag: 'section', callback: null, classNames: ['game__wrapper'] });
         this.controller = new GameController(this, router);
@@ -35,6 +40,7 @@ export class Game extends View {
         this.resultLine = null;
         this.gamePuzzleBlock = null;
         this.buttonContinue = null;
+        this.buttonCheck = null;
         this.loadData();
     }
 
@@ -80,19 +86,20 @@ export class Game extends View {
     }
 
     public renderGameSourceLine(): void {
-        const gameSourceLine = new GameSourceLine().getElement();
+        const gameSourceLine = new GameSourceLine(() => this.onCellsChecked?.()).getElement();
         const gamePuzzle = this.viewHtmlElementCreator.getElement().querySelector('.game__source');
         gamePuzzle?.append(gameSourceLine);
     }
 
     public renderGameCells(): void {
+        const callback = () => this.onCellsChecked?.();
         const textExample = this.controller.getTextExample();
         this.cells = [];
         if (textExample) {
             const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
-                const cell = new GameCell(word, index, textExample, () => this.onCellsChecked?.());
+                const cell = new GameCell(word, index, textExample, callback);
                 this.cells.push(cell);
                 cells.push(cell.getElement());
             });
@@ -120,8 +127,10 @@ export class Game extends View {
 
     public renderToolBarBottom(): void {
         this.buttonContinue = new ButtonContinue(() => this.onHandleClickContinue?.());
+        this.buttonCheck = new ButtonCheck(() => this.onHandleClickCheck?.());
         const toolBarBottom = new ToolBarBottom().getElement();
         toolBarBottom.append(this.buttonContinue.getElement());
+        toolBarBottom.append(this.buttonCheck.getElement());
         const gamePuzzle = this.viewHtmlElementCreator.getElement().querySelector('.game__source');
         gamePuzzle?.after(toolBarBottom);
     }

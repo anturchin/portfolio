@@ -50,6 +50,13 @@ export class GameCell extends View {
 
     private onCellClick(evt: Event): void {
         const clickedElement = evt.target as HTMLElement;
+        const isInvalidOrValid = clickedElement.classList.contains('invalid');
+        const isValid = clickedElement.classList.contains('valid');
+
+        if (isInvalidOrValid || isValid) {
+            return;
+        }
+
         const sourceRow = document.querySelector<HTMLElement>('.source__row');
         const gameRow = document.querySelector<HTMLElement>('.game__row.active');
         if (sourceRow && gameRow) {
@@ -65,17 +72,32 @@ export class GameCell extends View {
     }
 
     private onDragStartCell(event: DragEvent): void {
+        const cell = this.viewHtmlElementCreator.getElement();
+        const isInvalidOrValid = cell.classList.contains('invalid');
+        const isValid = cell.classList.contains('valid');
+
+        if (isInvalidOrValid || isValid) {
+            event.preventDefault();
+            return;
+        }
         event.dataTransfer?.setData('id', this.viewHtmlElementCreator.getElement().id);
-        this.viewHtmlElementCreator.getElement().classList.add('over');
+        cell.classList.add('over');
     }
 
-    private onDragEndCell(): void {
-        this.viewHtmlElementCreator.getElement().classList.remove('over');
+    private onDragEndCell(event: DragEvent): void {
+        const cell = this.viewHtmlElementCreator.getElement();
+        const isInvalidOrValid = cell.classList.contains('invalid');
+        const isValid = cell.classList.contains('valid');
+
+        if (isInvalidOrValid || isValid) {
+            event.preventDefault();
+            return;
+        }
+        cell.classList.remove('over');
     }
 
     private setupGameCell(word: string, index: number, originalText: string): void {
         const sourceRow: HTMLElement | null = document.querySelector('.source__row');
-        const originalWords = originalText.split(' ');
         if (sourceRow) {
             const sourceRowWidth = sourceRow.offsetWidth;
             const totalCharacters = TotalCharacters.sum(originalText);
@@ -87,9 +109,6 @@ export class GameCell extends View {
             const proportionalWidth = (wordLength / totalCharacters) * sourceRowWidth;
             cell.style.width = `${proportionalWidth}px`;
             cell.setAttribute('data-width', `${proportionalWidth}`);
-            cell.setAttribute('data-word', word);
-            cell.setAttribute('data-word-origin', originalWords[index]);
-            cell.setAttribute('data-word-origin-id', `${originalWords.indexOf(word)}`);
             cell.setAttribute('data-is-result-block', 'false');
 
             cell.innerHTML = `<span>${word}</span>`;

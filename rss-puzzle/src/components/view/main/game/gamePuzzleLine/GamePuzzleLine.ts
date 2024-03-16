@@ -35,7 +35,9 @@ export class GamePuzzleLine extends View {
         const id = event.dataTransfer?.getData('id');
         const dragElement = document.getElementById(`${id}`);
         const target = event.target as HTMLElement;
+
         if (target && dragElement) {
+            dragElement.setAttribute('data-is-result-block', 'true');
             const parent = this.viewHtmlElementCreator.getElement();
             const targetIndex = Array.from(parent.children).indexOf(target);
             const dragIndex = Array.from(parent.children).indexOf(dragElement);

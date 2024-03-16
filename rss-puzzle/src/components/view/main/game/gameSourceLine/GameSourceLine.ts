@@ -3,8 +3,11 @@ import { View } from '../../../View';
 import './GameSourceLine.scss';
 
 export class GameSourceLine extends View {
-    constructor() {
+    public onCellsChecked?: () => void;
+
+    constructor(onCellsChecked: () => void) {
         super({ tag: 'ul', callback: null, classNames: ['source__row'] });
+        this.onCellsChecked = onCellsChecked;
         this.onDragOverGame = this.onDragOverGame.bind(this);
         this.onDropGame = this.onDropGame.bind(this);
         this.setEventListener();
@@ -25,6 +28,7 @@ export class GameSourceLine extends View {
         const dragElement = document.getElementById(`${id}`);
         const target = event.target as HTMLElement;
         if (target && dragElement) {
+            dragElement.setAttribute('data-is-result-block', 'false');
             const parent = this.viewHtmlElementCreator.getElement();
             const targetIndex = Array.from(parent.children).indexOf(target);
             const dragIndex = Array.from(parent.children).indexOf(dragElement);
@@ -47,6 +51,7 @@ export class GameSourceLine extends View {
             } else {
                 parent.appendChild(dragElement);
             }
+            this.onCellsChecked?.();
         }
     }
 }

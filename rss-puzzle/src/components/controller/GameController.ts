@@ -1,10 +1,8 @@
 import { Router } from '../router/router/Router';
-import { DataParserService } from '../services/dataParserService/DataParserService';
-import { FileLoaderService } from '../services/fileLoader/FileLoaderService';
-import { basePath, PathToFilesJSONType } from '../services/pathToFilesJSON';
-import { IRounds } from '../services/types';
+import { basePath } from '../services/pathToFilesJSON';
 import { State } from '../state/State';
 import { Game } from '../view/main/game/Game';
+import { GameDataController } from './GameDataController';
 
 export class GameController {
     private game: Game;
@@ -13,14 +11,20 @@ export class GameController {
 
     private state: State;
 
-    private level: number;
+    private dataController: GameDataController;
 
     constructor(game: Game, router: Router) {
         this.game = game;
         this.router = router;
         this.state = new State();
-        this.level = 1;
+        this.dataController = new GameDataController(this.state);
         this.handleClickCell();
+        this.handleClickButtonCheck();
+    }
+
+    public setLevel(level: number): void {
+        this.dataController.setLevel(level);
+        this.game.loadData();
     }
 
     public getAllCellsFromResultLine(): HTMLCollection | null {
@@ -32,9 +36,8 @@ export class GameController {
         const cells = this.getAllCellsFromResultLine();
         if (cells) {
             const collectedWords = [...cells].reduce((acc: string[], elem) => {
-                const word = elem.getAttribute('data-word');
-                if (word) {
-                    acc.push(word);
+                if (elem.textContent) {
+                    acc.push(elem.textContent);
                 }
                 return acc;
             }, []);
@@ -42,63 +45,63 @@ export class GameController {
                 const compareWordArrays = originalWords?.every(
                     (elem, index) => elem === collectedWords[index]
                 );
-                console.log(originalWords);
-                console.log(collectedWords);
                 if (compareWordArrays) {
+                    this.activeButtonContinue();
                     this.nextSentence();
+                } else {
+                    this.disabledButtonContinue();
                 }
             }
         }
     }
 
-    public handleClickCell(): void {
-        this.game.onCellsChecked = () => {
-            const allCellsAreResultBlock = this.game.cells?.every((cell) => {
-                const element = cell.getElement();
-                const isResultBlock = element.getAttribute('data-is-result-block');
-                return isResultBlock === 'true';
-            });
-            if (allCellsAreResultBlock) {
-                this.checkWordValidity();
-            }
-        };
+    public isAllCellsAreResultBlock(): boolean {
+        return this.game.cells?.every((cell) => {
+            const element = cell.getElement();
+            const isResultBlock = element.getAttribute('data-is-result-block');
+            return isResultBlock === 'true';
+        });
     }
 
     public getCurrentWordIndex(): number {
-        return this.state.getCurrentSentenceIndex();
-    }
-
-    public setRound(round: number): void {
-        this.state.setCurrentRoundIndex(round);
-        this.game.render();
-    }
-
-    public setLevel(level: number): void {
-        this.level = level;
-        this.game.loadData();
+        return this.dataController.getCurrentWordIndex();
     }
 
     public async loadGameData(): Promise<void> {
-        try {
-            if (basePath) {
-                const levelGame = this.getLevelPath(this.level);
-                const data = await FileLoaderService.loadJSON<IRounds>(`${basePath}${levelGame}`);
-                const gameData = DataParserService.parseGameData(data);
-                this.state.setGameData(gameData);
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
-        }
+        await this.dataController.loadGameData();
     }
 
     public getTextExample(): string | null {
-        return this.state.getCurrentSentence();
+        return this.dataController.getTextExample();
     }
 
     public getImagePath(): string | undefined {
-        return `${basePath}/images/${this.state.getCurrentImagePath()}`;
+        return `${basePath}/images/${this.dataController.getCurrentImagePath()}`;
+    }
+
+    private checkCellValidity(): void {
+        const cells = this.getAllCellsFromResultLine();
+        const originalText = this.getTextExample()?.split(' ');
+        if (cells && originalText) {
+            [...cells].forEach((cell, index) => {
+                if (originalText[index] === cell.textContent) {
+                    cell.classList.toggle('valid');
+                } else {
+                    cell.classList.toggle('invalid');
+                }
+            });
+        }
+    }
+
+    private handleClickCell(): void {
+        this.game.onCellsChecked = () => {
+            if (this.isAllCellsAreResultBlock()) {
+                this.activeButtonCheck();
+                this.checkWordValidity();
+            } else {
+                this.disabledButtonCheck();
+            }
+        };
     }
 
     private removeHandleClickAndDragAndDrop(): void {
@@ -112,12 +115,44 @@ export class GameController {
         }
     }
 
+    private handleClickButtonCheck(): void {
+        this.game.onHandleClickCheck = () => {
+            if (!this.isAllCellsAreResultBlock()) {
+                this.disabledButtonCheck();
+                return;
+            }
+
+            const oldStateButtonContinue = (
+                this.game.buttonContinue?.getElement() as HTMLButtonElement
+            ).disabled;
+
+            this.checkCellValidity();
+            this.disabledButtonCheck();
+            this.disabledButtonContinue();
+            setTimeout(() => {
+                this.checkCellValidity();
+                this.activeButtonCheck();
+                if (!oldStateButtonContinue) {
+                    this.activeButtonContinue();
+                }
+            }, 3000);
+        };
+    }
+
     private disabledButtonContinue(): void {
         (this.game.buttonContinue?.getElement() as HTMLButtonElement).disabled = true;
     }
 
     private activeButtonContinue(): void {
         (this.game.buttonContinue?.getElement() as HTMLButtonElement).disabled = false;
+    }
+
+    private disabledButtonCheck(): void {
+        (this.game.buttonCheck?.getElement() as HTMLButtonElement).disabled = true;
+    }
+
+    private activeButtonCheck(): void {
+        (this.game.buttonCheck?.getElement() as HTMLButtonElement).disabled = false;
     }
 
     private updateResultLineAndSourceLine(): void {
@@ -145,7 +180,7 @@ export class GameController {
 
     private isNewRoundStarted(): boolean {
         const resultLines = this.getResultsLine();
-        const words = this.state.getCurrentWords();
+        const words = this.dataController.getCurrentWords();
         if (resultLines && words) {
             return resultLines.length === words.length;
         }
@@ -155,7 +190,6 @@ export class GameController {
     private endGame(): void {
         this.removeAllResultLines();
         this.showFinalImage();
-        // this.disabledButtonContinue();
     }
 
     private continueGame(): void {
@@ -165,7 +199,6 @@ export class GameController {
     }
 
     private nextSentence(): void {
-        this.activeButtonContinue();
         this.game.onHandleClickContinue = () => {
             if (this.isNewRoundStarted()) {
                 this.endGame();
@@ -173,24 +206,5 @@ export class GameController {
                 this.continueGame();
             }
         };
-    }
-
-    private getLevelPath(level: number): string {
-        switch (level) {
-            case 1:
-                return PathToFilesJSONType.LEVEL_1;
-            case 2:
-                return PathToFilesJSONType.LEVEL_2;
-            case 3:
-                return PathToFilesJSONType.LEVEL_3;
-            case 4:
-                return PathToFilesJSONType.LEVEL_4;
-            case 5:
-                return PathToFilesJSONType.LEVEL_5;
-            case 6:
-                return PathToFilesJSONType.LEVEL_6;
-            default:
-                throw new Error('Invalid level');
-        }
     }
 }
