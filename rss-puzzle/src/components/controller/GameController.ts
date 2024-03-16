@@ -1,5 +1,4 @@
 import { Router } from '../router/router/Router';
-import { basePath } from '../services/pathToFilesJSON';
 import { State } from '../state/State';
 import { Game } from '../view/main/game/Game';
 import { GameDataController } from './GameDataController';
@@ -32,8 +31,8 @@ export class GameController {
         this.dataController = new GameDataController(this.state);
         this.logicController = new GameLogicController(this.game, this.dataController, this);
         this.eventController = new GameEventController(this.game, this.logicController, this);
-        this.imageController = new GameImageController();
         this.renderController = new GameRenderController(this.game, this.eventController);
+        this.imageController = new GameImageController(this.dataController, this.renderController);
     }
 
     public setLevel(level: number): void {
@@ -54,16 +53,16 @@ export class GameController {
     }
 
     public getImagePath(): string | undefined {
-        return `${basePath}/images/${this.dataController.getCurrentImagePath()}`;
+        return this.dataController?.getCurrentImagePath();
     }
 
     public endGame(): void {
         this.logicController.removeAllResultLines();
-        // this.showFinalImage();
+        this.imageController.setCompletedRoundImagePath();
     }
 
     public continueGame(): void {
-        this.state.moveToNextWord();
+        this.dataController.moveToNextWord();
         this.logicController.disabledButtonContinue();
         this.renderController.updateResultLineAndSourceLine();
     }

@@ -29,6 +29,8 @@ export class Game extends View {
 
     public gamePuzzleBlock: GamePuzzle | null;
 
+    public gameSourceLine: GameSourceLine | null;
+
     public buttonContinue: ButtonContinue | null;
 
     public buttonCheck: ButtonCheck | null;
@@ -39,6 +41,7 @@ export class Game extends View {
         this.cells = [];
         this.resultLine = null;
         this.gamePuzzleBlock = null;
+        this.gameSourceLine = null;
         this.buttonContinue = null;
         this.buttonCheck = null;
         this.loadData();
@@ -86,7 +89,8 @@ export class Game extends View {
     }
 
     public renderGameSourceLine(): void {
-        const gameSourceLine = new GameSourceLine(() => this.onCellsChecked?.()).getElement();
+        this.gameSourceLine = new GameSourceLine(() => this.onCellsChecked?.());
+        const gameSourceLine = this.gameSourceLine.getElement();
         const gamePuzzle = this.viewHtmlElementCreator.getElement().querySelector('.game__source');
         gamePuzzle?.append(gameSourceLine);
     }

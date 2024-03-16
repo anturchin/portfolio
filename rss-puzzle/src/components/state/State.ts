@@ -1,5 +1,5 @@
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
-import { RoundData, WordType } from './types';
+import { LevelDataType, RoundData, WordType } from './types';
 
 export class State {
     private gameData: RoundData[] | null;
@@ -8,10 +8,13 @@ export class State {
 
     private currentSentenceIndex: number;
 
+    private pastRounds: number;
+
     constructor() {
         this.gameData = null;
         this.currentRoundIndex = 0;
         this.currentSentenceIndex = 0;
+        this.pastRounds = 0;
         this.setupGameState();
     }
 
@@ -22,8 +25,13 @@ export class State {
         this.saveStateToLocalStorage();
     }
 
+    public getPastRound(): LevelDataType | null {
+        return this.gameData?.[this.pastRounds].levelData || null;
+    }
+
     public moveToNextRound(): void {
         if (this.gameData && this.currentRoundIndex < this.gameData.length - 1) {
+            this.pastRounds = this.currentRoundIndex;
             this.currentRoundIndex += 1;
             this.currentSentenceIndex = 0;
             if (this.currentRoundIndex > this.gameData.length - 1) {

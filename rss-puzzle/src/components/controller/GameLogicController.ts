@@ -77,7 +77,8 @@ export class GameLogicController {
         const resultLines = this.getResultsLine();
         const words = this.dataController.getCurrentWords();
         if (resultLines && words) {
-            return resultLines.length === words.length;
+            const newRound = resultLines.length === words.length;
+            return newRound;
         }
         return false;
     }
