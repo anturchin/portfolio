@@ -15,14 +15,11 @@ export class GameController {
 
     private level: number;
 
-    private isRoundCompleted: boolean;
-
     constructor(game: Game, router: Router) {
         this.game = game;
         this.router = router;
         this.state = new State();
         this.level = 1;
-        this.isRoundCompleted = false;
         this.handleClickCell();
     }
 
@@ -129,36 +126,51 @@ export class GameController {
         this.game.renderGameCells();
     }
 
-    private showFinalImage(): void {
-        if (this.game.gamePuzzleBlock) {
-            this.game.gamePuzzleBlock.removePlaceholder();
-        }
-    }
+    private showFinalImage(): void {}
 
     private removeAllResultLines(): void {
         if (this.game.gamePuzzleBlock) {
             const resultBlock = this.game.gamePuzzleBlock.getElement();
             resultBlock.querySelectorAll('ul').forEach((line) => line.remove());
-            this.showFinalImage();
         }
+    }
+
+    private getResultsLine(): false | NodeListOf<HTMLUListElement> {
+        if (this.game.gamePuzzleBlock) {
+            const resultBlock = this.game.gamePuzzleBlock.getElement();
+            return resultBlock.querySelectorAll('ul');
+        }
+        return false;
+    }
+
+    private isNewRoundStarted(): boolean {
+        const resultLines = this.getResultsLine();
+        const words = this.state.getCurrentWords();
+        if (resultLines && words) {
+            return resultLines.length === words.length;
+        }
+        return false;
+    }
+
+    private endGame(): void {
+        this.removeAllResultLines();
+        this.showFinalImage();
+        // this.disabledButtonContinue();
+    }
+
+    private continueGame(): void {
+        this.state.moveToNextWord();
+        this.disabledButtonContinue();
+        this.updateResultLineAndSourceLine();
     }
 
     private nextSentence(): void {
         this.activeButtonContinue();
         this.game.onHandleClickContinue = () => {
-            this.state.moveToNextWord();
-            if (this.getCurrentWordIndex() === 0 && !this.isRoundCompleted) {
-                // удаляем все линии результатов
-                this.removeAllResultLines();
-                this.isRoundCompleted = true;
-                // в исоходные дынне добавляем информацию о раунде
+            if (this.isNewRoundStarted()) {
+                this.endGame();
             } else {
-                this.disabledButtonContinue();
-                this.updateResultLineAndSourceLine();
-            }
-            if (this.isRoundCompleted) {
-                // в исходные данные добавляем информацию о раунде
-                this.isRoundCompleted = false; // Сбрасываем флаг после обработки раунда
+                this.continueGame();
             }
         };
     }

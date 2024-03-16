@@ -59,8 +59,7 @@ export class Game extends View {
     }
 
     public renderGamePuzzle(): void {
-        const imagePath = this.controller.getImagePath();
-        this.gamePuzzleBlock = new GamePuzzle(imagePath);
+        this.gamePuzzleBlock = new GamePuzzle();
         if (this.gamePuzzleBlock) {
             this.viewHtmlElementCreator.addInnerElement(this.gamePuzzleBlock.getElement());
         }
@@ -114,7 +113,7 @@ export class Game extends View {
         PuzzleImageCreator.createImages(
             -rowIndex,
             '[data-is-result-block="false"]',
-            'images',
+            'game__puzzle',
             pathImage || ''
         );
     }

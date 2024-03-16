@@ -1,5 +1,5 @@
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
-import { RoundData } from './types';
+import { RoundData, WordType } from './types';
 
 export class State {
     private gameData: RoundData[] | null;
@@ -65,6 +65,13 @@ export class State {
     public getCurrentRound(): RoundData | null {
         if (this.gameData) {
             return this.gameData[this.currentRoundIndex];
+        }
+        return null;
+    }
+
+    public getCurrentWords(): WordType[] | null {
+        if (this.gameData) {
+            return this.gameData[this.currentRoundIndex].words;
         }
         return null;
     }
