@@ -58,7 +58,7 @@ export class GameHideController {
         if (button) this.showButton(button);
     }
 
-    private hideButton(element: IView): void {
+    public hideButton(element: IView): void {
         const button = element.getElement();
         if (button) {
             button.classList.remove('show');
@@ -66,7 +66,7 @@ export class GameHideController {
         }
     }
 
-    private showButton(element: IView): void {
+    public showButton(element: IView): void {
         const button = element.getElement();
         if (button) {
             button.classList.add('show');

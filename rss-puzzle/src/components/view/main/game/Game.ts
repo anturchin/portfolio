@@ -12,6 +12,9 @@ import { PuzzleImageCreator } from '../../../utils/puzzleImageCreator/PuzzleImag
 import { ButtonContinue } from './toolBar/toolBarBottom/buttonContinue/ButtonContinue';
 import { ButtonCheck } from './toolBar/toolBarBottom/buttonCheck/ButtonCheck';
 import { ButtonAutoComplete } from './toolBar/toolBarBottom/buttonAutoComplete/ButtonAutoComplete';
+import { PronunciationHint } from './toolBar/toolBarTop/PronunciationHint/PronunciationHint';
+import { PronunciationHintButton } from './toolBar/toolBarTop/PronunciationHintButton/PronunciationHintButton';
+import { PronunciationHintText } from './toolBar/toolBarTop/PronunciationHintText/PronunciationHintText';
 
 import './Game.scss';
 
@@ -25,6 +28,8 @@ export class Game extends View {
     public onHandleClickCheck?: () => void;
 
     public onHandleClickAutoComplete?: () => void;
+
+    public onHandleClickAudioSound?: () => void;
 
     public cells: GameCell[];
 
@@ -40,6 +45,10 @@ export class Game extends View {
 
     public buttonAutoComplete: ButtonAutoComplete | null;
 
+    public buttonAudioHint: PronunciationHintButton | null;
+
+    public hintText: PronunciationHintText | null;
+
     constructor(router: Router) {
         super({ tag: 'section', callback: null, classNames: ['game__wrapper'] });
         this.controller = new GameController(this, router);
@@ -50,6 +59,8 @@ export class Game extends View {
         this.buttonContinue = null;
         this.buttonCheck = null;
         this.buttonAutoComplete = null;
+        this.buttonAudioHint = null;
+        this.hintText = null;
         this.loadData();
     }
 
@@ -65,6 +76,7 @@ export class Game extends View {
     }
 
     public override render(): void {
+        this.renderPronunciationHint();
         this.renderGamePuzzle();
         this.renderGamePuzzleLine();
         this.renderGameSource();
@@ -107,7 +119,6 @@ export class Game extends View {
         this.cells = [];
         if (textExample) {
             const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
-            // const shuffledWords = textExample.split(' ');
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
                 const cell = new GameCell(word, index, textExample, callback);
@@ -146,5 +157,26 @@ export class Game extends View {
         });
         const gamePuzzle = this.viewHtmlElementCreator.getElement().querySelector('.game__source');
         gamePuzzle?.after(toolBarBottom);
+    }
+
+    public setHintText(): void {
+        const hintText = this.hintText?.getElement();
+        const currentWordInfo = this.controller.getCurrentWordInfo();
+        if (hintText && currentWordInfo) {
+            hintText.textContent = currentWordInfo.textExampleTranslate;
+        }
+    }
+
+    public renderPronunciationHint(): void {
+        const callback = () => this.onHandleClickAudioSound?.();
+        const container = new PronunciationHint().getElement();
+        this.buttonAudioHint = new PronunciationHintButton(callback);
+        this.hintText = new PronunciationHintText();
+        this.setHintText();
+        [this.buttonAudioHint, this.hintText].forEach((elem) => {
+            container.append(elem.getElement());
+        });
+        const main = this.viewHtmlElementCreator.getElement();
+        main.prepend(container);
     }
 }

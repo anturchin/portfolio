@@ -1,0 +1,23 @@
+.game-hint__button {
+    width: 35px;
+    height: 35px;
+    transition: all 350ms;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.sound-animation {
+    animation: audio-animation 1s linear infinite;
+}
+
+@keyframes audio-animation {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.3);
+    }
+}

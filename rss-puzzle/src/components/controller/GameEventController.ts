@@ -1,4 +1,5 @@
 import { Game } from '../view/main/game/Game';
+import { GameAudioController } from './GameAudioController';
 import { GameController } from './GameController';
 import { GameHideController } from './GameHideController';
 import { GameLogicController } from './GameLogicController';
@@ -12,20 +13,25 @@ export class GameEventController {
 
     private hideController: GameHideController;
 
+    private audioController: GameAudioController;
+
     constructor(
         game: Game,
         logicController: GameLogicController,
         mainController: GameController,
-        hideController: GameHideController
+        hideController: GameHideController,
+        audioController: GameAudioController
     ) {
         this.game = game;
         this.mainController = mainController;
         this.logicController = logicController;
         this.hideController = hideController;
+        this.audioController = audioController;
         this.handleClickCell();
         this.handleClickButtonCheck();
         this.onHandleClickAutoComplete();
         this.onHandleClickContinue();
+        this.onHandleClickAudioSound();
     }
 
     public handleClickCell(): void {
@@ -92,6 +98,12 @@ export class GameEventController {
     public onHandleClickAutoComplete(): void {
         this.game.onHandleClickAutoComplete = () => {
             this.logicController.autofillSentenceInResultLine();
+        };
+    }
+
+    public onHandleClickAudioSound(): void {
+        this.game.onHandleClickAudioSound = () => {
+            this.audioController.playSound();
         };
     }
 }

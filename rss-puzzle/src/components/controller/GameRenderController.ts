@@ -1,5 +1,6 @@
 import { Game } from '../view/main/game/Game';
 import { GamePuzzleImage } from '../view/main/game/gamePuzzle/gamePuzzleImage/GamePuzzleImage';
+import { GameDataController } from './GameDataController';
 import { GameEventController } from './GameEventController';
 
 const style = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);';
@@ -8,9 +9,16 @@ export class GameRenderController {
 
     private eventController: GameEventController;
 
-    constructor(game: Game, eventController: GameEventController) {
+    private dataController: GameDataController;
+
+    constructor(
+        game: Game,
+        eventController: GameEventController,
+        dataController: GameDataController
+    ) {
         this.game = game;
         this.eventController = eventController;
+        this.dataController = dataController;
     }
 
     public updateResultLineAndSourceLine(): void {
@@ -48,5 +56,19 @@ export class GameRenderController {
                 resultLine.append(cell);
             });
         }
+    }
+
+    public updateHintText(): void {
+        const textElement = this.game.hintText?.getElement();
+        const round = this.dataController.getCurrentRound();
+        const currentIndex = this.dataController.getCurrentWordIndex();
+        if (textElement && round && currentIndex) {
+            textElement.textContent = round.words[currentIndex].textExampleTranslate;
+        }
+    }
+
+    public clearHintText(): void {
+        const textElement = this.game.hintText?.getElement();
+        if (textElement) textElement.textContent = '';
     }
 }

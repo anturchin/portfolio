@@ -1,6 +1,8 @@
 import { Router } from '../router/router/Router';
 import { State } from '../state/State';
+import { WordType } from '../state/types';
 import { Game } from '../view/main/game/Game';
+import { GameAudioController } from './GameAudioController';
 import { GameDataController } from './GameDataController';
 import { GameEventController } from './GameEventController';
 import { GameHideController } from './GameHideController';
@@ -27,10 +29,13 @@ export class GameController {
 
     private hideController: GameHideController;
 
+    private audioController: GameAudioController;
+
     constructor(game: Game, router: Router) {
         this.game = game;
         this.router = router;
         this.state = new State();
+        this.audioController = new GameAudioController(this.game, this);
         this.hideController = new GameHideController(this.game);
         this.dataController = new GameDataController(this.state);
         this.logicController = new GameLogicController(
@@ -43,10 +48,20 @@ export class GameController {
             this.game,
             this.logicController,
             this,
-            this.hideController
+            this.hideController,
+            this.audioController
         );
-        this.renderController = new GameRenderController(this.game, this.eventController);
+        this.renderController = new GameRenderController(
+            this.game,
+            this.eventController,
+            this.dataController
+        );
         this.imageController = new GameImageController(this.dataController, this.renderController);
+    }
+
+    public getCurrentWordInfo(): WordType | null {
+        const currentIndex = this.getCurrentWordIndex();
+        return this.dataController.getCurrentWords()?.[currentIndex] || null;
     }
 
     public getRenderController(): GameRenderController {
@@ -77,13 +92,23 @@ export class GameController {
     public endGame(): void {
         this.logicController.removeAllResultLines();
         this.imageController.setCompletedRoundImagePath();
+        this.renderController.clearHintText();
         this.hideController.hideButtonCheck();
+        if (this.game.buttonAudioHint) this.hideController.hideButton(this.game.buttonAudioHint);
+        if (this.game.buttonAutoComplete) {
+            this.hideController.hideButton(this.game.buttonAutoComplete);
+        }
     }
 
     public continueGame(): void {
         this.dataController.moveToNextWord();
+        if (this.game.buttonAudioHint) this.hideController.showButton(this.game.buttonAudioHint);
+        if (this.game.buttonAutoComplete) {
+            this.hideController.showButton(this.game.buttonAutoComplete);
+        }
         this.hideController.disabledButtonContinue();
         this.renderController.updateResultLineAndSourceLine();
+        this.renderController.updateHintText();
         this.hideController.hideButtonContinue();
         this.hideController.showButtonCheck();
         this.hideController.disabledButtonCheck();
