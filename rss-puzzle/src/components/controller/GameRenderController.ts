@@ -62,7 +62,7 @@ export class GameRenderController {
         const textElement = this.game.hintText?.getElement();
         const round = this.dataController.getCurrentRound();
         const currentIndex = this.dataController.getCurrentWordIndex();
-        if (textElement && round && currentIndex) {
+        if (textElement && round) {
             textElement.textContent = round.words[currentIndex].textExampleTranslate;
         }
     }

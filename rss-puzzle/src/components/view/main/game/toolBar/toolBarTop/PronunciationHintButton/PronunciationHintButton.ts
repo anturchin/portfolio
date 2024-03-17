@@ -1,5 +1,5 @@
 import { View } from '../../../../../View';
-import { PronunciationHintIcon } from '../PronunciationHintIcon/PronunciationHintIcon';
+import { PronunciationHintIcon } from '../pronunciationHintIcon/PronunciationHintIcon';
 
 import './PronunciationHintButton.scss';
 

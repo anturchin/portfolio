@@ -12,11 +12,12 @@ import { PuzzleImageCreator } from '../../../utils/puzzleImageCreator/PuzzleImag
 import { ButtonContinue } from './toolBar/toolBarBottom/buttonContinue/ButtonContinue';
 import { ButtonCheck } from './toolBar/toolBarBottom/buttonCheck/ButtonCheck';
 import { ButtonAutoComplete } from './toolBar/toolBarBottom/buttonAutoComplete/ButtonAutoComplete';
-import { PronunciationHint } from './toolBar/toolBarTop/PronunciationHint/PronunciationHint';
-import { PronunciationHintButton } from './toolBar/toolBarTop/PronunciationHintButton/PronunciationHintButton';
-import { PronunciationHintText } from './toolBar/toolBarTop/PronunciationHintText/PronunciationHintText';
+import { PronunciationHint } from './toolBar/toolBarTop/pronunciationHint/PronunciationHint';
+import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintButton/PronunciationHintButton';
+import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
 
 import './Game.scss';
+import { HintBlock } from './toolBar/toolBarTop/hintSwitch/HintBlock';
 
 export class Game extends View {
     private controller: GameController;
@@ -83,6 +84,7 @@ export class Game extends View {
         this.renderGameSourceLine();
         this.renderGameCells();
         this.renderToolBarBottom();
+        this.renderHintBlock();
     }
 
     public renderGamePuzzle(): void {
@@ -178,5 +180,10 @@ export class Game extends View {
         });
         const main = this.viewHtmlElementCreator.getElement();
         main.prepend(container);
+    }
+
+    public renderHintBlock(): void {
+        const hintBlock = new HintBlock().getElement();
+        this.viewHtmlElementCreator.getElement().prepend(hintBlock);
     }
 }

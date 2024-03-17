@@ -1,5 +1,5 @@
 import { basePath } from '../services/pathToFilesJSON';
-import { SoundPlayer } from '../utils/SoundPlayer/SoundPlayer';
+import { SoundPlayer } from '../utils/soundPlayer/SoundPlayer';
 import { Game } from '../view/main/game/Game';
 import { GameController } from './GameController';
 
