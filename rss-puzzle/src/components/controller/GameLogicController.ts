@@ -1,6 +1,7 @@
 import { Game } from '../view/main/game/Game';
 import { GameController } from './GameController';
 import { GameDataController } from './GameDataController';
+import { GameHideController } from './GameHideController';
 
 export class GameLogicController {
     private game: Game;
@@ -9,10 +10,18 @@ export class GameLogicController {
 
     private mainController: GameController;
 
-    constructor(game: Game, dataController: GameDataController, mainController: GameController) {
+    private hideController: GameHideController;
+
+    constructor(
+        game: Game,
+        dataController: GameDataController,
+        mainController: GameController,
+        hideController: GameHideController
+    ) {
         this.game = game;
         this.mainController = mainController;
         this.dataController = dataController;
+        this.hideController = hideController;
     }
 
     public checkWordValidity(): void {
@@ -31,9 +40,13 @@ export class GameLogicController {
                 );
                 if (compareWordArrays) {
                     this.activeButtonContinue();
+                    this.hideController.showButtonContinue();
+                    this.hideController.hideButtonCheck();
                     this.mainController.nextSentence();
                 } else {
                     this.disabledButtonContinue();
+                    this.hideController.hideButtonContinue();
+                    this.hideController.showButtonCheck();
                 }
             }
         }

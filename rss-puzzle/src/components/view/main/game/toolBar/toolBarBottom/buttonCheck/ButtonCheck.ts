@@ -9,7 +9,7 @@ export class ButtonCheck extends View {
         super({
             tag: 'button',
             callback: null,
-            classNames: ['toolbar-bottom__btn'],
+            classNames: ['toolbar-bottom__btn-check'],
             textContent: 'Check',
         });
         this.onHandleClickCheck = onHandleClickCheck;

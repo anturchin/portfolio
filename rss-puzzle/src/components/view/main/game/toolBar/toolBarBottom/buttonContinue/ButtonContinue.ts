@@ -9,7 +9,7 @@ export class ButtonContinue extends View {
         super({
             tag: 'button',
             callback: null,
-            classNames: ['toolbar-bottom__btn'],
+            classNames: ['toolbar-bottom__btn-continue'],
             textContent: 'Continue',
         });
         this.onHandleClickContinue = onHandleClickContinue;
@@ -25,6 +25,7 @@ export class ButtonContinue extends View {
 
     private setupButtonContinue(): void {
         const btn = this.viewHtmlElementCreator.getElement() as HTMLButtonElement;
+        btn.classList.add('hide');
         btn.disabled = true;
         btn.draggable = false;
     }

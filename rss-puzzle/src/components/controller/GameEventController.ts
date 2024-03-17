@@ -1,5 +1,6 @@
 import { Game } from '../view/main/game/Game';
 import { GameController } from './GameController';
+import { GameHideController } from './GameHideController';
 import { GameLogicController } from './GameLogicController';
 
 export class GameEventController {
@@ -9,10 +10,18 @@ export class GameEventController {
 
     private logicController: GameLogicController;
 
-    constructor(game: Game, logicController: GameLogicController, mainController: GameController) {
+    private hideController: GameHideController;
+
+    constructor(
+        game: Game,
+        logicController: GameLogicController,
+        mainController: GameController,
+        hideController: GameHideController
+    ) {
         this.game = game;
         this.mainController = mainController;
         this.logicController = logicController;
+        this.hideController = hideController;
         this.handleClickCell();
         this.handleClickButtonCheck();
     }
@@ -25,6 +34,8 @@ export class GameEventController {
             } else {
                 this.logicController.disabledButtonCheck();
                 this.logicController.disabledButtonContinue();
+                this.hideController.hideButtonContinue();
+                this.hideController.showButtonCheck();
             }
         };
     }
