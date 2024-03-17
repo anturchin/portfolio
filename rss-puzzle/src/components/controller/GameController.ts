@@ -49,6 +49,10 @@ export class GameController {
         this.imageController = new GameImageController(this.dataController, this.renderController);
     }
 
+    public getRenderController(): GameRenderController {
+        return this.renderController;
+    }
+
     public setLevel(level: number): void {
         this.dataController.setLevel(level);
         this.game.loadData();
@@ -78,11 +82,11 @@ export class GameController {
 
     public continueGame(): void {
         this.dataController.moveToNextWord();
-        this.logicController.disabledButtonContinue();
+        this.hideController.disabledButtonContinue();
         this.renderController.updateResultLineAndSourceLine();
         this.hideController.hideButtonContinue();
         this.hideController.showButtonCheck();
-        this.logicController.disabledButtonCheck();
+        this.hideController.disabledButtonCheck();
     }
 
     public nextSentence(): void {

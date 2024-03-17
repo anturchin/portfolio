@@ -1,8 +1,8 @@
 .toolbar-bottom__btn-check {
     width: 150px;
-    height: 35px;
+    height: 45px;
+    border-radius: 5px;
     border: none;
-    border-radius: 10px;
     color: white;
     font-size: 1.6rem;
     text-transform: uppercase;
@@ -26,5 +26,19 @@
         opacity: 0.3;
         background-color: #5da4d1;
         cursor: auto;
+    }
+}
+
+.button-animation {
+    animation-name: autofill-animation;
+    animation-duration: 0.5s;
+}
+
+@keyframes autofill-animation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

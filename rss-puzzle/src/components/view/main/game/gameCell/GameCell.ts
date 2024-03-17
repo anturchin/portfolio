@@ -10,7 +10,7 @@ export class GameCell extends View {
         super({
             tag: 'li',
             callback: null,
-            classNames: ['game__cell'],
+            classNames: ['game__cell', 'word-animation'],
         });
         this.onCellsChecked = onCellsChecked;
         this.onCellClick = this.onCellClick.bind(this);

@@ -1,4 +1,4 @@
-.toolbar-bottom__btn-continue {
+.toolbar-bottom__btn-auto {
     width: 150px;
     height: 45px;
     border-radius: 5px;
@@ -31,7 +31,7 @@
 
 .button-animation {
     animation-name: autofill-animation;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
 }
 
 @keyframes autofill-animation {

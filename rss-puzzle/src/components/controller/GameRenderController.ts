@@ -39,4 +39,14 @@ export class GameRenderController {
             sourceLine.innerHTML = `<h4 style="${style}">${author} - ${nameImage} (${year})</h4>`;
         }
     }
+
+    public renderAutoFillSentenceInResultLine(sortedCells: HTMLElement[]): void {
+        const resultLine = document.querySelector<HTMLElement>('.game__row.active');
+        if (resultLine) {
+            sortedCells.forEach((cell) => {
+                cell.setAttribute('data-is-result-block', 'true');
+                resultLine.append(cell);
+            });
+        }
+    }
 }

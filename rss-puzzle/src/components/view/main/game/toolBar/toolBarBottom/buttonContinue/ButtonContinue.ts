@@ -9,7 +9,7 @@ export class ButtonContinue extends View {
         super({
             tag: 'button',
             callback: null,
-            classNames: ['toolbar-bottom__btn-continue'],
+            classNames: ['toolbar-bottom__btn-continue', 'button-animation'],
             textContent: 'Continue',
         });
         this.onHandleClickContinue = onHandleClickContinue;

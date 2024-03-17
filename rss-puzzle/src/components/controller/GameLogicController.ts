@@ -1,3 +1,4 @@
+// import { SortShuffledArray } from '../helpers/SortShuffledArray';
 import { Game } from '../view/main/game/Game';
 import { GameController } from './GameController';
 import { GameDataController } from './GameDataController';
@@ -24,6 +25,34 @@ export class GameLogicController {
         this.hideController = hideController;
     }
 
+    public autofillSentenceInResultLine(): void {
+        const originalWords = this.dataController.getTextExample()?.split(' ');
+        if (originalWords) {
+            const { cells } = this.game;
+            const shuffledWords = cells.map((cell) => cell.getElement());
+
+            const sortedCells: HTMLElement[] = [];
+            const remainingItems = shuffledWords.slice();
+
+            originalWords.forEach((item) => {
+                const tmpWords: string[] = [];
+                remainingItems.forEach((sell) => tmpWords.push(sell.textContent || ''));
+                const index = tmpWords.indexOf(item);
+                if (index !== -1) {
+                    sortedCells.push(remainingItems[index] || '');
+                    remainingItems.splice(index, 1);
+                }
+            });
+
+            const render = this.mainController.getRenderController();
+            render.renderAutoFillSentenceInResultLine(sortedCells);
+            this.hideController.disabledButtonCheck();
+            this.hideController.hideButtonCheck();
+            this.hideController.activeButtonContinue();
+            this.hideController.showButtonContinue();
+        }
+    }
+
     public checkWordValidity(): void {
         const originalWords = this.dataController.getTextExample()?.split(' ');
         const cells = this.getAllCellsFromResultLine();
@@ -39,12 +68,12 @@ export class GameLogicController {
                     (elem, index) => elem === collectedWords[index]
                 );
                 if (compareWordArrays) {
-                    this.activeButtonContinue();
+                    this.hideController.activeButtonContinue();
                     this.hideController.showButtonContinue();
                     this.hideController.hideButtonCheck();
                     this.mainController.nextSentence();
                 } else {
-                    this.disabledButtonContinue();
+                    this.hideController.disabledButtonContinue();
                     this.hideController.hideButtonContinue();
                     this.hideController.showButtonCheck();
                 }
@@ -94,22 +123,6 @@ export class GameLogicController {
             return newRound;
         }
         return false;
-    }
-
-    public disabledButtonContinue(): void {
-        (this.game.buttonContinue?.getElement() as HTMLButtonElement).disabled = true;
-    }
-
-    public activeButtonContinue(): void {
-        (this.game.buttonContinue?.getElement() as HTMLButtonElement).disabled = false;
-    }
-
-    public disabledButtonCheck(): void {
-        (this.game.buttonCheck?.getElement() as HTMLButtonElement).disabled = true;
-    }
-
-    public activeButtonCheck(): void {
-        (this.game.buttonCheck?.getElement() as HTMLButtonElement).disabled = false;
     }
 
     public removeAllResultLines(): void {

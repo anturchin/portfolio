@@ -24,16 +24,18 @@ export class GameEventController {
         this.hideController = hideController;
         this.handleClickCell();
         this.handleClickButtonCheck();
+        this.onHandleClickAutoComplete();
+        this.onHandleClickContinue();
     }
 
     public handleClickCell(): void {
         this.game.onCellsChecked = () => {
             if (this.logicController.isAllCellsAreResultBlock()) {
-                this.logicController.activeButtonCheck();
+                this.hideController.activeButtonCheck();
                 this.logicController.checkWordValidity();
             } else {
-                this.logicController.disabledButtonCheck();
-                this.logicController.disabledButtonContinue();
+                this.hideController.disabledButtonCheck();
+                this.hideController.disabledButtonContinue();
                 this.hideController.hideButtonContinue();
                 this.hideController.showButtonCheck();
             }
@@ -54,7 +56,7 @@ export class GameEventController {
     public handleClickButtonCheck(): void {
         this.game.onHandleClickCheck = () => {
             if (!this.logicController.isAllCellsAreResultBlock()) {
-                this.logicController.disabledButtonCheck();
+                this.hideController.disabledButtonCheck();
                 return;
             }
 
@@ -62,14 +64,16 @@ export class GameEventController {
                 this.game.buttonContinue?.getElement() as HTMLButtonElement
             ).disabled;
 
+            this.hideController.disabledButtonCheck();
+            this.hideController.disabledButtonContinue();
+            this.hideController.disabledButtonAutoComplete();
             this.logicController.checkCellValidity();
-            this.logicController.disabledButtonCheck();
-            this.logicController.disabledButtonContinue();
             setTimeout(() => {
                 this.logicController.checkCellValidity();
-                this.logicController.activeButtonCheck();
+                this.hideController.activeButtonCheck();
+                this.hideController.activeButtonAutoComplete();
                 if (!oldStateButtonContinue) {
-                    this.logicController.activeButtonContinue();
+                    this.hideController.activeButtonContinue();
                 }
             }, 3000);
         };
@@ -82,6 +86,12 @@ export class GameEventController {
             } else {
                 this.mainController.continueGame();
             }
+        };
+    }
+
+    public onHandleClickAutoComplete(): void {
+        this.game.onHandleClickAutoComplete = () => {
+            this.logicController.autofillSentenceInResultLine();
         };
     }
 }
