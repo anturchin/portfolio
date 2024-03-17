@@ -1,6 +1,8 @@
 import { View } from '../../../View';
 import { ImageStartScreen } from './imageStartScreen/ImageStartScreen';
 
+import './BlockImage.scss';
+
 export class BlockImage extends View {
     constructor() {
         super({ tag: 'div', callback: null, classNames: ['start-screen__block'] });

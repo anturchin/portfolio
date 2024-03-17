@@ -17,7 +17,7 @@ import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintB
 import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
 
 import './Game.scss';
-import { HintBlock } from './toolBar/toolBarTop/hintSwitch/HintBlock';
+import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
 
 export class Game extends View {
     private controller: GameController;
@@ -84,7 +84,7 @@ export class Game extends View {
         this.renderGameSourceLine();
         this.renderGameCells();
         this.renderToolBarBottom();
-        this.renderHintBlock();
+        this.renderToolBarTopMain();
     }
 
     public renderGamePuzzle(): void {
@@ -182,8 +182,8 @@ export class Game extends View {
         main.prepend(container);
     }
 
-    public renderHintBlock(): void {
-        const hintBlock = new HintBlock().getElement();
-        this.viewHtmlElementCreator.getElement().prepend(hintBlock);
+    public renderToolBarTopMain(): void {
+        const toolBarTopMain = new ToolBarTopMain(6, 45).getElement();
+        this.viewHtmlElementCreator.getElement().prepend(toolBarTopMain);
     }
 }
