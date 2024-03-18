@@ -7,7 +7,7 @@ export class PronunciationHintText extends View {
         super({
             tag: 'p',
             callback: null,
-            classNames: ['game-hint__text'],
+            classNames: ['game-hint__text', 'text-animation', 'show__text'],
         });
     }
 }

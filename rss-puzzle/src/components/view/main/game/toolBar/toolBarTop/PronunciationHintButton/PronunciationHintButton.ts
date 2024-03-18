@@ -7,7 +7,11 @@ export class PronunciationHintButton extends View {
     public onHandleClickAudioSound?: () => void;
 
     constructor(onHandleClickAudioSound: () => void) {
-        super({ tag: 'div', callback: null, classNames: ['game-hint__button'] });
+        super({
+            tag: 'div',
+            callback: null,
+            classNames: ['game-hint__button', 'hidden-animation', 'show__button'],
+        });
         this.onHandleClickAudioSound = onHandleClickAudioSound;
         this.setupPronunciationHintButton();
         this.setEventListener();

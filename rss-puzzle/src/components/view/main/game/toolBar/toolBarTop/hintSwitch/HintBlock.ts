@@ -13,8 +13,8 @@ export class HintBlock extends View {
 
     private setupHintBlock(): void {
         const btnHintText = new ButtonHintText().getElement();
-        const btnHintImage = new ButtonHintImage().getElement();
         const btnHintSound = new ButtonHintSound().getElement();
+        const btnHintImage = new ButtonHintImage().getElement();
         this.viewHtmlElementCreator
             .getElement()
             .append(...[btnHintSound, btnHintText, btnHintImage]);

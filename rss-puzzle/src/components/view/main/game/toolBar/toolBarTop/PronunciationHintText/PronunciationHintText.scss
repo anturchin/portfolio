@@ -3,3 +3,24 @@
     font-style: italic;
     font-weight: 600;
 }
+
+.hide__text {
+    display: none;
+}
+
+.show__text {
+    display: block;
+}
+
+.text-animation {
+    animation: text-animation 1s linear;
+}
+
+@keyframes text-animation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
