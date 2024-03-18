@@ -73,4 +73,18 @@ export class GameHideController {
             button.classList.remove('hide');
         }
     }
+
+    public hideHintBlock(): void {
+        const hintBlock = document.querySelector<HTMLElement>('.hint');
+        if (hintBlock) {
+            hintBlock.style.display = 'none';
+        }
+    }
+
+    public showHintBlock(): void {
+        const hintBlock = document.querySelector<HTMLElement>('.hint');
+        if (hintBlock) {
+            hintBlock.style.display = 'flex';
+        }
+    }
 }

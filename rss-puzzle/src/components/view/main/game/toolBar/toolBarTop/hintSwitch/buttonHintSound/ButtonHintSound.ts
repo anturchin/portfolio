@@ -17,12 +17,12 @@ export class ButtonHintSound extends View {
     }
 
     private toggleClass(element: HTMLElement): void {
-        if (element.classList.contains('show__button')) {
-            element.classList.remove('show__button', 'fade-out');
-            element.classList.add('hide__button');
+        if (element.classList.contains('show__text')) {
+            element.classList.remove('show__text');
+            element.classList.add('hide__text');
         } else {
-            element.classList.add('show__button', 'fade-out');
-            element.classList.remove('hide__button');
+            element.classList.add('show__text');
+            element.classList.remove('hide__text');
         }
     }
 

@@ -1,6 +1,7 @@
 import { Router } from '../router/router/Router';
 import { State } from '../state/State';
 import { RoundData, WordType } from '../state/types';
+import { Subject } from '../utils/Observer/Subject';
 import { Game } from '../view/main/game/Game';
 import { GameAudioController } from './GameAudioController';
 import { GameDataController } from './GameDataController';
@@ -31,10 +32,13 @@ export class GameController {
 
     private audioController: GameAudioController;
 
-    constructor(game: Game, router: Router) {
+    private subject: Subject;
+
+    constructor(game: Game, router: Router, subject: Subject) {
         this.game = game;
         this.router = router;
-        this.state = new State();
+        this.subject = subject;
+        this.state = new State(this.subject);
         this.audioController = new GameAudioController(this.game, this);
         this.hideController = new GameHideController(this.game);
         this.dataController = new GameDataController(this.state);
@@ -109,24 +113,18 @@ export class GameController {
         this.imageController.setCompletedRoundImagePath();
         this.renderController.clearHintText();
         this.hideController.hideButtonCheck();
-        if (this.game.buttonAudioHint) this.hideController.hideButton(this.game.buttonAudioHint);
-        if (this.game.buttonAutoComplete) {
-            this.hideController.hideButton(this.game.buttonAutoComplete);
-        }
+        this.hideController.hideHintBlock();
     }
 
     public continueGame(): void {
         this.dataController.moveToNextWord();
-        if (this.game.buttonAudioHint) this.hideController.showButton(this.game.buttonAudioHint);
-        if (this.game.buttonAutoComplete) {
-            this.hideController.showButton(this.game.buttonAutoComplete);
-        }
         this.hideController.disabledButtonContinue();
         this.renderController.updateResultLineAndSourceLine();
         this.renderController.updateHintText();
         this.hideController.hideButtonContinue();
         this.hideController.showButtonCheck();
         this.hideController.disabledButtonCheck();
+        this.hideController.showHintBlock();
     }
 
     public nextSentence(): void {

@@ -1,5 +1,8 @@
 .game-hint__text {
-    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
     font-style: italic;
     font-weight: 600;
 }

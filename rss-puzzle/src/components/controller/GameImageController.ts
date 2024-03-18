@@ -13,13 +13,13 @@ export class GameImageController {
     }
 
     public setCompletedRoundImagePath(): void {
-        const pastRound = this.dataController.getPastRound();
-        if (pastRound) {
+        const currentRound = this.dataController.getCurrentRound()?.levelData;
+        if (currentRound) {
             this.renderController.renderImageInGamePuzzleContainer(
-                pastRound.author,
-                `${basePath}/images/${pastRound.imageSrc}`,
-                pastRound.name,
-                pastRound.year
+                currentRound.author,
+                `${basePath}/images/${currentRound.imageSrc}`,
+                currentRound.name,
+                currentRound.year
             );
         }
     }

@@ -3,7 +3,6 @@ import { GamePuzzleImage } from '../view/main/game/gamePuzzle/gamePuzzleImage/Ga
 import { GameDataController } from './GameDataController';
 import { GameEventController } from './GameEventController';
 
-const style = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);';
 export class GameRenderController {
     private game: Game;
 
@@ -44,7 +43,7 @@ export class GameRenderController {
         this.game.gamePuzzleBlock?.addInnerElement(imageComponent);
         const sourceLine = this.game.gameSourceLine?.getElement();
         if (sourceLine) {
-            sourceLine.innerHTML = `<h4 style="${style}">${author} - ${nameImage} (${year})</h4>`;
+            sourceLine.innerHTML = `<h4>${author} - ${nameImage} (${year})</h4>`;
         }
     }
 

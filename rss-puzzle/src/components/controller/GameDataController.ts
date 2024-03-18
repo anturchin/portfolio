@@ -3,7 +3,7 @@ import { FileLoaderService } from '../services/fileLoader/FileLoaderService';
 import { PathToFilesJSONType, basePath } from '../services/pathToFilesJSON';
 import { IRounds } from '../services/types';
 import { State } from '../state/State';
-import { LevelDataType, RoundData, WordType } from '../state/types';
+import { RoundData, WordType } from '../state/types';
 
 export class GameDataController {
     private state: State;
@@ -25,10 +25,6 @@ export class GameDataController {
 
     public moveToNextWord(): void {
         this.state.moveToNextWord();
-    }
-
-    public getPastRound(): LevelDataType | null {
-        return this.state.getPastRound() || null;
     }
 
     public getCurrentImagePath(): string | undefined {

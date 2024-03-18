@@ -17,6 +17,7 @@ import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintB
 import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
 import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
 import { PathToFilesJSONType } from '../../../services/pathToFilesJSON';
+import { Subject } from '../../../utils/Observer/Subject';
 
 import './Game.scss';
 
@@ -57,9 +58,12 @@ export class Game extends View {
 
     public toolBarTopMain: ToolBarTopMain | null = null;
 
+    private subject: Subject;
+
     constructor(router: Router) {
         super({ tag: 'section', callback: null, classNames: ['game__wrapper'] });
-        this.controller = new GameController(this, router);
+        this.subject = new Subject();
+        this.controller = new GameController(this, router, this.subject);
         this.loadData();
     }
 
@@ -150,6 +154,7 @@ export class Game extends View {
         this.cells = [];
         if (textExample) {
             const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
+            // const shuffledWords = textExample.split(' ');
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
                 const cell = new GameCell(word, index, textExample, callback);
@@ -174,7 +179,8 @@ export class Game extends View {
             -rowIndex,
             `[data-is-result-block="${isResultBlock}"]`,
             'game__puzzle',
-            pathImage || ''
+            pathImage || '',
+            this.controller
         );
     }
 
@@ -219,7 +225,8 @@ export class Game extends View {
                 levelCount,
                 roundCount,
                 this.savedLevel,
-                this.savedRound
+                this.savedRound,
+                this.subject
             );
             this.viewHtmlElementCreator.getElement().prepend(this.toolBarTopMain.getElement());
             this.controller.eventController.setupLevelAndRoundHandler();

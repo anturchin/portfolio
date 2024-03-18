@@ -10,7 +10,7 @@ export class PronunciationHintButton extends View {
         super({
             tag: 'div',
             callback: null,
-            classNames: ['game-hint__button', 'show__button'],
+            classNames: ['game-hint__button', 'show__text'],
         });
         this.onHandleClickAudioSound = onHandleClickAudioSound;
         this.setupPronunciationHintButton();

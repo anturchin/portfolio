@@ -1,21 +1,46 @@
+import { Subject } from '../../../../../../utils/Observer/Subject';
+import { IObserver } from '../../../../../../utils/Observer/types';
+import { LocalStorageManager } from '../../../../../../utils/localStorageManager/LocalStorageManager';
 import { View } from '../../../../../View';
 
 import './RoundSwitch.scss';
 
-export class RoundSwitch extends View {
+export class RoundSwitch extends View implements IObserver {
     public count: number;
 
     public savedRound: number;
 
-    constructor(count: number, savedRound: number) {
+    private subject: Subject;
+
+    constructor(count: number, savedRound: number, subject: Subject) {
         super({
             tag: 'select',
             callback: null,
             classNames: ['round__select'],
         });
         this.count = count;
-        this.savedRound = savedRound;
+
+        const gameIndexes = LocalStorageManager.getGameIndexes();
+        if (gameIndexes !== null) {
+            const { currentRoundIndex } = gameIndexes;
+            this.savedRound = currentRoundIndex;
+        } else {
+            this.savedRound = savedRound;
+        }
+
+        this.subject = subject;
         this.setupRoundSwitch();
+    }
+
+    public update(roundIndex: number): void {
+        this.savedRound = roundIndex;
+        const select = this.viewHtmlElementCreator.getElement();
+        [...select.children].forEach((option) => {
+            const currentValue = parseInt(option.getAttribute('value') || '', 10);
+            if (currentValue === this.savedRound) {
+                option.setAttribute('selected', 'true');
+            }
+        });
     }
 
     public getCurrentRound(): number {
@@ -46,5 +71,6 @@ export class RoundSwitch extends View {
             options.push(option);
         }
         this.viewHtmlElementCreator.getElement().append(...options);
+        this.subject.addObserver(this);
     }
 }

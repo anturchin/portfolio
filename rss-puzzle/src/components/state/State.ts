@@ -1,5 +1,6 @@
+import { Subject } from '../utils/Observer/Subject';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
-import { LevelDataType, RoundData, WordType } from './types';
+import { RoundData, WordType } from './types';
 
 export class State {
     private gameData: RoundData[] | null;
@@ -8,13 +9,13 @@ export class State {
 
     private currentSentenceIndex: number;
 
-    private pastRounds: number;
+    private subject: Subject;
 
-    constructor() {
+    constructor(subject: Subject) {
         this.gameData = null;
         this.currentRoundIndex = 0;
         this.currentSentenceIndex = 0;
-        this.pastRounds = 0;
+        this.subject = subject;
         this.setupGameState();
     }
 
@@ -22,7 +23,7 @@ export class State {
         if (this.gameData && roundIndex <= this.gameData.length) {
             this.currentRoundIndex = roundIndex;
             this.currentSentenceIndex = 0;
-            // this.saveStateToLocalStorage();
+            this.saveStateToLocalStorage();
         }
     }
 
@@ -30,34 +31,29 @@ export class State {
         this.currentRoundIndex = 0;
         this.currentSentenceIndex = 0;
 
-        // this.saveStateToLocalStorage();
-    }
-
-    public getPastRound(): LevelDataType | null {
-        return this.gameData?.[this.pastRounds].levelData || null;
+        this.saveStateToLocalStorage();
     }
 
     public moveToNextRound(): void {
         if (this.gameData && this.currentRoundIndex < this.gameData.length - 1) {
-            this.pastRounds = this.currentRoundIndex;
             this.currentRoundIndex += 1;
             this.currentSentenceIndex = 0;
-            if (this.currentRoundIndex > this.gameData.length - 1) {
-                this.restartGame();
-            }
+        } else {
+            this.restartGame();
         }
-        // this.saveStateToLocalStorage();
+        this.saveStateToLocalStorage();
+
+        this.subject.notifyObservers(this.currentRoundIndex);
     }
 
     public moveToNextWord(): void {
         const currentRound = this.getCurrentRound();
         if (currentRound && this.currentSentenceIndex < currentRound.words.length - 1) {
             this.currentSentenceIndex += 1;
-            if (this.currentSentenceIndex === currentRound.words.length - 1) {
-                this.moveToNextRound();
-            }
-            // this.saveStateToLocalStorage();
+        } else {
+            this.moveToNextRound();
         }
+        this.saveStateToLocalStorage();
     }
 
     public getGameData(): RoundData[] | null {
@@ -75,7 +71,7 @@ export class State {
 
     public setCurrentSentenceIndex(index: number): void {
         this.currentSentenceIndex = index;
-        // this.saveStateToLocalStorage();
+        this.saveStateToLocalStorage();
     }
 
     public getCurrentRound(): RoundData | null {
