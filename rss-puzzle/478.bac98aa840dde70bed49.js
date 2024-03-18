@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkRSS_Puzzle=self.webpackChunkRSS_Puzzle||[]).push([[478],{478:(s,e,t)=>{t.r(e),t.d(e,{Statistics:()=>u});var c=t(766);class u extends c.S{constructor(s){super({tag:"section",callback:null}),this.router=s}}}}]);
