@@ -34,6 +34,21 @@ export class GameEventController {
         this.onHandleClickAudioSound();
     }
 
+    public setupLevelAndRoundHandler(): void {
+        const levelAndRoundSwitch = this.game.toolBarTopMain?.levelAndRoundBlock;
+        if (levelAndRoundSwitch) {
+            const { level, round } = levelAndRoundSwitch;
+            if (level && round) {
+                level.setLevelChangeHandler((levelValue: number) => {
+                    this.mainController.setLevel(levelValue);
+                });
+                round.setRoundChangeHandler((roundValue: number) => {
+                    this.mainController.setRound(roundValue);
+                });
+            }
+        }
+    }
+
     public handleClickCell(): void {
         this.game.onCellsChecked = () => {
             if (this.logicController.isAllCellsAreResultBlock()) {

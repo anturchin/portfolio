@@ -18,11 +18,19 @@ export class State {
         this.setupGameState();
     }
 
+    public updateRound(roundIndex: number): void {
+        if (this.gameData && roundIndex <= this.gameData.length) {
+            this.currentRoundIndex = roundIndex;
+            this.currentSentenceIndex = 0;
+            // this.saveStateToLocalStorage();
+        }
+    }
+
     public restartGame(): void {
         this.currentRoundIndex = 0;
         this.currentSentenceIndex = 0;
 
-        this.saveStateToLocalStorage();
+        // this.saveStateToLocalStorage();
     }
 
     public getPastRound(): LevelDataType | null {
@@ -38,7 +46,7 @@ export class State {
                 this.restartGame();
             }
         }
-        this.saveStateToLocalStorage();
+        // this.saveStateToLocalStorage();
     }
 
     public moveToNextWord(): void {
@@ -48,7 +56,7 @@ export class State {
             if (this.currentSentenceIndex === currentRound.words.length - 1) {
                 this.moveToNextRound();
             }
-            this.saveStateToLocalStorage();
+            // this.saveStateToLocalStorage();
         }
     }
 
@@ -67,7 +75,7 @@ export class State {
 
     public setCurrentSentenceIndex(index: number): void {
         this.currentSentenceIndex = index;
-        this.saveStateToLocalStorage();
+        // this.saveStateToLocalStorage();
     }
 
     public getCurrentRound(): RoundData | null {
@@ -108,14 +116,12 @@ export class State {
         const storedState = LocalStorageManager.getGameIndexes();
         if (storedState) {
             this.currentRoundIndex = storedState.currentRoundIndex;
-            this.currentSentenceIndex = storedState.currentSentenceIndex;
         }
     }
 
     private saveStateToLocalStorage(): void {
         LocalStorageManager.saveGameIndexes({
             currentRoundIndex: this.currentRoundIndex,
-            currentSentenceIndex: this.currentSentenceIndex,
         });
     }
 }

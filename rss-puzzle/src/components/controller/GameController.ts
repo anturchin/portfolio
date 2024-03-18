@@ -1,6 +1,6 @@
 import { Router } from '../router/router/Router';
 import { State } from '../state/State';
-import { WordType } from '../state/types';
+import { RoundData, WordType } from '../state/types';
 import { Game } from '../view/main/game/Game';
 import { GameAudioController } from './GameAudioController';
 import { GameDataController } from './GameDataController';
@@ -19,7 +19,7 @@ export class GameController {
 
     private dataController: GameDataController;
 
-    private eventController: GameEventController;
+    public eventController: GameEventController;
 
     private logicController: GameLogicController;
 
@@ -64,12 +64,27 @@ export class GameController {
         return this.dataController.getCurrentWords()?.[currentIndex] || null;
     }
 
+    public getGameData(): RoundData[] | null {
+        return this.state.getGameData() || null;
+    }
+
     public getRenderController(): GameRenderController {
         return this.renderController;
     }
 
     public setLevel(level: number): void {
+        if (this.game.toolBarTopMain) {
+            if (this.game.toolBarTopMain.levelAndRoundBlock) {
+                const { round } = this.game.toolBarTopMain.levelAndRoundBlock;
+                if (round) round.setCurrentRound(0);
+            }
+        }
         this.dataController.setLevel(level);
+        this.game.loadData();
+    }
+
+    public setRound(round: number): void {
+        this.dataController.setRound(round);
         this.game.loadData();
     }
 

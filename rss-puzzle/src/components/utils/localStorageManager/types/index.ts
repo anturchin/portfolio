@@ -5,5 +5,4 @@ export type UserDataType = {
 
 export type GameStateType = {
     currentRoundIndex: number;
-    currentSentenceIndex: number;
 };

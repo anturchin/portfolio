@@ -19,11 +19,8 @@ export class LocalStorageManager {
         localStorage.removeItem('userData');
     }
 
-    public static saveGameIndexes({
-        currentRoundIndex,
-        currentSentenceIndex,
-    }: GameStateType): void {
-        const gameIndexes = { currentRoundIndex, currentSentenceIndex };
+    public static saveGameIndexes({ currentRoundIndex }: GameStateType): void {
+        const gameIndexes = { currentRoundIndex };
         const gameIndexesJson = JSON.stringify(gameIndexes);
         localStorage.setItem('gameIndexes', gameIndexesJson);
     }

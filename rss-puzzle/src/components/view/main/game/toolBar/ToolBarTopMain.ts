@@ -5,14 +5,29 @@ import { HintBlock } from './toolBarTop/hintSwitch/HintBlock';
 import './ToolBarTopMain.scss';
 
 export class ToolBarTopMain extends View {
-    constructor(countLevel: number, countRound: number) {
+    public levelAndRoundBlock: LevelAndRoundBlock | null;
+
+    constructor(countLevel: number, countRound: number, savedLevel: number, savedRound: number) {
         super({ tag: 'div', callback: null, classNames: ['tool-bar__top'] });
-        this.setupTollBarTopMain(countLevel, countRound);
+        this.levelAndRoundBlock = null;
+        this.setupTollBarTopMain(countLevel, countRound, savedLevel, savedRound);
     }
 
-    private setupTollBarTopMain(countLevel: number, countRound: number): void {
-        const levelAndRoundBlock = new LevelAndRoundBlock(countLevel, countRound).getElement();
+    private setupTollBarTopMain(
+        countLevel: number,
+        countRound: number,
+        savedLevel: number,
+        savedRound: number
+    ): void {
+        this.levelAndRoundBlock = new LevelAndRoundBlock(
+            countLevel,
+            countRound,
+            savedLevel,
+            savedRound
+        );
         const hintBlock = new HintBlock().getElement();
-        this.viewHtmlElementCreator.getElement().append(...[levelAndRoundBlock, hintBlock]);
+        this.viewHtmlElementCreator
+            .getElement()
+            .append(...[this.levelAndRoundBlock.getElement(), hintBlock]);
     }
 }

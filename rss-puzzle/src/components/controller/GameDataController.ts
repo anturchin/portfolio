@@ -15,6 +15,10 @@ export class GameDataController {
         this.level = 1;
     }
 
+    public setRound(roundIndex: number): void {
+        this.state.updateRound(roundIndex);
+    }
+
     public getCurrentRound(): RoundData | null {
         return this.state.getCurrentRound() || null;
     }
@@ -45,6 +49,7 @@ export class GameDataController {
 
     public setLevel(level: number): void {
         this.level = level;
+        this.state.setCurrentRoundIndex(0);
     }
 
     public async loadGameData(): Promise<void> {

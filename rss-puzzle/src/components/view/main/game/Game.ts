@@ -15,9 +15,10 @@ import { ButtonAutoComplete } from './toolBar/toolBarBottom/buttonAutoComplete/B
 import { PronunciationHint } from './toolBar/toolBarTop/pronunciationHint/PronunciationHint';
 import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintButton/PronunciationHintButton';
 import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
+import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
+import { PathToFilesJSONType } from '../../../services/pathToFilesJSON';
 
 import './Game.scss';
-import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
 
 export class Game extends View {
     private controller: GameController;
@@ -32,27 +33,65 @@ export class Game extends View {
 
     public onHandleClickAudioSound?: () => void;
 
-    public cells: GameCell[];
+    public savedLevel: number = 1;
 
-    public resultLine: GamePuzzleLine | null;
+    public savedRound: number = 0;
 
-    public gamePuzzleBlock: GamePuzzle | null;
+    public cells: GameCell[] = [];
 
-    public gameSourceLine: GameSourceLine | null;
+    public resultLine: GamePuzzleLine | null = null;
 
-    public buttonContinue: ButtonContinue | null;
+    public gamePuzzleBlock: GamePuzzle | null = null;
 
-    public buttonCheck: ButtonCheck | null;
+    public gameSourceLine: GameSourceLine | null = null;
 
-    public buttonAutoComplete: ButtonAutoComplete | null;
+    public buttonContinue: ButtonContinue | null = null;
 
-    public buttonAudioHint: PronunciationHintButton | null;
+    public buttonCheck: ButtonCheck | null = null;
 
-    public hintText: PronunciationHintText | null;
+    public buttonAutoComplete: ButtonAutoComplete | null = null;
+
+    public buttonAudioHint: PronunciationHintButton | null = null;
+
+    public hintText: PronunciationHintText | null = null;
+
+    public toolBarTopMain: ToolBarTopMain | null = null;
 
     constructor(router: Router) {
         super({ tag: 'section', callback: null, classNames: ['game__wrapper'] });
         this.controller = new GameController(this, router);
+        this.loadData();
+    }
+
+    public async loadData(): Promise<void> {
+        try {
+            await this.controller.loadGameData();
+            this.clearDOMAndSaveSelectedLevel();
+            this.render();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
+    }
+
+    public clearDOMAndSaveSelectedLevel(): void {
+        const mainGame = this.viewHtmlElementCreator.getElement();
+        if (this.toolBarTopMain) {
+            if (this.toolBarTopMain.levelAndRoundBlock) {
+                const { level } = this.toolBarTopMain.levelAndRoundBlock;
+                if (level) this.savedLevel = level.getCurrentLevel();
+            }
+        }
+        if (this.toolBarTopMain) {
+            if (this.toolBarTopMain.levelAndRoundBlock) {
+                const { round } = this.toolBarTopMain.levelAndRoundBlock;
+                if (round) this.savedRound = round.getCurrentRound();
+            }
+        }
+
+        mainGame.innerHTML = '';
+
         this.cells = [];
         this.resultLine = null;
         this.gamePuzzleBlock = null;
@@ -62,18 +101,7 @@ export class Game extends View {
         this.buttonAutoComplete = null;
         this.buttonAudioHint = null;
         this.hintText = null;
-        this.loadData();
-    }
-
-    public async loadData(): Promise<void> {
-        try {
-            await this.controller.loadGameData();
-            this.render();
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
-        }
+        this.toolBarTopMain = null;
     }
 
     public override render(): void {
@@ -88,6 +116,7 @@ export class Game extends View {
     }
 
     public renderGamePuzzle(): void {
+        this.gamePuzzleBlock = null;
         this.gamePuzzleBlock = new GamePuzzle();
         if (this.gamePuzzleBlock) {
             this.viewHtmlElementCreator.addInnerElement(this.gamePuzzleBlock.getElement());
@@ -183,7 +212,17 @@ export class Game extends View {
     }
 
     public renderToolBarTopMain(): void {
-        const toolBarTopMain = new ToolBarTopMain(6, 45).getElement();
-        this.viewHtmlElementCreator.getElement().prepend(toolBarTopMain);
+        const levelCount = Object.keys(PathToFilesJSONType).length;
+        const roundCount = this.controller.getGameData()?.length;
+        if (roundCount) {
+            this.toolBarTopMain = new ToolBarTopMain(
+                levelCount,
+                roundCount,
+                this.savedLevel,
+                this.savedRound
+            );
+            this.viewHtmlElementCreator.getElement().prepend(this.toolBarTopMain.getElement());
+            this.controller.eventController.setupLevelAndRoundHandler();
+        }
     }
 }

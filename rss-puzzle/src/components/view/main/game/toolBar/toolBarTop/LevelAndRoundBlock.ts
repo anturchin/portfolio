@@ -5,14 +5,27 @@ import { RoundSwitch } from './roundSwitch/RoundSwitch';
 import './LevelAndRoundBlock.scss';
 
 export class LevelAndRoundBlock extends View {
-    constructor(countLevel: number, countRound: number) {
+    public level: LevelSwitch | null;
+
+    public round: RoundSwitch | null;
+
+    constructor(countLevel: number, countRound: number, savedLevel: number, savedRound: number) {
         super({ tag: 'div', callback: null, classNames: ['level-and-round'] });
-        this.setupLevelAndRoundBlock(countLevel, countRound);
+        this.level = null;
+        this.round = null;
+        this.setupLevelAndRoundBlock(countLevel, countRound, savedLevel, savedRound);
     }
 
-    private setupLevelAndRoundBlock(countLevel: number, countRound: number): void {
-        const level = new LevelSwitch(countLevel).getElement();
-        const round = new RoundSwitch(countRound).getElement();
-        this.viewHtmlElementCreator.getElement().append(...[level, round]);
+    private setupLevelAndRoundBlock(
+        countLevel: number,
+        countRound: number,
+        savedLevel: number,
+        savedRound: number
+    ): void {
+        this.level = new LevelSwitch(countLevel, savedLevel);
+        this.round = new RoundSwitch(countRound, savedRound);
+        this.viewHtmlElementCreator
+            .getElement()
+            .append(...[this.level.getElement(), this.round.getElement()]);
     }
 }
