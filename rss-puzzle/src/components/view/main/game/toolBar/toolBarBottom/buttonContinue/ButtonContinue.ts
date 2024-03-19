@@ -27,6 +27,5 @@ export class ButtonContinue extends View {
         const btn = this.viewHtmlElementCreator.getElement() as HTMLButtonElement;
         btn.classList.add('hide');
         btn.disabled = true;
-        btn.draggable = false;
     }
 }

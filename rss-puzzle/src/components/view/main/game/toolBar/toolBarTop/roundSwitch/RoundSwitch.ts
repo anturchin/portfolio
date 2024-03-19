@@ -1,5 +1,5 @@
-import { Subject } from '../../../../../../utils/Observer/Subject';
-import { IObserver } from '../../../../../../utils/Observer/types';
+import { Subject } from '../../../../../../utils/observer/Subject';
+import { IObserver } from '../../../../../../utils/observer/types';
 import { LocalStorageManager } from '../../../../../../utils/localStorageManager/LocalStorageManager';
 import { View } from '../../../../../View';
 

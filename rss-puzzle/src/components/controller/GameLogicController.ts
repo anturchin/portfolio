@@ -1,4 +1,6 @@
 // import { SortShuffledArray } from '../helpers/SortShuffledArray';
+import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
+import { WordsStatisticType } from '../utils/localStorageManager/types';
 import { Game } from '../view/main/game/Game';
 import { GameController } from './GameController';
 import { GameDataController } from './GameDataController';
@@ -23,6 +25,24 @@ export class GameLogicController {
         this.mainController = mainController;
         this.dataController = dataController;
         this.hideController = hideController;
+    }
+
+    public saveStatisticsToLocalStorage(): void {
+        const level = this.dataController.getLevel();
+        const round = this.dataController.getRoundIndex();
+        const wordsStatistic: WordsStatisticType[] = [];
+        const resultLine = this.getResultsLine();
+        if (resultLine) {
+            resultLine.forEach((line, index) => {
+                const { isWordGuessed } = line.dataset;
+                if (isWordGuessed) {
+                    wordsStatistic.push({ index, isWordGuessed: false });
+                } else {
+                    wordsStatistic.push({ index, isWordGuessed: true });
+                }
+            });
+        }
+        LocalStorageManager.saveGameStatistics({ level, round, wordsStatistic });
     }
 
     public autofillSentenceInResultLine(): void {

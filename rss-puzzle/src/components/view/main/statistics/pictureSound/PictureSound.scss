@@ -1,0 +1,9 @@
+.picture__sound {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    &:hover {
+        transform: scale(1.2);
+    }
+}

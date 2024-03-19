@@ -1,9 +1,9 @@
 import { View } from '../../../../View';
 import { LevelSwitch } from './levelSwitch/LevelSwitch';
 import { RoundSwitch } from './roundSwitch/RoundSwitch';
+import { Subject } from '../../../../../utils/observer/Subject';
 
 import './LevelAndRoundBlock.scss';
-import { Subject } from '../../../../../utils/Observer/Subject';
 
 export class LevelAndRoundBlock extends View {
     public level: LevelSwitch | null;

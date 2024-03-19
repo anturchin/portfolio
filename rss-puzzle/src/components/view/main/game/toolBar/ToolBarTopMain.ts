@@ -1,9 +1,9 @@
 import { View } from '../../../View';
 import { LevelAndRoundBlock } from './toolBarTop/LevelAndRoundBlock';
 import { HintBlock } from './toolBarTop/hintSwitch/HintBlock';
+import { Subject } from '../../../../utils/observer/Subject';
 
 import './ToolBarTopMain.scss';
-import { Subject } from '../../../../utils/Observer/Subject';
 
 export class ToolBarTopMain extends View {
     public levelAndRoundBlock: LevelAndRoundBlock | null;

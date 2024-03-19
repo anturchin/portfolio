@@ -15,6 +15,14 @@ export class GameDataController {
         this.level = 1;
     }
 
+    public getLevel(): number {
+        return this.level;
+    }
+
+    public getRoundIndex(): number {
+        return this.state.getCurrentRoundIndex();
+    }
+
     public setRound(roundIndex: number): void {
         this.state.updateRound(roundIndex);
     }

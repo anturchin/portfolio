@@ -87,4 +87,18 @@ export class GameHideController {
             hintBlock.style.display = 'flex';
         }
     }
+
+    public hideGameHintBlock(): void {
+        const hintBlock = document.querySelector<HTMLElement>('.game-hint');
+        if (hintBlock) {
+            hintBlock.style.display = 'none';
+        }
+    }
+
+    public showGameHintBlock(): void {
+        const hintBlock = document.querySelector<HTMLElement>('.game-hint');
+        if (hintBlock) {
+            hintBlock.style.display = 'flex';
+        }
+    }
 }

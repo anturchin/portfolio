@@ -1,4 +1,4 @@
-import { Subject } from '../utils/Observer/Subject';
+import { Subject } from '../utils/observer/Subject';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { RoundData, WordType } from './types';
 
@@ -62,6 +62,10 @@ export class State {
 
     public setGameData(newGameData: RoundData[]): void {
         this.gameData = newGameData;
+    }
+
+    public getCurrentRoundIndex(): number {
+        return this.currentRoundIndex;
     }
 
     public setCurrentRoundIndex(index: number): void {

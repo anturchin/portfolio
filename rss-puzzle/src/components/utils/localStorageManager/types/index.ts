@@ -6,3 +6,14 @@ export type UserDataType = {
 export type GameStateType = {
     currentRoundIndex: number;
 };
+
+export type WordsStatisticType = {
+    index: number;
+    isWordGuessed: boolean;
+};
+
+export type StatisticsType = {
+    level: number;
+    round: number;
+    wordsStatistic: WordsStatisticType[];
+};

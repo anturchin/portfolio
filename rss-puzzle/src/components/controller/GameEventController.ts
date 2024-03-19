@@ -32,6 +32,7 @@ export class GameEventController {
         this.onHandleClickAutoComplete();
         this.onHandleClickContinue();
         this.onHandleClickAudioSound();
+        this.onHandleClickResults();
     }
 
     public setupLevelAndRoundHandler(): void {
@@ -47,6 +48,13 @@ export class GameEventController {
                 });
             }
         }
+    }
+
+    public onHandleClickResults(): void {
+        this.game.onHandleClickResults = () => {
+            this.mainController.dataController.moveToNextWord();
+            this.mainController.router.navigate('/statistic');
+        };
     }
 
     public handleClickCell(): void {
@@ -103,6 +111,7 @@ export class GameEventController {
     public onHandleClickContinue(): void {
         this.game.onHandleClickContinue = () => {
             if (this.logicController.isNewRoundStarted()) {
+                this.logicController.saveStatisticsToLocalStorage();
                 this.mainController.endGame();
             } else {
                 this.mainController.continueGame();

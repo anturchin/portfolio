@@ -50,6 +50,7 @@ export class GameRenderController {
     public renderAutoFillSentenceInResultLine(sortedCells: HTMLElement[]): void {
         const resultLine = document.querySelector<HTMLElement>('.game__row.active');
         if (resultLine) {
+            resultLine.dataset.isWordGuessed = 'false';
             sortedCells.forEach((cell) => {
                 cell.setAttribute('data-is-result-block', 'true');
                 resultLine.append(cell);

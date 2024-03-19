@@ -17,7 +17,8 @@ import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintB
 import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
 import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
 import { PathToFilesJSONType } from '../../../services/pathToFilesJSON';
-import { Subject } from '../../../utils/Observer/Subject';
+import { Subject } from '../../../utils/observer/Subject';
+import { ButtonResults } from './toolBar/toolBarBottom/buttonResults/ButtonResults';
 
 import './Game.scss';
 
@@ -34,6 +35,8 @@ export class Game extends View {
 
     public onHandleClickAudioSound?: () => void;
 
+    public onHandleClickResults?: () => void;
+
     public savedLevel: number = 1;
 
     public savedRound: number = 0;
@@ -47,6 +50,8 @@ export class Game extends View {
     public gameSourceLine: GameSourceLine | null = null;
 
     public buttonContinue: ButtonContinue | null = null;
+
+    public buttonResult: ButtonResults | null = null;
 
     public buttonCheck: ButtonCheck | null = null;
 
@@ -188,10 +193,13 @@ export class Game extends View {
         this.buttonContinue = new ButtonContinue(() => this.onHandleClickContinue?.());
         this.buttonCheck = new ButtonCheck(() => this.onHandleClickCheck?.());
         this.buttonAutoComplete = new ButtonAutoComplete(() => this.onHandleClickAutoComplete?.());
+        this.buttonResult = new ButtonResults(() => this.onHandleClickResults?.());
         const toolBarBottom = new ToolBarBottom().getElement();
-        [this.buttonContinue, this.buttonCheck, this.buttonAutoComplete].forEach((btn) => {
-            toolBarBottom.append(btn.getElement());
-        });
+        [this.buttonContinue, this.buttonCheck, this.buttonAutoComplete, this.buttonResult].forEach(
+            (btn) => {
+                toolBarBottom.append(btn.getElement());
+            }
+        );
         const gamePuzzle = this.viewHtmlElementCreator.getElement().querySelector('.game__source');
         gamePuzzle?.after(toolBarBottom);
     }

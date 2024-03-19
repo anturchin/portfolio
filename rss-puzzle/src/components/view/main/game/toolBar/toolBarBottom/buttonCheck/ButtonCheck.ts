@@ -26,6 +26,5 @@ export class ButtonCheck extends View {
     private setupButtonContinue(): void {
         const btn = this.viewHtmlElementCreator.getElement() as HTMLButtonElement;
         btn.disabled = true;
-        btn.draggable = false;
     }
 }

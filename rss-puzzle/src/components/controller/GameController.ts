@@ -1,7 +1,7 @@
 import { Router } from '../router/router/Router';
 import { State } from '../state/State';
 import { RoundData, WordType } from '../state/types';
-import { Subject } from '../utils/Observer/Subject';
+import { Subject } from '../utils/observer/Subject';
 import { Game } from '../view/main/game/Game';
 import { GameAudioController } from './GameAudioController';
 import { GameDataController } from './GameDataController';
@@ -12,15 +12,15 @@ import { GameLogicController } from './GameLogicController';
 import { GameRenderController } from './GameRenderController';
 
 export class GameController {
+    public eventController: GameEventController;
+
+    public router: Router;
+
+    public dataController: GameDataController;
+
     private game: Game;
 
-    private router: Router;
-
     private state: State;
-
-    private dataController: GameDataController;
-
-    public eventController: GameEventController;
 
     private logicController: GameLogicController;
 
@@ -112,8 +112,18 @@ export class GameController {
         this.logicController.removeAllResultLines();
         this.imageController.setCompletedRoundImagePath();
         this.renderController.clearHintText();
+
+        if (this.game.buttonResult) {
+            this.hideController.showButton(this.game.buttonResult);
+        }
+
+        if (this.game.buttonAutoComplete) {
+            this.hideController.hideButton(this.game.buttonAutoComplete);
+        }
+
         this.hideController.hideButtonCheck();
         this.hideController.hideHintBlock();
+        this.hideController.hideGameHintBlock();
     }
 
     public continueGame(): void {
@@ -122,9 +132,17 @@ export class GameController {
         this.renderController.updateResultLineAndSourceLine();
         this.renderController.updateHintText();
         this.hideController.hideButtonContinue();
+        if (this.game.buttonResult) {
+            this.hideController.hideButton(this.game.buttonResult);
+        }
+
+        if (this.game.buttonAutoComplete) {
+            this.hideController.showButton(this.game.buttonAutoComplete);
+        }
         this.hideController.showButtonCheck();
         this.hideController.disabledButtonCheck();
         this.hideController.showHintBlock();
+        this.hideController.showGameHintBlock();
     }
 
     public nextSentence(): void {

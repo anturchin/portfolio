@@ -1,4 +1,4 @@
-import { UserDataType, GameStateType } from './types';
+import { UserDataType, GameStateType, StatisticsType } from './types';
 
 export class LocalStorageManager {
     public static saveUserData({ firstName, lastName }: UserDataType): void {
@@ -35,5 +35,18 @@ export class LocalStorageManager {
 
     public static removeGameIndexes(): void {
         localStorage.removeItem('gameIndexes');
+    }
+
+    public static saveGameStatistics(statistics: StatisticsType): void {
+        const gameIndexesJson = JSON.stringify(statistics);
+        localStorage.setItem('gameStatistics', gameIndexesJson);
+    }
+
+    public static getGameStatistics(): StatisticsType | null {
+        const gameStatisticsString = localStorage.getItem('gameStatistics');
+        if (gameStatisticsString) {
+            return JSON.parse(gameStatisticsString);
+        }
+        return null;
     }
 }
