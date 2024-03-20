@@ -22,8 +22,8 @@ export class GameCell extends View {
 
     public removeAttributes(): void {
         const cell = this.viewHtmlElementCreator.getElement();
-        cell.id = '';
         cell.draggable = false;
+        cell.removeAttribute('id');
         cell.removeAttribute('data-width');
         cell.removeAttribute('data-word');
         cell.removeAttribute('data-word-origin');

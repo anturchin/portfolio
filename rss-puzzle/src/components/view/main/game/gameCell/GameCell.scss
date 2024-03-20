@@ -21,6 +21,9 @@
 
 .game__cell-bg {
     background-color: #755a57;
+    img {
+        visibility: hidden;
+    }
 }
 
 .game__cell {

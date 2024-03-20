@@ -154,15 +154,22 @@ export class Game extends View {
     }
 
     public renderGameCells(): void {
+        const gameCell = document.querySelectorAll('.game__cell');
+        const backgroundColor = [...gameCell].some((cellBackground) => {
+            return cellBackground.classList.contains('game__cell-bg');
+        });
+        console.log(backgroundColor);
         const callback = () => this.onCellsChecked?.();
         const textExample = this.controller.getTextExample();
         this.cells = [];
         if (textExample) {
             const shuffledWords = WordShuffler.shuffle(textExample.split(' '));
-            // const shuffledWords = textExample.split(' ');
             const cells: HTMLElement[] = [];
             shuffledWords.forEach((word, index) => {
                 const cell = new GameCell(word, index, textExample, callback);
+                if (backgroundColor) {
+                    cell.getElement().classList.add('game__cell-bg');
+                }
                 this.cells.push(cell);
                 cells.push(cell.getElement());
             });
