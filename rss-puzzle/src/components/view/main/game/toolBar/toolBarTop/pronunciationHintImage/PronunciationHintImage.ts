@@ -2,9 +2,9 @@ import { View } from '../../../../../View';
 
 import soundImage from '../../../../../../../assets/images/sound.png';
 
-import './PronunciationHintIcon.scss';
+import './PronunciationHintImage.scss';
 
-export class PronunciationHintIcon extends View {
+export class PronunciationHintImage extends View {
     constructor() {
         super({ tag: 'img', callback: null, classNames: ['game-hint__img'] });
         this.setupPronunciationHintIcon();

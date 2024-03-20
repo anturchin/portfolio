@@ -1,8 +1,8 @@
 import { View } from '../../../../../View';
 
-import './PronunciationHintText.scss';
+import './PronunciationHintContent.scss';
 
-export class PronunciationHintText extends View {
+export class PronunciationHintContent extends View {
     constructor() {
         super({
             tag: 'p',

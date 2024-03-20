@@ -12,12 +12,12 @@ import { PuzzleImageCreator } from '../../../utils/puzzleImageCreator/PuzzleImag
 import { ButtonContinue } from './toolBar/toolBarBottom/buttonContinue/ButtonContinue';
 import { ButtonCheck } from './toolBar/toolBarBottom/buttonCheck/ButtonCheck';
 import { ButtonAutoComplete } from './toolBar/toolBarBottom/buttonAutoComplete/ButtonAutoComplete';
-import { PronunciationHint } from './toolBar/toolBarTop/pronunciationHint/PronunciationHint';
-import { PronunciationHintButton } from './toolBar/toolBarTop/pronunciationHintButton/PronunciationHintButton';
-import { PronunciationHintText } from './toolBar/toolBarTop/pronunciationHintText/PronunciationHintText';
+import { PronunciationHintWrapper } from './toolBar/toolBarTop/pronunciationHintWrapper/PronunciationHintWrapper';
+import { PronunciationHintAudio } from './toolBar/toolBarTop/pronunciationHintAudio/PronunciationHintAudio';
+import { PronunciationHintContent } from './toolBar/toolBarTop/pronunciationHintContent/PronunciationHintContent';
 import { ToolBarTopMain } from './toolBar/ToolBarTopMain';
 import { PathToFilesJSONType } from '../../../services/pathToFilesJSON';
-import { Subject } from '../../../utils/observer/Subject';
+import { Subject } from '../../../observer/Subject';
 import { ButtonResults } from './toolBar/toolBarBottom/buttonResults/ButtonResults';
 
 import './Game.scss';
@@ -57,9 +57,9 @@ export class Game extends View {
 
     public buttonAutoComplete: ButtonAutoComplete | null = null;
 
-    public buttonAudioHint: PronunciationHintButton | null = null;
+    public buttonAudioHint: PronunciationHintAudio | null = null;
 
-    public hintText: PronunciationHintText | null = null;
+    public hintText: PronunciationHintContent | null = null;
 
     public toolBarTopMain: ToolBarTopMain | null = null;
 
@@ -214,9 +214,9 @@ export class Game extends View {
 
     public renderPronunciationHint(): void {
         const callback = () => this.onHandleClickAudioSound?.();
-        const container = new PronunciationHint().getElement();
-        this.buttonAudioHint = new PronunciationHintButton(callback);
-        this.hintText = new PronunciationHintText();
+        const container = new PronunciationHintWrapper().getElement();
+        this.buttonAudioHint = new PronunciationHintAudio(callback);
+        this.hintText = new PronunciationHintContent();
         this.setHintText();
         [this.buttonAudioHint, this.hintText].forEach((elem) => {
             container.append(elem.getElement());

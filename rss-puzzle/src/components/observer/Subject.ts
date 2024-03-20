@@ -1,4 +1,4 @@
-import { IObserver } from './types';
+import { IObserver } from './Observer.interface';
 
 export class Subject {
     private observers: IObserver[] = [];

@@ -1,7 +1,7 @@
 import { View } from '../../../View';
 import { LevelAndRoundBlock } from './toolBarTop/LevelAndRoundBlock';
 import { HintBlock } from './toolBarTop/hintSwitch/HintBlock';
-import { Subject } from '../../../../utils/observer/Subject';
+import { Subject } from '../../../../observer/Subject';
 
 import './ToolBarTopMain.scss';
 

@@ -1,7 +1,7 @@
 import { Router } from '../router/router/Router';
 import { State } from '../state/State';
 import { RoundData, WordType } from '../state/types';
-import { Subject } from '../utils/observer/Subject';
+import { Subject } from '../observer/Subject';
 import { Game } from '../view/main/game/Game';
 import { GameAudioController } from './GameAudioController';
 import { GameDataController } from './GameDataController';

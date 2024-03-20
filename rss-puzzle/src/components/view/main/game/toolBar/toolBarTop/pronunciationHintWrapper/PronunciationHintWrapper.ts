@@ -1,8 +1,8 @@
 import { View } from '../../../../../View';
 
-import './PronunciationHint.scss';
+import './PronunciationHintWrapper.scss';
 
-export class PronunciationHint extends View {
+export class PronunciationHintWrapper extends View {
     constructor() {
         super({ tag: 'div', callback: null, classNames: ['game-hint'] });
     }

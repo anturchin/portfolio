@@ -1,9 +1,10 @@
 import { View } from '../../../../../View';
-import { PronunciationHintIcon } from '../pronunciationHintIcon/PronunciationHintIcon';
 
-import './PronunciationHintButton.scss';
+import { PronunciationHintImage } from '../pronunciationHintImage/PronunciationHintImage';
 
-export class PronunciationHintButton extends View {
+import './PronunciationHintAudio.scss';
+
+export class PronunciationHintAudio extends View {
     public onHandleClickAudioSound?: () => void;
 
     constructor(onHandleClickAudioSound: () => void) {
@@ -24,7 +25,7 @@ export class PronunciationHintButton extends View {
     }
 
     private setupPronunciationHintButton(): void {
-        const soundImage = new PronunciationHintIcon().getElement();
+        const soundImage = new PronunciationHintImage().getElement();
         this.viewHtmlElementCreator.addInnerElement(soundImage);
     }
 }

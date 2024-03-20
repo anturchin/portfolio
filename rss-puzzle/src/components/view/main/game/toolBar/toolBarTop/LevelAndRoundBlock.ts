@@ -1,7 +1,7 @@
 import { View } from '../../../../View';
 import { LevelSwitch } from './levelSwitch/LevelSwitch';
 import { RoundSwitch } from './roundSwitch/RoundSwitch';
-import { Subject } from '../../../../../utils/observer/Subject';
+import { Subject } from '../../../../../observer/Subject';
 
 import './LevelAndRoundBlock.scss';
 

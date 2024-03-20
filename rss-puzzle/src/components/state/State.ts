@@ -1,4 +1,4 @@
-import { Subject } from '../utils/observer/Subject';
+import { Subject } from '../observer/Subject';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { RoundData, WordType } from './types';
 
