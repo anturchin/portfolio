@@ -23,6 +23,7 @@
         "import/no-extraneous-dependencies": "off",
         "arrow-body-style": "off",
         "max-lines-per-function": ["error", 40],
+        "no-unused-vars": ["error", { "args": "none" }],
         "indent": ["error", 4],
         "comma-dangle": "off",
         "prettier/prettier": ["error", { "endOfLine": "auto" }]
