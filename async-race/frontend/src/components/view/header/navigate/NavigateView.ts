@@ -15,13 +15,21 @@ export class NavigateView extends View {
         this.setupEventListener();
     }
 
+    private updateClassActiveLink(): void {
+        [...this.getElement().children].forEach((link) => link.classList.remove('active'));
+    }
+
     private onHandleClick(event: Event): void {
         const element = event.target as HTMLElement;
         if (element.id === 'garage') {
+            this.updateClassActiveLink();
+            element.classList.add('active');
             this.router.navigate('./garage');
         }
 
         if (element.id === 'winners') {
+            this.updateClassActiveLink();
+            element.classList.add('active');
             this.router.navigate('./winners');
         }
     }

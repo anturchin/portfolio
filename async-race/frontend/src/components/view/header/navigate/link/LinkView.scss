@@ -1,2 +1,17 @@
 .nav__link {
+    min-width: 230px;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: #fff;
+    color: #87AE5F;
+    padding: 10px 20px;
+    margin-right: 5px;
+    border-radius: 0px 0px 5px 5px;
+    border-bottom: 2px solid #87AE5F;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #87AE5F;
+    color: #fff;
 }
