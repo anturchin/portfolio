@@ -8,7 +8,7 @@ export class ApiService {
         const url = new URL(`${ApiService.API_URL}/${endpoint}`);
         if (params) {
             Object.entries(params).forEach(([key, value]) => {
-                url.searchParams.append(key, String(value));
+                url.searchParams.append(`_${key}`, String(value));
             });
         }
         try {

@@ -1,8 +1,12 @@
 import { Car } from '../../models/car/Car';
+import { ICarApiResponse } from '../../models/car/Car.interface';
 import { ApiService } from '../ApiService';
 
 export class GarageService {
-    static async getCars(page?: number, limit?: number): Promise<Car[]> {
+    static async getCars(
+        page?: number,
+        limit?: number
+    ): Promise<ICarApiResponse> {
         const params: Record<string, number> = {};
         if (page && limit) {
             params.page = page;

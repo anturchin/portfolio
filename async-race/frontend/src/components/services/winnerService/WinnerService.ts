@@ -1,4 +1,5 @@
 import { Winner } from '../../models/winner/Winner';
+import { IWinnerApiResponse } from '../../models/winner/Winner.interface';
 import { ApiService } from '../ApiService';
 
 export class WinnerService {
@@ -7,7 +8,7 @@ export class WinnerService {
         limit?: number,
         sort?: string,
         order?: string
-    ): Promise<Winner[]> {
+    ): Promise<IWinnerApiResponse> {
         const params: Record<string, string | number> = {};
         if (page && limit) {
             params.page = page;
