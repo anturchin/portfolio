@@ -1,5 +1,5 @@
 import { Winner } from '../../models/winner/Winner';
-import { IWinnerApiResponse } from '../../models/winner/Winner.interface';
+import { ApiResponse } from '../Api.interface';
 import { ApiService } from '../ApiService';
 
 export class WinnerService {
@@ -8,7 +8,7 @@ export class WinnerService {
         limit?: number,
         sort?: string,
         order?: string
-    ): Promise<IWinnerApiResponse> {
+    ): Promise<ApiResponse<Winner>> {
         const params: Record<string, string | number> = {};
         if (page && limit) {
             params.page = page;
@@ -21,7 +21,7 @@ export class WinnerService {
         return ApiService.get('winners', params);
     }
 
-    static async getWinner(id: number): Promise<Winner> {
+    static async getWinner(id: number): Promise<ApiResponse<Winner>> {
         return ApiService.get(`winners/${id}`);
     }
 

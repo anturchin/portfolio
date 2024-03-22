@@ -28,7 +28,7 @@ export class App {
         if (component) this.pageView.render(component);
     }
 
-    public render(): void {
+    public async render(): Promise<void> {
         const body = document.querySelector('body');
         if (body) {
             body.append(

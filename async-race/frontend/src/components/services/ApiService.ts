@@ -4,7 +4,7 @@ export class ApiService {
     static async get<T>(
         endpoint: string,
         params?: Record<string, string | number>
-    ): Promise<T> {
+    ): Promise<{ data: T; totalCount?: string }> {
         const url = new URL(`${ApiService.API_URL}/${endpoint}`);
         if (params) {
             Object.entries(params).forEach(([key, value]) => {
@@ -16,7 +16,14 @@ export class ApiService {
             if (!response.ok) {
                 throw new Error(`[GET] failed to fetch ${url.toString()}`);
             }
-            return (await response.json()) as Promise<T>;
+
+            const totalCount = response.headers.get('X-Total-Count');
+            if (totalCount) {
+                const data = await response.json();
+                return { data, totalCount };
+            }
+            const data = await response.json();
+            return { data };
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);

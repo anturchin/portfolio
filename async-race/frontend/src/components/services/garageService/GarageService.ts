@@ -1,12 +1,12 @@
 import { Car } from '../../models/car/Car';
-import { ICarApiResponse } from '../../models/car/Car.interface';
+import { ApiResponse } from '../Api.interface';
 import { ApiService } from '../ApiService';
 
 export class GarageService {
     static async getCars(
         page?: number,
         limit?: number
-    ): Promise<ICarApiResponse> {
+    ): Promise<ApiResponse<Car>> {
         const params: Record<string, number> = {};
         if (page && limit) {
             params.page = page;
@@ -15,7 +15,7 @@ export class GarageService {
         return ApiService.get('garage', params);
     }
 
-    static async getCar(id: number): Promise<Car> {
+    static async getCar(id: number): Promise<ApiResponse<Car>> {
         return ApiService.get(`garage/${id}`);
     }
 
