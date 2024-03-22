@@ -15,7 +15,7 @@ export class GarageService {
         return ApiService.get('garage', params);
     }
 
-    static async getCar(id: number): Promise<ApiResponse<Car>> {
+    static async getCar(id: number): Promise<{ data: Car }> {
         return ApiService.get(`garage/${id}`);
     }
 

@@ -21,7 +21,7 @@ export class WinnerService {
         return ApiService.get('winners', params);
     }
 
-    static async getWinner(id: number): Promise<ApiResponse<Winner>> {
+    static async getWinner(id: number): Promise<{ data: Winner }> {
         return ApiService.get(`winners/${id}`);
     }
 
