@@ -1,4 +1,6 @@
-export class Car {
+import { ICar } from './Car.interface';
+
+export class Car implements ICar {
     public id: number;
 
     public name: string;
