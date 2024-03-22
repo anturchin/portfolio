@@ -39,7 +39,7 @@ export class NavigateView extends View {
     }
 
     private setupNavigateView(): void {
-        const garageLink = new LinkView('garage', 'garage').getElement();
+        const garageLink = new LinkView('garage', 'garage', 'active').getElement();
         const winnerLink = new LinkView('winners', 'winners').getElement();
         this.getElement().append(...[garageLink, winnerLink]);
     }
