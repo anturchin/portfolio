@@ -17,7 +17,9 @@ export abstract class View {
         return this.viewHtmlElement.getElement();
     }
 
-    public addInnerElement(innerElement: HTMLElement | HTMLElementCreator): void {
+    public addInnerElement(
+        innerElement: HTMLElement | HTMLElementCreator
+    ): void {
         this.viewHtmlElement.addInnerElement(innerElement);
     }
 

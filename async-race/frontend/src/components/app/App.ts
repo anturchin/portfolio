@@ -31,7 +31,9 @@ export class App {
     public render(): void {
         const body = document.querySelector('body');
         if (body) {
-            body.append(...[this.header.getElement(), this.pageView.getElement()]);
+            body.append(
+                ...[this.header.getElement(), this.pageView.getElement()]
+            );
         }
     }
 }

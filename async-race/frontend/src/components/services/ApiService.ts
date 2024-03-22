@@ -1,7 +1,10 @@
 export class ApiService {
     private static API_URL = 'http://127.0.0.1:3000';
 
-    static async get<T>(endpoint: string, params?: Record<string, string | number>): Promise<T> {
+    static async get<T>(
+        endpoint: string,
+        params?: Record<string, string | number>
+    ): Promise<T> {
         const url = new URL(`${ApiService.API_URL}/${endpoint}`);
         if (params) {
             Object.entries(params).forEach(([key, value]) => {
@@ -33,7 +36,9 @@ export class ApiService {
             });
 
             if (!response.ok) {
-                throw new Error(`failed to fetch ${ApiService.API_URL}/${endpoint}`);
+                throw new Error(
+                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                );
             }
 
             return (await response.json()) as Promise<T>;
@@ -56,7 +61,9 @@ export class ApiService {
             });
 
             if (!response.ok) {
-                throw new Error(`failed to fetch ${ApiService.API_URL}/${endpoint}`);
+                throw new Error(
+                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                );
             }
 
             return (await response.json()) as Promise<T>;
@@ -80,7 +87,9 @@ export class ApiService {
                 if (response.status === 429 || response.status === 500) {
                     return Promise.reject(responseBody.message);
                 }
-                throw new Error(`failed to fetch ${ApiService.API_URL}/${endpoint}`);
+                throw new Error(
+                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                );
             }
             return (await response.json()) as Promise<T>;
         } catch (error) {
@@ -97,7 +106,9 @@ export class ApiService {
                 method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error(`failed to fetch ${ApiService.API_URL}/${endpoint}`);
+                throw new Error(
+                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                );
             }
         } catch (error) {
             if (error instanceof Error) {

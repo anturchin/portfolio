@@ -1,7 +1,12 @@
 {
     "parser": "@typescript-eslint/parser",
     "plugins": ["prettier", "import", "@typescript-eslint"],
-    "extends": ["prettier", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "airbnb-base"],
+    "extends": [
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "airbnb-base"
+    ],
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module",
@@ -26,6 +31,7 @@
         "no-unused-vars": ["error", { "args": "none" }],
         "indent": ["error", 4],
         "comma-dangle": "off",
-        "prettier/prettier": ["error", { "endOfLine": "auto" }]
+        "prettier/prettier": ["error", { "endOfLine": "auto" }],
+        "max-len": ["error", { "code": 100 }]
     }
 }

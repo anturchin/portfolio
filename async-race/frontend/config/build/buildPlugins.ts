@@ -5,7 +5,10 @@ import webpack, { Configuration } from 'webpack';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import { IBuildOptions } from './types/types';
 
-export const buildPlugins = ({ mode, paths }: IBuildOptions): Configuration['plugins'] => {
+export const buildPlugins = ({
+    mode,
+    paths,
+}: IBuildOptions): Configuration['plugins'] => {
     const isDev = mode === 'development';
     const isProd = mode === 'production';
 

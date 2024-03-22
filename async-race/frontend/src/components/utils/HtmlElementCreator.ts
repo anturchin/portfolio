@@ -20,7 +20,9 @@ export class HTMLElementCreator {
         return this.element;
     }
 
-    public addInnerElement(innerElement: HTMLElement | HTMLElementCreator): void {
+    public addInnerElement(
+        innerElement: HTMLElement | HTMLElementCreator
+    ): void {
         if (innerElement instanceof HTMLElementCreator) {
             this.element.append(innerElement.getElement());
         } else {
@@ -29,7 +31,9 @@ export class HTMLElementCreator {
     }
 
     public setCssSelector(cssClasses: string[]): void {
-        cssClasses.forEach((className) => this.element.classList.add(className));
+        cssClasses.forEach((className) => {
+            this.element.classList.add(className);
+        });
     }
 
     public setTextContent(textContent: string): void {
