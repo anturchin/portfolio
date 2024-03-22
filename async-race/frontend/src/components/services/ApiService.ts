@@ -14,7 +14,7 @@ export class ApiService {
         try {
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error(`failed to fetch ${url.toString()}`);
+                throw new Error(`[GET] failed to fetch ${url.toString()}`);
             }
             return (await response.json()) as Promise<T>;
         } catch (error) {
@@ -37,7 +37,7 @@ export class ApiService {
 
             if (!response.ok) {
                 throw new Error(
-                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                    `[POST] failed to fetch ${ApiService.API_URL}/${endpoint}`
                 );
             }
 
@@ -62,7 +62,7 @@ export class ApiService {
 
             if (!response.ok) {
                 throw new Error(
-                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                    `[PUT] failed to fetch ${ApiService.API_URL}/${endpoint}`
                 );
             }
 
@@ -83,12 +83,20 @@ export class ApiService {
             });
 
             if (!response.ok) {
-                const responseBody = await response.json();
-                if (response.status === 429 || response.status === 500) {
-                    return Promise.reject(responseBody.message);
+                if (response.status === 429) {
+                    throw new Error(
+                        `[PATH] Drive already in progress. 
+                        You can't run drive for the same car twice while it's not stopped.`
+                    );
+                }
+                if (response.status === 500) {
+                    throw new Error(`
+                    [PATH] Drive already in progress. 
+                    You can't run drive for the same car twice while it's not stopped.
+                    `);
                 }
                 throw new Error(
-                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                    `[PATH] failed to fetch ${ApiService.API_URL}/${endpoint}`
                 );
             }
             return (await response.json()) as Promise<T>;
@@ -107,7 +115,7 @@ export class ApiService {
             });
             if (!response.ok) {
                 throw new Error(
-                    `failed to fetch ${ApiService.API_URL}/${endpoint}`
+                    `[DELETE] failed to fetch ${ApiService.API_URL}/${endpoint}`
                 );
             }
         } catch (error) {
