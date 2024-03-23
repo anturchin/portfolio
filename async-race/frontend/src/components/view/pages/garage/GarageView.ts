@@ -1,5 +1,6 @@
 import { GarageController } from '../../../controller/garageController/GarageController';
 import { View } from '../../View';
+import { ControlPanel } from './controlPanel/ControlPanel';
 import { FormAdd } from './formAdd/FormAdd';
 import { FormUpdate } from './formUpdate/FormUpdate';
 
@@ -12,6 +13,8 @@ export class GarageView extends View {
 
     private formUpdate: FormUpdate | null = null;
 
+    private controlPanel: ControlPanel | null = null;
+
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: [] });
         this.controller = controller;
@@ -21,6 +24,7 @@ export class GarageView extends View {
     public render(): void {
         this.renderFormAdd();
         this.renderFormUpdate();
+        this.renderControlPanel();
     }
 
     public renderFormAdd(): void {
@@ -31,5 +35,10 @@ export class GarageView extends View {
     public renderFormUpdate(): void {
         this.formUpdate = new FormUpdate();
         this.addInnerElement(this.formUpdate.getElement());
+    }
+
+    public renderControlPanel(): void {
+        this.controlPanel = new ControlPanel();
+        this.addInnerElement(this.controlPanel.getElement());
     }
 }
