@@ -1,0 +1,12 @@
+.form__input {
+    border: none;
+    color: #78b159;
+    border-bottom: 1px solid #3a3a3a;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    outline: none;
+    padding: 10px;
+    &::placeholder {
+        text-align: center;
+    }
+}

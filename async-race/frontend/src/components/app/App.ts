@@ -44,6 +44,7 @@ export class App {
         routes.forEach(({ path, callback }) => {
             this.router.addRoute({ path, callback });
         });
+        this.router.navigate('./garage');
     }
 
     public renderPageView(component?: View): void {
