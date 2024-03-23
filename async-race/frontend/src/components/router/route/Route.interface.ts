@@ -1,6 +1,6 @@
 import { App } from '../../app/App';
-import { GarageController } from '../../controller/garageController/GarageController';
-import { WinnerController } from '../../controller/winnerController/WinnerController';
+import { GarageController } from '../../controller/garageController/GarageMainController';
+import { WinnerController } from '../../controller/winnerController/WinnerMainController';
 
 export type ControllersType = {
     garageController: GarageController;

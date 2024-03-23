@@ -1,4 +1,4 @@
-import { GarageController } from '../../../controller/garageController/GarageController';
+import { GarageController } from '../../../controller/garageController/GarageMainController';
 import { View } from '../../View';
 import { ControlPanel } from './controlPanel/ControlPanel';
 import { FormAdd } from './formAdd/FormAdd';

@@ -1,5 +1,5 @@
-import { GarageController } from '../controller/garageController/GarageController';
-import { WinnerController } from '../controller/winnerController/WinnerController';
+import { GarageController } from '../controller/garageController/GarageMainController';
+import { WinnerController } from '../controller/winnerController/WinnerMainController';
 import { Router } from '../router/router/Router';
 import { routes } from '../router/routes';
 import { GarageState } from '../state/GarageState';
