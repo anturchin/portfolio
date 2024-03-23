@@ -7,6 +7,8 @@ import { SubTitle } from './subTitle/SubTitle';
 import { Title } from './title/Title';
 
 import './GarageView.scss';
+import { CarItem } from './carItem/CarItem';
+import { CarList } from './carList/CarList';
 
 export class GarageView extends View {
     private controller: GarageController;
@@ -17,8 +19,10 @@ export class GarageView extends View {
 
     private controlPanel: ControlPanel | null = null;
 
+    private carItem: CarItem[] | null = null;
+
     constructor(controller: GarageController) {
-        super({ tag: 'section', classNames: [] });
+        super({ tag: 'section', classNames: ['garage'] });
         this.controller = controller;
         this.render();
     }
@@ -29,6 +33,7 @@ export class GarageView extends View {
         this.renderControlPanel();
         this.renderTitle();
         this.renderSubTitle();
+        this.renderCarItem();
     }
 
     public renderFormAdd(): void {
@@ -54,5 +59,12 @@ export class GarageView extends View {
     public renderSubTitle(): void {
         const subTitle = new SubTitle().getElement();
         this.addInnerElement(subTitle);
+    }
+
+    public renderCarItem(): void {
+        const carItem = new CarItem().getElement();
+        const carList = new CarList().getElement();
+        carList.append(carItem);
+        this.addInnerElement(carList);
     }
 }
