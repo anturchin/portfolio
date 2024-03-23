@@ -5,6 +5,7 @@ import { FormAdd } from './formAdd/FormAdd';
 import { FormUpdate } from './formUpdate/FormUpdate';
 
 import './GarageView.scss';
+import { Title } from './title/Title';
 
 export class GarageView extends View {
     private controller: GarageController;
@@ -25,6 +26,7 @@ export class GarageView extends View {
         this.renderFormAdd();
         this.renderFormUpdate();
         this.renderControlPanel();
+        this.renderTitle();
     }
 
     public renderFormAdd(): void {
@@ -40,5 +42,10 @@ export class GarageView extends View {
     public renderControlPanel(): void {
         this.controlPanel = new ControlPanel();
         this.addInnerElement(this.controlPanel.getElement());
+    }
+
+    public renderTitle(): void {
+        const title = new Title().getElement();
+        this.addInnerElement(title);
     }
 }
