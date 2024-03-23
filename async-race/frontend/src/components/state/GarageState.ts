@@ -37,6 +37,7 @@ export class GarageState {
     }
 
     public setCars(cars: Car[]): void {
+        this.cars = [];
         this.cars.push(...cars);
     }
 

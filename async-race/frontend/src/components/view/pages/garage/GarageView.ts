@@ -5,11 +5,11 @@ import { FormAdd } from './formAdd/FormAdd';
 import { FormUpdate } from './formUpdate/FormUpdate';
 import { SubTitle } from './subTitle/SubTitle';
 import { Title } from './title/Title';
-
-import './GarageView.scss';
 import { CarItem } from './carItem/CarItem';
 import { CarList } from './carList/CarList';
 import { Pagination } from './pagination/Pagination';
+
+import './GarageView.scss';
 
 export class GarageView extends View {
     private controller: GarageController;
@@ -20,9 +20,11 @@ export class GarageView extends View {
 
     private controlPanel: ControlPanel | null = null;
 
-    private carItem: CarItem[] | null = null;
+    private carList: CarList | null = null;
 
     private pagination: Pagination | null = null;
+
+    private title: Title | null = null;
 
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: ['garage'] });
@@ -40,8 +42,18 @@ export class GarageView extends View {
         this.renderPagination();
     }
 
+    public updateTitle(): void {
+        if (this.title) {
+            const { totalCarsCount } = this.controller.getPageAndTotalCount();
+            const count = this.title.getElement().querySelector('span');
+            if (count) count.textContent = `(${totalCarsCount})`;
+        }
+    }
+
     public renderFormAdd(): void {
-        this.formAdd = new FormAdd();
+        const callback = this.controller.addCar.bind(this.controller);
+        const updateTitle = this.updateTitle.bind(this);
+        this.formAdd = new FormAdd(callback, updateTitle);
         this.addInnerElement(this.formAdd.getElement());
     }
 
@@ -56,20 +68,26 @@ export class GarageView extends View {
     }
 
     public renderTitle(): void {
-        const title = new Title().getElement();
-        this.addInnerElement(title);
+        const { totalCarsCount } = this.controller.getPageAndTotalCount();
+        this.title = new Title(totalCarsCount);
+        this.addInnerElement(this.title.getElement());
     }
 
     public renderSubTitle(): void {
-        const subTitle = new SubTitle().getElement();
+        const { page } = this.controller.getPageAndTotalCount();
+        const subTitle = new SubTitle(page).getElement();
         this.addInnerElement(subTitle);
     }
 
     public renderCarItem(): void {
-        const carItem = new CarItem().getElement();
-        const carList = new CarList().getElement();
-        carList.append(carItem);
-        this.addInnerElement(carList);
+        this.carList = new CarList();
+        const carItems: HTMLElement[] = [];
+        this.controller.getCars().forEach((car) => {
+            carItems.push(new CarItem(car).getElement());
+        });
+
+        this.carList.getElement().append(...carItems);
+        this.addInnerElement(this.carList.getElement());
     }
 
     public renderPagination(): void {

@@ -12,11 +12,38 @@ export class FormAdd extends View {
 
     public buttonAdd: Button | null = null;
 
-    private addCarCallback?: (name: string, color: string) => void;
+    private addCarCallback: (name: string, color: string) => void;
 
-    constructor() {
+    private updateTitle: () => void;
+
+    constructor(
+        addCarCallback: (name: string, color: string) => void,
+        updateTitle: () => void
+    ) {
         super({ tag: 'form', classNames: ['form__add'] });
         this.setupForm();
+        this.addCarCallback = addCarCallback;
+        this.updateTitle = updateTitle;
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.setupEventListener();
+    }
+
+    private async onSubmitForm(event: Event): Promise<void> {
+        event.preventDefault();
+        if (this.inputText && this.inputColor) {
+            const name = (this.inputText.getElement() as HTMLInputElement)
+                .value;
+            const color = (this.inputColor.getElement() as HTMLInputElement)
+                .value;
+            if (name && color) {
+                await this.addCarCallback(name, color);
+                this.updateTitle();
+            }
+        }
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('submit', this.onSubmitForm);
     }
 
     private setupForm(): void {

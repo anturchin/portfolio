@@ -1,4 +1,5 @@
 import { Car } from '../../models/car/Car';
+import { ICar } from '../../models/car/Car.interface';
 import { ApiResponse } from '../Api.interface';
 import { ApiService } from '../ApiService';
 
@@ -19,8 +20,8 @@ export class GarageService {
         return ApiService.get(`garage/${id}`);
     }
 
-    static async createCar(car: Car): Promise<Car> {
-        return ApiService.post(`garage/${car.id}`, car);
+    static async createCar(car: ICar): Promise<ICar> {
+        return ApiService.post('garage', car);
     }
 
     static async deleteCar(id: number): Promise<void> {

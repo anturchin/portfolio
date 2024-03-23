@@ -1,3 +1,4 @@
+import { Car } from '../../models/car/Car';
 import { GarageService } from '../../services/garageService/GarageService';
 import { GarageState } from '../../state/GarageState';
 
@@ -19,14 +20,36 @@ export class GarageController {
             );
             this.state.setCars(data);
             this.state.setTotalCarsCount(parseInt(totalCount || '', 10));
-            console.log(this.state.getCurrentPage());
-            console.log(this.state.getLimit());
-            console.log(this.state.getCars());
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
             }
+            throw new Error('[GarageController] failed to fetch');
         }
+    }
+
+    public async addCar(name: string, color: string): Promise<void> {
+        try {
+            const car = { name, color };
+            await GarageService.createCar(car);
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[GarageController] failed to fetch');
+        }
+    }
+
+    public getCars(): Car[] {
+        return this.state.getCars();
+    }
+
+    public getPageAndTotalCount(): { page: number; totalCarsCount: number } {
+        return {
+            page: this.state.getCurrentPage(),
+            totalCarsCount: this.state.getTotalCarsCount(),
+        };
     }
 
     // public async nextPage(): Promise<void> {}

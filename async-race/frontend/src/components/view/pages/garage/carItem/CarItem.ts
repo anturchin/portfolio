@@ -11,7 +11,7 @@ import { CarImage } from './carImage/CarImage';
 import './CarItem.scss';
 
 export class CarItem extends View {
-    public car?: Car;
+    public car: Car;
 
     public buttonSelect: ButtonSelect | null = null;
 
@@ -32,7 +32,7 @@ export class CarItem extends View {
     private stopCallback?: () => void;
 
     constructor(
-        car?: Car,
+        car: Car,
         removeCallback?: () => void,
         selectCallback?: () => void,
         startCallback?: () => void,
@@ -50,7 +50,8 @@ export class CarItem extends View {
     public renderCarImageAndButtonStartStop(): void {
         this.buttonStart = new ButtonStart();
         this.buttonStop = new ButtonStop();
-        this.carImage = new CarImage();
+        const { color } = this.car;
+        this.carImage = new CarImage(color);
 
         const wrapper = new WrapperCar().getElement();
         wrapper.append(
@@ -66,7 +67,8 @@ export class CarItem extends View {
     public renderControlPanel(): void {
         this.buttonSelect = new ButtonSelect();
         this.buttonRemove = new ButtonRemove();
-        const title = new TitleCar('cherry').getElement();
+        const { name: carName } = this.car;
+        const title = new TitleCar(carName).getElement();
 
         const wrapper = new WrapperCar().getElement();
         wrapper.append(
@@ -81,6 +83,8 @@ export class CarItem extends View {
     }
 
     private setupCarItem(): void {
+        const { id } = this.car;
+        this.getElement().id = `${id}`;
         this.renderControlPanel();
         this.renderCarImageAndButtonStartStop();
     }
