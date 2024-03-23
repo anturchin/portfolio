@@ -3,9 +3,10 @@ import { View } from '../../View';
 import { ControlPanel } from './controlPanel/ControlPanel';
 import { FormAdd } from './formAdd/FormAdd';
 import { FormUpdate } from './formUpdate/FormUpdate';
+import { SubTitle } from './subTitle/SubTitle';
+import { Title } from './title/Title';
 
 import './GarageView.scss';
-import { Title } from './title/Title';
 
 export class GarageView extends View {
     private controller: GarageController;
@@ -27,6 +28,7 @@ export class GarageView extends View {
         this.renderFormUpdate();
         this.renderControlPanel();
         this.renderTitle();
+        this.renderSubTitle();
     }
 
     public renderFormAdd(): void {
@@ -47,5 +49,10 @@ export class GarageView extends View {
     public renderTitle(): void {
         const title = new Title().getElement();
         this.addInnerElement(title);
+    }
+
+    public renderSubTitle(): void {
+        const subTitle = new SubTitle().getElement();
+        this.addInnerElement(subTitle);
     }
 }
