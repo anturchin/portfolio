@@ -1,0 +1,30 @@
+.next__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    min-height: 40px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: #78b159;
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background-color: #f5b7b1;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    }
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+    }
+    &:disabled {
+        opacity: 0.3;
+        background-color: #78b159;
+        cursor: auto;
+    }
+}

@@ -9,6 +9,7 @@ import { Title } from './title/Title';
 import './GarageView.scss';
 import { CarItem } from './carItem/CarItem';
 import { CarList } from './carList/CarList';
+import { Pagination } from './pagination/Pagination';
 
 export class GarageView extends View {
     private controller: GarageController;
@@ -20,6 +21,8 @@ export class GarageView extends View {
     private controlPanel: ControlPanel | null = null;
 
     private carItem: CarItem[] | null = null;
+
+    private pagination: Pagination | null = null;
 
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: ['garage'] });
@@ -34,6 +37,7 @@ export class GarageView extends View {
         this.renderTitle();
         this.renderSubTitle();
         this.renderCarItem();
+        this.renderPagination();
     }
 
     public renderFormAdd(): void {
@@ -66,5 +70,10 @@ export class GarageView extends View {
         const carList = new CarList().getElement();
         carList.append(carItem);
         this.addInnerElement(carList);
+    }
+
+    public renderPagination(): void {
+        this.pagination = new Pagination();
+        this.addInnerElement(this.pagination.getElement());
     }
 }
