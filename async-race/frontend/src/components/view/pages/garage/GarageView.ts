@@ -1,4 +1,4 @@
-import { GarageController } from '../../../controller/garageController/garageController';
+import { GarageController } from '../../../controller/garageController/GarageController';
 import { View } from '../../View';
 
 import './GarageView.scss';
@@ -10,4 +10,6 @@ export class GarageView extends View {
         super({ tag: 'section' });
         this.controller = controller;
     }
+
+    public renderFormAdd(): void {}
 }

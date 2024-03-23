@@ -1,4 +1,4 @@
-import { WinnerController } from '../../../controller/winnerController/winnerController';
+import { WinnerController } from '../../../controller/winnerController/WinnerController';
 import { View } from '../../View';
 
 import './WinnerView.scss';
