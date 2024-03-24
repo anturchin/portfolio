@@ -30,7 +30,7 @@ export class WinnerService {
     }
 
     static async deleteWinner(id: number): Promise<void> {
-        ApiService.delete(`winners/${id}`);
+        return ApiService.delete(`winners/${id}`);
     }
 
     static async updateWinner(winner: Winner): Promise<Winner> {
