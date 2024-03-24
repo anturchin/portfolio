@@ -1,9 +1,13 @@
 import { Car } from '../../models/car/Car';
+import { ICar } from '../../models/car/Car.interface';
 import { GarageService } from '../../services/garageService/GarageService';
 import { GarageState } from '../../state/GarageState';
+import { SvgCarCreator } from '../../utils/svgCreator/SvgCarCreator';
 
 export class GarageController {
     private state: GarageState;
+
+    private generateRandomCount: number = 100;
 
     constructor(state: GarageState) {
         this.state = state;
@@ -87,7 +91,61 @@ export class GarageController {
         };
     }
 
-    // public async nextPage(): Promise<void> {}
+    public async nextPage(): Promise<void> {
+        try {
+            this.state.nextPage();
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[nextPage - getCars] failed to fetch');
+        }
+    }
 
-    // public async prevPage(): Promise<void> {}
+    public async prevPage(): Promise<void> {
+        try {
+            this.state.prevPage();
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[prevPage - getCars] failed to fetch');
+        }
+    }
+
+    public async generateRandomCars(): Promise<void> {
+        try {
+            const names = [
+                'Toyota',
+                'Honda',
+                'BMW',
+                'Ford',
+                'Chevrolet',
+                'Mercedes',
+                'Audi',
+                'Volkswagen',
+                'Tesla',
+            ];
+            const promises: Promise<ICar>[] = [];
+
+            for (let i = 0; i < this.generateRandomCount; i += 1) {
+                const color = SvgCarCreator.randomHexColor();
+                const name = names[Math.floor(Math.random() * names.length)];
+                const car: ICar = {
+                    name: `${name} random - ${i + 1}`,
+                    color,
+                };
+                promises.push(GarageService.createCar(car));
+            }
+            await Promise.all(promises);
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[generateRandomCars - addCar] failed to fetch');
+        }
+    }
 }

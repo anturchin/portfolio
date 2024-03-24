@@ -1,20 +1,33 @@
+import { GarageController } from '../../../../../controller/garageController/GarageMainController';
 import { View } from '../../../../View';
+import { GarageView } from '../../GarageView';
 
 import './GenerateButton.scss';
 
 export class GenerateButton extends View {
-    private generateCallback?: () => void;
+    private controller: GarageController;
 
-    constructor(generateCallback?: () => void) {
+    private garageView: GarageView;
+
+    constructor(controller: GarageController, garageView: GarageView) {
         super({ tag: 'button', classNames: ['generate__button'] });
-        this.generateCallback = generateCallback;
+        this.controller = controller;
+        this.garageView = garageView;
+        this.onClickGenerate = this.onClickGenerate.bind(this);
         this.setupButton();
+        this.setupEventListener();
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('click', this.onClickGenerate);
+    }
+
+    private async onClickGenerate(): Promise<void> {
+        await this.controller.generateRandomCars();
+        this.garageView.updateTitleAndCarList();
     }
 
     private setupButton(): void {
         this.getElement().textContent = 'generate (100+)';
-        this.getElement().addEventListener('click', () => {
-            this.generateCallback?.();
-        });
     }
 }

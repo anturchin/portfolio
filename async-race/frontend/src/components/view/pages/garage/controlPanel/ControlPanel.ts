@@ -4,6 +4,8 @@ import { ResetButton } from './resetButton/ResetButton';
 import { GenerateButton } from './generateButton/GenerateButton';
 
 import './ControlPanel.scss';
+import { GarageController } from '../../../../controller/garageController/GarageMainController';
+import { GarageView } from '../GarageView';
 
 export class ControlPanel extends View {
     public raceButton: RaceButton | null = null;
@@ -12,28 +14,24 @@ export class ControlPanel extends View {
 
     public generateButton: GenerateButton | null = null;
 
-    private resetCallback?: () => void;
+    private controller: GarageController;
 
-    private raceCallback?: () => void;
+    private garageView: GarageView;
 
-    private generateCallback?: () => void;
-
-    constructor(
-        resetCallback?: () => void,
-        raceCallback?: () => void,
-        generateCallback?: () => void
-    ) {
+    constructor(controller: GarageController, garageView: GarageView) {
         super({ tag: 'section', classNames: ['control__panel'] });
-        this.resetCallback = resetCallback;
-        this.raceCallback = raceCallback;
-        this.generateCallback = generateCallback;
+        this.controller = controller;
+        this.garageView = garageView;
         this.setupControlPanel();
     }
 
     private setupControlPanel(): void {
-        this.raceButton = new RaceButton(this.raceCallback);
-        this.resetButton = new ResetButton(this.resetCallback);
-        this.generateButton = new GenerateButton(this.generateCallback);
+        this.raceButton = new RaceButton();
+        this.resetButton = new ResetButton();
+        this.generateButton = new GenerateButton(
+            this.controller,
+            this.garageView
+        );
 
         this.getElement().append(
             ...[

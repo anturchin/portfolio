@@ -14,17 +14,13 @@ import './GarageView.scss';
 export class GarageView extends View {
     private controller: GarageController;
 
-    private formAdd: FormAdd | null = null;
-
     private formUpdate: FormUpdate;
-
-    private controlPanel: ControlPanel | null = null;
 
     private carList: CarList;
 
-    private pagination: Pagination | null = null;
-
     private title: Title | null = null;
+
+    private subTitle: SubTitle | null = null;
 
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: ['garage'] });
@@ -51,6 +47,11 @@ export class GarageView extends View {
             const count = this.title.getElement().querySelector('span');
             if (count) count.textContent = `(${totalCarsCount})`;
         }
+        if (this.subTitle) {
+            const { page } = this.controller.getPageAndTotalCount();
+            const count = this.subTitle.getElement().querySelector('span');
+            if (count) count.textContent = `#${page}`;
+        }
         if (this.carList) {
             while (this.carList.getElement().firstChild) {
                 const children = this.carList.getElement().firstChild;
@@ -63,8 +64,8 @@ export class GarageView extends View {
     public renderFormAdd(): void {
         const callbackAdd = this.controller.addCar.bind(this.controller);
         const updateTitleAndCarList = this.updateTitleAndCarList.bind(this);
-        this.formAdd = new FormAdd(callbackAdd, updateTitleAndCarList);
-        this.addInnerElement(this.formAdd.getElement());
+        const formAdd = new FormAdd(callbackAdd, updateTitleAndCarList);
+        this.addInnerElement(formAdd.getElement());
     }
 
     public renderFormUpdate(): void {
@@ -72,8 +73,8 @@ export class GarageView extends View {
     }
 
     public renderControlPanel(): void {
-        this.controlPanel = new ControlPanel();
-        this.addInnerElement(this.controlPanel.getElement());
+        const controlPanel = new ControlPanel(this.controller, this);
+        this.addInnerElement(controlPanel.getElement());
     }
 
     public renderTitle(): void {
@@ -84,8 +85,8 @@ export class GarageView extends View {
 
     public renderSubTitle(): void {
         const { page } = this.controller.getPageAndTotalCount();
-        const subTitle = new SubTitle(page).getElement();
-        this.addInnerElement(subTitle);
+        this.subTitle = new SubTitle(page);
+        this.addInnerElement(this.subTitle.getElement());
     }
 
     public renderCarList(): void {
@@ -113,7 +114,7 @@ export class GarageView extends View {
     }
 
     public renderPagination(): void {
-        this.pagination = new Pagination();
-        this.addInnerElement(this.pagination.getElement());
+        const pagination = new Pagination(this.controller, this);
+        this.addInnerElement(pagination.getElement());
     }
 }

@@ -1,20 +1,33 @@
+import { GarageController } from '../../../../../controller/garageController/GarageMainController';
 import { View } from '../../../../View';
+import { GarageView } from '../../GarageView';
 
 import './NextButton.scss';
 
 export class NextButton extends View {
-    private nextCallback?: () => void;
+    private controller: GarageController;
 
-    constructor(nextCallback?: () => void) {
+    private garageView: GarageView;
+
+    constructor(controller: GarageController, garageView: GarageView) {
         super({ tag: 'button', classNames: ['next__btn'] });
-        this.nextCallback = nextCallback;
+        this.controller = controller;
+        this.garageView = garageView;
+        this.onClickNext = this.onClickNext.bind(this);
         this.setupButton();
+        this.setupEventListener();
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('click', this.onClickNext);
+    }
+
+    private async onClickNext(): Promise<void> {
+        await this.controller.nextPage();
+        this.garageView.updateTitleAndCarList();
     }
 
     private setupButton(): void {
         this.getElement().textContent = 'next';
-        this.getElement().addEventListener('click', () => {
-            this.nextCallback?.();
-        });
     }
 }

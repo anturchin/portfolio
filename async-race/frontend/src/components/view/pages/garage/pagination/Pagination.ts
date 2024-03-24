@@ -1,30 +1,28 @@
 import { View } from '../../../View';
 import { NextButton } from './nextButton/NextButton';
 import { PrevButton } from './prevButton/PrevButton';
+import { GarageController } from '../../../../controller/garageController/GarageMainController';
+import { GarageView } from '../GarageView';
 
 import './Pagination.scss';
 
 export class Pagination extends View {
-    public prevButton: PrevButton | null = null;
+    private controller: GarageController;
 
-    public nextButton: NextButton | null = null;
+    private garageView: GarageView;
 
-    private prevCallback?: () => void;
-
-    private nextCallback?: () => void;
-
-    constructor(prevCallback?: () => void, nextCallback?: () => void) {
+    constructor(controller: GarageController, garageView: GarageView) {
         super({ tag: 'section', classNames: ['pagination'] });
-        this.prevCallback = prevCallback;
-        this.nextCallback = nextCallback;
+        this.controller = controller;
+        this.garageView = garageView;
         this.setupPagination();
     }
 
     private setupPagination(): void {
-        this.prevButton = new PrevButton();
-        this.nextButton = new NextButton();
+        const prevButton = new PrevButton(this.controller, this.garageView);
+        const nextButton = new NextButton(this.controller, this.garageView);
         this.getElement().append(
-            ...[this.prevButton.getElement(), this.nextButton.getElement()]
+            ...[prevButton.getElement(), nextButton.getElement()]
         );
     }
 }
