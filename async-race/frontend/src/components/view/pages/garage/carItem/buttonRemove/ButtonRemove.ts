@@ -25,8 +25,6 @@ export class ButtonRemove extends View {
 
     private async onClickDelete(): Promise<void> {
         await this.removeCallback(this.id);
-        console.log('delete');
-        console.log(this.id);
         this.updateTitleAndCarList();
     }
 
