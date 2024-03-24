@@ -115,7 +115,7 @@ export class ApiService {
         }
     }
 
-    static async delete(endpoint: string): Promise<void> {
+    static async delete<T>(endpoint: string): Promise<T> {
         try {
             const response = await fetch(`${ApiService.API_URL}/${endpoint}`, {
                 method: 'DELETE',
@@ -125,6 +125,7 @@ export class ApiService {
                     `[DELETE] failed to fetch ${ApiService.API_URL}/${endpoint}`
                 );
             }
+            return (await response.json()) as Promise<T>;
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);

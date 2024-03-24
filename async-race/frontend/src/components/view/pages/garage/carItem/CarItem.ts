@@ -23,27 +23,28 @@ export class CarItem extends View {
 
     public carImage: CarImage | null = null;
 
-    private removeCallback?: () => void;
+    private updateTitleAndCarList: () => void;
 
-    private selectCallback?: () => void;
+    private removeCallback: (id: number) => void;
 
-    private startCallback?: () => void;
+    // private selectCallback?: () => void;
 
-    private stopCallback?: () => void;
+    // private startCallback?: () => void;
+
+    // private stopCallback?: () => void;
 
     constructor(
         car: Car,
-        removeCallback?: () => void,
-        selectCallback?: () => void,
-        startCallback?: () => void,
-        stopCallback?: () => void
+        updateTitleAndCarList: () => void,
+        removeCallback: (id: number) => void
     ) {
         super({ tag: 'div', classNames: ['car__item'] });
         this.car = car;
+        this.updateTitleAndCarList = updateTitleAndCarList;
         this.removeCallback = removeCallback;
-        this.selectCallback = selectCallback;
-        this.startCallback = startCallback;
-        this.stopCallback = stopCallback;
+        // this.selectCallback = selectCallback;
+        // this.startCallback = startCallback;
+        // this.stopCallback = stopCallback;
         this.setupCarItem();
     }
 
@@ -65,8 +66,13 @@ export class CarItem extends View {
     }
 
     public renderControlPanel(): void {
+        const { id } = this.car;
         this.buttonSelect = new ButtonSelect();
-        this.buttonRemove = new ButtonRemove();
+        this.buttonRemove = new ButtonRemove(
+            this.updateTitleAndCarList,
+            this.removeCallback,
+            id
+        );
         const { name: carName } = this.car;
         const title = new TitleCar(carName).getElement();
 

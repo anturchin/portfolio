@@ -25,7 +25,7 @@ export class GarageService {
     }
 
     static async deleteCar(id: number): Promise<void> {
-        ApiService.delete(`garage/${id}`);
+        return ApiService.delete(`garage/${id}`);
     }
 
     static async updateCar(car: Car): Promise<Car> {

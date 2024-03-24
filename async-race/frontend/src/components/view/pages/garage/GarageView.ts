@@ -20,7 +20,7 @@ export class GarageView extends View {
 
     private controlPanel: ControlPanel | null = null;
 
-    private carList: CarList | null = null;
+    private carList: CarList;
 
     private pagination: Pagination | null = null;
 
@@ -29,6 +29,7 @@ export class GarageView extends View {
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: ['garage'] });
         this.controller = controller;
+        this.carList = new CarList();
         this.render();
     }
 
@@ -38,22 +39,30 @@ export class GarageView extends View {
         this.renderControlPanel();
         this.renderTitle();
         this.renderSubTitle();
+        this.renderCarList();
         this.renderCarItem();
         this.renderPagination();
     }
 
-    public updateTitle(): void {
+    public updateTitleAndCarList(): void {
         if (this.title) {
             const { totalCarsCount } = this.controller.getPageAndTotalCount();
             const count = this.title.getElement().querySelector('span');
             if (count) count.textContent = `(${totalCarsCount})`;
         }
+        if (this.carList) {
+            while (this.carList.getElement().firstChild) {
+                const children = this.carList.getElement().firstChild;
+                if (children) this.carList.getElement().removeChild(children);
+            }
+            this.renderCarItem();
+        }
     }
 
     public renderFormAdd(): void {
-        const callback = this.controller.addCar.bind(this.controller);
-        const updateTitle = this.updateTitle.bind(this);
-        this.formAdd = new FormAdd(callback, updateTitle);
+        const callbackAdd = this.controller.addCar.bind(this.controller);
+        const updateTitleAndCarList = this.updateTitleAndCarList.bind(this);
+        this.formAdd = new FormAdd(callbackAdd, updateTitleAndCarList);
         this.addInnerElement(this.formAdd.getElement());
     }
 
@@ -79,15 +88,25 @@ export class GarageView extends View {
         this.addInnerElement(subTitle);
     }
 
+    public renderCarList(): void {
+        this.addInnerElement(this.carList.getElement());
+    }
+
     public renderCarItem(): void {
-        this.carList = new CarList();
+        const callbackRemove = this.controller.removeCar.bind(this.controller);
+        const updateTitleAndCarList = this.updateTitleAndCarList.bind(this);
         const carItems: HTMLElement[] = [];
         this.controller.getCars().forEach((car) => {
-            carItems.push(new CarItem(car).getElement());
+            carItems.push(
+                new CarItem(
+                    car,
+                    updateTitleAndCarList,
+                    callbackRemove
+                ).getElement()
+            );
         });
 
         this.carList.getElement().append(...carItems);
-        this.addInnerElement(this.carList.getElement());
     }
 
     public renderPagination(): void {

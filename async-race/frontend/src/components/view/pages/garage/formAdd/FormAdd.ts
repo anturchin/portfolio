@@ -14,17 +14,17 @@ export class FormAdd extends View {
 
     private addCarCallback: (name: string, color: string) => void;
 
-    private updateTitle: () => void;
+    private updateTitleAndCarList: () => void;
 
     constructor(
         addCarCallback: (name: string, color: string) => void,
-        updateTitle: () => void
+        updateTitleAndCarList: () => void
     ) {
         super({ tag: 'form', classNames: ['form__add'] });
-        this.setupForm();
         this.addCarCallback = addCarCallback;
-        this.updateTitle = updateTitle;
+        this.updateTitleAndCarList = updateTitleAndCarList;
         this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.setupForm();
         this.setupEventListener();
     }
 
@@ -37,7 +37,8 @@ export class FormAdd extends View {
                 .value;
             if (name && color) {
                 await this.addCarCallback(name, color);
-                this.updateTitle();
+                (this.inputText.getElement() as HTMLInputElement).value = '';
+                this.updateTitleAndCarList();
             }
         }
     }

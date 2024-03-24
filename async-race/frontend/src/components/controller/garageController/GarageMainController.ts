@@ -24,7 +24,7 @@ export class GarageController {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[GarageController] failed to fetch');
+            throw new Error('[GarageController - loadCar] failed to fetch');
         }
     }
 
@@ -37,7 +37,19 @@ export class GarageController {
             if (error instanceof Error) {
                 console.log(error.message);
             }
-            throw new Error('[GarageController] failed to fetch');
+            throw new Error('[GarageController - addCar] failed to fetch');
+        }
+    }
+
+    public async removeCar(id: number): Promise<void> {
+        try {
+            await GarageService.deleteCar(id);
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[GarageController - removeCar] failed to fetch');
         }
     }
 
