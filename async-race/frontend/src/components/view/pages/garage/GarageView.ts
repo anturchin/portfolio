@@ -16,7 +16,7 @@ export class GarageView extends View {
 
     private formAdd: FormAdd | null = null;
 
-    private formUpdate: FormUpdate | null = null;
+    private formUpdate: FormUpdate;
 
     private controlPanel: ControlPanel | null = null;
 
@@ -30,6 +30,7 @@ export class GarageView extends View {
         super({ tag: 'section', classNames: ['garage'] });
         this.controller = controller;
         this.carList = new CarList();
+        this.formUpdate = new FormUpdate(this.controller, this);
         this.render();
     }
 
@@ -67,7 +68,6 @@ export class GarageView extends View {
     }
 
     public renderFormUpdate(): void {
-        this.formUpdate = new FormUpdate();
         this.addInnerElement(this.formUpdate.getElement());
     }
 
@@ -94,14 +94,17 @@ export class GarageView extends View {
 
     public renderCarItem(): void {
         const callbackRemove = this.controller.removeCar.bind(this.controller);
+        const callbackSelect = this.controller.getCar.bind(this.controller);
         const updateTitleAndCarList = this.updateTitleAndCarList.bind(this);
         const carItems: HTMLElement[] = [];
         this.controller.getCars().forEach((car) => {
             carItems.push(
                 new CarItem(
                     car,
+                    this.formUpdate,
                     updateTitleAndCarList,
-                    callbackRemove
+                    callbackRemove,
+                    callbackSelect
                 ).getElement()
             );
         });

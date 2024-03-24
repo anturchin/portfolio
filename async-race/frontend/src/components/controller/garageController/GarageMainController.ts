@@ -53,6 +53,29 @@ export class GarageController {
         }
     }
 
+    public async updateCar(car: Car): Promise<void> {
+        try {
+            await GarageService.updateCar(car);
+            await this.loadCars();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[GarageController - updateCar] failed to fetch');
+        }
+    }
+
+    public async getCar(id: number): Promise<{ data: Car }> {
+        try {
+            return await GarageService.getCar(id);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            }
+            throw new Error('[GarageController - getCar] failed to fetch');
+        }
+    }
+
     public getCars(): Car[] {
         return this.state.getCars();
     }

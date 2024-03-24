@@ -1,4 +1,6 @@
+import { GarageController } from '../../../../controller/garageController/GarageMainController';
 import { View } from '../../../View';
+import { GarageView } from '../GarageView';
 import { Input } from '../Input/Input';
 import { InputColor } from '../InputColor/InputColor';
 import { Button } from '../button/Button';
@@ -6,27 +8,56 @@ import { Button } from '../button/Button';
 import './FormUpdate.scss';
 
 export class FormUpdate extends View {
-    public inputText: Input | null = null;
+    private controller: GarageController;
 
-    public inputColor: InputColor | null = null;
+    private garageView: GarageView;
 
-    public buttonUpdate: Button | null = null;
+    public inputText: Input;
 
-    private updateCarCallback?: (
-        carId: number,
-        name: string,
-        color: string
-    ) => void;
+    public inputColor: InputColor;
 
-    constructor() {
+    public buttonUpdate: Button;
+
+    constructor(controller: GarageController, garageView: GarageView) {
         super({ tag: 'form', classNames: ['form__update'] });
-        this.setupForm();
-    }
-
-    private setupForm(): void {
+        this.controller = controller;
+        this.garageView = garageView;
         this.inputText = new Input('text');
         this.inputColor = new InputColor('color', '#A8E4A0');
         this.buttonUpdate = new Button('update');
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.setupForm();
+        this.setupEventListener();
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('submit', this.onSubmitForm);
+    }
+
+    private clearForm(): void {
+        const inputValue = this.inputText.getElement() as HTMLInputElement;
+        const btn = this.buttonUpdate.getElement() as HTMLButtonElement;
+        inputValue.value = '';
+        btn.disabled = true;
+    }
+
+    private async onSubmitForm(event: Event): Promise<void> {
+        event.preventDefault();
+        const name = (this.inputText.getElement() as HTMLInputElement).value;
+        const idString = this.inputText
+            .getElement()
+            .getAttribute('data-car-id');
+        const id = parseInt(idString || '', 10);
+        const color = (this.inputColor.getElement() as HTMLInputElement).value;
+        if (name && id && color) {
+            await this.controller.updateCar({ id, name, color });
+            this.garageView.updateTitleAndCarList();
+            this.clearForm();
+        }
+    }
+
+    private setupForm(): void {
+        (this.buttonUpdate.getElement() as HTMLButtonElement).disabled = true;
         this.getElement().append(
             ...[
                 this.inputText.getElement(),

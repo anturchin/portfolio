@@ -9,9 +9,10 @@ import { WrapperCar } from './wrapper/WrapperCar';
 import { CarImage } from './carImage/CarImage';
 
 import './CarItem.scss';
+import { FormUpdate } from '../formUpdate/FormUpdate';
 
 export class CarItem extends View {
-    public car: Car;
+    public carInstance: Car;
 
     public buttonSelect: ButtonSelect | null = null;
 
@@ -23,26 +24,31 @@ export class CarItem extends View {
 
     public carImage: CarImage | null = null;
 
+    public formUpdate: FormUpdate;
+
     private updateTitleAndCarList: () => void;
 
     private removeCallback: (id: number) => void;
 
-    // private selectCallback?: () => void;
+    private selectCallback: (id: number) => Promise<{ data: Car }>;
 
     // private startCallback?: () => void;
 
     // private stopCallback?: () => void;
 
     constructor(
-        car: Car,
+        carInstance: Car,
+        formUpdate: FormUpdate,
         updateTitleAndCarList: () => void,
-        removeCallback: (id: number) => void
+        removeCallback: (id: number) => void,
+        selectCallback: (id: number) => Promise<{ data: Car }>
     ) {
         super({ tag: 'div', classNames: ['car__item'] });
-        this.car = car;
+        this.carInstance = carInstance;
+        this.formUpdate = formUpdate;
         this.updateTitleAndCarList = updateTitleAndCarList;
         this.removeCallback = removeCallback;
-        // this.selectCallback = selectCallback;
+        this.selectCallback = selectCallback;
         // this.startCallback = startCallback;
         // this.stopCallback = stopCallback;
         this.setupCarItem();
@@ -51,7 +57,7 @@ export class CarItem extends View {
     public renderCarImageAndButtonStartStop(): void {
         this.buttonStart = new ButtonStart();
         this.buttonStop = new ButtonStop();
-        const { color } = this.car;
+        const { color } = this.carInstance;
         this.carImage = new CarImage(color);
 
         const wrapper = new WrapperCar().getElement();
@@ -66,14 +72,18 @@ export class CarItem extends View {
     }
 
     public renderControlPanel(): void {
-        const { id } = this.car;
-        this.buttonSelect = new ButtonSelect();
+        const { id } = this.carInstance;
+        this.buttonSelect = new ButtonSelect(
+            this.selectCallback,
+            this.formUpdate,
+            id
+        );
         this.buttonRemove = new ButtonRemove(
             this.updateTitleAndCarList,
             this.removeCallback,
             id
         );
-        const { name: carName } = this.car;
+        const { name: carName } = this.carInstance;
         const title = new TitleCar(carName).getElement();
 
         const wrapper = new WrapperCar().getElement();
@@ -89,7 +99,7 @@ export class CarItem extends View {
     }
 
     private setupCarItem(): void {
-        const { id } = this.car;
+        const { id } = this.carInstance;
         this.getElement().id = `${id}`;
         this.renderControlPanel();
         this.renderCarImageAndButtonStartStop();
