@@ -1,18 +1,20 @@
+import { WinnerController } from '../../../../controller/winnerController/WinnerMainController';
 import { View } from '../../../View';
 
 import './SubTitle.scss';
 
 export class SubTitle extends View {
-    constructor(pageNumber: number = 1) {
+    constructor(controller: WinnerController) {
         super({ tag: 'h2', classNames: ['winner__subtitle'] });
-        this.setupSubTitle(pageNumber);
+        this.setupSubTitle(controller);
     }
 
-    private setupSubTitle(pageNumber: number): void {
+    private setupSubTitle(controller: WinnerController): void {
         this.getElement().textContent = 'page ';
+        const { page } = controller.getPageAndTotalCount();
         const count = document.createElement('span');
         count.classList.add('subtitle__count');
-        count.textContent = `# ${pageNumber}`;
+        count.textContent = `# ${page}`;
         this.addInnerElement(count);
     }
 }

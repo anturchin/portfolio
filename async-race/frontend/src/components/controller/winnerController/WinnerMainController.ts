@@ -1,4 +1,6 @@
+import { Car } from '../../models/car/Car';
 import { Winner } from '../../models/winner/Winner';
+import { GarageService } from '../../services/garageService/GarageService';
 import { WinnerService } from '../../services/winnerService/WinnerService';
 import { WinnerState } from '../../state/WinnerState';
 
@@ -8,6 +10,36 @@ export class WinnerController {
     constructor(state: WinnerState) {
         this.state = state;
         this.loadWinners();
+    }
+
+    public async setCars(): Promise<void> {
+        try {
+            const winners = this.state.getWinners();
+            const cars: Car[] = [];
+
+            const promises = winners.map(async (winner) => {
+                const car = await GarageService.getCar(winner.id);
+                return car;
+            });
+
+            const carsData = await Promise.all(promises);
+
+            carsData.forEach(({ data }) => {
+                const car = {
+                    id: data.id,
+                    name: data.name,
+                    color: data.color,
+                };
+                cars.push(car);
+            });
+
+            this.state.setCars(cars);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+            throw new Error('[WinnerController - setCars] failed to fetch');
+        }
     }
 
     public async loadWinners(): Promise<void> {
@@ -24,6 +56,7 @@ export class WinnerController {
             );
             this.state.setWinners(data);
             this.state.setTotalWinnersCount(parseInt(totalCount || '', 10));
+            await this.setCars();
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
@@ -85,6 +118,10 @@ export class WinnerController {
 
     public getWinners(): Winner[] {
         return this.state.getWinners();
+    }
+
+    public getCars(): Car[] {
+        return this.state.getCars();
     }
 
     public getPageAndTotalCount(): { page: number; totalWinnersCount: number } {

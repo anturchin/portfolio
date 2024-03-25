@@ -19,9 +19,9 @@ export class WinnerView extends View {
     constructor(controller: WinnerController) {
         super({ tag: 'section' });
         this.controller = controller;
-        this.title = new Title();
-        this.subTitle = new SubTitle();
-        this.table = new Table();
+        this.title = new Title(this.controller);
+        this.subTitle = new SubTitle(this.controller);
+        this.table = new Table(this.controller, this);
         this.render();
     }
 

@@ -1,16 +1,26 @@
 import { View } from '../../../View';
+import { WinnerView } from '../WinnerView';
+import { Thead } from './thead/Thead';
+import { WinnerController } from '../../../../controller/winnerController/WinnerMainController';
+import { Tbody } from './tbody/Tbody';
 
 import './Table.scss';
-import { Thead } from './thead/Thead';
 
 export class Table extends View {
-    constructor() {
+    private controller: WinnerController;
+
+    private winnerView: WinnerView;
+
+    constructor(controller: WinnerController, winnerView: WinnerView) {
         super({ tag: 'table', classNames: ['winners-table'] });
+        this.controller = controller;
+        this.winnerView = winnerView;
         this.setupTable();
     }
 
     private setupTable(): void {
         const thead = new Thead().getElement();
-        this.addInnerElement(thead);
+        const tbody = new Tbody(this.controller, this.winnerView).getElement();
+        this.getElement().append(...[thead, tbody]);
     }
 }

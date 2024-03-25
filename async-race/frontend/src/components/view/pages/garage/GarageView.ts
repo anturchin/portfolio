@@ -50,7 +50,7 @@ export class GarageView extends View {
         if (this.subTitle) {
             const { page } = this.controller.getPageAndTotalCount();
             const count = this.subTitle.getElement().querySelector('span');
-            if (count) count.textContent = `#${page}`;
+            if (count) count.textContent = `# ${page}`;
         }
         if (this.carList) {
             while (this.carList.getElement().firstChild) {
