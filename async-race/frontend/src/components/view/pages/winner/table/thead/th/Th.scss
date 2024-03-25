@@ -1,0 +1,23 @@
+.thead__th {
+    border: none;
+    padding: 10px 25px 10px 25px;
+    font-weight: 600;
+    background-color: #87ae5f;
+    color: #fff;
+    transition: all 0.3s;
+    &:nth-last-child(2) {
+        cursor: pointer;
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+            transform: translateY(-1px);
+        }
+    }
+
+    &:nth-last-child(1) {
+        cursor: pointer;
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+            transform: translateY(-1px);
+        }
+    }
+}
