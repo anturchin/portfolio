@@ -23,8 +23,14 @@ export class GenerateButton extends View {
     }
 
     private async onClickGenerate(): Promise<void> {
-        await this.controller.generateRandomCars();
-        this.garageView.updateTitleAndCarList();
+        try {
+            await this.controller.generateRandomCars();
+            this.garageView.updateTitleAndCarList();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupButton(): void {

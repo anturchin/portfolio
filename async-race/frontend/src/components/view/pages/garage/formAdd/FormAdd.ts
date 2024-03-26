@@ -36,9 +36,16 @@ export class FormAdd extends View {
             const color = (this.inputColor.getElement() as HTMLInputElement)
                 .value;
             if (name && color) {
-                await this.addCarCallback(name, color);
-                (this.inputText.getElement() as HTMLInputElement).value = '';
-                this.updateTitleAndCarList();
+                try {
+                    await this.addCarCallback(name, color);
+                    //  prettier-ignore
+                    (this.inputText.getElement() as HTMLInputElement).value = '';
+                    this.updateTitleAndCarList();
+                } catch (error) {
+                    if (error instanceof Error) {
+                        console.error(error.message);
+                    }
+                }
             }
         }
     }

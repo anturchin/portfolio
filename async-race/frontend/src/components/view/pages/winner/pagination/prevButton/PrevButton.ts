@@ -23,8 +23,14 @@ export class PrevButton extends View {
     }
 
     private async onClickPrev(): Promise<void> {
-        await this.controller.prevPage();
-        this.winnerView.updateTitleAndTable();
+        try {
+            await this.controller.prevPage();
+            this.winnerView.updateTitleAndTable();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupButton(): void {

@@ -24,8 +24,14 @@ export class ButtonRemove extends View {
     }
 
     private async onClickDelete(): Promise<void> {
-        await this.removeCallback(this.id);
-        this.updateTitleAndCarList();
+        try {
+            await this.removeCallback(this.id);
+            this.updateTitleAndCarList();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupEventListener(): void {

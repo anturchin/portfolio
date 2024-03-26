@@ -45,8 +45,14 @@ export class Thead extends View {
         const dataName = target.getAttribute('data-name') || '';
         if (isTh && SORT_BY.has(dataName)) {
             const sortBy = SORT_BY.get(dataName);
-            if (sortBy) await this.controller.handleSortBy(sortBy);
-            this.winnerView.updateTitleAndTable();
+            try {
+                if (sortBy) await this.controller.handleSortBy(sortBy);
+                this.winnerView.updateTitleAndTable();
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(error.message);
+                }
+            }
         }
     }
 

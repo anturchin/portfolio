@@ -50,9 +50,15 @@ export class FormUpdate extends View {
         const id = parseInt(idString || '', 10);
         const color = (this.inputColor.getElement() as HTMLInputElement).value;
         if (name && id && color) {
-            await this.controller.updateCar({ id, name, color });
-            this.garageView.updateTitleAndCarList();
-            this.clearForm();
+            try {
+                await this.controller.updateCar({ id, name, color });
+                this.garageView.updateTitleAndCarList();
+                this.clearForm();
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(error.message);
+                }
+            }
         }
     }
 

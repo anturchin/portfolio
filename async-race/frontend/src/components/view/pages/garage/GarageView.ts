@@ -31,15 +31,21 @@ export class GarageView extends View {
     }
 
     public async render(): Promise<void> {
-        await this.controller.loadCars();
-        this.renderFormAdd();
-        this.renderFormUpdate();
-        this.renderControlPanel();
-        this.renderTitle();
-        this.renderSubTitle();
-        this.renderCarList();
-        this.renderCarItem();
-        this.renderPagination();
+        try {
+            await this.controller.loadCars();
+            this.renderFormAdd();
+            this.renderFormUpdate();
+            this.renderControlPanel();
+            this.renderTitle();
+            this.renderSubTitle();
+            this.renderCarList();
+            this.renderCarItem();
+            this.renderPagination();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     public updateTitleAndCarList(): void {
@@ -104,6 +110,8 @@ export class GarageView extends View {
                 new CarItem(
                     car,
                     this.formUpdate,
+                    this.controller,
+                    this,
                     updateTitleAndCarList,
                     callbackRemove,
                     callbackSelect

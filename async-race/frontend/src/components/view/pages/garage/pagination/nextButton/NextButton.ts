@@ -23,8 +23,14 @@ export class NextButton extends View {
     }
 
     private async onClickNext(): Promise<void> {
-        await this.controller.nextPage();
-        this.garageView.updateTitleAndCarList();
+        try {
+            await this.controller.nextPage();
+            this.garageView.updateTitleAndCarList();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupButton(): void {

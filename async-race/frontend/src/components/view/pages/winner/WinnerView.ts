@@ -38,11 +38,17 @@ export class WinnerView extends View {
     }
 
     public async render(): Promise<void> {
-        await this.controller.loadWinners();
-        this.renderTitle();
-        this.renderSubTitle();
-        this.renderTable();
-        this.renderPagination();
+        try {
+            await this.controller.loadWinners();
+            this.renderTitle();
+            this.renderSubTitle();
+            this.renderTable();
+            this.renderPagination();
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     public renderPagination(): void {

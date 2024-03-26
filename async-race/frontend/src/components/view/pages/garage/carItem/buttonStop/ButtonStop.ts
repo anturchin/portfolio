@@ -26,7 +26,13 @@ export class ButtonStop extends View {
         const target = event.target as HTMLButtonElement;
         const dataId = parseInt(target.getAttribute('data-id') || '', 10);
         const { engineController } = this.garageController;
-        await engineController.stopEngine(dataId);
+        try {
+            await engineController.stopEngine(dataId);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupButton(): void {

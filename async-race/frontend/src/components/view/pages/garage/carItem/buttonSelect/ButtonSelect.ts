@@ -54,11 +54,17 @@ export class ButtonSelect extends View {
     }
 
     private async onClickSelect(): Promise<void> {
-        const {
-            data: { id, name, color },
-        } = await this.selectCallback(this.id);
+        try {
+            const {
+                data: { id, name, color },
+            } = await this.selectCallback(this.id);
 
-        this.setValueInFormUpdate(id, name, color);
+            this.setValueInFormUpdate(id, name, color);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
     }
 
     private setupButton(): void {

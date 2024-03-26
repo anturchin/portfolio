@@ -27,9 +27,9 @@ export class ButtonStart extends View {
         const dataId = parseInt(target.getAttribute('data-id') || '', 10);
         const { engineController } = this.garageController;
         // prettier-ignore
-        const { distance, velocity } = await engineController.startEngine(dataId);
-        console.log(distance, velocity);
         try {
+            const { distance, velocity } = await engineController.startEngine(dataId);
+            console.log(distance, velocity);
             await engineController.driveEngine(dataId);
         } catch (error) {
             if (error instanceof Error) {
