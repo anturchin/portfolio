@@ -25,7 +25,20 @@ export class WinnerView extends View {
         this.render();
     }
 
-    public render(): void {
+    public updateTitleAndTable(): void {
+        const { totalWinnersCount } = this.controller.getPageAndTotalCount();
+        const countTitle = this.title.getElement().querySelector('span');
+        if (countTitle) countTitle.textContent = `(${totalWinnersCount})`;
+
+        const { page } = this.controller.getPageAndTotalCount();
+        const countPage = this.subTitle.getElement().querySelector('span');
+        if (countPage) countPage.textContent = `# ${page}`;
+
+        this.table.updateTable();
+    }
+
+    public async render(): Promise<void> {
+        await this.controller.loadWinners();
         this.renderTitle();
         this.renderSubTitle();
         this.renderTable();
@@ -33,7 +46,7 @@ export class WinnerView extends View {
     }
 
     public renderPagination(): void {
-        const pagination = new Pagination().getElement();
+        const pagination = new Pagination(this.controller, this).getElement();
         this.addInnerElement(pagination);
     }
 

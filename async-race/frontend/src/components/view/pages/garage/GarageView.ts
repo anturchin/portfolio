@@ -30,7 +30,8 @@ export class GarageView extends View {
         this.render();
     }
 
-    public render(): void {
+    public async render(): Promise<void> {
+        await this.controller.loadCars();
         this.renderFormAdd();
         this.renderFormUpdate();
         this.renderControlPanel();

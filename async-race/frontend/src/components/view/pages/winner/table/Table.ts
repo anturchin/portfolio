@@ -18,6 +18,14 @@ export class Table extends View {
         this.setupTable();
     }
 
+    public updateTable(): void {
+        while (this.getElement().firstChild) {
+            const children = this.getElement().firstChild;
+            if (children) this.getElement().removeChild(children);
+        }
+        this.setupTable();
+    }
+
     private setupTable(): void {
         const thead = new Thead().getElement();
         const tbody = new Tbody(this.controller, this.winnerView).getElement();
