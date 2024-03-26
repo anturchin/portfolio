@@ -3,14 +3,18 @@ import { ICar } from '../../models/car/Car.interface';
 import { GarageService } from '../../services/garageService/GarageService';
 import { GarageState } from '../../state/GarageState';
 import { SvgCarCreator } from '../../utils/svgCreator/SvgCarCreator';
+import { WinnerController } from '../winnerController/WinnerMainController';
 
 export class GarageController {
     private state: GarageState;
 
+    private winnerController: WinnerController;
+
     private generateRandomCount: number = 100;
 
-    constructor(state: GarageState) {
+    constructor(state: GarageState, winnerController: WinnerController) {
         this.state = state;
+        this.winnerController = winnerController;
         this.loadCars();
     }
 
@@ -47,6 +51,12 @@ export class GarageController {
 
     public async removeCar(id: number): Promise<void> {
         try {
+            const carWinner = this.winnerController
+                .getCars()
+                .find((winner) => winner.id === id);
+            if (carWinner) {
+                await this.winnerController.removeWinner(carWinner.id);
+            }
             await GarageService.deleteCar(id);
             await this.loadCars();
         } catch (error) {

@@ -26,8 +26,11 @@ export class App {
     constructor() {
         this.garageState = new GarageState();
         this.winnerState = new WinnerState();
-        this.garageController = new GarageController(this.garageState);
         this.winnerController = new WinnerController(this.winnerState);
+        this.garageController = new GarageController(
+            this.garageState,
+            this.winnerController
+        );
 
         const controllers = {
             garageController: this.garageController,
