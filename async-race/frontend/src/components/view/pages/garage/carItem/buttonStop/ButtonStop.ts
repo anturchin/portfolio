@@ -1,20 +1,35 @@
+import { GarageController } from '../../../../../controller/garageController/GarageMainController';
 import { View } from '../../../../View';
+import { GarageView } from '../../GarageView';
 
 import './ButtonStop.scss';
 
 export class ButtonStop extends View {
-    private stopCallback?: () => void;
+    private garageController: GarageController;
 
-    constructor(stopCallback?: () => void) {
+    private garageView: GarageView;
+
+    constructor(garageController: GarageController, garageView: GarageView) {
         super({ tag: 'button', classNames: ['button__stop'] });
-        this.stopCallback = stopCallback;
+        this.garageController = garageController;
+        this.garageView = garageView;
+        this.onClickStopEngine = this.onClickStopEngine.bind(this);
         this.setupButton();
+        this.setupEventListener();
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('click', this.onClickStopEngine);
+    }
+
+    private async onClickStopEngine(event: Event): Promise<void> {
+        const target = event.target as HTMLButtonElement;
+        const dataId = parseInt(target.getAttribute('data-id') || '', 10);
+        const { engineController } = this.garageController;
+        await engineController.stopEngine(dataId);
     }
 
     private setupButton(): void {
         this.getElement().textContent = 'b';
-        this.getElement().addEventListener('click', () => {
-            this.stopCallback?.();
-        });
     }
 }

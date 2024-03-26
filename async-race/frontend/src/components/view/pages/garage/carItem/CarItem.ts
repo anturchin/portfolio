@@ -7,9 +7,11 @@ import { ButtonStop } from './buttonStop/ButtonStop';
 import { TitleCar } from './title/TitleCar';
 import { WrapperCar } from './wrapper/WrapperCar';
 import { CarImage } from './carImage/CarImage';
+import { FormUpdate } from '../formUpdate/FormUpdate';
+import { GarageView } from '../GarageView';
+import { GarageController } from '../../../../controller/garageController/GarageMainController';
 
 import './CarItem.scss';
-import { FormUpdate } from '../formUpdate/FormUpdate';
 
 export class CarItem extends View {
     public carInstance: Car;
@@ -26,19 +28,21 @@ export class CarItem extends View {
 
     public formUpdate: FormUpdate;
 
+    private garageController: GarageController;
+
+    private garageView: GarageView;
+
     private updateTitleAndCarList: () => void;
 
     private removeCallback: (id: number) => void;
 
     private selectCallback: (id: number) => Promise<{ data: Car }>;
 
-    // private startCallback?: () => void;
-
-    // private stopCallback?: () => void;
-
     constructor(
         carInstance: Car,
         formUpdate: FormUpdate,
+        garageController: GarageController,
+        garageView: GarageView,
         updateTitleAndCarList: () => void,
         removeCallback: (id: number) => void,
         selectCallback: (id: number) => Promise<{ data: Car }>
@@ -46,17 +50,25 @@ export class CarItem extends View {
         super({ tag: 'div', classNames: ['car__item'] });
         this.carInstance = carInstance;
         this.formUpdate = formUpdate;
+        this.garageController = garageController;
+        this.garageView = garageView;
         this.updateTitleAndCarList = updateTitleAndCarList;
         this.removeCallback = removeCallback;
         this.selectCallback = selectCallback;
-        // this.startCallback = startCallback;
-        // this.stopCallback = stopCallback;
         this.setupCarItem();
     }
 
     public renderCarImageAndButtonStartStop(): void {
-        this.buttonStart = new ButtonStart();
-        this.buttonStop = new ButtonStop();
+        this.buttonStart = new ButtonStart(
+            this.garageController,
+            this.garageView
+        );
+        this.buttonStart.getElement().dataset.id = `${this.carInstance.id}`;
+        this.buttonStop = new ButtonStop(
+            this.garageController,
+            this.garageView
+        );
+        this.buttonStop.getElement().dataset.id = `${this.carInstance.id}`;
         const { color } = this.carInstance;
         this.carImage = new CarImage(color);
 
