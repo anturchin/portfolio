@@ -1,3 +1,5 @@
+import { EngineStatus } from '../models/engine/EngineRequestParams';
+
 export class ApiService {
     private static API_URL = 'http://127.0.0.1:3000';
 
@@ -14,7 +16,7 @@ export class ApiService {
         try {
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error(`[GET] failed to fetch ${url.toString()}`);
+                throw new Error(response.statusText);
             }
 
             const totalCount = response.headers.get('X-Total-Count');
@@ -28,7 +30,7 @@ export class ApiService {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[GET] failed to fetch');
+            throw new Error(`[GET] failed to fetch ${url}`);
         }
     }
 
@@ -43,9 +45,7 @@ export class ApiService {
             });
 
             if (!response.ok) {
-                throw new Error(
-                    `[POST] failed to fetch ${ApiService.API_URL}/${endpoint}`
-                );
+                throw new Error(response.statusText);
             }
 
             return (await response.json()) as Promise<T>;
@@ -53,7 +53,9 @@ export class ApiService {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[POST] failed to fetch');
+            throw new Error(
+                `[POST] failed to fetch ${ApiService.API_URL}/${endpoint}`
+            );
         }
     }
 
@@ -68,9 +70,7 @@ export class ApiService {
             });
 
             if (!response.ok) {
-                throw new Error(
-                    `[PUT] failed to fetch ${ApiService.API_URL}/${endpoint}`
-                );
+                throw new Error(response.statusText);
             }
 
             return (await response.json()) as Promise<T>;
@@ -78,40 +78,44 @@ export class ApiService {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[PUT] failed to fetch');
+            throw new Error(
+                `[PUT] failed to fetch ${ApiService.API_URL}/${endpoint}`
+            );
         }
     }
 
-    static async patch<T>(endpoint: string, data: T): Promise<T> {
+    static async patch<T>(
+        endpoint: string,
+        data: { id: number; status: EngineStatus }
+    ): Promise<T> {
+        const url = new URL(`${ApiService.API_URL}/${endpoint}`);
+        Object.entries(data).forEach(([key, value]) => {
+            url.searchParams.append(`${key}`, String(value));
+        });
+
         try {
-            const response = await fetch(`${ApiService.API_URL}/${endpoint}`, {
+            const response = await fetch(`${url}`, {
                 method: 'PATCH',
                 body: JSON.stringify(data),
             });
 
             if (!response.ok) {
                 if (response.status === 429) {
-                    throw new Error(
-                        `[PATH] Drive already in progress. 
-                        You can't run drive for the same car twice while it's not stopped.`
-                    );
+                    throw new Error(response.statusText);
                 }
                 if (response.status === 500) {
-                    throw new Error(`
-                    [PATH] Drive already in progress. 
-                    You can't run drive for the same car twice while it's not stopped.
-                    `);
+                    throw new Error(response.statusText);
                 }
-                throw new Error(
-                    `[PATH] failed to fetch ${ApiService.API_URL}/${endpoint}`
-                );
+                throw new Error(response.statusText);
             }
             return (await response.json()) as Promise<T>;
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[PATH] failed to fetch');
+            throw new Error(
+                `[PATCH] failed to fetch ${ApiService.API_URL}/${endpoint}`
+            );
         }
     }
 
@@ -121,16 +125,16 @@ export class ApiService {
                 method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error(
-                    `[DELETE] failed to fetch ${ApiService.API_URL}/${endpoint}`
-                );
+                throw new Error(response.statusText);
             }
             return (await response.json()) as Promise<T>;
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[DELETE] failed to fetch');
+            throw new Error(
+                `[DELETE] failed to fetch ${ApiService.API_URL}/${endpoint}`
+            );
         }
     }
 }
