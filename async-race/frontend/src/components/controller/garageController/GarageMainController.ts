@@ -69,9 +69,15 @@ export class GarageController {
     }
 
     public async updateCar(car: Car): Promise<void> {
+        const carWinner = this.winnerController
+            .getCars()
+            .find((winner) => winner.id === car.id);
         try {
             await GarageService.updateCar(car);
             await this.loadCars();
+            if (carWinner) {
+                await this.winnerController.setCars();
+            }
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
