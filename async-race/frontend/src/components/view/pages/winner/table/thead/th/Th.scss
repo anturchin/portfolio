@@ -5,19 +5,13 @@
     background-color: #87ae5f;
     color: #fff;
     transition: all 0.3s;
-    &:nth-last-child(2) {
-        cursor: pointer;
-        &:hover {
-            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-            transform: translateY(-1px);
-        }
-    }
-
+    &:nth-last-child(2),
+    &:nth-child(1),
     &:nth-last-child(1) {
         cursor: pointer;
         &:hover {
             box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
     }
 }

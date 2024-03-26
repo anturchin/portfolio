@@ -3,6 +3,7 @@ import { Winner } from '../../models/winner/Winner';
 import { GarageService } from '../../services/garageService/GarageService';
 import { WinnerService } from '../../services/winnerService/WinnerService';
 import { WinnerState } from '../../state/WinnerState';
+import { SortBy } from '../../state/types';
 
 export class WinnerController {
     private state: WinnerState;
@@ -153,5 +154,15 @@ export class WinnerController {
             }
             throw new Error('[prevPage - getWinners] failed to fetch');
         }
+    }
+
+    public setSortBy(sort: SortBy): void {
+        this.state.setSortBy(sort);
+    }
+
+    public async handleSortBy(sort: SortBy): Promise<void> {
+        this.setSortBy(sort);
+        this.state.toggleSortOrder();
+        await this.loadWinners();
     }
 }

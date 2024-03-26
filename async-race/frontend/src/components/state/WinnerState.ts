@@ -43,6 +43,10 @@ export class WinnerState {
         return this.sortBy;
     }
 
+    public setSortBy(sort: SortBy): void {
+        this.sortBy = sort;
+    }
+
     public getSortOrder(): SortOrder {
         return this.sortOrder;
     }

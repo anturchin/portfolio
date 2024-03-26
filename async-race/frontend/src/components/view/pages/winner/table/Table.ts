@@ -27,8 +27,8 @@ export class Table extends View {
     }
 
     private setupTable(): void {
-        const thead = new Thead().getElement();
-        const tbody = new Tbody(this.controller, this.winnerView).getElement();
+        const thead = new Thead(this.controller, this.winnerView).getElement();
+        const tbody = new Tbody(this.controller).getElement();
         this.getElement().append(...[thead, tbody]);
     }
 }

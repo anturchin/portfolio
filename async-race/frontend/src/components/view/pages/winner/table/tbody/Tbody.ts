@@ -2,7 +2,6 @@ import { WinnerController } from '../../../../../controller/winnerController/Win
 import { Car } from '../../../../../models/car/Car';
 import { Winner } from '../../../../../models/winner/Winner';
 import { View } from '../../../../View';
-import { WinnerView } from '../../WinnerView';
 import { Tr } from './tr/Tr';
 import { Td } from './td/Td';
 import { MergedType } from '../../../../../state/types';
@@ -13,12 +12,9 @@ import './Tbody.scss';
 export class Tbody extends View {
     private controller: WinnerController;
 
-    private winnerView: WinnerView;
-
-    constructor(controller: WinnerController, winnerView: WinnerView) {
+    constructor(controller: WinnerController) {
         super({ tag: 'tbody', classNames: ['table__tbody'] });
         this.controller = controller;
-        this.winnerView = winnerView;
         this.setupTbody();
     }
 
@@ -53,6 +49,7 @@ export class Tbody extends View {
 
         const nameCell = new Td(name).getElement();
         cells.push(nameCell);
+
         const winsCell = new Td(wins).getElement();
         cells.push(winsCell);
 
