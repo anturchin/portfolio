@@ -39,7 +39,6 @@ export class WinnerController {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[WinnerController - setCars] failed to fetch');
         }
     }
 
@@ -62,7 +61,6 @@ export class WinnerController {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[WinnerController - loadWinners] failed to fetch');
         }
     }
 
@@ -72,9 +70,8 @@ export class WinnerController {
             await this.loadWinners();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[WinnerController - addWinner] failed to fetch');
         }
     }
 
@@ -84,11 +81,8 @@ export class WinnerController {
             await this.loadWinners();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error(
-                '[WinnerController - removeWinner] failed to fetch'
-            );
         }
     }
 
@@ -98,11 +92,8 @@ export class WinnerController {
             await this.loadWinners();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error(
-                '[WinnerController - updateWinner] failed to fetch'
-            );
         }
     }
 
@@ -111,7 +102,7 @@ export class WinnerController {
             return await WinnerService.getWinner(id);
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
             throw new Error('[WinnerController - getWinner] failed to fetch');
         }
@@ -138,9 +129,8 @@ export class WinnerController {
             await this.loadWinners();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[nextPage - getWinners] failed to fetch');
         }
     }
 
@@ -150,9 +140,8 @@ export class WinnerController {
             await this.loadWinners();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[prevPage - getWinners] failed to fetch');
         }
     }
 

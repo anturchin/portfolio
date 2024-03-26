@@ -3,9 +3,12 @@ import { ICar } from '../../models/car/Car.interface';
 import { GarageService } from '../../services/garageService/GarageService';
 import { GarageState } from '../../state/GarageState';
 import { SvgCarCreator } from '../../utils/svgCreator/SvgCarCreator';
+import { EngineController } from '../engineController/EngineController';
 import { WinnerController } from '../winnerController/WinnerMainController';
 
 export class GarageController {
+    public engineController: EngineController;
+
     private state: GarageState;
 
     private winnerController: WinnerController;
@@ -14,6 +17,7 @@ export class GarageController {
 
     constructor(state: GarageState, winnerController: WinnerController) {
         this.state = state;
+        this.engineController = new EngineController(this);
         this.winnerController = winnerController;
         this.loadCars();
     }
@@ -32,7 +36,6 @@ export class GarageController {
             if (error instanceof Error) {
                 console.error(error.message);
             }
-            throw new Error('[GarageController - loadCar] failed to fetch');
         }
     }
 
@@ -43,9 +46,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[GarageController - addCar] failed to fetch');
         }
     }
 
@@ -61,9 +63,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[GarageController - removeCar] failed to fetch');
         }
     }
 
@@ -73,9 +74,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[GarageController - updateCar] failed to fetch');
         }
     }
 
@@ -84,7 +84,7 @@ export class GarageController {
             return await GarageService.getCar(id);
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
             throw new Error('[GarageController - getCar] failed to fetch');
         }
@@ -107,9 +107,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[nextPage - getCars] failed to fetch');
         }
     }
 
@@ -119,9 +118,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[prevPage - getCars] failed to fetch');
         }
     }
 
@@ -153,9 +151,8 @@ export class GarageController {
             await this.loadCars();
         } catch (error) {
             if (error instanceof Error) {
-                console.log(error.message);
+                console.error(error.message);
             }
-            throw new Error('[generateRandomCars - addCar] failed to fetch');
         }
     }
 }
