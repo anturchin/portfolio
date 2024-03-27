@@ -1,17 +1,26 @@
 export class CustomAnimation {
-    private parentElement: HTMLElement | null = null;
+    private parentElement: HTMLElement | null;
 
-    private carImage: HTMLElement | null = null;
+    private carImage: HTMLElement | null;
 
-    private animationFrameId: number | null = null;
+    private animationFrameId: number | null;
 
-    private distance: number = 0;
+    private distance: number;
 
-    private velocity: number = 0;
+    private velocity: number;
 
-    private currentPosition: number = 0;
+    private currentPosition: number;
 
     private readonly initialPosition: number = 0;
+
+    constructor() {
+        this.parentElement = null;
+        this.carImage = null;
+        this.animationFrameId = null;
+        this.distance = 0;
+        this.velocity = 0;
+        this.currentPosition = 0;
+    }
 
     public setCustomAnimation(
         parentElement: HTMLElement,
@@ -26,9 +35,9 @@ export class CustomAnimation {
         return this;
     }
 
-    public start(): void {
-        if (!this.parentElement && !this.carImage) return;
-        if (!this.distance && !this.velocity) return;
+    public start(): CustomAnimation | null {
+        if (!this.parentElement && !this.carImage) return null;
+        if (!this.distance && !this.velocity) return null;
         const duration = (this.distance / this.velocity) * 500;
         const startTime = performance.now();
         const parentWidth = this.parentElement ? this.parentElement.offsetWidth : 0;
@@ -57,6 +66,8 @@ export class CustomAnimation {
         };
 
         this.animationFrameId = requestAnimationFrame(animate);
+
+        return this;
     }
 
     public stop(): void {
