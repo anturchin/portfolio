@@ -23,8 +23,8 @@ export class CustomAnimation {
     }
 
     public setCustomAnimation(
-        parentElement: HTMLElement,
-        carImage: HTMLElement,
+        parentElement: HTMLElement | null,
+        carImage: HTMLElement | null,
         distance: number,
         velocity: number
     ): CustomAnimation {
@@ -38,7 +38,7 @@ export class CustomAnimation {
     public start(): CustomAnimation | null {
         if (!this.parentElement && !this.carImage) return null;
         if (!this.distance && !this.velocity) return null;
-        const duration = (this.distance / this.velocity) * 500;
+        const duration = (this.distance / this.velocity) * 1000;
         const startTime = performance.now();
         const parentWidth = this.parentElement ? this.parentElement.offsetWidth : 0;
         const imageCarWidth = this.carImage?.getAttribute('width');

@@ -119,6 +119,10 @@ export class CarItem extends View {
     private setupCarItem(): void {
         const { id } = this.carInstance;
         this.getElement().id = `${id}`;
+
+        const { raceController } = this.garageController;
+        raceController.addCustomAnimation(this, this.animation);
+
         this.renderControlPanel();
         this.renderCarImageAndButtonStartStop();
     }

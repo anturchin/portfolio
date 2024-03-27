@@ -2,10 +2,10 @@ import { View } from '../../../View';
 import { RaceButton } from './raceButton/RaceButton';
 import { ResetButton } from './resetButton/ResetButton';
 import { GenerateButton } from './generateButton/GenerateButton';
-
-import './ControlPanel.scss';
 import { GarageController } from '../../../../controller/garageController/GarageMainController';
 import { GarageView } from '../GarageView';
+
+import './ControlPanel.scss';
 
 export class ControlPanel extends View {
     public raceButton: RaceButton | null = null;
@@ -26,7 +26,7 @@ export class ControlPanel extends View {
     }
 
     private setupControlPanel(): void {
-        this.raceButton = new RaceButton();
+        this.raceButton = new RaceButton(this.controller);
         this.resetButton = new ResetButton();
         this.generateButton = new GenerateButton(
             this.controller,

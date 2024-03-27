@@ -4,10 +4,13 @@ import { GarageService } from '../../services/garageService/GarageService';
 import { GarageState } from '../../state/GarageState';
 import { SvgCarCreator } from '../../utils/svgCreator/SvgCarCreator';
 import { EngineController } from '../engineController/EngineController';
+import { RaceController } from '../raceController/RaceController';
 import { WinnerController } from '../winnerController/WinnerMainController';
 
 export class GarageController {
     public engineController: EngineController;
+
+    public raceController: RaceController;
 
     private state: GarageState;
 
@@ -18,6 +21,7 @@ export class GarageController {
     constructor(state: GarageState, winnerController: WinnerController) {
         this.state = state;
         this.engineController = new EngineController(this);
+        this.raceController = new RaceController(this.engineController);
         this.winnerController = winnerController;
         this.loadCars();
     }
