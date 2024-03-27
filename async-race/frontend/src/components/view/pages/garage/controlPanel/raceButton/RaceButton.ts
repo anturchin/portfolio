@@ -21,13 +21,17 @@ export class RaceButton extends View {
     private enableBtnStartAndStop(): void {
         const btnStart = document.querySelectorAll<HTMLButtonElement>('.button__start');
         const btnStop = document.querySelectorAll<HTMLButtonElement>('.button__stop');
+        const btnReset = document.querySelector<HTMLButtonElement>('.reset__button');
+        if (btnReset) btnReset.disabled = false;
         btnStart?.forEach((_, i) => {
             btnStart[i].disabled = true;
             btnStop[i].disabled = false;
         });
     }
 
-    private async onClickRace(): Promise<void> {
+    private async onClickRace(event: Event): Promise<void> {
+        const target = event.target as HTMLButtonElement;
+        target.disabled = true;
         const { raceController } = this.controller;
         this.enableBtnStartAndStop();
         try {

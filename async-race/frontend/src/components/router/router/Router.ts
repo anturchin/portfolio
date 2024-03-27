@@ -23,7 +23,6 @@ export class Router implements IRouter {
         const route = this.routes.find((r) => r.path === path);
         if (route) {
             await route.callback(this.app, this.controllers);
-            console.log(`route: ${path}`);
         } else {
             console.error(`not found route: ${path}`);
         }

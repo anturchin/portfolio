@@ -21,13 +21,17 @@ export class ResetButton extends View {
     private enableBtnStartAndStop(): void {
         const btnStart = document.querySelectorAll<HTMLButtonElement>('.button__start');
         const btnStop = document.querySelectorAll<HTMLButtonElement>('.button__stop');
+        const btnRace = document.querySelector<HTMLButtonElement>('.race__button');
+        if (btnRace) btnRace.disabled = false;
         btnStart?.forEach((_, i) => {
             btnStart[i].disabled = false;
             btnStop[i].disabled = true;
         });
     }
 
-    private async onClickReset(): Promise<void> {
+    private async onClickReset(event: Event): Promise<void> {
+        const target = event.target as HTMLButtonElement;
+        target.disabled = true;
         const { raceController } = this.controller;
         this.enableBtnStartAndStop();
         try {
@@ -41,5 +45,6 @@ export class ResetButton extends View {
 
     private setupButton(): void {
         this.getElement().textContent = 'reset';
+        (this.getElement() as HTMLButtonElement).disabled = true;
     }
 }
