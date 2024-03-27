@@ -1,4 +1,5 @@
 import { GarageController } from '../../../../../controller/garageController/GarageMainController';
+import { CustomAnimation } from '../../../../../utils/animation/CustomAnimation';
 import { View } from '../../../../View';
 import { GarageView } from '../../GarageView';
 
@@ -9,10 +10,17 @@ export class ButtonStart extends View {
 
     private garageView: GarageView;
 
-    constructor(garageController: GarageController, garageView: GarageView) {
+    private animation: CustomAnimation;
+
+    constructor(
+        garageController: GarageController,
+        garageView: GarageView,
+        animation: CustomAnimation
+    ) {
         super({ tag: 'button', classNames: ['button__start'] });
         this.garageController = garageController;
         this.garageView = garageView;
+        this.animation = animation;
         this.onClickStartEngine = this.onClickStartEngine.bind(this);
         this.setupButton();
         this.setupEventListener();
@@ -26,14 +34,32 @@ export class ButtonStart extends View {
         const target = event.target as HTMLButtonElement;
         const dataId = parseInt(target.getAttribute('data-id') || '', 10);
         const { engineController } = this.garageController;
-        // prettier-ignore
-        try {
-            const { distance, velocity } = await engineController.startEngine(dataId);
-            console.log(distance, velocity);
-            await engineController.driveEngine(dataId);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
+        const parent = target.parentElement;
+        const btnStop = target.nextSibling as HTMLButtonElement;
+
+        const parentElement = parent?.querySelector<HTMLElement>('.car__image');
+        const carImage = parent?.querySelector<HTMLElement>('.car__svg');
+        if (parentElement && carImage) {
+            try {
+                const { distance, velocity } = await engineController.startEngine(dataId);
+
+                target.disabled = true;
+                if (btnStop) btnStop.disabled = false;
+                this.animation
+                    .setCustomAnimation(parentElement, carImage, distance, velocity)
+                    .start();
+                try {
+                    await engineController.driveEngine(dataId);
+                } catch (error) {
+                    if (error instanceof Error) {
+                        console.error(error.message);
+                    }
+                    this.animation.stop();
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(error.message);
+                }
             }
         }
     }

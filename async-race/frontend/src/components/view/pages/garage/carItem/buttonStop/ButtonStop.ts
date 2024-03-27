@@ -1,4 +1,5 @@
 import { GarageController } from '../../../../../controller/garageController/GarageMainController';
+import { CustomAnimation } from '../../../../../utils/animation/CustomAnimation';
 import { View } from '../../../../View';
 import { GarageView } from '../../GarageView';
 
@@ -9,10 +10,17 @@ export class ButtonStop extends View {
 
     private garageView: GarageView;
 
-    constructor(garageController: GarageController, garageView: GarageView) {
+    private animation: CustomAnimation;
+
+    constructor(
+        garageController: GarageController,
+        garageView: GarageView,
+        animation: CustomAnimation
+    ) {
         super({ tag: 'button', classNames: ['button__stop'] });
         this.garageController = garageController;
         this.garageView = garageView;
+        this.animation = animation;
         this.onClickStopEngine = this.onClickStopEngine.bind(this);
         this.setupButton();
         this.setupEventListener();
@@ -20,14 +28,19 @@ export class ButtonStop extends View {
 
     private setupEventListener(): void {
         this.getElement().addEventListener('click', this.onClickStopEngine);
+        (this.getElement() as HTMLButtonElement).disabled = true;
     }
 
     private async onClickStopEngine(event: Event): Promise<void> {
         const target = event.target as HTMLButtonElement;
+        const btnStart = target.previousSibling as HTMLButtonElement;
         const dataId = parseInt(target.getAttribute('data-id') || '', 10);
         const { engineController } = this.garageController;
         try {
             await engineController.stopEngine(dataId);
+            this.animation.reset();
+            target.disabled = true;
+            btnStart.disabled = false;
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);

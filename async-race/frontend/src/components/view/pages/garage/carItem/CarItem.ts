@@ -10,27 +10,30 @@ import { CarImage } from './carImage/CarImage';
 import { FormUpdate } from '../formUpdate/FormUpdate';
 import { GarageView } from '../GarageView';
 import { GarageController } from '../../../../controller/garageController/GarageMainController';
+import { CustomAnimation } from '../../../../utils/animation/CustomAnimation';
 
 import './CarItem.scss';
 
 export class CarItem extends View {
-    public carInstance: Car;
+    private carInstance: Car;
 
-    public buttonSelect: ButtonSelect | null = null;
+    private buttonSelect: ButtonSelect | null = null;
 
-    public buttonRemove: ButtonRemove | null = null;
+    private buttonRemove: ButtonRemove | null = null;
 
-    public buttonStart: ButtonStart | null = null;
+    private buttonStart: ButtonStart | null = null;
 
-    public buttonStop: ButtonStop | null = null;
+    private buttonStop: ButtonStop | null = null;
 
-    public carImage: CarImage | null = null;
+    private carImage: CarImage | null = null;
 
-    public formUpdate: FormUpdate;
+    private formUpdate: FormUpdate;
 
     private garageController: GarageController;
 
     private garageView: GarageView;
+
+    private animation: CustomAnimation;
 
     private updateTitleAndCarList: () => void;
 
@@ -52,6 +55,7 @@ export class CarItem extends View {
         this.formUpdate = formUpdate;
         this.garageController = garageController;
         this.garageView = garageView;
+        this.animation = new CustomAnimation();
         this.updateTitleAndCarList = updateTitleAndCarList;
         this.removeCallback = removeCallback;
         this.selectCallback = selectCallback;
@@ -61,12 +65,14 @@ export class CarItem extends View {
     public renderCarImageAndButtonStartStop(): void {
         this.buttonStart = new ButtonStart(
             this.garageController,
-            this.garageView
+            this.garageView,
+            this.animation
         );
         this.buttonStart.getElement().dataset.id = `${this.carInstance.id}`;
         this.buttonStop = new ButtonStop(
             this.garageController,
-            this.garageView
+            this.garageView,
+            this.animation
         );
         this.buttonStop.getElement().dataset.id = `${this.carInstance.id}`;
         const { color } = this.carInstance;
