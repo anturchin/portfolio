@@ -53,7 +53,17 @@ export class ButtonSelect extends View {
         }
     }
 
-    private async onClickSelect(): Promise<void> {
+    private enableButton(): void {
+        const removeBtn = document.querySelectorAll<HTMLButtonElement>('.button__remove');
+        removeBtn.forEach((_, i) => {
+            removeBtn[i].disabled = false;
+        });
+    }
+
+    private async onClickSelect(event: Event): Promise<void> {
+        const target = event.target as HTMLButtonElement;
+        this.enableButton();
+        (target.nextSibling as HTMLButtonElement).disabled = true;
         try {
             const {
                 data: { id, name, color },
