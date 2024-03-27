@@ -18,6 +18,29 @@ export class RaceController {
         this.animations.set(carItem, animation);
     }
 
+    public async resetRace(): Promise<void> {
+        try {
+            const animationStopPromises: Promise<IEngineStatusResponse>[] = [];
+            this.animations.forEach((animation, item) => {
+                const carId = parseInt(item.getElement().id || '', 10);
+                const stopEnginePromise = this.engineController.stopEngine(carId);
+                stopEnginePromise.then(() => {
+                    animation.reset();
+                }).catch((error) => {
+                    if (error instanceof Error) {
+                        console.error(error.message);
+                    }
+                });
+                animationStopPromises.push(stopEnginePromise);
+            });
+            await Promise.allSettled(animationStopPromises);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
+    }
+
     public async startRace(): Promise<void> {
         try {
             const animationStartPromises: Promise<IEngineStatusResponse>[] = [];

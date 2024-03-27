@@ -27,7 +27,7 @@ export class ControlPanel extends View {
 
     private setupControlPanel(): void {
         this.raceButton = new RaceButton(this.controller);
-        this.resetButton = new ResetButton();
+        this.resetButton = new ResetButton(this.controller);
         this.generateButton = new GenerateButton(
             this.controller,
             this.garageView
