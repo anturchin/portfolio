@@ -1,3 +1,4 @@
+import { IEngineDriveModeResponse } from '../../models/engine/EngineDriveModeResponse';
 import { IEngineStatusResponse } from '../../models/engine/EngineStatusResponse';
 import { CustomAnimation } from '../../utils/animation/CustomAnimation';
 import { CarItem } from '../../view/pages/garage/carItem/CarItem';
@@ -27,17 +28,13 @@ export class RaceController {
                 stopEnginePromise.then(() => {
                     animation.reset();
                 }).catch((error) => {
-                    if (error instanceof Error) {
-                        console.error(error.message);
-                    }
+                    this.handleError(error);
                 });
                 animationStopPromises.push(stopEnginePromise);
             });
             await Promise.allSettled(animationStopPromises);
         } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            }
+            this.handleError(error);
         }
     }
 
@@ -56,16 +53,44 @@ export class RaceController {
                         .setCustomAnimation(parentElement, carImage, distance, velocity)
                         .start();
                 }).catch((error) => {
-                    if (error instanceof Error) console.error(error.message);
+                    this.handleError(error);
                 });
                 animationStartPromises.push(startEnginePromise);
             });
 
             await Promise.allSettled(animationStartPromises);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
+
+            try {
+                await this.driveRace();
+            } catch (error) {
+                this.handleError(error);
             }
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    private async driveRace(): Promise<void> {
+        try {
+            const animationStartPromises: Promise<IEngineDriveModeResponse>[] = [];
+            this.animations.forEach((animation, item) => {
+                const carId = parseInt(item.getElement().id || '', 10);
+                const startEnginePromise = this.engineController.driveEngine(carId);
+                startEnginePromise.catch((error) => {
+                    this.handleError(error);
+                    animation.stop();
+                });
+                animationStartPromises.push(startEnginePromise);
+            });
+            await Promise.allSettled(animationStartPromises);
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    private handleError(error: unknown) {
+        if (error instanceof Error) {
+            console.error(error.message);
         }
     }
 }
