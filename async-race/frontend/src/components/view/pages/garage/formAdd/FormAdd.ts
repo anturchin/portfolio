@@ -47,7 +47,6 @@ export class FormAdd extends View {
             if (name && color) {
                 try {
                     await this.addCarCallback(name, color);
-                    //  prettier-ignore
                     (this.inputText.getElement() as HTMLInputElement).value = '';
                     this.updateTitleAndCarList();
                 } catch (error) {

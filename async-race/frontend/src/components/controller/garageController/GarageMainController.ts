@@ -47,7 +47,7 @@ export class GarageController {
     constructor(state: GarageState, winnerController: WinnerController) {
         this.state = state;
         this.engineController = new EngineController(this);
-        this.raceController = new RaceController(this.engineController);
+        this.raceController = new RaceController(this.engineController, winnerController);
         this.winnerController = winnerController;
         this.loadCars();
     }

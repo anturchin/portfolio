@@ -1,18 +1,27 @@
 import { IEngineDriveModeResponse } from '../../models/engine/EngineDriveModeResponse';
 import { IEngineStatusResponse } from '../../models/engine/EngineStatusResponse';
+import { Winner } from '../../models/winner/Winner';
 import { CustomAnimation } from '../../utils/animation/CustomAnimation';
 import { CarItem } from '../../view/pages/garage/carItem/CarItem';
 import { EngineController } from '../engineController/EngineController';
+import { WinnerController } from '../winnerController/WinnerMainController';
+import { ICarFinished } from './types';
 
 export class RaceController {
     private animations: Map<CarItem, CustomAnimation> = new Map();
 
     private engineController: EngineController;
 
+    private winnerController: WinnerController;
+
+    private finishedCar: Map<number, ICarFinished> = new Map();
+
     constructor(
-        engineController: EngineController
+        engineController: EngineController,
+        winnerController: WinnerController
     ) {
         this.engineController = engineController;
+        this.winnerController = winnerController;
     }
 
     public addCustomAnimation(carItem: CarItem, animation: CustomAnimation): void {
@@ -21,6 +30,47 @@ export class RaceController {
 
     public clearCustomAnimation(): void {
         this.animations.clear();
+    }
+
+    private async updateWinnersTable(winner: { carId: number, time: number }): Promise<void> {
+        try {
+            const { data } = await this.winnerController.getWinner(winner.carId);
+            if (data) {
+                const updateWinner: Winner = {
+                    ...data,
+                    wins: `${(+data.wins || 0) + 1}`,
+                    time: Math.min(winner.time, +data.time).toFixed(2),
+                };
+                await this.winnerController.updateWinner(updateWinner);
+            }
+        } catch (error) {
+            const newWinner: Winner = {
+                id: winner.carId,
+                wins: '1',
+                time: winner.time.toFixed(2),
+            };
+
+            await this.winnerController.addWinner(newWinner);
+            this.handleError(error);
+        }
+    }
+
+    public async showResultRaceAndUpdateWinnersTable(): Promise<void> {
+        const resultInfo: { carId: number, time: number }[] = [];
+        [...this.finishedCar].forEach(([carId, raceInfo]) => {
+            const diffTime = raceInfo.endTime ? raceInfo.endTime - raceInfo.startTime : 0;
+            const info = {
+                carId,
+                time: diffTime / 1000,
+            };
+            resultInfo.push(info);
+        });
+        resultInfo.sort((a, b) => a.time - b.time);
+        try {
+            await this.updateWinnersTable(resultInfo[0]);
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
     public async resetRace(): Promise<void> {
@@ -43,11 +93,16 @@ export class RaceController {
     }
 
     public async startRace(): Promise<void> {
+        this.finishedCar.clear();
         try {
             const animationStartPromises: Promise<IEngineStatusResponse>[] = [];
-
             this.animations.forEach((animation, item) => {
                 const carId = parseInt(item.getElement().id || '', 10);
+                const carFinished: ICarFinished = {
+                    carId,
+                    startTime: Date.now(),
+                };
+                this.finishedCar.set(carId, carFinished);
                 const startEnginePromise = this.engineController.startEngine(carId);
                 startEnginePromise.then(({ distance, velocity }) => {
                     const parent = item.getElement();
@@ -61,9 +116,7 @@ export class RaceController {
                 });
                 animationStartPromises.push(startEnginePromise);
             });
-
             await Promise.allSettled(animationStartPromises);
-
             try {
                 await this.driveRace();
             } catch (error) {
@@ -71,6 +124,9 @@ export class RaceController {
             }
         } catch (error) {
             this.handleError(error);
+        } finally {
+            this.showResultRaceAndUpdateWinnersTable()
+                .catch((error) => this.handleError(error));
         }
     }
 
@@ -80,10 +136,16 @@ export class RaceController {
             this.animations.forEach((animation, item) => {
                 const carId = parseInt(item.getElement().id || '', 10);
                 const startEnginePromise = this.engineController.driveEngine(carId);
-                startEnginePromise.catch((error) => {
-                    this.handleError(error);
-                    animation.stop();
-                });
+                startEnginePromise
+                    .then(() => {
+                        const carFinished = this.finishedCar.get(carId);
+                        if (carFinished) carFinished.endTime = Date.now();
+                    })
+                    .catch((error) => {
+                        this.handleError(error);
+                        animation.stop();
+                        this.finishedCar.delete(carId);
+                    });
                 animationStartPromises.push(startEnginePromise);
             });
             await Promise.allSettled(animationStartPromises);
