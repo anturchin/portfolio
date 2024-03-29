@@ -9,6 +9,7 @@ import { SortBy } from '../../../../../state/types';
 
 const COLUMNS_NAME: string[] = [
     'Number',
+    'ID-Car',
     'Car',
     'Name',
     'Wins',
@@ -17,7 +18,7 @@ const COLUMNS_NAME: string[] = [
 
 const SORT_BY = new Map<string, SortBy>();
 
-SORT_BY.set('Number', SortBy.ID);
+SORT_BY.set('ID-Car', SortBy.ID);
 SORT_BY.set('Wins', SortBy.Wins);
 SORT_BY.set('Best time (seconds)', SortBy.Time);
 

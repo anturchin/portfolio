@@ -34,10 +34,13 @@ export class Tbody extends View {
         });
     }
 
-    private createTd(winner: MergedType): HTMLElement[] {
+    private createTd(winner: MergedType, index: number): HTMLElement[] {
         const cells: HTMLElement[] = [];
 
         const { id, color, name, time, wins } = winner;
+
+        const positionNumber = new Td(`${index + 1}`).getElement();
+        cells.push(positionNumber);
 
         const idCell = new Td(`${id}`).getElement();
         cells.push(idCell);
@@ -65,9 +68,9 @@ export class Tbody extends View {
 
         const mergeArray = this.getMergeArray(cars, winners);
 
-        mergeArray.forEach((winner) => {
+        mergeArray.forEach((winner, index) => {
             const tr = new Tr().getElement();
-            tr.append(...this.createTd(winner));
+            tr.append(...this.createTd(winner, index));
             this.addInnerElement(tr);
         });
     }
