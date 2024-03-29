@@ -30,7 +30,15 @@ export class ButtonStart extends View {
         this.getElement().addEventListener('click', this.onClickStartEngine);
     }
 
+    private enableControlPanel(): void {
+        const btnReset = document.querySelector<HTMLButtonElement>('.reset__button');
+        const btnRace = document.querySelector<HTMLButtonElement>('.race__button');
+        if (btnReset) btnReset.disabled = false;
+        if (btnRace) btnRace.disabled = true;
+    }
+
     private async onClickStartEngine(event: Event): Promise<void> {
+        this.enableControlPanel();
         const target = event.target as HTMLButtonElement;
         const dataId = parseInt(target.getAttribute('data-id') || '', 10);
         const { engineController } = this.garageController;

@@ -64,6 +64,7 @@ export class ButtonSelect extends View {
         const target = event.target as HTMLButtonElement;
         this.enableButton();
         (target.nextSibling as HTMLButtonElement).disabled = true;
+
         try {
             const {
                 data: { id, name, color },

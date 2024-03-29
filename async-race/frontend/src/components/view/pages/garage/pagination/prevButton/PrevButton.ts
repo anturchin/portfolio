@@ -23,6 +23,9 @@ export class PrevButton extends View {
     }
 
     private async onClickPrev(): Promise<void> {
+        const { raceController } = this.controller;
+        raceController.clearCustomAnimation();
+
         try {
             await this.controller.prevPage();
             this.garageView.updateTitleAndCarList();

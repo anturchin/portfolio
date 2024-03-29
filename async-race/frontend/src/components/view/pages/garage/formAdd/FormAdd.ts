@@ -1,3 +1,4 @@
+import { GarageController } from '../../../../controller/garageController/GarageMainController';
 import { View } from '../../../View';
 import { Input } from '../Input/Input';
 import { InputColor } from '../InputColor/InputColor';
@@ -16,13 +17,17 @@ export class FormAdd extends View {
 
     private updateTitleAndCarList: () => void;
 
+    private garageController: GarageController;
+
     constructor(
         addCarCallback: (name: string, color: string) => void,
-        updateTitleAndCarList: () => void
+        updateTitleAndCarList: () => void,
+        garageController: GarageController
     ) {
         super({ tag: 'form', classNames: ['form__add'] });
         this.addCarCallback = addCarCallback;
         this.updateTitleAndCarList = updateTitleAndCarList;
+        this.garageController = garageController;
         this.onSubmitForm = this.onSubmitForm.bind(this);
         this.setupForm();
         this.setupEventListener();
@@ -30,6 +35,10 @@ export class FormAdd extends View {
 
     private async onSubmitForm(event: Event): Promise<void> {
         event.preventDefault();
+
+        const { raceController } = this.garageController;
+        raceController.clearCustomAnimation();
+
         if (this.inputText && this.inputColor) {
             const name = (this.inputText.getElement() as HTMLInputElement)
                 .value;

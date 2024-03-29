@@ -43,6 +43,10 @@ export class FormUpdate extends View {
 
     private async onSubmitForm(event: Event): Promise<void> {
         event.preventDefault();
+
+        const { raceController } = this.controller;
+        raceController.clearCustomAnimation();
+
         const name = (this.inputText.getElement() as HTMLInputElement).value;
         const idString = this.inputText
             .getElement()

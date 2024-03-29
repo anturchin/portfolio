@@ -99,7 +99,8 @@ export class CarItem extends View {
         this.buttonRemove = new ButtonRemove(
             this.updateTitleAndCarList,
             this.removeCallback,
-            id
+            id,
+            this.garageController
         );
         const { name: carName } = this.carInstance;
         const title = new TitleCar(carName).getElement();

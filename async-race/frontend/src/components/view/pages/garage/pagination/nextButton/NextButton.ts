@@ -23,6 +23,9 @@ export class NextButton extends View {
     }
 
     private async onClickNext(): Promise<void> {
+        const { raceController } = this.controller;
+        raceController.clearCustomAnimation();
+
         try {
             await this.controller.nextPage();
             this.garageView.updateTitleAndCarList();

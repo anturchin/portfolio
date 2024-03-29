@@ -19,6 +19,10 @@ export class RaceController {
         this.animations.set(carItem, animation);
     }
 
+    public clearCustomAnimation(): void {
+        this.animations.clear();
+    }
+
     public async resetRace(): Promise<void> {
         try {
             const animationStopPromises: Promise<IEngineStatusResponse>[] = [];

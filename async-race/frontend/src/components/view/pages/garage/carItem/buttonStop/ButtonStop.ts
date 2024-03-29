@@ -31,6 +31,17 @@ export class ButtonStop extends View {
         (this.getElement() as HTMLButtonElement).disabled = true;
     }
 
+    private enableControlPanel(): void {
+        const btnReset = document.querySelector<HTMLButtonElement>('.reset__button');
+        const btnRace = document.querySelector<HTMLButtonElement>('.race__button');
+        const bntStop = document.querySelectorAll<HTMLButtonElement>('.button__stop');
+        const isDisabled = [...bntStop].every((btn) => btn.disabled);
+        if (isDisabled && btnRace && btnReset) {
+            btnRace.disabled = false;
+            btnReset.disabled = true;
+        }
+    }
+
     private async onClickStopEngine(event: Event): Promise<void> {
         const target = event.target as HTMLButtonElement;
         const btnStart = target.previousSibling as HTMLButtonElement;
@@ -41,6 +52,7 @@ export class ButtonStop extends View {
             this.animation.reset();
             target.disabled = true;
             btnStart.disabled = false;
+            this.enableControlPanel();
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);

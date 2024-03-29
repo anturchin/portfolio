@@ -18,6 +18,8 @@ export class GarageView extends View {
 
     private carList: CarList;
 
+    private controlPanel: ControlPanel | null = null;
+
     private title: Title | null = null;
 
     private subTitle: SubTitle | null = null;
@@ -25,6 +27,10 @@ export class GarageView extends View {
     constructor(controller: GarageController) {
         super({ tag: 'section', classNames: ['garage'] });
         this.controller = controller;
+
+        const { raceController } = this.controller;
+        raceController.clearCustomAnimation();
+
         this.carList = new CarList();
         this.formUpdate = new FormUpdate(this.controller, this);
         this.render();
@@ -49,6 +55,12 @@ export class GarageView extends View {
     }
 
     public updateTitleAndCarList(): void {
+        if (this.controlPanel) {
+            const { resetButton, raceButton } = this.controlPanel;
+            (resetButton?.getElement() as HTMLButtonElement).disabled = true;
+            (raceButton?.getElement() as HTMLButtonElement).disabled = false;
+        }
+
         if (this.title) {
             const { totalCarsCount } = this.controller.getPageAndTotalCount();
             const count = this.title.getElement().querySelector('span');
@@ -71,7 +83,7 @@ export class GarageView extends View {
     public renderFormAdd(): void {
         const callbackAdd = this.controller.addCar.bind(this.controller);
         const updateTitleAndCarList = this.updateTitleAndCarList.bind(this);
-        const formAdd = new FormAdd(callbackAdd, updateTitleAndCarList);
+        const formAdd = new FormAdd(callbackAdd, updateTitleAndCarList, this.controller);
         this.addInnerElement(formAdd.getElement());
     }
 
@@ -80,8 +92,8 @@ export class GarageView extends View {
     }
 
     public renderControlPanel(): void {
-        const controlPanel = new ControlPanel(this.controller, this);
-        this.addInnerElement(controlPanel.getElement());
+        this.controlPanel = new ControlPanel(this.controller, this);
+        this.addInnerElement(this.controlPanel.getElement());
     }
 
     public renderTitle(): void {
