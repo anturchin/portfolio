@@ -7,6 +7,32 @@ import { EngineController } from '../engineController/EngineController';
 import { RaceController } from '../raceController/RaceController';
 import { WinnerController } from '../winnerController/WinnerMainController';
 
+const NAMES_CAR = [
+    'Toyota',
+    'Honda',
+    'BMW',
+    'Ford',
+    'Chevrolet',
+    'Mercedes',
+    'Audi',
+    'Volkswagen',
+    'Tesla',
+    'Lexus'
+];
+
+const MODELS_CAR = [
+    'Model S',
+    'CIVIC',
+    '7',
+    'Mustang',
+    'GX',
+    'GLS',
+    'Q7',
+    'Golf',
+    'Camry',
+    'IS'
+];
+
 export class GarageController {
     public engineController: EngineController;
 
@@ -135,24 +161,14 @@ export class GarageController {
 
     public async generateRandomCars(): Promise<void> {
         try {
-            const names = [
-                'Toyota',
-                'Honda',
-                'BMW',
-                'Ford',
-                'Chevrolet',
-                'Mercedes',
-                'Audi',
-                'Volkswagen',
-                'Tesla',
-            ];
             const promises: Promise<ICar>[] = [];
 
             for (let i = 0; i < this.generateRandomCount; i += 1) {
                 const color = SvgCarCreator.randomHexColor();
-                const name = names[Math.floor(Math.random() * names.length)];
+                const name = NAMES_CAR[Math.floor(Math.random() * NAMES_CAR.length)];
+                const model = MODELS_CAR[Math.floor(Math.random() * MODELS_CAR.length)];
                 const car: ICar = {
-                    name: `${name} random - ${i + 1}`,
+                    name: `${name} ${model}`,
                     color,
                 };
                 promises.push(GarageService.createCar(car));
