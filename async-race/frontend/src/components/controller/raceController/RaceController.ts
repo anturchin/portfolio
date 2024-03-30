@@ -61,6 +61,10 @@ export class RaceController {
     ): Promise<void> {
         let firstRequest: Winner | null = null;
 
+        if (!winner.carId || !winner.time) {
+            return;
+        }
+
         try {
             const { data } = await this.winnerController.getWinner(winner.carId);
             firstRequest = data;
@@ -91,6 +95,11 @@ export class RaceController {
 
     public async showResultRaceAndUpdateWinnersTable(): Promise<void> {
         const resultInfo: { carId: number, time: number }[] = [];
+
+        if (this.finishedCar.size < 1) {
+            return;
+        }
+
         [...this.finishedCar].forEach(([carId, raceInfo]) => {
             const diffTime = raceInfo.endTime ? raceInfo.endTime - raceInfo.startTime : 0;
             const info = {
@@ -110,6 +119,7 @@ export class RaceController {
     }
 
     public async resetRace(): Promise<void> {
+        this.finishedCar.clear();
         try {
             const animationStopPromises: Promise<IEngineStatusResponse>[] = [];
             this.animations.forEach((animation, item) => {
@@ -180,7 +190,7 @@ export class RaceController {
                     .catch((error) => {
                         this.handleError(error);
                         animation.stop();
-                        this.finishedCar.delete(carId);
+                        if (this.finishedCar.has(carId)) this.finishedCar.delete(carId);
                     });
                 animationStartPromises.push(startEnginePromise);
             });
