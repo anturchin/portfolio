@@ -1,0 +1,13 @@
+.next-winner__btn{display:flex;justify-content:center;align-items:center;min-width:70px;min-height:25px;text-transform:uppercase;border:none;border-radius:5px;color:#fff;font-size:1.4rem;font-weight:600;background-color:#78b159;transition:all 250ms;outline:none;cursor:pointer}.next-winner__btn:hover:not(:disabled),.next-winner__btn:focus:not(:disabled){background-color:#f5b7b1;box-shadow:rgba(0,0,0,.1) 0 4px 12px}.next-winner__btn:hover:not(:disabled){transform:translateY(-1px)}.next-winner__btn:disabled{opacity:.3;background-color:#78b159;cursor:auto}
+.prev-winner__btn{display:flex;justify-content:center;align-items:center;min-width:70px;min-height:25px;text-transform:uppercase;border:none;border-radius:5px;color:#fff;font-size:1.4rem;font-weight:600;background-color:#78b159;transition:all 250ms;outline:none;cursor:pointer}.prev-winner__btn:hover:not(:disabled),.prev-winner__btn:focus:not(:disabled){background-color:#f5b7b1;box-shadow:rgba(0,0,0,.1) 0 4px 12px}.prev-winner__btn:hover:not(:disabled){transform:translateY(-1px)}.prev-winner__btn:disabled{opacity:.3;background-color:#78b159;cursor:auto}
+.pagination-winner{margin-top:50px;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:10px}@media(max-width: 770px){.pagination-winner{font-size:1.8rem;justify-content:center}}
+.winner__subtitle{margin-top:35px;text-transform:uppercase;color:#87ae5f}@media(max-width: 770px){.winner__subtitle{margin-top:15px;font-size:1.6rem}}.subtitle__count{color:#f5b7b1}
+.thead__th{border:none;padding:10px 25px 10px 25px;font-weight:600;background-color:#87ae5f;color:#fff;transition:all .3s}.thead__th:nth-last-child(2),.thead__th:nth-child(2),.thead__th:nth-last-child(1){cursor:pointer}.thead__th:nth-last-child(2):hover,.thead__th:nth-child(2):hover,.thead__th:nth-last-child(1):hover{box-shadow:rgba(0,0,0,.1) 0 4px 12px;transform:translateY(-2px)}
+.thead__tr{border:none}
+.table__thead{background-color:aqua}
+.tbody__tr{border:none}
+.tbody__td{border:none;text-align:center}.tbody__td .car__svg{top:0}
+
+.winners-table{margin-top:30px;border-collapse:collapse}@media(max-width: 770px){.winners-table{width:450px;font-size:1rem}}
+.winner__title{margin-top:45px;text-transform:uppercase;color:#87ae5f}@media(max-width: 770px){.winner__title{font-size:1.8rem}}.title__count{color:#f5b7b1}
+
