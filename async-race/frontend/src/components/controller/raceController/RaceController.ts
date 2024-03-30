@@ -32,7 +32,33 @@ export class RaceController {
         this.animations.clear();
     }
 
-    private async updateWinnersTable(winner: { carId: number, time: number }): Promise<void> {
+    public showMessageView(winner:
+        { carId: number, time: number }): void {
+        const winnerCar = [...this.animations]
+            .filter(([carItem]) => {
+                return (+carItem.getElement().id === winner.carId);
+            })
+            .map(([elem]) => {
+                const nameCar = elem.getElement()
+                    .querySelector<HTMLElement>('.car__title')?.textContent;
+                return {
+                    nameCar,
+                    time: winner.time,
+                };
+            })[0];
+
+        const message = document.createElement('span');
+        message.classList.add('modal__winner');
+        message.textContent = `${winnerCar.nameCar} won the race in ${winner.time.toFixed(2)} s.`;
+        document.body.append(message);
+
+        setTimeout(() => message.remove(), 6000);
+    }
+
+    private async updateOrCreateWinnersTable(
+        winner:
+            { carId: number, time: number }
+    ): Promise<void> {
         let firstRequest: Winner | null = null;
 
         try {
@@ -75,10 +101,12 @@ export class RaceController {
         });
         resultInfo.sort((a, b) => a.time - b.time);
         try {
-            await this.updateWinnersTable(resultInfo[0]);
+            await this.updateOrCreateWinnersTable(resultInfo[0]);
         } catch (error) {
             this.handleError(error);
         }
+
+        this.showMessageView(resultInfo[0]);
     }
 
     public async resetRace(): Promise<void> {
