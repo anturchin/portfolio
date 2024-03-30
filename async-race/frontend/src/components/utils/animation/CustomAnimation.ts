@@ -38,7 +38,7 @@ export class CustomAnimation {
     public start(): CustomAnimation | null {
         if (!this.parentElement && !this.carImage) return null;
         if (!this.distance && !this.velocity) return null;
-        const duration = (this.distance / this.velocity) * 1000;
+        const duration = (this.distance / this.velocity);
         const startTime = performance.now();
         const parentWidth = this.parentElement ? this.parentElement.offsetWidth : 0;
         const imageCarWidth = this.carImage?.getAttribute('width');
@@ -51,7 +51,7 @@ export class CustomAnimation {
             const elapsed = timestamp - startTime;
             const progress = Math.min(elapsed / duration, 1);
 
-            this.currentPosition = progress * this.distance;
+            this.currentPosition = progress * parentWidth;
 
             if (this.currentPosition > distanceDrive) {
                 this.currentPosition = distanceDrive;
