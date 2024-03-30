@@ -2,6 +2,10 @@
     margin-top: 35px;
     text-transform: uppercase;
     color: #87ae5f;
+    @media (max-width: 770px) {
+        margin-top: 15px;
+        font-size: 1.6rem;
+    }
 }
 
 .subtitle__count {

@@ -2,6 +2,9 @@
     margin-top: 45px;
     text-transform: uppercase;
     color: #87ae5f;
+    @media (max-width: 770px) {
+        font-size: 1.8rem;
+    }
 }
 
 .title__count {

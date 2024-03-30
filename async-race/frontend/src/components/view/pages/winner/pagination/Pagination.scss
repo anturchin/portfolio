@@ -5,4 +5,8 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    @media (max-width: 770px) {
+        font-size: 1.8rem;
+        justify-content: center;
+    }
 }

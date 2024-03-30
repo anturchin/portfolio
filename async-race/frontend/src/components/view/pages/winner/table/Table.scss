@@ -1,4 +1,8 @@
 .winners-table {
     margin-top: 30px;
     border-collapse: collapse;
+    @media (max-width: 770px) {
+        width: 450px;
+        font-size: 1rem;
+    }
 }
