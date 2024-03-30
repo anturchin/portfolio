@@ -1,11 +1,11 @@
 export class Winner {
     public id: number;
 
-    public wins: string;
+    public wins: number;
 
-    public time: string;
+    public time: number;
 
-    constructor(id: number, wins: string, time: string) {
+    constructor(id: number, wins: number, time: number) {
         this.id = id;
         this.wins = wins;
         this.time = time;

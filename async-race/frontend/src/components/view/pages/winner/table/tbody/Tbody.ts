@@ -53,10 +53,10 @@ export class Tbody extends View {
         const nameCell = new Td(name).getElement();
         cells.push(nameCell);
 
-        const winsCell = new Td(wins).getElement();
+        const winsCell = new Td(`${wins}`).getElement();
         cells.push(winsCell);
 
-        const timeCell = new Td(time).getElement();
+        const timeCell = new Td(`${time}`).getElement();
         cells.push(timeCell);
 
         return cells;

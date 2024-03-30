@@ -11,8 +11,8 @@ export const enum SortOrder {
 
 interface IWinner {
     id: number;
-    wins?: string;
-    time?: string;
+    wins?: number;
+    time?: number;
 }
 
 interface ICar {

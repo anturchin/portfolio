@@ -33,25 +33,33 @@ export class RaceController {
     }
 
     private async updateWinnersTable(winner: { carId: number, time: number }): Promise<void> {
+        let firstRequest: Winner | null = null;
+
         try {
             const { data } = await this.winnerController.getWinner(winner.carId);
+            firstRequest = data;
             if (data) {
                 const updateWinner: Winner = {
                     ...data,
-                    wins: `${(+data.wins || 0) + 1}`,
-                    time: Math.min(winner.time, +data.time).toFixed(2),
+                    wins: (data.wins || 0) + 1,
+                    time: +Math.min(winner.time, +data.time).toFixed(2),
                 };
                 await this.winnerController.updateWinner(updateWinner);
             }
         } catch (error) {
-            const newWinner: Winner = {
-                id: winner.carId,
-                wins: '1',
-                time: winner.time.toFixed(2),
-            };
-
-            await this.winnerController.addWinner(newWinner);
             this.handleError(error);
+        }
+        if (!firstRequest) {
+            try {
+                const newWinner: Winner = {
+                    id: winner.carId,
+                    wins: 1,
+                    time: +winner.time.toFixed(2),
+                };
+                await this.winnerController.addWinner(newWinner);
+            } catch (error) {
+                this.handleError(error);
+            }
         }
     }
 
