@@ -94,7 +94,7 @@ export class RaceController {
     }
 
     public async showResultRaceAndUpdateWinnersTable(): Promise<void> {
-        const resultInfo: { carId: number, time: number }[] = [];
+        const resultInfo: { carId: number, time: number, velocity: number }[] = [];
 
         if (this.finishedCar.size < 1) {
             return;
@@ -102,20 +102,20 @@ export class RaceController {
 
         [...this.finishedCar].forEach(([carId, raceInfo]) => {
             const diffTime = raceInfo.endTime ? raceInfo.endTime - raceInfo.startTime : 0;
-            const info = {
+            const info: { carId: number, time: number, velocity: number } = {
                 carId,
+                velocity: raceInfo.velocity,
                 time: diffTime / 1000,
             };
             resultInfo.push(info);
         });
-        resultInfo.sort((a, b) => a.time - b.time);
+        resultInfo.sort((a, b) => b.velocity - a.velocity);
+        this.showMessageView(resultInfo[0]);
         try {
             await this.updateOrCreateWinnersTable(resultInfo[0]);
         } catch (error) {
             this.handleError(error);
         }
-
-        this.showMessageView(resultInfo[0]);
     }
 
     public async resetRace(): Promise<void> {
@@ -144,13 +144,14 @@ export class RaceController {
             const animationStartPromises: Promise<IEngineStatusResponse>[] = [];
             this.animations.forEach((animation, item) => {
                 const carId = parseInt(item.getElement().id || '', 10);
-                const carFinished: ICarFinished = {
-                    carId,
-                    startTime: Date.now(),
-                };
-                this.finishedCar.set(carId, carFinished);
                 const startEnginePromise = this.engineController.startEngine(carId);
                 startEnginePromise.then(({ distance, velocity }) => {
+                    const carFinished: ICarFinished = {
+                        carId,
+                        velocity,
+                        startTime: Date.now(),
+                    };
+                    this.finishedCar.set(carId, carFinished);
                     const parent = item.getElement();
                     const parentElement = parent.querySelector<HTMLElement>('.car__image');
                     const carImage = parent.querySelector<HTMLElement>('.car__svg');
@@ -170,9 +171,11 @@ export class RaceController {
             }
         } catch (error) {
             this.handleError(error);
-        } finally {
-            this.showResultRaceAndUpdateWinnersTable()
-                .catch((error) => this.handleError(error));
+        }
+        try {
+            await this.showResultRaceAndUpdateWinnersTable();
+        } catch (error) {
+            this.handleError(error);
         }
     }
 
