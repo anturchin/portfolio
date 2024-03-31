@@ -23,6 +23,9 @@ export class GenerateButton extends View {
     }
 
     private async onClickGenerate(): Promise<void> {
+        const { raceController } = this.controller;
+        raceController.clearCustomAnimation();
+
         try {
             await this.controller.generateRandomCars();
             this.garageView.updateTitleAndCarList();
