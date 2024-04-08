@@ -3,7 +3,7 @@ import { Router } from '../router/router/Router';
 import { State } from '../state/State';
 import { View } from '../view/View';
 import { Main } from '../view/main/Main';
-import { RoutePath } from './types';
+import { RoutePath } from '../router/hashRouter/types';
 
 export class App {
     private state: State;
@@ -14,13 +14,14 @@ export class App {
 
     constructor() {
         this.state = new State();
-        this.main = new Main();
         this.router = new Router(this.initialRoutes());
+        this.main = new Main();
     }
 
     public render(): void {
         document.body.append(this.main.getElement());
-        this.router.navigate(RoutePath.LOGIN);
+        const { hashRouter } = this.router;
+        this.router.navigate(hashRouter.getHashUrl() || RoutePath.LOGIN);
     }
 
     private updateContent(component: View): void {

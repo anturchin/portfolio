@@ -1,4 +1,4 @@
-import { RoutePath } from '../../app/types';
+import { RoutePath } from '../hashRouter/types';
 import { IRoute } from './Route.interface';
 
 export class Route implements IRoute {
