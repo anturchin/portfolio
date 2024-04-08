@@ -34,7 +34,7 @@ export class App {
                 path: RoutePath.LOGIN,
                 callback: async () => {
                     const { Login } = await import('../view/login/Login');
-                    this.updateContent(new Login());
+                    this.updateContent(new Login(this.router));
                 },
             },
             {
