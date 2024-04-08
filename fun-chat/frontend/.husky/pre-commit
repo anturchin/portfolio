@@ -1,0 +1,2 @@
+cd fun-chat/frontend
+npm run ci:format
