@@ -4,6 +4,8 @@ import { State } from '../state/State';
 import { View } from '../view/View';
 import { Main } from '../view/main/Main';
 import { RoutePath } from '../router/hashRouter/types';
+import { WebSocketService } from '../services/WebSocketService';
+import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 
 export class App {
     private state: State;
@@ -12,16 +14,20 @@ export class App {
 
     private router: Router;
 
+    private socket: WebSocketService;
+
     constructor() {
         this.state = new State();
         this.router = new Router(this.initialRoutes());
+        this.socket = new WebSocketService('ws://localhost:4000', this.router, this.state);
         this.main = new Main();
     }
 
     public render(): void {
         document.body.append(this.main.getElement());
-        const { hashRouter } = this.router;
-        this.router.navigate(hashRouter.getHashUrl() || RoutePath.LOGIN);
+        const userData = SessionStorageManager.getUserData();
+        const route = userData ? RoutePath.CHAT : RoutePath.LOGIN;
+        this.router.navigate(route);
     }
 
     private updateContent(component: View): void {
@@ -34,7 +40,7 @@ export class App {
                 path: RoutePath.LOGIN,
                 callback: async () => {
                     const { Login } = await import('../view/login/Login');
-                    this.updateContent(new Login(this.router));
+                    this.updateContent(new Login(this.socket));
                 },
             },
             {

@@ -2,6 +2,7 @@ import { RoutePath } from '../hashRouter/types';
 import { HashRouter } from '../hashRouter/HashRouter';
 import { Route } from '../route/Route';
 import { IRouter } from './Router.interface';
+import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 
 export class Router implements IRouter {
     private routes: Route[] = [];
@@ -29,9 +30,12 @@ export class Router implements IRouter {
                 }
             }
         } else {
-            this.navigate(RoutePath.LOGIN);
-            this.hashRouter.updateHashUrl(RoutePath.LOGIN);
-            console.error(`Not found route: ${path} and redirect to login`);
+            const userData = SessionStorageManager.getUserData();
+            if (userData) {
+                this.navigate(RoutePath.CHAT);
+                this.hashRouter.updateHashUrl(RoutePath.CHAT);
+                console.error(`[ ROUTER ] Not found route: "${path}" and redirect to "CHAT" page`);
+            }
         }
     }
 }
