@@ -38,7 +38,6 @@ export class LoginService implements IHandleErrorMessage {
             user: { login, isLogined },
         } = data.payload;
         this.state.setUser({ login, isLogined });
-        console.log(this.state.getUser());
         this.router.navigate(RoutePath.CHAT);
     }
 
