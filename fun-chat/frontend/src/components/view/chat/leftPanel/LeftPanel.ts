@@ -1,7 +1,8 @@
 import { View } from '../../View';
+import { Search } from './search/Search';
+import { UserList } from './userList/UserList';
 
 import './LeftPanel.scss';
-import { Search } from './search/Search';
 
 export class LeftPanel extends View {
     constructor() {
@@ -11,6 +12,7 @@ export class LeftPanel extends View {
 
     private setupLeftPanel(): void {
         const search = new Search().getElement();
-        this.addInnerElement(search);
+        const userList = new UserList().getElement();
+        this.getElement().append(...[search, userList]);
     }
 }

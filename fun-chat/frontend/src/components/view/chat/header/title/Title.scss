@@ -3,4 +3,8 @@
     align-self: center;
     font-size: 2rem;
     text-transform: uppercase;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+        align-self: flex-start;
+    }
 }

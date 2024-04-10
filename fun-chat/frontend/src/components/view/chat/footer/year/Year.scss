@@ -2,4 +2,7 @@
     color: #8ae234;
     align-self: center;
     font-size: 2rem;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
 }
