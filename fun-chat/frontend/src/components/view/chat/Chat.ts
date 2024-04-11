@@ -8,8 +8,14 @@ import { ChatWrapper } from './chatWrapper/ChatWrapper';
 import './Chat.scss';
 
 export class Chat extends View {
+    public leftPanel: LeftPanel;
+
+    public rightPanel: RightPanel;
+
     constructor() {
         super({ tag: 'section', classNames: ['chat'] });
+        this.leftPanel = new LeftPanel();
+        this.rightPanel = new RightPanel();
         this.render();
     }
 
@@ -25,10 +31,8 @@ export class Chat extends View {
     }
 
     private renderChatWrapper(): void {
-        const leftPanel = new LeftPanel().getElement();
-        const rightPanel = new RightPanel().getElement();
         const chatWrapper = new ChatWrapper().getElement();
-        chatWrapper.append(...[leftPanel, rightPanel]);
+        chatWrapper.append(...[this.leftPanel.getElement(), this.rightPanel.getElement()]);
         this.addInnerElement(chatWrapper);
     }
 
