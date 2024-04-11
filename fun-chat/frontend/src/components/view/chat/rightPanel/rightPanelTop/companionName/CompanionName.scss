@@ -1,2 +1,7 @@
 .companion__name {
+    color: #97e1f1;
+    font-size: 2rem;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
 }

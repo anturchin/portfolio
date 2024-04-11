@@ -4,6 +4,6 @@ import './BtnSend.scss';
 
 export class BtnSend extends View {
     constructor() {
-        super({ tag: 'button', classNames: ['btn__send'] });
+        super({ tag: 'button', classNames: ['btn__send'], textContent: 'send' });
     }
 }

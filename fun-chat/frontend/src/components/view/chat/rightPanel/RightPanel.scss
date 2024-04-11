@@ -1,4 +1,7 @@
 .chat__right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 70%;
     border: 1px solid #8ae234;
     @media (max-width: 480px) {

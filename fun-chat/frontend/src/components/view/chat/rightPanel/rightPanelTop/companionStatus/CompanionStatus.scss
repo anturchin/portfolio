@@ -1,0 +1,11 @@
+.companion__status {
+    color: #f27aa0;
+    font-size: 2rem;
+    &.active {
+        color: #97e1f1;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
+}
