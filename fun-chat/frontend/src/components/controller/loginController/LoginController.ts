@@ -4,6 +4,7 @@ import { InputValidator } from '../../utils/inputValidator/InputValidator';
 import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 import { UserDataType } from '../../utils/sessionStorageManager/types';
 import { View } from '../../view/View';
+import { ErrorAuth } from '../../view/login/errorAuth/ErrorAuth';
 import { Form } from '../../view/login/form/Form';
 
 export class LoginController {
@@ -17,9 +18,12 @@ export class LoginController {
 
     private form: Form;
 
-    constructor(loginService: LoginService, form: Form) {
+    private errorAuth: ErrorAuth;
+
+    constructor(loginService: LoginService, form: Form, errorAuth: ErrorAuth) {
         this.loginService = loginService;
         this.form = form;
+        this.errorAuth = errorAuth;
     }
 
     public validateForm(value: string, minimumLength: number): boolean {
@@ -55,7 +59,7 @@ export class LoginController {
     }
 
     private authorization(login: string, password: string): void {
-        this.loginService.login(login, password);
+        this.loginService.login(login, password, this.errorAuth);
     }
 
     private showErrorMessage(inputOne: View, inputTwo?: View): void {

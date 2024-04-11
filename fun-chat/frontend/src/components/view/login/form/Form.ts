@@ -5,6 +5,7 @@ import { WebSocketService } from '../../../services/WebSocketService';
 import { LoginController } from '../../../controller/loginController/LoginController';
 
 import './Form.scss';
+import { ErrorAuth } from '../errorAuth/ErrorAuth';
 
 export class Form extends View {
     public inputLogin: Input | null = null;
@@ -19,9 +20,9 @@ export class Form extends View {
 
     private loginController: LoginController;
 
-    constructor(socket: WebSocketService) {
+    constructor(socket: WebSocketService, errorAuth: ErrorAuth) {
         super({ tag: 'form', classNames: ['form'] });
-        this.loginController = new LoginController(socket.getLoginService(), this);
+        this.loginController = new LoginController(socket.getLoginService(), this, errorAuth);
         this.setupFormContent();
         this.setupEventListener();
     }

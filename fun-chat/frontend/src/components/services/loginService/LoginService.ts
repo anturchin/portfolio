@@ -1,6 +1,7 @@
 import { RoutePath } from '../../router/hashRouter/types';
 import { Router } from '../../router/router/Router';
 import { State } from '../../state/State';
+import { ErrorAuth } from '../../view/login/errorAuth/ErrorAuth';
 import { WebSocketService } from '../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../types';
 import { ILoginSend } from './types';
@@ -12,6 +13,8 @@ export class LoginService implements IHandleErrorMessage {
 
     private state: State;
 
+    private errorAuth: ErrorAuth | null = null;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
@@ -22,7 +25,8 @@ export class LoginService implements IHandleErrorMessage {
         return this.state;
     }
 
-    public login(login: string, password: string) {
+    public login(login: string, password: string, errorAuth: ErrorAuth) {
+        this.errorAuth = errorAuth;
         const request: ILoginSend = {
             id: this.generateRequestId(),
             type: TypeMessage.USER_LOGIN,
@@ -46,7 +50,10 @@ export class LoginService implements IHandleErrorMessage {
     }
 
     public handleErrorMessage(data: IMessage): void {
-        console.log(data);
+        if ('error' in data.payload) {
+            const errorMessage = data.payload.error;
+            this.errorAuth?.showMessage(errorMessage);
+        }
     }
 
     private generateRequestId(): string {
