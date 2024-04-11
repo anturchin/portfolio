@@ -23,4 +23,10 @@
         opacity: 0.3;
         cursor: auto;
     }
+
+    @media (max-width: 450px) {
+        width: 70px;
+        height: 25px;
+        font-size: 1.2rem;
+    }
 }

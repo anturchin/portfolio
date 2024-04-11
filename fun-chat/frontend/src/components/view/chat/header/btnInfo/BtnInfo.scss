@@ -12,15 +12,24 @@
     transition: all 250ms;
     outline: none;
     cursor: pointer;
+
     &:hover:not(:disabled),
     &:focus:not(:disabled) {
         background-color: #4e9a06;
     }
+
     &:hover:not(:disabled) {
         transform: translateY(-1px);
     }
+
     &:disabled {
         opacity: 0.3;
         cursor: auto;
+    }
+
+    @media (max-width: 450px) {
+        width: 70px;
+        height: 25px;
+        font-size: 1.2rem;
     }
 }
