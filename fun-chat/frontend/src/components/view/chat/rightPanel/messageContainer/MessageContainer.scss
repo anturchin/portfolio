@@ -1,0 +1,11 @@
+.message__container {
+    display: flex;
+    margin: 10px 0px;
+    &.left {
+        justify-content: flex-start;
+    }
+
+    &.right {
+        justify-content: flex-end;
+    }
+}

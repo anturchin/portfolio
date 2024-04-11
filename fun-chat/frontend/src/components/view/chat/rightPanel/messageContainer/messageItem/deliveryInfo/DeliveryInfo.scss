@@ -1,0 +1,16 @@
+.delivery__info {
+    font-size: 1.8rem;
+    padding: 5px;
+    text-align: right;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
+
+    &.left {
+        color: #f27aa0;
+    }
+
+    &.right {
+        color: #97e1f1;
+    }
+}

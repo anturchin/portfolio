@@ -1,0 +1,14 @@
+.user__info {
+    color: #97e1f1;
+    font-size: 1.8rem;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
+    &.left {
+        color: #f27aa0;
+    }
+
+    &.right {
+        color: #97e1f1;
+    }
+}

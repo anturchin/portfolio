@@ -1,0 +1,9 @@
+.message__content {
+    color: #d3d7cf;
+    font-size: 1.8rem;
+    text-align: justify;
+    padding: 5px;
+    @media (max-width: 480px) {
+        font-size: 1.6rem;
+    }
+}

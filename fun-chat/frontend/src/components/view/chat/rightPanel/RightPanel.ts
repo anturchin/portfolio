@@ -1,13 +1,25 @@
 import { View } from '../../View';
 import { RightPanelTop } from './rightPanelTop/RightPanelTop';
 import { WrapperMessage } from './wrapperMessage/WrapperMessage';
+import { FormSend } from './formSend/FormSend';
+import { MessageContainer } from './messageContainer/MessageContainer';
 
 import './RightPanel.scss';
-import { FormSend } from './formSend/FormSend';
 
 export class RightPanel extends View {
+    public panelTop: RightPanelTop;
+
+    public wrapperMessage: WrapperMessage;
+
+    public messages: MessageContainer[] = [];
+
+    public formSend: FormSend;
+
     constructor() {
         super({ tag: 'div', classNames: ['chat__right-panel'] });
+        this.panelTop = new RightPanelTop();
+        this.wrapperMessage = new WrapperMessage();
+        this.formSend = new FormSend();
         this.render();
     }
 
@@ -18,17 +30,27 @@ export class RightPanel extends View {
     }
 
     private renderFormSend(): void {
-        const formSend = new FormSend().getElement();
-        this.addInnerElement(formSend);
+        this.addInnerElement(this.formSend.getElement());
     }
 
     private renderWrapperMessage(): void {
-        const wrapperMessage = new WrapperMessage().getElement();
-        this.addInnerElement(wrapperMessage);
+        this.messages.push(...this.generateMessages());
+        this.wrapperMessage.getElement().append(...this.messages.map((msg) => msg.getElement()));
+        this.addInnerElement(this.wrapperMessage.getElement());
     }
 
     private renderPanelTop(): void {
-        const panelTop = new RightPanelTop().getElement();
-        this.addInnerElement(panelTop);
+        this.addInnerElement(this.panelTop.getElement());
+    }
+
+    private generateMessages(): MessageContainer[] {
+        const msgList: MessageContainer[] = [];
+        for (let i = 0; i < 15; i += 1) {
+            if (i % 2 === 0) {
+                msgList.push(new MessageContainer('right'));
+            }
+            msgList.push(new MessageContainer('left'));
+        }
+        return msgList;
     }
 }
