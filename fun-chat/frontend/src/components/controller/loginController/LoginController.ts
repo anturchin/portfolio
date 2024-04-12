@@ -54,12 +54,16 @@ export class LoginController {
         }
         (inputLogin?.getElement() as HTMLInputElement).value = '';
         (inputPass?.getElement() as HTMLInputElement).value = '';
-        this.saveUserDataToLocalStorage({ login, password });
-        this.authorization(login, password);
+        const id = SessionStorageManager.generateRequestId();
+        this.saveUserDataToLocalStorage({ id, login, password });
+        this.authorization();
     }
 
-    private authorization(login: string, password: string): void {
-        this.loginService.login(login, password, this.errorAuth);
+    private authorization(): void {
+        const userData = SessionStorageManager.getUserData();
+        if (userData) {
+            this.loginService.login(userData.id, userData.login, userData.password, this.errorAuth);
+        }
     }
 
     private showErrorMessage(inputOne: View, inputTwo?: View): void {
@@ -97,7 +101,7 @@ export class LoginController {
         }
     }
 
-    private saveUserDataToLocalStorage({ login, password }: UserDataType): void {
-        SessionStorageManager.saveUserData({ login, password });
+    private saveUserDataToLocalStorage({ id, login, password }: UserDataType): void {
+        SessionStorageManager.saveUserData({ id, login, password });
     }
 }

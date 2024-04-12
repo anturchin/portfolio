@@ -4,18 +4,31 @@ import { Footer } from './footer/Footer';
 import { LeftPanel } from './leftPanel/LeftPanel';
 import { RightPanel } from './rightPanel/RightPanel';
 import { ChatWrapper } from './chatWrapper/ChatWrapper';
+import { WebSocketService } from '../../services/WebSocketService';
+import { ChatController } from '../../controller/chatController/ChatController';
 
 import './Chat.scss';
 
 export class Chat extends View {
-    public leftPanel: LeftPanel;
+    private headerChat: Header;
 
-    public rightPanel: RightPanel;
+    private leftPanel: LeftPanel;
 
-    constructor() {
+    private rightPanel: RightPanel;
+
+    private chatController: ChatController;
+
+    constructor(socket: WebSocketService) {
         super({ tag: 'section', classNames: ['chat'] });
+        this.headerChat = new Header();
         this.leftPanel = new LeftPanel();
         this.rightPanel = new RightPanel();
+        this.chatController = new ChatController(
+            this.headerChat,
+            this.leftPanel,
+            this.rightPanel,
+            socket.getChatService()
+        );
         this.render();
     }
 
@@ -26,8 +39,7 @@ export class Chat extends View {
     }
 
     private renderHeader(): void {
-        const headerChat = new Header().getElement();
-        this.getElement().prepend(headerChat);
+        this.getElement().prepend(this.headerChat.getElement());
     }
 
     private renderChatWrapper(): void {

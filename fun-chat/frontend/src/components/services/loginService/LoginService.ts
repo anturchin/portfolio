@@ -1,6 +1,7 @@
 import { RoutePath } from '../../router/hashRouter/types';
 import { Router } from '../../router/router/Router';
 import { State } from '../../state/State';
+import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 import { ErrorAuth } from '../../view/login/errorAuth/ErrorAuth';
 import { WebSocketService } from '../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../types';
@@ -25,10 +26,10 @@ export class LoginService implements IHandleErrorMessage {
         return this.state;
     }
 
-    public login(login: string, password: string, errorAuth: ErrorAuth) {
-        this.errorAuth = errorAuth;
+    public login(id: string, login: string, password: string, errorAuth?: ErrorAuth) {
+        this.errorAuth = errorAuth || null;
         const request: ILoginSend = {
-            id: this.generateRequestId(),
+            id,
             type: TypeMessage.USER_LOGIN,
             payload: {
                 user: { login, password },
@@ -38,11 +39,15 @@ export class LoginService implements IHandleErrorMessage {
     }
 
     public handleUserLogin(data: ILoginSend): void {
-        const {
-            user: { login, isLogined },
-        } = data.payload;
-        this.state.setUser({ login, isLogined });
-        this.router.navigate(RoutePath.CHAT);
+        const userData = SessionStorageManager.getUserData();
+        const { isLogined } = data.payload.user;
+        if (userData) {
+            this.state.setUser({
+                ...userData,
+                isLogined,
+            });
+            this.router.navigate(RoutePath.CHAT);
+        }
     }
 
     public handleUserExternal(data: ILoginSend): void {
@@ -54,15 +59,5 @@ export class LoginService implements IHandleErrorMessage {
             const errorMessage = data.payload.error;
             this.errorAuth?.showMessage(errorMessage);
         }
-    }
-
-    private generateRequestId(): string {
-        const length = 10;
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let requestId = '';
-        for (let i = 0; i < length; i += 1) {
-            requestId += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return requestId;
     }
 }

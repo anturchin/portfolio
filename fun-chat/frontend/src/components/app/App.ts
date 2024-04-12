@@ -47,7 +47,7 @@ export class App {
                 path: RoutePath.CHAT,
                 callback: async () => {
                     const { Chat } = await import('../view/chat/Chat');
-                    this.updateContent(new Chat());
+                    this.updateContent(new Chat(this.socket));
                 },
             },
             {

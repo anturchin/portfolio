@@ -3,9 +3,14 @@ import { IHandleErrorMessage, IMessage, TypeMessage } from './types';
 import { ILoginSend } from './loginService/types';
 import { LoginService } from './loginService/LoginService';
 import { State } from '../state/State';
+import { ChatService } from './chatService/ChatService';
+import { ILogoutSend } from './chatService/types';
+import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 
 export class WebSocketService {
     private loginService: LoginService;
+
+    private chatService: ChatService;
 
     private socketUrl: string;
 
@@ -17,8 +22,13 @@ export class WebSocketService {
         this.socketUrl = socketUrl;
         this.socket = new WebSocket(this.socketUrl);
         this.loginService = new LoginService(this, router, state);
+        this.chatService = new ChatService(this, router, state);
         this.handleMessage = this.handleMessage.bind(this);
         this.setupEventListener();
+    }
+
+    public getChatService(): ChatService {
+        return this.chatService;
     }
 
     public getLoginService(): LoginService {
@@ -45,6 +55,16 @@ export class WebSocketService {
             return;
         }
 
+        if (data.type === TypeMessage.USER_LOGOUT) {
+            this.chatService.handleUserLogout(data as ILogoutSend);
+            return;
+        }
+
+        if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
+            this.chatService.handleUserExternalLogout(data as ILogoutSend);
+            return;
+        }
+
         if (data.type === TypeMessage.ERROR && this.lastRequest) {
             this.lastRequest.handleErrorMessage(data);
             this.lastRequest = null;
@@ -57,6 +77,11 @@ export class WebSocketService {
 
     private onConnection(): void {
         this.socket.addEventListener('open', () => {
+            const userDate = SessionStorageManager.getUserData();
+            if (userDate) {
+                const { id, login, password } = userDate;
+                this.loginService.login(id, login, password);
+            }
             console.log('WebSocket connection established');
         });
     }

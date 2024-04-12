@@ -9,24 +9,42 @@ import { WrapperBtn } from './wrapperBtn/WrapperBtn';
 import './Header.scss';
 
 export class Header extends View {
+    private userName: User;
+
+    private btnInfo: BtnInfo;
+
+    private btnLogout: BtnLogout;
+
     constructor() {
         super({ tag: 'div', classNames: ['chat__header'] });
+        this.userName = new User();
+        this.btnInfo = new BtnInfo('about');
+        this.btnLogout = new BtnLogout('logout');
         this.setupHeader();
     }
 
+    public getUserName(): User {
+        return this.userName;
+    }
+
+    public getBtnInfo(): BtnInfo {
+        return this.btnInfo;
+    }
+
+    public getBtnLogout(): BtnLogout {
+        return this.btnLogout;
+    }
+
     private createBtnBlock(): HTMLElement {
-        const btnInfo = new BtnInfo('about').getElement();
-        const btnLogout = new BtnLogout('logout').getElement();
         const wrapper = new WrapperBtn().getElement();
-        wrapper.append(...[btnInfo, btnLogout]);
+        wrapper.append(...[this.btnInfo.getElement(), this.btnLogout.getElement()]);
         return wrapper;
     }
 
     private createUserAndTitleBlock(): HTMLElement {
-        const user = new User().getElement();
         const title = new Title('fun-chat').getElement();
         const wrapper = new WrapperTitle().getElement();
-        wrapper.append(...[user, title]);
+        wrapper.append(...[this.userName.getElement(), title]);
         return wrapper;
     }
 
