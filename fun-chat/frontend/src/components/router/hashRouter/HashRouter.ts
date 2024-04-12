@@ -5,6 +5,8 @@ import { SessionStorageManager } from '../../utils/sessionStorageManager/Session
 export class HashRouter {
     private router: Router;
 
+    private previousHash: RoutePath | null = null;
+
     constructor(router: Router) {
         this.router = router;
         this.setupEventListener();
@@ -26,6 +28,13 @@ export class HashRouter {
                 this.updateHashUrl(RoutePath.LOGIN);
                 return;
             }
+            if (this.getHashUrl() === RoutePath.LOGIN) {
+                if (this.previousHash) {
+                    this.updateHashUrl(this.previousHash);
+                }
+                return;
+            }
+            this.previousHash = this.getHashUrl();
             this.router.navigate(this.getHashUrl());
         });
     }
