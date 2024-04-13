@@ -8,13 +8,7 @@ export class UserList extends View {
 
     constructor() {
         super({ tag: 'ul', classNames: ['user__list'] });
-        this.setupUserList();
     }
 
-    private setupUserList(): void {
-        for (let i = 0; i < 150; i += 1) {
-            this.userItems.push(new UserItem(`user ${i + 1}`));
-        }
-        this.getElement().append(...this.userItems.map((item) => item.getElement()));
-    }
+    private setUserItems(): void {}
 }

@@ -46,6 +46,7 @@ export class WebSocketService {
 
     private handleMessage(event: MessageEvent): void {
         const data = JSON.parse(event.data) as IMessage;
+        const logoutService = this.chatService.getLogoutService();
         if (data.type === TypeMessage.USER_LOGIN) {
             this.loginService.handleUserLogin(data as ILoginSend);
             return;
@@ -56,12 +57,12 @@ export class WebSocketService {
         }
 
         if (data.type === TypeMessage.USER_LOGOUT) {
-            this.chatService.handleUserLogout(data as ILogoutSend);
+            logoutService.handleUserLogout(data as ILogoutSend);
             return;
         }
 
         if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
-            this.chatService.handleUserExternalLogout(data as ILogoutSend);
+            logoutService.handleUserExternalLogout(data as ILogoutSend);
             return;
         }
 

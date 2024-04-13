@@ -19,7 +19,8 @@ export class HeaderController {
     }
 
     private logoutHandle(): void {
-        this.chatService.logout();
+        const logoutService = this.chatService.getLogoutService();
+        logoutService.logout();
     }
 
     private onClickBtnLogout(): void {
