@@ -1,3 +1,4 @@
+import { IUsersAccept } from '../chatService/types';
 import { IAuthUser, IAuthUserError } from '../loginService/types';
 
 export const enum TypeMessage {
@@ -19,7 +20,7 @@ export const enum TypeMessage {
 export interface IMessage {
     id: string | null;
     type: TypeMessage;
-    payload: IAuthUser | IAuthUserError;
+    payload: IAuthUser | IAuthUserError | IUsersAccept | null;
 }
 
 export interface IHandleErrorMessage {

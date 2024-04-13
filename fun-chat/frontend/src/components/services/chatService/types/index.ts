@@ -1,11 +1,13 @@
 import { TypeMessage } from '../../types';
 
+export interface IUser {
+    login: string;
+    password: string;
+    isLogined?: boolean;
+}
+
 export interface ILogoutUser {
-    user: {
-        login: string;
-        password: string;
-        isLogined?: boolean;
-    };
+    user: IUser;
 }
 
 export interface ILogoutSend {
@@ -13,3 +15,26 @@ export interface ILogoutSend {
     type: TypeMessage;
     payload: ILogoutUser;
 }
+
+export interface IUsersSend {
+    id: string;
+    type: TypeMessage;
+    payload: null;
+}
+
+export type User = {
+    login: string;
+    isLogined: boolean;
+};
+
+export interface IUserAccept {
+    user: User[];
+}
+
+export interface IUsersAccept {
+    id: string;
+    type: TypeMessage;
+    payload: IUserAccept | null;
+}
+
+export type CallBackUsers = (users: IUserAccept[]) => void;

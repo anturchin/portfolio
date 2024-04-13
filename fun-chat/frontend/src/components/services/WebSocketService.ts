@@ -4,7 +4,7 @@ import { ILoginSend } from './loginService/types';
 import { LoginService } from './loginService/LoginService';
 import { State } from '../state/State';
 import { ChatService } from './chatService/ChatService';
-import { ILogoutSend } from './chatService/types';
+import { ILogoutSend, IUsersAccept } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 
 export class WebSocketService {
@@ -44,8 +44,7 @@ export class WebSocketService {
         this.socket.close();
     }
 
-    private handleMessage(event: MessageEvent): void {
-        const data = JSON.parse(event.data) as IMessage;
+    private handleUserLoginAndLogout(data: IMessage): void {
         const logoutService = this.chatService.getLogoutService();
         if (data.type === TypeMessage.USER_LOGIN) {
             this.loginService.handleUserLogin(data as ILoginSend);
@@ -63,6 +62,33 @@ export class WebSocketService {
 
         if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
             logoutService.handleUserExternalLogout(data as ILogoutSend);
+        }
+    }
+
+    private handleUsers(data: IMessage): void {
+        const userService = this.chatService.getUserService();
+        if (data.type === TypeMessage.USER_ACTIVE) {
+            userService.handleUsers(data as IUsersAccept);
+            return;
+        }
+        if (data.type === TypeMessage.USER_INACTIVE) {
+            userService.handleUsers(data as IUsersAccept);
+        }
+    }
+
+    private handleMessage(event: MessageEvent): void {
+        const data = JSON.parse(event.data) as IMessage;
+        if (
+            data.type === TypeMessage.USER_LOGIN ||
+            data.type === TypeMessage.USER_EXTERNAL_LOGIN ||
+            data.type === TypeMessage.USER_LOGOUT ||
+            data.type === TypeMessage.USER_EXTERNAL_LOGOUT
+        ) {
+            this.handleUserLoginAndLogout(data);
+            return;
+        }
+        if (data.type === TypeMessage.USER_ACTIVE || data.type === TypeMessage.USER_INACTIVE) {
+            this.handleUsers(data);
             return;
         }
 

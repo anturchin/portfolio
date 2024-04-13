@@ -48,7 +48,7 @@ export class LogoutService implements IHandleErrorMessage {
     }
 
     public handleErrorMessage(data: IMessage): void {
-        if ('error' in data.payload) {
+        if (data.payload && 'error' in data.payload) {
             const errorMessage = data.payload.error;
             console.error(errorMessage);
         }
