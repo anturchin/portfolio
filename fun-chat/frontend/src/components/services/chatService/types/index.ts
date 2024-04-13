@@ -28,7 +28,7 @@ export type User = {
 };
 
 export interface IUserAccept {
-    user: User[];
+    users: User[];
 }
 
 export interface IUsersAccept {
@@ -37,4 +37,4 @@ export interface IUsersAccept {
     payload: IUserAccept | null;
 }
 
-export type CallBackUsers = (users: IUserAccept[]) => void;
+export type CallBackUsers = (users: User[]) => void;

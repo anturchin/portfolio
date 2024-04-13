@@ -16,6 +16,10 @@ export class LeftPanel extends View {
         this.setupLeftPanel();
     }
 
+    public getUserList(): UserList {
+        return this.userList;
+    }
+
     private setupLeftPanel(): void {
         this.getElement().append(...[this.searchInput.getElement(), this.userList.getElement()]);
     }

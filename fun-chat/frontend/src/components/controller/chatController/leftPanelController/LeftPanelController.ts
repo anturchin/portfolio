@@ -13,5 +13,14 @@ export class LeftPanelController {
         this.chatService = chatService;
         this.leftPanel = leftPanel;
         this.mainController = mainController;
+        this.initialUserList();
+    }
+
+    public initialUserList(): void {
+        const userList = this.leftPanel.getUserList();
+        const userService = this.chatService.getUserService();
+        userService.fetchAllUsers((users) => {
+            userList.setUserItems(users);
+        });
     }
 }

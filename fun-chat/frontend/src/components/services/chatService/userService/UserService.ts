@@ -22,7 +22,6 @@ export class UserService implements IHandleErrorMessage {
 
     public fetchAllUsers(callback: CallBackUsers): void {
         this.updateUserList = callback;
-
         const requestUserActive: IUsersSend = {
             id: SessionStorageManager.generateRequestId(),
             type: TypeMessage.USER_ACTIVE,
@@ -33,21 +32,26 @@ export class UserService implements IHandleErrorMessage {
             type: TypeMessage.USER_INACTIVE,
             payload: null,
         };
-
         this.webSocketService.sendRequest(requestUserActive, this);
         this.webSocketService.sendRequest(requestUserInActive, this);
     }
 
     public handleUsers(data: IUsersAccept): void {
         if (data.type === TypeMessage.USER_ACTIVE) {
-            const usersActive = data.payload ? data.payload.user : [];
+            const usersActive = data.payload ? data.payload.users : [];
             this.state.setUsersActive(usersActive);
+            return;
+        }
+        if (data.type === TypeMessage.USER_INACTIVE) {
+            const usersInActive = data.payload ? data.payload.users : [];
+            this.state.setUsersInActive(usersInActive);
         }
 
-        if (data.type === TypeMessage.USER_INACTIVE) {
-            const usersInActive = data.payload ? data.payload.user : [];
-            this.state.setUsersActive(usersInActive);
-        }
+        const userDate = SessionStorageManager.getUserData();
+        const allUsers = [...this.state.getUsersActive(), ...this.state.getUsersInActive()].filter(
+            (item) => item.login !== userDate?.login
+        );
+        this.updateUserList?.(allUsers);
     }
 
     public handleErrorMessage(data: IMessage): void {
