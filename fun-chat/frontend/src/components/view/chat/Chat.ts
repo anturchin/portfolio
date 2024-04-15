@@ -33,6 +33,7 @@ export class Chat extends View {
     }
 
     public render(): void {
+        console.log('render chat');
         this.renderHeader();
         this.renderChatWrapper();
         this.renderFooter();

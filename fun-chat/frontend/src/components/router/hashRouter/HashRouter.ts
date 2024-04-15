@@ -1,6 +1,5 @@
 import { RoutePath } from './types';
 import { Router } from '../router/Router';
-import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 
 export class HashRouter {
     private router: Router;
@@ -14,6 +13,7 @@ export class HashRouter {
 
     public updateHashUrl(path: RoutePath): void {
         window.location.hash = path;
+        this.previousHash = path;
     }
 
     public getHashUrl(): RoutePath {
@@ -23,19 +23,9 @@ export class HashRouter {
 
     private setupEventListener(): void {
         window.addEventListener('hashchange', () => {
-            const userData = SessionStorageManager.getUserData();
-            if (!userData) {
-                this.updateHashUrl(RoutePath.LOGIN);
-                return;
+            if (this.previousHash) {
+                this.updateHashUrl(this.previousHash);
             }
-            if (this.getHashUrl() === RoutePath.LOGIN) {
-                if (this.previousHash) {
-                    this.updateHashUrl(this.previousHash);
-                }
-                return;
-            }
-            this.previousHash = this.getHashUrl();
-            this.router.navigate(this.getHashUrl());
         });
     }
 }

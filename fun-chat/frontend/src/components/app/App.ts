@@ -26,8 +26,7 @@ export class App {
     public render(): void {
         document.body.append(this.main.getElement());
         const userData = SessionStorageManager.getUserData();
-        const route = userData ? RoutePath.CHAT : RoutePath.LOGIN;
-        this.router.navigate(route);
+        if (!userData) this.router.navigate(RoutePath.LOGIN);
     }
 
     private updateContent(component: View): void {
@@ -41,6 +40,7 @@ export class App {
                 callback: async () => {
                     const { Login } = await import('../view/login/Login');
                     this.updateContent(new Login(this.socket));
+                    console.log('login');
                 },
             },
             {
