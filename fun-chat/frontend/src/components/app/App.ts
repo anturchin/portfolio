@@ -5,7 +5,6 @@ import { View } from '../view/View';
 import { Main } from '../view/main/Main';
 import { RoutePath } from '../router/hashRouter/types';
 import { WebSocketService } from '../services/WebSocketService';
-import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 
 export class App {
     private state: State;
@@ -25,8 +24,6 @@ export class App {
 
     public render(): void {
         document.body.append(this.main.getElement());
-        const userData = SessionStorageManager.getUserData();
-        if (!userData) this.router.navigate(RoutePath.LOGIN);
     }
 
     private updateContent(component: View): void {
@@ -40,7 +37,6 @@ export class App {
                 callback: async () => {
                     const { Login } = await import('../view/login/Login');
                     this.updateContent(new Login(this.socket));
-                    console.log('login');
                 },
             },
             {
@@ -55,6 +51,13 @@ export class App {
                 callback: async () => {
                     const { About } = await import('../view/about/About');
                     this.updateContent(new About());
+                },
+            },
+            {
+                path: RoutePath.NOT_FOUND,
+                callback: async () => {
+                    const { NotFount } = await import('../view/404/NotFount');
+                    this.updateContent(new NotFount());
                 },
             },
         ];

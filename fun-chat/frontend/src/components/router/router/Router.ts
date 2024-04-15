@@ -2,7 +2,6 @@ import { RoutePath } from '../hashRouter/types';
 import { HashRouter } from '../hashRouter/HashRouter';
 import { Route } from '../route/Route';
 import { IRouter } from './Router.interface';
-// import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 
 export class Router implements IRouter {
     private routes: Route[] = [];
@@ -10,27 +9,28 @@ export class Router implements IRouter {
     public hashRouter: HashRouter;
 
     constructor(routes: Route[]) {
-        this.hashRouter = new HashRouter(this);
         this.addRoute(routes);
+        this.hashRouter = new HashRouter(this);
     }
 
     public addRoute(routes: Route[]): void {
         routes.forEach((route) => this.routes.push(new Route(route)));
     }
 
-    public async navigate(path: RoutePath): Promise<void> {
-        const route = this.routes.find((r) => r.path === path);
+    public findRoute(path: RoutePath): Route | undefined {
+        return this.routes.find((r) => r.path === path);
+    }
+
+    public showNotFoundPage(): void {
+        this.findRoute(RoutePath.NOT_FOUND)?.callback();
+    }
+
+    public navigate(path: RoutePath): void {
+        const route = this.findRoute(path);
         if (route) {
-            try {
-                await route.callback();
-                this.hashRouter.updateHashUrl(path);
-            } catch (error) {
-                if (error instanceof Error) {
-                    console.error(error.message);
-                }
-            }
+            this.hashRouter.updateHashUrl(path);
         } else {
-            console.error(`[ ROUTER ] Not found route: "${path}" and redirect to "CHAT" page`);
+            this.showNotFoundPage();
         }
     }
 }
