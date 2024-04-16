@@ -58,6 +58,7 @@ export class LoginService implements IHandleErrorMessage {
         if (data.payload && 'error' in data.payload) {
             const errorMessage = data.payload.error;
             this.errorAuth?.showMessage(errorMessage);
+            SessionStorageManager.removeUserData();
         }
     }
 }

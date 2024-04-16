@@ -33,6 +33,11 @@ export class HashRouter {
             return;
         }
 
+        if (!userData && this.getHashUrl() === RoutePath.CHAT) {
+            this.updateHashUrl(RoutePath.LOGIN);
+            return;
+        }
+
         const route = this.router.findRoute(this.getHashUrl());
 
         if (route) {
