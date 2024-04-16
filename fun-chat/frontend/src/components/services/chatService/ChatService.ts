@@ -3,6 +3,7 @@ import { State } from '../../state/State';
 import { WebSocketService } from '../WebSocketService';
 import { IHandleErrorMessage, IMessage } from '../types';
 import { LogoutService } from './logoutService/LogoutService';
+import { MessageService } from './messageService/MessageService';
 import { UserService } from './userService/UserService';
 
 export class ChatService implements IHandleErrorMessage {
@@ -16,12 +17,15 @@ export class ChatService implements IHandleErrorMessage {
 
     private userService: UserService;
 
+    private messageService: MessageService;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
         this.state = state;
         this.logoutService = new LogoutService(this.webSocketService, this.router, this.state);
         this.userService = new UserService(this.webSocketService, this.router, this.state);
+        this.messageService = new MessageService(this.webSocketService, this.router, this.state);
     }
 
     public getLogoutService(): LogoutService {
@@ -30,6 +34,10 @@ export class ChatService implements IHandleErrorMessage {
 
     public getUserService(): UserService {
         return this.userService;
+    }
+
+    public getMessageService(): MessageService {
+        return this.messageService;
     }
 
     public handleErrorMessage(data: IMessage): void {

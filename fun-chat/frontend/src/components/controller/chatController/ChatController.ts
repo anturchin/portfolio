@@ -4,6 +4,7 @@ import { LeftPanel } from '../../view/chat/leftPanel/LeftPanel';
 import { RightPanel } from '../../view/chat/rightPanel/RightPanel';
 import { HeaderController } from './headerController/HeaderController';
 import { LeftPanelController } from './leftPanelController/LeftPanelController';
+import { RightPanelController } from './rightPanelController/RightPanelController';
 
 export class ChatController {
     private headerChat: Header;
@@ -18,6 +19,8 @@ export class ChatController {
 
     private leftPanelController: LeftPanelController;
 
+    private rightPanelController: RightPanelController;
+
     constructor(
         headerChat: Header,
         leftPanel: LeftPanel,
@@ -30,5 +33,10 @@ export class ChatController {
         this.chatService = chatService;
         this.headerController = new HeaderController(this.chatService, this.headerChat, this);
         this.leftPanelController = new LeftPanelController(this.chatService, this.leftPanel, this);
+        this.rightPanelController = new RightPanelController(
+            this.chatService,
+            this.leftPanel,
+            this
+        );
     }
 }
