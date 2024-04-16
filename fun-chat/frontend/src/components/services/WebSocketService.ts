@@ -35,9 +35,20 @@ export class WebSocketService {
         return this.loginService;
     }
 
-    public sendRequest<T>(request: T, service: IHandleErrorMessage) {
-        this.socket.send(JSON.stringify(request));
-        this.lastRequest = service;
+    public sendRequest<T>(request: T, service: IHandleErrorMessage): Promise<void> {
+        return new Promise<void>((resolve) => {
+            const sendWhenOpen = () => {
+                this.socket.send(JSON.stringify(request));
+                this.lastRequest = service;
+                resolve();
+            };
+
+            if (this.socket.readyState === WebSocket.OPEN) {
+                sendWhenOpen();
+            } else {
+                this.socket.addEventListener('open', sendWhenOpen);
+            }
+        });
     }
 
     public close() {
