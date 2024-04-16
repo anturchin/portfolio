@@ -22,6 +22,10 @@ export class UserService implements IHandleErrorMessage {
 
     public fetchAllUsers(callback: CallBackUsers): void {
         this.updateUserList = callback;
+        this.sendRequest();
+    }
+
+    public sendRequest(): void {
         const requestUserActive: IUsersSend = {
             id: SessionStorageManager.generateRequestId(),
             type: TypeMessage.USER_ACTIVE,

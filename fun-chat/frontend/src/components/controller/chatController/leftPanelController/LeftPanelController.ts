@@ -16,11 +16,15 @@ export class LeftPanelController {
         this.initialUserList();
     }
 
-    public initialUserList(): void {
+    public updateUserList(): void {
         const userList = this.leftPanel.getUserList();
         const userService = this.chatService.getUserService();
         userService.fetchAllUsers((users) => {
-            userList.setUserItems(users);
+            userList.updateUserList(users);
         });
+    }
+
+    public initialUserList(): void {
+        this.updateUserList();
     }
 }

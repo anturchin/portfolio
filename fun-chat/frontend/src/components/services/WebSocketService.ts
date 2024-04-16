@@ -46,22 +46,23 @@ export class WebSocketService {
 
     private handleUserLoginAndLogout(data: IMessage): void {
         const logoutService = this.chatService.getLogoutService();
+        const userService = this.chatService.getUserService();
         if (data.type === TypeMessage.USER_LOGIN) {
             this.loginService.handleUserLogin(data as ILoginSend);
             return;
         }
         if (data.type === TypeMessage.USER_EXTERNAL_LOGIN) {
             this.loginService.handleUserExternal(data as ILoginSend);
+            userService.sendRequest();
             return;
         }
-
         if (data.type === TypeMessage.USER_LOGOUT) {
             logoutService.handleUserLogout(data as ILogoutSend);
             return;
         }
-
         if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
             logoutService.handleUserExternalLogout(data as ILogoutSend);
+            userService.sendRequest();
         }
     }
 
@@ -120,7 +121,7 @@ export class WebSocketService {
     }
 
     private onErrorConnection(): void {
-        this.socket.addEventListener('close', (error: Event) => {
+        this.socket.addEventListener('error', (error: Event) => {
             console.log(`WebSocket connection close ${error}`);
         });
     }
