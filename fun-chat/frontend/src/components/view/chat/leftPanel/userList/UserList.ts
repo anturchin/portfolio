@@ -20,6 +20,10 @@ export class UserList extends View {
         this.setUserItems(users);
     }
 
+    public getUserItems(): UserItem[] {
+        return this.userItems;
+    }
+
     public setUserItems(users: User[]): void {
         this.userItems = users.map((user) => new UserItem(user.login, user.isLogined));
         this.userItems.forEach((item) => this.addInnerElement(item.getElement()));

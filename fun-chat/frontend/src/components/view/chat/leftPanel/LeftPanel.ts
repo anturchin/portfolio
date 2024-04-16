@@ -3,6 +3,7 @@ import { Search } from './search/Search';
 import { UserList } from './userList/UserList';
 
 import './LeftPanel.scss';
+import { UserItem } from './userItem/UserItem';
 
 export class LeftPanel extends View {
     public searchInput: Search;
@@ -18,6 +19,14 @@ export class LeftPanel extends View {
 
     public getUserList(): UserList {
         return this.userList;
+    }
+
+    public getUserItems(): UserItem[] {
+        return this.userList.getUserItems();
+    }
+
+    public getSearchInput(): Search {
+        return this.searchInput;
     }
 
     private setupLeftPanel(): void {
