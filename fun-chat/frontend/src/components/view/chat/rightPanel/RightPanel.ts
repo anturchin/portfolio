@@ -3,17 +3,22 @@ import { RightPanelTop } from './rightPanelTop/RightPanelTop';
 import { WrapperMessage } from './wrapperMessage/WrapperMessage';
 import { FormSend } from './formSend/FormSend';
 import { MessageContainer } from './messageContainer/MessageContainer';
+import {
+    IMessageResponse,
+    MessagesHistoryType,
+} from '../../../services/chatService/messageReceiveService/types';
+import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 
 import './RightPanel.scss';
 
 export class RightPanel extends View {
-    public panelTop: RightPanelTop;
+    private panelTop: RightPanelTop;
 
-    public wrapperMessage: WrapperMessage;
+    private wrapperMessage: WrapperMessage;
 
-    public messages: MessageContainer[] = [];
+    private messages: MessageContainer[] = [];
 
-    public formSend: FormSend;
+    private formSend: FormSend;
 
     constructor() {
         super({ tag: 'div', classNames: ['chat__right-panel'] });
@@ -23,10 +28,52 @@ export class RightPanel extends View {
         this.render();
     }
 
+    public getPanelTop(): RightPanelTop {
+        return this.panelTop;
+    }
+
+    public getWrapperMessage(): WrapperMessage {
+        return this.wrapperMessage;
+    }
+
+    public getFormSend(): FormSend {
+        return this.formSend;
+    }
+
+    public getMessages(): MessageContainer[] {
+        return this.messages;
+    }
+
     public render(): void {
         this.renderPanelTop();
         this.renderWrapperMessage();
         this.renderFormSend();
+    }
+
+    public updatePanelTop(userName: string, isActive: number): void {
+        const { companionName, companionStatus } = this.panelTop;
+        companionName.getElement().textContent = userName;
+        const textStatus = isActive ? 'online' : 'offline';
+        const styles = isActive ? ['companion__status', 'active'] : ['companion__status'];
+        companionStatus.getElement().textContent = textStatus;
+        companionStatus.getElement().classList.add(...styles);
+    }
+
+    public initialMessages(data: IMessageResponse, userName: string, isActive: number): void {
+        const { messages } = data.payload as MessagesHistoryType;
+
+        this.updatePanelTop(userName, isActive);
+
+        const msgList: MessageContainer[] = [];
+
+        messages.forEach((message) => {
+            const userData = SessionStorageManager.getUserData();
+            const leftOrRight = userData?.login === message.to ? 'right' : 'left';
+            msgList.push(new MessageContainer(leftOrRight, message));
+        });
+
+        this.messages.push(...msgList);
+        this.wrapperMessage.getElement().append(...this.messages.map((msg) => msg.getElement()));
     }
 
     private renderFormSend(): void {
@@ -34,23 +81,10 @@ export class RightPanel extends View {
     }
 
     private renderWrapperMessage(): void {
-        this.messages.push(...this.generateMessages());
-        this.wrapperMessage.getElement().append(...this.messages.map((msg) => msg.getElement()));
         this.addInnerElement(this.wrapperMessage.getElement());
     }
 
     private renderPanelTop(): void {
         this.addInnerElement(this.panelTop.getElement());
-    }
-
-    private generateMessages(): MessageContainer[] {
-        const msgList: MessageContainer[] = [];
-        for (let i = 0; i < 15; i += 1) {
-            if (i % 2 === 0) {
-                msgList.push(new MessageContainer('right'));
-            }
-            msgList.push(new MessageContainer('left'));
-        }
-        return msgList;
     }
 }

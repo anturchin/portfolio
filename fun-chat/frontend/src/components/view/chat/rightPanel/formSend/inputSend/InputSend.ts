@@ -10,5 +10,6 @@ export class InputSend extends View {
 
     private setupInputSend(): void {
         (this.getElement() as HTMLInputElement).placeholder = 'Your message';
+        (this.getElement() as HTMLInputElement).disabled = true;
     }
 }
