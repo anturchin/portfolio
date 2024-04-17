@@ -6,6 +6,7 @@ import { State } from '../state/State';
 import { ChatService } from './chatService/ChatService';
 import { ILogoutSend, IUsersAccept } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
+import { IMessageResponse } from './chatService/messageReceiveService/types';
 
 export class WebSocketService {
     private loginService: LoginService;
@@ -85,6 +86,16 @@ export class WebSocketService {
         }
         if (data.type === TypeMessage.USER_INACTIVE) {
             userService.handleUsers(data as IUsersAccept);
+        }
+    }
+
+    private handleReceivedMessages(data: IMessage): void {
+        const messageReceiveService = this.chatService.getMessageReceiveService();
+        if (data.type === TypeMessage.MSG_SEND) {
+            messageReceiveService.handleResponseWithReceivedMessages(data as IMessageResponse);
+        }
+        if (data.type === TypeMessage.MSG_FROM_USER) {
+            messageReceiveService.handleResponseHistoryMessages(data as IMessageResponse);
         }
     }
 

@@ -1,3 +1,4 @@
+import { IMessageTake, MessagesHistoryType } from '../chatService/messageReceiveService/types';
 import { IUsersAccept } from '../chatService/types';
 import { IAuthUser, IAuthUserError } from '../loginService/types';
 
@@ -20,7 +21,7 @@ export const enum TypeMessage {
 export interface IMessage {
     id: string | null;
     type: TypeMessage;
-    payload: IAuthUser | IAuthUserError | IUsersAccept | null;
+    payload: IAuthUser | IAuthUserError | IUsersAccept | IMessageTake | MessagesHistoryType | null;
 }
 
 export interface IHandleErrorMessage {

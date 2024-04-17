@@ -9,10 +9,18 @@ export interface IMessageSend {
     message: MessageSendType;
 }
 
+export type LoginMessageType = {
+    login: string;
+};
+
+export type UserMessageType = {
+    user: LoginMessageType;
+};
+
 export interface IMessageRequest {
     id: string;
     type: TypeMessage;
-    payload: IMessageSend;
+    payload: IMessageSend | UserMessageType;
 }
 
 export type StatusMessage = {
@@ -38,8 +46,12 @@ export type MessageError = {
     error: string;
 };
 
+export type MessagesHistoryType = {
+    messages: MessageTakeType[];
+};
+
 export interface IMessageResponse {
     id: string;
     type: TypeMessage;
-    payload: IMessageTake | MessageError;
+    payload: IMessageTake | MessagesHistoryType | MessageError;
 }
