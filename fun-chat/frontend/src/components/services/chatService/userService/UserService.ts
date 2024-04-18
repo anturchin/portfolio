@@ -55,7 +55,8 @@ export class UserService implements IHandleErrorMessage {
         const allUsers = [...this.state.getUsersActive(), ...this.state.getUsersInActive()].filter(
             (item) => item.login !== userDate?.login
         );
-        this.updateUserList?.(allUsers);
+        this.state.setAllUsers(allUsers);
+        this.updateUserList?.(this.state.getAllUsers());
     }
 
     public handleErrorMessage(data: IMessage): void {

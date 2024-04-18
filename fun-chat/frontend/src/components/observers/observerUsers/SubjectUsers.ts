@@ -1,7 +1,7 @@
 import { IObserverUsers } from './ObserverUsers.interface';
 
 export interface ISubjectUsers<T> {
-    registerObserver(key: string, observer: IObserverUsers<T>): void;
-    removeObserver(key: string): void;
-    notifyObservers(data: T): void;
+    registerUserObserver(key: string, observer: IObserverUsers<T>): void;
+    removeUserObserver(key: string): void;
+    notifyUserObservers(data: T): void;
 }

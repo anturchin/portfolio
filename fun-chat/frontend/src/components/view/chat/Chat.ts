@@ -27,7 +27,8 @@ export class Chat extends View {
             this.headerChat,
             this.leftPanel,
             this.rightPanel,
-            socket.getChatService()
+            socket.getChatService(),
+            socket.getState()
         );
         this.render();
     }

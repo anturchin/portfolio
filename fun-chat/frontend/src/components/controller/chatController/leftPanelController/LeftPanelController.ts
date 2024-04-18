@@ -1,33 +1,40 @@
+/* eslint-disable brace-style */
 import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
+import { IObserverUsers } from '../../../observers/observerUsers/ObserverUsers.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
 import { IMessageResponse } from '../../../services/chatService/messageReceiveService/types';
+import { User } from '../../../services/chatService/types';
+import { State } from '../../../state/State';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
-import { ChatController } from '../ChatController';
 
-export class LeftPanelController implements IObserverMessages<IMessageResponse> {
+export class LeftPanelController
+    implements IObserverMessages<IMessageResponse>, IObserverUsers<User>
+{
     private chatService: ChatService;
-
-    private mainController: ChatController;
 
     private leftPanel: LeftPanel;
 
+    private state: State;
+
     private inputValue: string = '';
 
-    constructor(chatService: ChatService, leftPanel: LeftPanel, mainController: ChatController) {
+    constructor(chatService: ChatService, leftPanel: LeftPanel, state: State) {
         this.chatService = chatService;
         this.leftPanel = leftPanel;
-        this.mainController = mainController;
+        this.state = state;
+        this.state.registerUserObserver(this.constructor.name, this);
+        this.state.registerMessageObserver(this.constructor.name, this);
         this.onHandleInput = this.onHandleInput.bind(this);
-
-        const messageReceiveService = this.chatService.getMessageReceiveService();
-        messageReceiveService.registerObserver(this.constructor.name, this);
-
         this.initialUserList();
         this.setupSearchInput();
     }
 
     public updateMessages(data: IMessageResponse): void {
+        console.log(data);
+    }
+
+    public updateUsers(data: User): void {
         console.log(data);
     }
 

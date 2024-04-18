@@ -19,13 +19,20 @@ export class WebSocketService {
 
     private lastRequest: IHandleErrorMessage | null = null;
 
+    private state: State;
+
     constructor(socketUrl: string, router: Router, state: State) {
         this.socketUrl = socketUrl;
         this.socket = new WebSocket(this.socketUrl);
         this.loginService = new LoginService(this, router, state);
         this.chatService = new ChatService(this, router, state);
+        this.state = state;
         this.handleMessage = this.handleMessage.bind(this);
         this.setupEventListener();
+    }
+
+    public getState(): State {
+        return this.state;
     }
 
     public getChatService(): ChatService {

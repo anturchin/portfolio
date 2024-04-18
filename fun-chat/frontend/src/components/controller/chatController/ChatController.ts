@@ -1,4 +1,5 @@
 import { ChatService } from '../../services/chatService/ChatService';
+import { State } from '../../state/State';
 import { Header } from '../../view/chat/header/Header';
 import { LeftPanel } from '../../view/chat/leftPanel/LeftPanel';
 import { RightPanel } from '../../view/chat/rightPanel/RightPanel';
@@ -25,18 +26,19 @@ export class ChatController {
         headerChat: Header,
         leftPanel: LeftPanel,
         rightPanel: RightPanel,
-        chatService: ChatService
+        chatService: ChatService,
+        state: State
     ) {
         this.headerChat = headerChat;
         this.leftPanel = leftPanel;
         this.rightPanel = rightPanel;
         this.chatService = chatService;
         this.headerController = new HeaderController(this.chatService, this.headerChat, this);
-        this.leftPanelController = new LeftPanelController(this.chatService, this.leftPanel, this);
+        this.leftPanelController = new LeftPanelController(this.chatService, this.leftPanel, state);
         this.rightPanelController = new RightPanelController(
             this.chatService,
             this.leftPanel,
-            this
+            state
         );
     }
 }
