@@ -1,11 +1,11 @@
-import { IObserver } from '../../../observers/Observer.interface';
+import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
 import { IMessageResponse } from '../../../services/chatService/messageReceiveService/types';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
 import { ChatController } from '../ChatController';
 
-export class LeftPanelController implements IObserver<IMessageResponse> {
+export class LeftPanelController implements IObserverMessages<IMessageResponse> {
     private chatService: ChatService;
 
     private mainController: ChatController;
@@ -27,7 +27,7 @@ export class LeftPanelController implements IObserver<IMessageResponse> {
         this.setupSearchInput();
     }
 
-    public update(data: IMessageResponse): void {
+    public updateMessages(data: IMessageResponse): void {
         console.log(data);
     }
 
