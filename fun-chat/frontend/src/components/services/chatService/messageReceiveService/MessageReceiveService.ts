@@ -1,5 +1,6 @@
-import { IObserver } from '../../../observers/Observer.interface';
-import { Subject } from '../../../observers/Subject';
+/* eslint-disable brace-style */
+import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
+import { ISubjectMessages } from '../../../observers/observerMessages/SubjectMessages';
 import { Router } from '../../../router/router/Router';
 import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
@@ -7,14 +8,16 @@ import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
 import { IMessageRequest, IMessageResponse } from './types';
 
-export class MessageReceiveService implements IHandleErrorMessage, Subject<IMessageResponse> {
+export class MessageReceiveService
+    implements IHandleErrorMessage, ISubjectMessages<IMessageResponse>
+{
     private webSocketService: WebSocketService;
 
     private router: Router;
 
     private state: State;
 
-    private observers: Map<string, IObserver<IMessageResponse>> = new Map();
+    private observers: Map<string, IObserverMessages<IMessageResponse>> = new Map();
 
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
@@ -22,7 +25,7 @@ export class MessageReceiveService implements IHandleErrorMessage, Subject<IMess
         this.state = state;
     }
 
-    public registerObserver(key: string, observer: IObserver<IMessageResponse>): void {
+    public registerObserver(key: string, observer: IObserverMessages<IMessageResponse>): void {
         this.observers.set(key, observer);
     }
 
@@ -31,7 +34,7 @@ export class MessageReceiveService implements IHandleErrorMessage, Subject<IMess
     }
 
     public notifyObservers(data: IMessageResponse): void {
-        this.observers.forEach((observer) => observer.update(data));
+        this.observers.forEach((observer) => observer.updateMessages(data));
     }
 
     public sendRequestToReceiveMessages(loginToMessage: string, text: string): void {
