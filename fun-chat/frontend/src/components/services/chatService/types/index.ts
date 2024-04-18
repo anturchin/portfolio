@@ -6,8 +6,12 @@ export interface IUser {
     isLogined?: boolean;
 }
 
+export type User = {
+    login: string;
+    isLogined: boolean;
+};
 export interface ILogoutUser {
-    user: IUser;
+    user: IUser | User;
 }
 
 export interface ILogoutSend {
@@ -21,11 +25,6 @@ export interface IUsersSend {
     type: TypeMessage;
     payload: null;
 }
-
-export type User = {
-    login: string;
-    isLogined: boolean;
-};
 
 export interface IUserAccept {
     users: User[];

@@ -4,7 +4,7 @@ import { ILoginSend } from './loginService/types';
 import { LoginService } from './loginService/LoginService';
 import { State } from '../state/State';
 import { ChatService } from './chatService/ChatService';
-import { ILogoutSend, IUsersAccept } from './chatService/types';
+import { ILogoutUser, IUsersAccept, User } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 import { IMessageResponse } from './chatService/messageReceiveService/types';
 
@@ -65,23 +65,24 @@ export class WebSocketService {
 
     private handleUserLoginAndLogout(data: IMessage): void {
         const logoutService = this.chatService.getLogoutService();
-        const userService = this.chatService.getUserService();
         if (data.type === TypeMessage.USER_LOGIN) {
             this.loginService.handleUserLogin(data as ILoginSend);
             return;
         }
         if (data.type === TypeMessage.USER_EXTERNAL_LOGIN) {
-            this.loginService.handleUserExternal(data as ILoginSend);
-            userService.sendRequest();
+            this.loginService.handleUserExternal();
+            const { user } = data.payload as ILogoutUser;
+            this.state.addUserToAllUsers(user as User);
             return;
         }
         if (data.type === TypeMessage.USER_LOGOUT) {
-            logoutService.handleUserLogout(data as ILogoutSend);
+            logoutService.handleUserLogout();
             return;
         }
         if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
-            logoutService.handleUserExternalLogout(data as ILogoutSend);
-            userService.sendRequest();
+            logoutService.handleUserExternalLogout();
+            const { user } = data.payload as ILogoutUser;
+            this.state.changeStatusUserFromAllUsers(user as User);
         }
     }
 

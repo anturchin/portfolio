@@ -50,9 +50,7 @@ export class LoginService implements IHandleErrorMessage {
         }
     }
 
-    public handleUserExternal(data: ILoginSend): void {
-        console.log(data);
-    }
+    public handleUserExternal(): void {}
 
     public handleErrorMessage(data: IMessage): void {
         if (data.payload && 'error' in data.payload) {

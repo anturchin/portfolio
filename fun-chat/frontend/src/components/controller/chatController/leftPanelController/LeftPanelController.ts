@@ -35,14 +35,16 @@ export class LeftPanelController
     }
 
     public updateUsers(data: User): void {
-        console.log(data);
+        const userList = this.leftPanel.getUserList();
+        userList.updateUserList(data);
+        userList.moveToBottomInactiveUserItem();
     }
 
-    public updateUserList(): void {
+    public initialUserList(): void {
         const userList = this.leftPanel.getUserList();
         const userService = this.chatService.getUserService();
         userService.fetchAllUsers((users) => {
-            userList.updateUserList(users);
+            userList.initialUserList(users);
             this.handleFilterUserList();
         });
     }
@@ -80,9 +82,5 @@ export class LeftPanelController
     private setupSearchInput(): void {
         const input = this.leftPanel.getSearchInput();
         input.getElement().addEventListener('input', this.onHandleInput);
-    }
-
-    private initialUserList(): void {
-        this.updateUserList();
     }
 }

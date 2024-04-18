@@ -57,6 +57,26 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
         this.messageObservers.forEach((observer) => observer.updateMessages(data));
     }
 
+    public addUserToAllUsers(data: User): void {
+        const changeStatus = this.changeStatusUser(data);
+        if (!changeStatus) this.allUsers.push(data);
+        this.notifyUserObservers(data);
+    }
+
+    public changeStatusUserFromAllUsers(data: User): void {
+        this.changeStatusUser(data);
+        this.notifyUserObservers(data);
+    }
+
+    public changeStatusUser(data: User): boolean {
+        const userIndex = this.allUsers.findIndex(({ login }) => login === data.login);
+        if (userIndex !== -1) {
+            this.allUsers[userIndex].isLogined = data.isLogined;
+            return true;
+        }
+        return false;
+    }
+
     public setAllUsers(users: User[]): void {
         const sortUsers = [...users];
         sortUsers.sort((a, b) => {

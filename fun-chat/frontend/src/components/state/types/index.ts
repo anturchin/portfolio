@@ -4,3 +4,8 @@ export interface IUser {
     password: string;
     isLogined?: boolean;
 }
+
+export const enum ControllerName {
+    LeftPanelController = 'LeftPanelController',
+    RightPanelController = 'RightPanelController',
+}

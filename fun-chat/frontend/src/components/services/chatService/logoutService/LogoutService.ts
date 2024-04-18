@@ -36,16 +36,13 @@ export class LogoutService implements IHandleErrorMessage {
         }
     }
 
-    public handleUserLogout(data: ILogoutSend): void {
-        console.log(data);
+    public handleUserLogout(): void {
         SessionStorageManager.removeUserData();
         this.state.setUser(null);
         this.router.navigate(RoutePath.LOGIN);
     }
 
-    public handleUserExternalLogout(data: ILogoutSend): void {
-        console.log(data);
-    }
+    public handleUserExternalLogout(): void {}
 
     public handleErrorMessage(data: IMessage): void {
         if (data.payload && 'error' in data.payload) {
