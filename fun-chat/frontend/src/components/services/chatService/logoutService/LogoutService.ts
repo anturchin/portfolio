@@ -4,7 +4,7 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
-import { ILogoutSend } from '../types';
+import { ILogoutSend, User } from '../types';
 
 export class LogoutService implements IHandleErrorMessage {
     private webSocketService: WebSocketService;
@@ -42,7 +42,9 @@ export class LogoutService implements IHandleErrorMessage {
         this.router.navigate(RoutePath.LOGIN);
     }
 
-    public handleUserExternalLogout(): void {}
+    public handleUserExternalLogout(user: User): void {
+        this.state.changeStatusUserFromAllUsers(user);
+    }
 
     public handleErrorMessage(data: IMessage): void {
         if (data.payload && 'error' in data.payload) {

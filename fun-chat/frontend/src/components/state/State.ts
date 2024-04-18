@@ -2,12 +2,12 @@ import { IObserverMessages } from '../observers/observerMessages/ObserverMessage
 import { ISubjectMessages } from '../observers/observerMessages/SubjectMessages';
 import { IObserverUsers } from '../observers/observerUsers/ObserverUsers.interface';
 import { ISubjectUsers } from '../observers/observerUsers/SubjectUsers';
-import { IMessageResponse } from '../services/chatService/messageReceiveService/types';
+import { MessageTakeType } from '../services/chatService/messageReceiveService/types';
 import { User } from '../services/chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 import { IUser } from './types';
 
-export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResponse> {
+export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeType[]> {
     private user: IUser | null = null;
 
     private usersActive: User[] = [];
@@ -16,9 +16,11 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
 
     private allUsers: User[] = [];
 
+    private selectedUserMessages: MessageTakeType[] = [];
+
     private userObservers: Map<string, IObserverUsers<User>> = new Map();
 
-    private messageObservers: Map<string, IObserverMessages<IMessageResponse>> = new Map();
+    private messageObservers: Map<string, IObserverMessages<MessageTakeType[]>> = new Map();
 
     constructor() {
         const userData = SessionStorageManager.getUserData();
@@ -44,7 +46,7 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
 
     public registerMessageObserver(
         key: string,
-        observer: IObserverMessages<IMessageResponse>
+        observer: IObserverMessages<MessageTakeType[]>
     ): void {
         this.messageObservers.set(key, observer);
     }
@@ -53,8 +55,8 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
         this.messageObservers.delete(key);
     }
 
-    public notifyMessageObservers(data: IMessageResponse): void {
-        this.messageObservers.forEach((observer) => observer.updateMessages(data));
+    public notifyMessageObservers(data: MessageTakeType[], user: User): void {
+        this.messageObservers.forEach((observer) => observer.updateMessages(data, user));
     }
 
     public addUserToAllUsers(data: User): void {
@@ -66,15 +68,6 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
     public changeStatusUserFromAllUsers(data: User): void {
         this.changeStatusUser(data);
         this.notifyUserObservers(data);
-    }
-
-    public changeStatusUser(data: User): boolean {
-        const userIndex = this.allUsers.findIndex(({ login }) => login === data.login);
-        if (userIndex !== -1) {
-            this.allUsers[userIndex].isLogined = data.isLogined;
-            return true;
-        }
-        return false;
     }
 
     public setAllUsers(users: User[]): void {
@@ -89,6 +82,13 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
             return 1;
         });
         this.allUsers = [...sortUsers];
+    }
+
+    public setMessages(messages: MessageTakeType[], selectedUserName: string): void {
+        this.selectedUserMessages = messages;
+        const userIndex = this.findUserIndex(selectedUserName);
+        const selectedUser = this.allUsers[userIndex];
+        this.notifyMessageObservers(messages, selectedUser);
     }
 
     public getAllUsers(): User[] {
@@ -117,5 +117,19 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<IMessageResp
 
     public getUser(): IUser | null {
         return this.user || null;
+    }
+
+    private changeStatusUser(data: User): boolean {
+        const userIndex = this.findUserIndex(data.login);
+        if (userIndex !== -1) {
+            this.allUsers[userIndex].isLogined = data.isLogined;
+            return true;
+        }
+        return false;
+    }
+
+    private findUserIndex(login: string): number {
+        const userIndex = this.allUsers.findIndex((user) => user.login === login);
+        return userIndex;
     }
 }

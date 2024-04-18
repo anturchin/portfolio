@@ -4,6 +4,7 @@ import { State } from '../../state/State';
 import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
 import { ErrorAuth } from '../../view/login/errorAuth/ErrorAuth';
 import { WebSocketService } from '../WebSocketService';
+import { User } from '../chatService/types';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../types';
 import { ILoginSend } from './types';
 
@@ -50,7 +51,9 @@ export class LoginService implements IHandleErrorMessage {
         }
     }
 
-    public handleUserExternal(): void {}
+    public handleUserExternal(user: User): void {
+        this.state.addUserToAllUsers(user);
+    }
 
     public handleErrorMessage(data: IMessage): void {
         if (data.payload && 'error' in data.payload) {

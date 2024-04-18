@@ -3,7 +3,7 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
-import { IMessageRequest, IMessageResponse } from './types';
+import { IMessageRequest, IMessageResponse, MessageTakeType } from './types';
 
 export class MessageReceiveService implements IHandleErrorMessage {
     private webSocketService: WebSocketService;
@@ -11,6 +11,8 @@ export class MessageReceiveService implements IHandleErrorMessage {
     private router: Router;
 
     private state: State;
+
+    private selectedUserName: string = '';
 
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
@@ -37,6 +39,7 @@ export class MessageReceiveService implements IHandleErrorMessage {
     }
 
     public sendRequestHistoryMessages(login: string): void {
+        this.selectedUserName = login;
         const request: IMessageRequest = {
             id: SessionStorageManager.generateRequestId(),
             type: TypeMessage.MSG_FROM_USER,
@@ -49,8 +52,8 @@ export class MessageReceiveService implements IHandleErrorMessage {
         this.webSocketService.sendRequest(request, this);
     }
 
-    public handleResponseHistoryMessages(data: IMessageResponse): void {
-        console.log(data);
+    public handleResponseHistoryMessages(data: MessageTakeType[]): void {
+        this.state.setMessages(data, this.selectedUserName);
     }
 
     public handleErrorMessage(data: IMessage): void {

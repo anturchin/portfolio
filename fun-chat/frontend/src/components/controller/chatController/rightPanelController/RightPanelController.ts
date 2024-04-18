@@ -1,10 +1,11 @@
 import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
-import { IMessageResponse } from '../../../services/chatService/messageReceiveService/types';
+import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
+import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 
-export class RightPanelController implements IObserverMessages<IMessageResponse> {
+export class RightPanelController implements IObserverMessages<MessageTakeType[]> {
     private chatService: ChatService;
 
     private leftPanel: LeftPanel;
@@ -18,7 +19,8 @@ export class RightPanelController implements IObserverMessages<IMessageResponse>
         this.state.registerMessageObserver(this.constructor.name, this);
     }
 
-    public updateMessages(data: IMessageResponse): void {
+    public updateMessages(data: MessageTakeType[], user: User): void {
         console.log(data);
+        console.log(user);
     }
 }

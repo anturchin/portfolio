@@ -2,14 +2,14 @@
 import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
 import { IObserverUsers } from '../../../observers/observerUsers/ObserverUsers.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
-import { IMessageResponse } from '../../../services/chatService/messageReceiveService/types';
+import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
 
 export class LeftPanelController
-    implements IObserverMessages<IMessageResponse>, IObserverUsers<User>
+    implements IObserverMessages<MessageTakeType[]>, IObserverUsers<User>
 {
     private chatService: ChatService;
 
@@ -30,8 +30,9 @@ export class LeftPanelController
         this.setupSearchInput();
     }
 
-    public updateMessages(data: IMessageResponse): void {
+    public updateMessages(data: MessageTakeType[], user: User): void {
         console.log(data);
+        console.log(user);
     }
 
     public updateUsers(data: User): void {

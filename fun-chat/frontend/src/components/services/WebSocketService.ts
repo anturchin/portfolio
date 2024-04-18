@@ -6,7 +6,7 @@ import { State } from '../state/State';
 import { ChatService } from './chatService/ChatService';
 import { ILogoutUser, IUsersAccept, User } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
-import { IMessageResponse } from './chatService/messageReceiveService/types';
+import { IMessageResponse, MessagesHistoryType } from './chatService/messageReceiveService/types';
 
 export class WebSocketService {
     private loginService: LoginService;
@@ -70,9 +70,8 @@ export class WebSocketService {
             return;
         }
         if (data.type === TypeMessage.USER_EXTERNAL_LOGIN) {
-            this.loginService.handleUserExternal();
             const { user } = data.payload as ILogoutUser;
-            this.state.addUserToAllUsers(user as User);
+            this.loginService.handleUserExternal(user as User);
             return;
         }
         if (data.type === TypeMessage.USER_LOGOUT) {
@@ -80,9 +79,8 @@ export class WebSocketService {
             return;
         }
         if (data.type === TypeMessage.USER_EXTERNAL_LOGOUT) {
-            logoutService.handleUserExternalLogout();
             const { user } = data.payload as ILogoutUser;
-            this.state.changeStatusUserFromAllUsers(user as User);
+            logoutService.handleUserExternalLogout(user as User);
         }
     }
 
@@ -103,7 +101,9 @@ export class WebSocketService {
             messageReceiveService.handleResponseWithReceivedMessages(data as IMessageResponse);
         }
         if (data.type === TypeMessage.MSG_FROM_USER) {
-            messageReceiveService.handleResponseHistoryMessages(data as IMessageResponse);
+            const { messages } = data.payload as MessagesHistoryType;
+            console.log(data);
+            messageReceiveService.handleResponseHistoryMessages(messages);
         }
     }
 
@@ -122,7 +122,9 @@ export class WebSocketService {
             this.handleUsers(data);
             return;
         }
-
+        if (data.type === TypeMessage.MSG_READ || data.type === TypeMessage.MSG_FROM_USER) {
+            this.handleReceivedMessages(data);
+        }
         if (data.type === TypeMessage.ERROR && this.lastRequest) {
             this.lastRequest.handleErrorMessage(data);
             this.lastRequest = null;
