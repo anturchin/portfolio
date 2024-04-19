@@ -3,7 +3,7 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
-import { IMessageRequest, IMessageResponse, MessageTakeType } from './types';
+import { IMessageRequest, MessageTakeType } from './types';
 
 export class MessageReceiveService implements IHandleErrorMessage {
     private webSocketService: WebSocketService;
@@ -34,8 +34,8 @@ export class MessageReceiveService implements IHandleErrorMessage {
         this.webSocketService.sendRequest(request, this);
     }
 
-    public handleResponseWithReceivedMessages(data: IMessageResponse): void {
-        console.log(data);
+    public handleResponseWithReceivedMessages(data: MessageTakeType): void {
+        this.state.addMessageToSelectedUserMessages(data);
     }
 
     public sendRequestHistoryMessages(login: string): void {

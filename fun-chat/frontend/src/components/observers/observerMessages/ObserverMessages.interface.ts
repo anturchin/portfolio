@@ -1,5 +1,6 @@
 import { User } from '../../services/chatService/types';
 
 export interface IObserverMessages<T> {
-    updateMessages(data: T, user: User): void;
+    initialMessages(data: T, user: User): void;
+    updateMessages(data: T): void;
 }

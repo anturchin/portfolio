@@ -5,14 +5,14 @@ import './DeliveryInfo.scss';
 
 const statusMessage = {
     delivered: 'delivered',
-    read: 'read,',
+    read: 'read',
 };
 export class DeliveryInfo extends View {
     constructor(leftOrRight: string, status: StatusMessage) {
         super({
             tag: 'p',
             classNames: ['delivery__info', leftOrRight],
-            textContent: status.isDelivered ? statusMessage.delivered : statusMessage.read,
+            textContent: status.isDelivered ? statusMessage.read : statusMessage.delivered,
         });
     }
 }

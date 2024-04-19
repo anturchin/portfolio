@@ -61,11 +61,19 @@ export class RightPanel extends View {
         }
     }
 
+    public clearMessageList(): void {
+        const parent = this.wrapperMessage.getElement();
+        const items = parent.querySelectorAll('.message__container');
+        items.forEach((item) => item.remove());
+        this.messages = [];
+    }
+
     public initialMessages(messages: MessageTakeType[]): void {
         const msgList: MessageContainer[] = [];
+        this.clearMessageList();
         messages.forEach((message) => {
             const userData = SessionStorageManager.getUserData();
-            const leftOrRight = userData?.login === message.to ? 'right' : 'left';
+            const leftOrRight = userData?.login === message.to ? 'left' : 'right';
             msgList.push(new MessageContainer(leftOrRight, message));
         });
         this.messages.push(...msgList);

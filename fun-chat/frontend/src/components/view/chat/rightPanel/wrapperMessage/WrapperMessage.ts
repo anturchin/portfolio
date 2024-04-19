@@ -14,6 +14,11 @@ export class WrapperMessage extends View {
 
     public placeHolderHidden(): void {
         const placeholder = this.placeholder.getElement();
+        placeholder.classList.add('hidden');
+    }
+
+    public placeHolderShow(): void {
+        const placeholder = this.placeholder.getElement();
         placeholder.classList.remove('hidden');
     }
 

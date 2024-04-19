@@ -22,7 +22,11 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
         this.setEventListenerFormSubmit();
     }
 
-    public updateMessages(data: MessageTakeType[], user: User): void {
+    public updateMessages(data: MessageTakeType[]): void {
+        console.log(data);
+    }
+
+    public initialMessages(data: MessageTakeType[], user: User): void {
         this.updatePlaceHolder(data);
         this.updateTopPanel(user);
         this.updateMessageContainer(data);
@@ -44,6 +48,10 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
     private updateMessageContainer(messages: MessageTakeType[]): void {
         if (messages.length > 0) {
             this.rightPanel.initialMessages(messages);
+        } else {
+            this.rightPanel.clearMessageList();
+            const wrapperMessage = this.rightPanel.getWrapperMessage();
+            wrapperMessage.placeHolderShow();
         }
         this.rightPanel.switchOnInput(false);
     }
@@ -55,6 +63,16 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
 
     private handleFormSubmit(event: Event): void {
         event.preventDefault();
+
+        const form = this.rightPanel.getFormSend();
+        const text = form.getInputValue();
+        const { companionName } = this.rightPanel.getPanelTop();
+
+        const messageService = this.chatService.getMessageReceiveService();
+        messageService.sendRequestToReceiveMessages(
+            companionName.getCompanionNameText() || '',
+            text
+        );
 
         this.clearInput();
     }

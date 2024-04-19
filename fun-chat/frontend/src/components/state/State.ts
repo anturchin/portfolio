@@ -16,7 +16,7 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
 
     private allUsers: User[] = [];
 
-    private selectedUserMessages: MessageTakeType[] = [];
+    private selectedUserMessages: Map<string, MessageTakeType[]> = new Map();
 
     private userObservers: Map<string, IObserverUsers<User>> = new Map();
 
@@ -56,7 +56,11 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
     }
 
     public notifyMessageObservers(data: MessageTakeType[], user: User): void {
-        this.messageObservers.forEach((observer) => observer.updateMessages(data, user));
+        this.messageObservers.forEach((observer) => observer.initialMessages(data, user));
+    }
+
+    public notifyNewMessageObservers(data: MessageTakeType[]): void {
+        this.messageObservers.forEach((observer) => observer.updateMessages(data));
     }
 
     public addUserToAllUsers(data: User): void {
@@ -84,11 +88,38 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         this.allUsers = [...sortUsers];
     }
 
+    public addMessageToSelectedUserMessages(message: MessageTakeType): void {
+        const userMessageTo = message.to;
+        const messages = this.selectedUserMessages.get(userMessageTo) || [];
+
+        const isDuplicate = messages.some((existingMessage) => existingMessage.id === message.id);
+        if (!isDuplicate) {
+            messages.push(message);
+            this.selectedUserMessages.set(userMessageTo, messages);
+            this.notifyNewMessageObservers(messages);
+        }
+    }
+
     public setMessages(messages: MessageTakeType[], selectedUserName: string): void {
-        this.selectedUserMessages = messages;
+        if (!this.selectedUserMessages.has(selectedUserName)) {
+            this.selectedUserMessages.set(selectedUserName, []);
+        }
+
+        const existingMessages = this.selectedUserMessages.get(selectedUserName) || [];
+
+        const filterMessages = (message: MessageTakeType) => {
+            return !existingMessages.some((existingMessage) => existingMessage.id === message.id);
+        };
+
+        const uniqueMessages = messages.filter(filterMessages);
+        const updateMessages = [...existingMessages, ...uniqueMessages];
+
+        this.selectedUserMessages.set(selectedUserName, updateMessages);
+
         const userIndex = this.findUserIndex(selectedUserName);
         const selectedUser = this.allUsers[userIndex];
-        this.notifyMessageObservers(messages, selectedUser);
+
+        this.notifyMessageObservers(updateMessages, selectedUser);
     }
 
     public getAllUsers(): User[] {

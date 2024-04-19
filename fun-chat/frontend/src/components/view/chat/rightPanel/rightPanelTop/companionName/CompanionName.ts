@@ -6,4 +6,8 @@ export class CompanionName extends View {
     constructor() {
         super({ tag: 'p', classNames: ['companion__name'] });
     }
+
+    public getCompanionNameText(): string | null {
+        return this.getElement().textContent;
+    }
 }
