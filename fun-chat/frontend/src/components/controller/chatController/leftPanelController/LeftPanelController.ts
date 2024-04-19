@@ -1,4 +1,3 @@
-/* eslint-disable brace-style */
 import { IObserverUsers } from '../../../observers/observerUsers/ObserverUsers.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
 import { User } from '../../../services/chatService/types';

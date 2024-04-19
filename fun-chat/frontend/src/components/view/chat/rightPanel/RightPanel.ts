@@ -47,6 +47,13 @@ export class RightPanel extends View {
         this.renderFormSend();
     }
 
+    public updateMessageList(message: MessageTakeType): void {
+        const leftOrRight = this.determineMessageAlignment(message);
+        const newMessage = new MessageContainer(leftOrRight, message);
+        this.messages.push(newMessage);
+        this.wrapperMessage.getElement().append(newMessage.getElement());
+    }
+
     public updatePanelTop(userName: string, isActive: boolean): void {
         const { companionName, companionStatus } = this.panelTop;
         companionName.getElement().textContent = userName;
@@ -72,8 +79,7 @@ export class RightPanel extends View {
         const msgList: MessageContainer[] = [];
         this.clearMessageList();
         messages.forEach((message) => {
-            const userData = SessionStorageManager.getUserData();
-            const leftOrRight = userData?.login === message.to ? 'left' : 'right';
+            const leftOrRight = this.determineMessageAlignment(message);
             msgList.push(new MessageContainer(leftOrRight, message));
         });
         this.messages.push(...msgList);
@@ -82,6 +88,12 @@ export class RightPanel extends View {
 
     public switchOnInput(switchOn: boolean): void {
         this.formSend.enableInputs(switchOn);
+    }
+
+    private determineMessageAlignment(message: MessageTakeType): string {
+        const userData = SessionStorageManager.getUserData();
+        const leftOrRight = userData?.login === message.to ? 'left' : 'right';
+        return leftOrRight;
     }
 
     private renderFormSend(): void {

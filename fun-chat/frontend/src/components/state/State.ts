@@ -60,7 +60,7 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
     }
 
     public notifyNewMessageObservers(data: MessageTakeType[]): void {
-        this.messageObservers.forEach((observer) => observer.updateMessages(data));
+        this.messageObservers.forEach((observer) => observer.updateMessages(data.slice(-1)));
     }
 
     public addUserToAllUsers(data: User): void {
@@ -89,13 +89,13 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
     }
 
     public addMessageToSelectedUserMessages(message: MessageTakeType): void {
-        const userMessageTo = message.to;
-        const messages = this.selectedUserMessages.get(userMessageTo) || [];
+        const userMessage = message.from;
+        const messages = this.selectedUserMessages.get(userMessage) || [];
 
         const isDuplicate = messages.some((existingMessage) => existingMessage.id === message.id);
         if (!isDuplicate) {
             messages.push(message);
-            this.selectedUserMessages.set(userMessageTo, messages);
+            this.selectedUserMessages.set(userMessage, messages);
             this.notifyNewMessageObservers(messages);
         }
     }

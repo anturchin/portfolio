@@ -1,8 +1,11 @@
+/* eslint-disable brace-style */
 import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
 import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
+import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
+import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { RightPanel } from '../../../view/chat/rightPanel/RightPanel';
 
 export class RightPanelController implements IObserverMessages<MessageTakeType[]> {
@@ -10,11 +13,19 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
 
     private rightPanel: RightPanel;
 
+    private leftPanel: LeftPanel;
+
     private state: State;
 
-    constructor(chatService: ChatService, rightPanel: RightPanel, state: State) {
+    constructor(
+        chatService: ChatService,
+        rightPanel: RightPanel,
+        leftPanel: LeftPanel,
+        state: State
+    ) {
         this.chatService = chatService;
         this.rightPanel = rightPanel;
+        this.leftPanel = leftPanel;
         this.state = state;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.state.registerMessageObserver(this.constructor.name, this);
@@ -23,7 +34,23 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
     }
 
     public updateMessages(data: MessageTakeType[]): void {
-        console.log(data);
+        if (data.length > 0) {
+            const message = data[0];
+            const sender = message.from;
+            const recipient = message.to;
+            const { companionName } = this.rightPanel.getPanelTop();
+            const currentUser = SessionStorageManager.getUserData();
+            if (currentUser) {
+                if (
+                    (sender === currentUser.login &&
+                        recipient === companionName.getCompanionNameText()) ||
+                    (recipient === currentUser.login &&
+                        sender === companionName.getCompanionNameText())
+                ) {
+                    this.rightPanel.updateMessageList(data[0]);
+                }
+            }
+        }
     }
 
     public initialMessages(data: MessageTakeType[], user: User): void {
