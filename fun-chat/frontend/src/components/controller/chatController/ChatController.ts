@@ -37,7 +37,7 @@ export class ChatController {
         this.leftPanelController = new LeftPanelController(this.chatService, this.leftPanel, state);
         this.rightPanelController = new RightPanelController(
             this.chatService,
-            this.leftPanel,
+            this.rightPanel,
             state
         );
     }

@@ -6,4 +6,8 @@
     transform: translateX(-50%);
     color: #8ae234;
     font-size: 2rem;
+
+    &.hidden {
+        display: none;
+    }
 }
