@@ -102,7 +102,6 @@ export class WebSocketService {
         }
         if (data.type === TypeMessage.MSG_FROM_USER) {
             const { messages } = data.payload as MessagesHistoryType;
-            console.log(data);
             messageReceiveService.handleResponseHistoryMessages(messages);
         }
     }

@@ -1,16 +1,12 @@
 /* eslint-disable brace-style */
-import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
 import { IObserverUsers } from '../../../observers/observerUsers/ObserverUsers.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
-import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
 
-export class LeftPanelController
-    implements IObserverMessages<MessageTakeType[]>, IObserverUsers<User>
-{
+export class LeftPanelController implements IObserverUsers<User> {
     private chatService: ChatService;
 
     private leftPanel: LeftPanel;
@@ -24,17 +20,11 @@ export class LeftPanelController
         this.leftPanel = leftPanel;
         this.state = state;
         this.state.registerUserObserver(this.constructor.name, this);
-        this.state.registerMessageObserver(this.constructor.name, this);
         this.onHandleInput = this.onHandleInput.bind(this);
         this.handleUserItemClick = this.handleUserItemClick.bind(this);
         this.initialUserList();
         this.setupSearchInput();
         this.setupUserItemClickListeners();
-    }
-
-    public updateMessages(data: MessageTakeType[], user: User): void {
-        console.log(data);
-        console.log(user);
     }
 
     public updateUsers(data: User): void {
