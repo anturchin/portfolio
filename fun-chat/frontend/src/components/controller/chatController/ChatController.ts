@@ -40,21 +40,5 @@ export class ChatController {
             this.leftPanel,
             state
         );
-        this.handleUserItemClick = this.handleUserItemClick.bind(this);
-        this.setupUserItemClickListeners();
-    }
-
-    private handleUserItemClick(event: Event): void {
-        const element = event.target as HTMLElement;
-        if (element.classList.contains('user__item')) {
-            const login = element.getAttribute('data-name');
-            const messageService = this.chatService.getMessageReceiveService();
-            if (login) messageService.sendRequestHistoryMessages(login);
-        }
-    }
-
-    private setupUserItemClickListeners(): void {
-        const list = this.leftPanel.getUserList();
-        list.getElement().addEventListener('click', this.handleUserItemClick);
     }
 }

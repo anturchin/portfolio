@@ -26,8 +26,10 @@ export class LeftPanelController
         this.state.registerUserObserver(this.constructor.name, this);
         this.state.registerMessageObserver(this.constructor.name, this);
         this.onHandleInput = this.onHandleInput.bind(this);
+        this.handleUserItemClick = this.handleUserItemClick.bind(this);
         this.initialUserList();
         this.setupSearchInput();
+        this.setupUserItemClickListeners();
     }
 
     public updateMessages(data: MessageTakeType[], user: User): void {
@@ -83,5 +85,19 @@ export class LeftPanelController
     private setupSearchInput(): void {
         const input = this.leftPanel.getSearchInput();
         input.getElement().addEventListener('input', this.onHandleInput);
+    }
+
+    private handleUserItemClick(event: Event): void {
+        const element = event.target as HTMLElement;
+        if (element.classList.contains('user__item')) {
+            const login = element.getAttribute('data-name');
+            const messageService = this.chatService.getMessageReceiveService();
+            if (login) messageService.sendRequestHistoryMessages(login);
+        }
+    }
+
+    private setupUserItemClickListeners(): void {
+        const list = this.leftPanel.getUserList();
+        list.getElement().addEventListener('click', this.handleUserItemClick);
     }
 }
