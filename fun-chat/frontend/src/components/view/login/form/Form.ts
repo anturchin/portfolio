@@ -6,6 +6,9 @@ import { LoginController } from '../../../controller/loginController/LoginContro
 
 import './Form.scss';
 import { ErrorAuth } from '../errorAuth/ErrorAuth';
+import { LinkInfo } from './btnInfo/LinkInfo';
+import { Router } from '../../../router/router/Router';
+import { RoutePath } from '../../../router/hashRouter/types';
 
 export class Form extends View {
     public inputLogin: Input | null = null;
@@ -20,8 +23,13 @@ export class Form extends View {
 
     private loginController: LoginController;
 
-    constructor(socket: WebSocketService, errorAuth: ErrorAuth) {
+    private linkInfo: LinkInfo | null = null;
+
+    private router: Router;
+
+    constructor(socket: WebSocketService, errorAuth: ErrorAuth, router: Router) {
         super({ tag: 'form', classNames: ['form'] });
+        this.router = router;
         this.loginController = new LoginController(socket.getLoginService(), this, errorAuth);
         this.setupFormContent();
         this.setupEventListener();
@@ -43,10 +51,12 @@ export class Form extends View {
             minimumLength: this.minimumLengthPassword,
         });
         this.buttonLogin = new Button({ label: 'Submit' });
+        this.linkInfo = new LinkInfo();
         [
             this.inputLogin.getElement(),
             this.inputPass.getElement(),
             this.buttonLogin.getElement(),
+            this.linkInfo.getElement(),
         ].forEach((elem) => {
             this.addInnerElement(elem);
         });
@@ -54,6 +64,9 @@ export class Form extends View {
 
     private setupEventListener(): void {
         this.getElement().addEventListener('submit', this.onHandleSubmit.bind(this));
+        this.linkInfo?.getElement().addEventListener('click', () => {
+            this.router.navigate(RoutePath.ABOUT);
+        });
     }
 
     private validate(value: string, minimumLength: number): boolean {

@@ -1,0 +1,13 @@
+.link__info {
+    border: none;
+    color: #4e9a06;
+    font-size: 1.6rem;
+    font-weight: 600;
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        color: #d3d7cf;
+    }
+}
