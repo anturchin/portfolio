@@ -50,7 +50,7 @@ export class App {
                 path: RoutePath.ABOUT,
                 callback: async () => {
                     const { About } = await import('../view/about/About');
-                    this.updateContent(new About());
+                    this.updateContent(new About(this.router));
                 },
             },
             {
