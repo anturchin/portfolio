@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfun_chat=self.webpackChunkfun_chat||[]).push([[956],{956:(t,e,s)=>{s.r(e),s.d(e,{About:()=>n});var u=s(766);class n extends u.S{constructor(){super({tag:"section"}),this.setupAbout()}setupAbout(){this.getElement().textContent="about"}}}}]);
