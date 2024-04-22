@@ -1,11 +1,11 @@
 import { View } from '../View';
 import { Form } from './form/Form';
 import { Title } from './title/Title';
-
-import './Login.scss';
 import { WebSocketService } from '../../services/WebSocketService';
 import { ErrorAuth } from './errorAuth/ErrorAuth';
 import { Router } from '../../router/router/Router';
+
+import './Login.scss';
 
 export class Login extends View {
     constructor(socket: WebSocketService, router: Router) {
