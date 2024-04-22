@@ -8,8 +8,13 @@ export class HashRouter {
     constructor(router: Router) {
         this.router = router;
         this.handleHashChange = this.handleHashChange.bind(this);
+        this.clearHash();
         this.setupEventListener();
         this.handleHashChange();
+    }
+
+    public clearHash(): void {
+        window.location.hash = '';
     }
 
     public updateHashUrl(path: RoutePath): void {
@@ -47,8 +52,7 @@ export class HashRouter {
             }
             route.callback();
         } else {
-            console.log(this.getHashUrl());
-            this.router.showNotFoundPage();
+            this.updateHashUrl(RoutePath.NOT_FOUND);
         }
     }
 
