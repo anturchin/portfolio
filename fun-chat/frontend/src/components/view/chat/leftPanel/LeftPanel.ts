@@ -1,9 +1,9 @@
 import { View } from '../../View';
 import { Search } from './search/Search';
 import { UserList } from './userList/UserList';
+import { UserItem } from './userItem/UserItem';
 
 import './LeftPanel.scss';
-import { UserItem } from './userItem/UserItem';
 
 export class LeftPanel extends View {
     public searchInput: Search;
@@ -15,6 +15,17 @@ export class LeftPanel extends View {
         this.searchInput = new Search();
         this.userList = new UserList();
         this.setupLeftPanel();
+    }
+
+    public increaseCounterInUserItem(user: string): void {
+        const items = this.getUserItems();
+        const currentItem = items.find((item) => {
+            const userName = item.getElement().getAttribute('data-name');
+            return userName === user;
+        });
+        if (currentItem) {
+            currentItem.increaseCounter();
+        }
     }
 
     public getUserList(): UserList {

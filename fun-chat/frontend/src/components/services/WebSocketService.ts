@@ -6,7 +6,11 @@ import { State } from '../state/State';
 import { ChatService } from './chatService/ChatService';
 import { ILogoutUser, IUsersAccept, User } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
-import { IMessageTake, MessagesHistoryType } from './chatService/messageReceiveService/types';
+import {
+    IFetchingMessage,
+    IMessageTake,
+    MessagesHistoryType,
+} from './chatService/messageReceiveService/types';
 
 export class WebSocketService {
     private loginService: LoginService;
@@ -100,10 +104,19 @@ export class WebSocketService {
         if (data.type === TypeMessage.MSG_SEND) {
             const { message } = data.payload as IMessageTake;
             messageReceiveService.handleResponseWithReceivedMessages(message);
+            return;
         }
         if (data.type === TypeMessage.MSG_FROM_USER) {
             const { messages } = data.payload as MessagesHistoryType;
             messageReceiveService.handleResponseHistoryMessages(messages);
+            return;
+        }
+        if (data.type === TypeMessage.MSG_DELIVER) {
+            const { message } = data.payload as IFetchingMessage;
+            messageReceiveService.handleResponseDeliveryStatusChange(message);
+        }
+        if (data.type === TypeMessage.MSG_READ) {
+            console.log(data);
         }
     }
 
@@ -122,7 +135,12 @@ export class WebSocketService {
             this.handleUsers(data);
             return;
         }
-        if (data.type === TypeMessage.MSG_SEND || data.type === TypeMessage.MSG_FROM_USER) {
+        if (
+            data.type === TypeMessage.MSG_SEND ||
+            data.type === TypeMessage.MSG_FROM_USER ||
+            data.type === TypeMessage.MSG_DELIVER ||
+            data.type === TypeMessage.MSG_READ
+        ) {
             this.handleReceivedMessages(data);
         }
         if (data.type === TypeMessage.ERROR && this.lastRequest) {

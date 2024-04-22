@@ -5,13 +5,19 @@ import { MessageTakeType } from '../../../../services/chatService/messageReceive
 import './MessageContainer.scss';
 
 export class MessageContainer extends View {
+    private messageItem: MessageItem;
+
     constructor(leftOrRight: string, message: MessageTakeType) {
         super({ tag: 'div', classNames: ['message__container', leftOrRight] });
-        this.setupMessageContainer(leftOrRight, message);
+        this.messageItem = new MessageItem(leftOrRight, message);
+        this.setupMessageContainer();
     }
 
-    private setupMessageContainer(leftOrRight: string, message: MessageTakeType): void {
-        const messageItem = new MessageItem(leftOrRight, message).getElement();
-        this.addInnerElement(messageItem);
+    public getMessageItem(): MessageItem {
+        return this.messageItem;
+    }
+
+    private setupMessageContainer(): void {
+        this.addInnerElement(this.messageItem.getElement());
     }
 }

@@ -1,14 +1,21 @@
 /* eslint-disable brace-style */
 import { IObserverMessages } from '../../../observers/observerMessages/ObserverMessages.interface';
+import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/ObserverStatusMsg.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
-import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
+import {
+    FetchingMessageType,
+    MessageTakeType,
+} from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { RightPanel } from '../../../view/chat/rightPanel/RightPanel';
+import { StatusMessage } from './types';
 
-export class RightPanelController implements IObserverMessages<MessageTakeType[]> {
+export class RightPanelController
+    implements IObserverMessages<MessageTakeType[]>, IObserverStatusMsg<FetchingMessageType>
+{
     private chatService: ChatService;
 
     private rightPanel: RightPanel;
@@ -30,7 +37,23 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.state.registerMessageObserver(this.constructor.name, this);
 
+        const messageReceiveService = this.chatService.getMessageReceiveService();
+        messageReceiveService.registerStatusObserver(this.constructor.name, this);
+
         this.setEventListenerFormSubmit();
+    }
+
+    public updateStatus(data: FetchingMessageType): void {
+        const messageItems = this.rightPanel.getMessages();
+        messageItems.forEach((item) => {
+            const messageItem = item.getMessageItem();
+            const dataId = messageItem.getElement().getAttribute('data-id');
+            if (dataId) {
+                if (data.id === dataId) {
+                    messageItem.setMessageStatus(StatusMessage.Delivered);
+                }
+            }
+        });
     }
 
     public updateMessages(data: MessageTakeType[]): void {
@@ -49,6 +72,7 @@ export class RightPanelController implements IObserverMessages<MessageTakeType[]
                 ) {
                     this.rightPanel.updateMessageList(data[0]);
                 }
+                this.leftPanel.increaseCounterInUserItem(data[0].from);
             }
         }
     }

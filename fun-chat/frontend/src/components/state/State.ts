@@ -2,7 +2,10 @@ import { IObserverMessages } from '../observers/observerMessages/ObserverMessage
 import { ISubjectMessages } from '../observers/observerMessages/SubjectMessages';
 import { IObserverUsers } from '../observers/observerUsers/ObserverUsers.interface';
 import { ISubjectUsers } from '../observers/observerUsers/SubjectUsers';
-import { MessageTakeType } from '../services/chatService/messageReceiveService/types';
+import {
+    FetchingMessageType,
+    MessageTakeType,
+} from '../services/chatService/messageReceiveService/types';
 import { User } from '../services/chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 import { IUser } from './types';
@@ -88,6 +91,17 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         this.allUsers = [...sortUsers];
     }
 
+    public updateStatusMessage(data: FetchingMessageType): void {
+        this.selectedUserMessages.forEach((user) => {
+            user.forEach((message) => {
+                if (message.id === data.id) {
+                    const copyMsg = message;
+                    copyMsg.status.isDelivered = data.status.isDelivered;
+                }
+            });
+        });
+    }
+
     public addMessageToSelectedUserMessages(message: MessageTakeType): void {
         const userMessage = message.from;
         const messages = this.selectedUserMessages.get(userMessage) || [];
@@ -113,6 +127,8 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
 
         const uniqueMessages = messages.filter(filterMessages);
         const updateMessages = [...existingMessages, ...uniqueMessages];
+
+        updateMessages.sort((a, b) => a.datetime - b.datetime);
 
         this.selectedUserMessages.set(selectedUserName, updateMessages);
 

@@ -1,11 +1,16 @@
+/* eslint-disable brace-style */
+import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/ObserverStatusMsg.interface';
+import { ISubjectStatusMsg } from '../../../observers/observerStatusMsg/SubjectStatusMsg';
 import { Router } from '../../../router/router/Router';
 import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
-import { IMessageRequest, MessageTakeType } from './types';
+import { FetchingMessageType, IMessageRequest, MessageTakeType } from './types';
 
-export class MessageReceiveService implements IHandleErrorMessage {
+export class MessageReceiveService
+    implements IHandleErrorMessage, ISubjectStatusMsg<FetchingMessageType>
+{
     private webSocketService: WebSocketService;
 
     private router: Router;
@@ -14,10 +19,27 @@ export class MessageReceiveService implements IHandleErrorMessage {
 
     private selectedUserName: string = '';
 
+    private statusObservers: Map<string, IObserverStatusMsg<FetchingMessageType>> = new Map();
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
         this.state = state;
+    }
+
+    public registerStatusObserver(
+        key: string,
+        observer: IObserverStatusMsg<FetchingMessageType>
+    ): void {
+        this.statusObservers.set(key, observer);
+    }
+
+    public removeStatusObserver(key: string): void {
+        this.statusObservers.delete(key);
+    }
+
+    public notifyStatusObservers(data: FetchingMessageType): void {
+        this.statusObservers.forEach((observer) => observer.updateStatus(data));
     }
 
     public sendRequestToReceiveMessages(loginToMessage: string, text: string): void {
@@ -54,6 +76,11 @@ export class MessageReceiveService implements IHandleErrorMessage {
 
     public handleResponseHistoryMessages(data: MessageTakeType[]): void {
         this.state.setMessages(data, this.selectedUserName);
+    }
+
+    public handleResponseDeliveryStatusChange(data: FetchingMessageType): void {
+        this.state.updateStatusMessage(data);
+        this.notifyStatusObservers(data);
     }
 
     public handleErrorMessage(data: IMessage): void {

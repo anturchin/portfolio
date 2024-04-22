@@ -55,3 +55,19 @@ export interface IMessageResponse {
     type: TypeMessage;
     payload: IMessageTake | MessagesHistoryType | MessageError;
 }
+
+export type FetchingMessageType = {
+    id: string;
+    status: {
+        isDelivered: boolean;
+    };
+};
+
+export interface IFetchingMessage {
+    message: FetchingMessageType;
+}
+export interface IFetchingMessageHistory {
+    id: null;
+    type: TypeMessage;
+    payload: IFetchingMessage;
+}

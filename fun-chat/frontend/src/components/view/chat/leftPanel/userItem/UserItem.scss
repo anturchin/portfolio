@@ -38,4 +38,31 @@
     &.active::before {
         background-color: #97e1f1;
     }
+
+    .counter {
+        font-size: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #f27aa0;
+        margin-right: 10px;
+        &.active {
+            border: 1px solid #97e1f1;
+        }
+
+        &.hidden {
+            opacity: 0;
+        }
+
+        &.show {
+            opacity: 1;
+        }
+    }
 }

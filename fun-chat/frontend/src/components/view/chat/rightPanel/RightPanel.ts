@@ -51,6 +51,7 @@ export class RightPanel extends View {
         const leftOrRight = this.determineMessageAlignment(message);
         const newMessage = new MessageContainer(leftOrRight, message);
         this.messages.push(newMessage);
+        this.wrapperMessage.placeHolderHidden();
         this.wrapperMessage.getElement().append(newMessage.getElement());
     }
 
