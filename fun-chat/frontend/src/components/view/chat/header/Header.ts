@@ -5,6 +5,7 @@ import { User } from './user/User';
 import { WrapperTitle } from './wrapperTitle/WrapperTitle';
 import { Title } from './title/Title';
 import { WrapperBtn } from './wrapperBtn/WrapperBtn';
+import { Router } from '../../../router/router/Router';
 
 import './Header.scss';
 
@@ -15,10 +16,10 @@ export class Header extends View {
 
     private btnLogout: BtnLogout;
 
-    constructor() {
+    constructor(router: Router) {
         super({ tag: 'div', classNames: ['chat__header'] });
         this.userName = new User();
-        this.btnInfo = new BtnInfo('about');
+        this.btnInfo = new BtnInfo('about', router);
         this.btnLogout = new BtnLogout('logout');
         this.setupHeader();
     }

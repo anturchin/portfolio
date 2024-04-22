@@ -6,6 +6,7 @@ import { RightPanel } from './rightPanel/RightPanel';
 import { ChatWrapper } from './chatWrapper/ChatWrapper';
 import { WebSocketService } from '../../services/WebSocketService';
 import { ChatController } from '../../controller/chatController/ChatController';
+import { Router } from '../../router/router/Router';
 
 import './Chat.scss';
 
@@ -18,9 +19,9 @@ export class Chat extends View {
 
     private chatController: ChatController;
 
-    constructor(socket: WebSocketService) {
+    constructor(socket: WebSocketService, router: Router) {
         super({ tag: 'section', classNames: ['chat'] });
-        this.headerChat = new Header();
+        this.headerChat = new Header(router);
         this.leftPanel = new LeftPanel();
         this.rightPanel = new RightPanel();
         this.chatController = new ChatController(
