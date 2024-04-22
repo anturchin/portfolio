@@ -13,7 +13,10 @@ export class DeliveryInfo extends View {
     private status: StatusMessage;
 
     constructor(leftOrRight: string, status: StatusMessage) {
-        const isDelivered = status.isDelivered ? statusMessage.delivered : statusMessage.sent;
+        let isDelivered = status.isDelivered ? statusMessage.delivered : statusMessage.sent;
+        if (status.isReaded) {
+            isDelivered = statusMessage.read;
+        }
         const textContent = leftOrRight === 'left' ? '' : isDelivered;
         super({
             tag: 'p',

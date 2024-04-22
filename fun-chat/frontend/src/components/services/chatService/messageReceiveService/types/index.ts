@@ -60,6 +60,7 @@ export type FetchingMessageType = {
     id: string;
     status: {
         isDelivered: boolean;
+        isReaded?: boolean;
     };
 };
 
@@ -70,4 +71,32 @@ export interface IFetchingMessageHistory {
     id: null;
     type: TypeMessage;
     payload: IFetchingMessage;
+}
+
+export type ReadMessageType = {
+    id: string;
+    status: {
+        isReaded: boolean;
+    };
+};
+
+export type MessageIdType = {
+    id: string;
+};
+
+export interface IReadMessage {
+    message: ReadMessageType;
+}
+export interface IResponseReadMessage {
+    id: null;
+    type: TypeMessage;
+    payload: ReadMessageType;
+}
+
+export interface IRequestReadMessage {
+    id: string;
+    type: TypeMessage;
+    payload: {
+        message: MessageIdType;
+    };
 }

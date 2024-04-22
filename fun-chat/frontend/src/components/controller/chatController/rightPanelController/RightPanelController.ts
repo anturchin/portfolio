@@ -5,6 +5,7 @@ import { ChatService } from '../../../services/chatService/ChatService';
 import {
     FetchingMessageType,
     MessageTakeType,
+    ReadMessageType,
 } from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
@@ -35,12 +36,15 @@ export class RightPanelController
         this.leftPanel = leftPanel;
         this.state = state;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.updateReadStatusMessage = this.updateReadStatusMessage.bind(this);
         this.state.registerMessageObserver(this.constructor.name, this);
 
         const messageReceiveService = this.chatService.getMessageReceiveService();
         messageReceiveService.registerStatusObserver(this.constructor.name, this);
+        messageReceiveService.setCallback(this.updateReadStatusMessage);
 
         this.setEventListenerFormSubmit();
+        this.setEventListenerClickWrapperMsg();
     }
 
     public updateStatus(data: FetchingMessageType): void {
@@ -48,10 +52,20 @@ export class RightPanelController
         messageItems.forEach((item) => {
             const messageItem = item.getMessageItem();
             const dataId = messageItem.getElement().getAttribute('data-id');
-            if (dataId) {
-                if (data.id === dataId) {
-                    messageItem.setMessageStatus(StatusMessage.Delivered);
-                }
+            if (dataId && data.id === dataId) {
+                messageItem.setMessageStatus(StatusMessage.Delivered);
+            }
+        });
+    }
+
+    public updateReadStatusMessage(data: ReadMessageType): void {
+        const messageItems = this.rightPanel.getMessages();
+        messageItems.forEach((item) => {
+            const messageItem = item.getMessageItem();
+            const rightMsg = messageItem.getElement().classList.contains('right');
+            const dataId = messageItem.getElement().getAttribute('data-id');
+            if (dataId && rightMsg && data.id === dataId) {
+                messageItem.setMessageStatus(StatusMessage.Read);
             }
         });
     }
@@ -131,5 +145,22 @@ export class RightPanelController
     private setEventListenerFormSubmit(): void {
         const form = this.rightPanel.getFormSend();
         form.getElement().addEventListener('submit', this.handleFormSubmit);
+    }
+
+    private handleClickWrapperMsg(): void {
+        const wrapper = this.rightPanel.getWrapperMessage().getElement();
+        const messages = wrapper.querySelectorAll<HTMLElement>('.message__item.left');
+        const msgService = this.chatService.getMessageReceiveService();
+        messages.forEach((msg) => {
+            const idMessage = msg.getAttribute('data-id');
+            msgService.sendRequestReadMessage(idMessage || '', this.updateReadStatusMessage);
+        });
+    }
+
+    private setEventListenerClickWrapperMsg(): void {
+        const wrapperMsg = this.rightPanel.getWrapperMessage().getElement();
+        wrapperMsg.addEventListener('click', () => {
+            this.handleClickWrapperMsg();
+        });
     }
 }

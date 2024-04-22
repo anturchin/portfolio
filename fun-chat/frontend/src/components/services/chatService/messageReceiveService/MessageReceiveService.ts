@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable brace-style */
 import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/ObserverStatusMsg.interface';
 import { ISubjectStatusMsg } from '../../../observers/observerStatusMsg/SubjectStatusMsg';
@@ -6,7 +7,13 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
-import { FetchingMessageType, IMessageRequest, MessageTakeType } from './types';
+import {
+    FetchingMessageType,
+    IMessageRequest,
+    IRequestReadMessage,
+    MessageTakeType,
+    ReadMessageType,
+} from './types';
 
 export class MessageReceiveService
     implements IHandleErrorMessage, ISubjectStatusMsg<FetchingMessageType>
@@ -25,10 +32,16 @@ export class MessageReceiveService
 
     private updateCounter?: () => void;
 
+    private updateReadStatusMsg?: (data: ReadMessageType) => void;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
         this.state = state;
+    }
+
+    public setCallback(updateReadStatusMsg: (data: ReadMessageType) => void): void {
+        this.updateReadStatusMsg = updateReadStatusMsg;
     }
 
     public registerStatusObserver(
@@ -95,6 +108,28 @@ export class MessageReceiveService
     public handleResponseDeliveryStatusChange(data: FetchingMessageType): void {
         this.state.updateStatusMessage(data);
         this.notifyStatusObservers(data);
+    }
+
+    public sendRequestReadMessage(
+        idMessage: string,
+        callback?: (data: ReadMessageType) => void
+    ): void {
+        this.updateReadStatusMsg = callback;
+        const request: IRequestReadMessage = {
+            id: SessionStorageManager.generateRequestId(),
+            type: TypeMessage.MSG_READ,
+            payload: {
+                message: {
+                    id: idMessage,
+                },
+            },
+        };
+        this.webSocketService.sendRequest(request, this);
+    }
+
+    public handleResponseReadStatusChange(data: ReadMessageType): void {
+        this.state.updateReadStatusMessage(data);
+        this.updateReadStatusMsg?.(data);
     }
 
     public handleErrorMessage(data: IMessage): void {

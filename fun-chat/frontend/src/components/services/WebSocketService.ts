@@ -9,6 +9,7 @@ import { SessionStorageManager } from '../utils/sessionStorageManager/SessionSto
 import {
     IFetchingMessage,
     IMessageTake,
+    IReadMessage,
     MessagesHistoryType,
 } from './chatService/messageReceiveService/types';
 
@@ -119,7 +120,8 @@ export class WebSocketService {
             return;
         }
         if (data.type === TypeMessage.MSG_READ) {
-            console.log(data);
+            const { message } = data.payload as IReadMessage;
+            messageReceiveService.handleResponseReadStatusChange(message);
         }
     }
 

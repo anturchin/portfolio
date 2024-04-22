@@ -5,6 +5,7 @@ import { ISubjectUsers } from '../observers/observerUsers/SubjectUsers';
 import {
     FetchingMessageType,
     MessageTakeType,
+    ReadMessageType,
 } from '../services/chatService/messageReceiveService/types';
 import { User } from '../services/chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
@@ -97,6 +98,17 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
                 if (message.id === data.id) {
                     const copyMsg = message;
                     copyMsg.status.isDelivered = data.status.isDelivered;
+                }
+            });
+        });
+    }
+
+    public updateReadStatusMessage(data: ReadMessageType): void {
+        this.selectedUserMessages.forEach((user) => {
+            user.forEach((message) => {
+                if (message.id === data.id) {
+                    const copyMsg = message;
+                    copyMsg.status.isReaded = data.status.isReaded;
                 }
             });
         });
