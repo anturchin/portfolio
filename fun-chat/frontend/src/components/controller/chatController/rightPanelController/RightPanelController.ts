@@ -140,6 +140,8 @@ export class RightPanelController
         );
 
         this.clearInput();
+
+        this.handleClickWrapperMsg();
     }
 
     private setEventListenerFormSubmit(): void {
