@@ -17,6 +17,11 @@ export class UserItem extends View {
         this.updateCounterDisplay();
     }
 
+    public setCounter(count: number): void {
+        this.counter = count;
+        this.updateCounterDisplay();
+    }
+
     public resetCounter(): void {
         this.counter = 0;
         this.updateCounterDisplay();
@@ -31,15 +36,7 @@ export class UserItem extends View {
         this.getElement().setAttribute('data-active', `${isLogined ? 1 : 0}`);
     }
 
-    private setupUserItem(userName: string, isLogined: boolean): void {
-        this.getElement().setAttribute('data-name', userName);
-        this.getElement().setAttribute('data-active', `${isLogined ? 1 : 0}`);
-        const counter = document.createElement('span');
-        counter.classList.add('counter', 'hidden');
-        this.addInnerElement(counter);
-    }
-
-    private updateCounterDisplay(): void {
+    public updateCounterDisplay(): void {
         const counterElement = this.getElement().querySelector('.counter');
         if (counterElement) {
             if (this.getElement().classList.contains('active')) {
@@ -54,5 +51,13 @@ export class UserItem extends View {
                 counterElement.classList.add('hidden');
             }
         }
+    }
+
+    private setupUserItem(userName: string, isLogined: boolean): void {
+        this.getElement().setAttribute('data-name', userName);
+        this.getElement().setAttribute('data-active', `${isLogined ? 1 : 0}`);
+        const counter = document.createElement('span');
+        counter.classList.add('counter', 'hidden');
+        this.addInnerElement(counter);
     }
 }

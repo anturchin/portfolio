@@ -1,7 +1,9 @@
 import { IObserverUsers } from '../../../observers/observerUsers/ObserverUsers.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
+import { MessageTakeType } from '../../../services/chatService/messageReceiveService/types';
 import { User } from '../../../services/chatService/types';
 import { State } from '../../../state/State';
+import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
 
@@ -30,10 +32,37 @@ export class LeftPanelController implements IObserverUsers<User> {
         const userList = this.leftPanel.getUserList();
         userList.updateUserList(data);
         userList.moveToBottomInactiveUserItem();
+
+        const userItems = this.leftPanel.getUserItems();
+        userItems.forEach((item) => item.updateCounterDisplay());
     }
 
     public updateCounter(): void {
-        console.log(this.state.getMessages());
+        const originalMap = this.state.getMessages();
+
+        const filteredMap: Map<string, MessageTakeType[]> = new Map();
+
+        const userData = SessionStorageManager.getUserData();
+
+        if (userData) {
+            originalMap.forEach((value, key) => {
+                const filteredMessages = value
+                    .filter((message) => !message.status.isReaded)
+                    .filter((message) => message.from !== userData.login);
+                if (filteredMessages.length > 0) {
+                    filteredMap.set(key, filteredMessages);
+                }
+            });
+
+            filteredMap.forEach((value, key) => {
+                const unreadMsg = value.length;
+                const currentItem = this.leftPanel.getUserItems().find((item) => {
+                    const itemName = item.getElement().getAttribute('data-name');
+                    return itemName === key;
+                });
+                currentItem?.setCounter(unreadMsg);
+            });
+        }
     }
 
     public updateCounterInUserItems(): void {
@@ -41,7 +70,6 @@ export class LeftPanelController implements IObserverUsers<User> {
         if (userItems.length !== 0) {
             userItems.forEach((item) => {
                 const userName = item.getElement().getAttribute('data-name');
-                console.log(userName);
                 const msgService = this.chatService.getMessageReceiveService();
                 msgService.sendRequestHistoryMessages(
                     userName || '',
