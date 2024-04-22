@@ -157,6 +157,14 @@ export class RightPanelController
             const idMessage = msg.getAttribute('data-id');
             msgService.sendRequestReadMessage(idMessage || '', this.updateReadStatusMessage);
         });
+
+        const { companionName } = this.rightPanel.getPanelTop();
+        const userName = companionName.getCompanionNameText();
+        const currentItem = this.leftPanel.getUserItems().find((item) => {
+            const dataName = item.getElement().getAttribute('data-name');
+            return dataName === userName;
+        });
+        currentItem?.resetCounter();
     }
 
     private setEventListenerClickWrapperMsg(): void {
