@@ -32,13 +32,33 @@ export class LeftPanelController implements IObserverUsers<User> {
         userList.moveToBottomInactiveUserItem();
     }
 
+    public updateCounter(): void {
+        console.log(this.state.getMessages());
+    }
+
+    public updateCounterInUserItems(): void {
+        const userItems = this.leftPanel.getUserItems();
+        if (userItems.length !== 0) {
+            userItems.forEach((item) => {
+                const userName = item.getElement().getAttribute('data-name');
+                console.log(userName);
+                const msgService = this.chatService.getMessageReceiveService();
+                msgService.sendRequestHistoryMessages(
+                    userName || '',
+                    false,
+                    this.updateCounter.bind(this)
+                );
+            });
+        }
+    }
+
     public initialUserList(): void {
         const userList = this.leftPanel.getUserList();
         const userService = this.chatService.getUserService();
         userService.fetchAllUsers((users) => {
             userList.initialUserList(users);
             this.handleFilterUserList();
-        });
+        }, this.updateCounterInUserItems.bind(this));
     }
 
     private handleFilterUserList(): void {
@@ -81,7 +101,7 @@ export class LeftPanelController implements IObserverUsers<User> {
         if (element.classList.contains('user__item')) {
             const login = element.getAttribute('data-name');
             const messageService = this.chatService.getMessageReceiveService();
-            if (login) messageService.sendRequestHistoryMessages(login);
+            if (login) messageService.sendRequestHistoryMessages(login, true);
         }
     }
 

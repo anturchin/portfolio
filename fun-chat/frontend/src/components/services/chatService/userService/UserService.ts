@@ -14,14 +14,17 @@ export class UserService implements IHandleErrorMessage {
 
     private updateUserList?: CallBackUsers;
 
+    private secondUpdateUserList?: () => void;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
         this.state = state;
     }
 
-    public fetchAllUsers(callback: CallBackUsers): void {
+    public fetchAllUsers(callback: CallBackUsers, secondCallback?: () => void): void {
         this.updateUserList = callback;
+        this.secondUpdateUserList = secondCallback;
         this.sendRequest();
     }
 
@@ -57,6 +60,7 @@ export class UserService implements IHandleErrorMessage {
         );
         this.state.setAllUsers(allUsers);
         this.updateUserList?.(this.state.getAllUsers());
+        this.secondUpdateUserList?.();
     }
 
     public handleErrorMessage(data: IMessage): void {

@@ -25,6 +25,8 @@ export class WebSocketService {
 
     private state: State;
 
+    private firstRenderCompleted: boolean = false;
+
     constructor(socketUrl: string, router: Router, state: State) {
         this.socketUrl = socketUrl;
         this.socket = new WebSocket(this.socketUrl);
@@ -114,6 +116,7 @@ export class WebSocketService {
         if (data.type === TypeMessage.MSG_DELIVER) {
             const { message } = data.payload as IFetchingMessage;
             messageReceiveService.handleResponseDeliveryStatusChange(message);
+            return;
         }
         if (data.type === TypeMessage.MSG_READ) {
             console.log(data);

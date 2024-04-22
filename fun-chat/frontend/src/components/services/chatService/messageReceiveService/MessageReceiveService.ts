@@ -17,9 +17,13 @@ export class MessageReceiveService
 
     private state: State;
 
-    private selectedUserName: string = '';
+    private selectedUserName: string[] = [];
 
     private statusObservers: Map<string, IObserverStatusMsg<FetchingMessageType>> = new Map();
+
+    private shouldNotifyObservers: boolean = false;
+
+    private updateCounter?: () => void;
 
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
@@ -60,8 +64,14 @@ export class MessageReceiveService
         this.state.addMessageToSelectedUserMessages(data);
     }
 
-    public sendRequestHistoryMessages(login: string): void {
-        this.selectedUserName = login;
+    public sendRequestHistoryMessages(
+        login: string,
+        shouldNotifyObservers: boolean,
+        updateCounter?: () => void
+    ): void {
+        this.shouldNotifyObservers = shouldNotifyObservers;
+        this.updateCounter = updateCounter;
+        this.selectedUserName.push(login);
         const request: IMessageRequest = {
             id: SessionStorageManager.generateRequestId(),
             type: TypeMessage.MSG_FROM_USER,
@@ -75,7 +85,11 @@ export class MessageReceiveService
     }
 
     public handleResponseHistoryMessages(data: MessageTakeType[]): void {
-        this.state.setMessages(data, this.selectedUserName);
+        const userName = this.selectedUserName.shift();
+        if (userName) {
+            this.state.setMessages(data, userName, this.shouldNotifyObservers);
+        }
+        this.updateCounter?.();
     }
 
     public handleResponseDeliveryStatusChange(data: FetchingMessageType): void {

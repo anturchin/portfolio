@@ -114,7 +114,15 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         }
     }
 
-    public setMessages(messages: MessageTakeType[], selectedUserName: string): void {
+    public getMessages(): Map<string, MessageTakeType[]> {
+        return this.selectedUserMessages;
+    }
+
+    public setMessages(
+        messages: MessageTakeType[],
+        selectedUserName: string,
+        shouldNotifyObservers: boolean
+    ): void {
         if (!this.selectedUserMessages.has(selectedUserName)) {
             this.selectedUserMessages.set(selectedUserName, []);
         }
@@ -134,8 +142,9 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
 
         const userIndex = this.findUserIndex(selectedUserName);
         const selectedUser = this.allUsers[userIndex];
-
-        this.notifyMessageObservers(updateMessages, selectedUser);
+        if (shouldNotifyObservers) {
+            this.notifyMessageObservers(updateMessages, selectedUser);
+        }
     }
 
     public getAllUsers(): User[] {

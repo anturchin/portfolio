@@ -63,12 +63,23 @@ export class UserList extends View {
 
     private addNewItemToUserList(element: HTMLElement): void {
         const list = this.getElement();
-        const activeItems = list.querySelectorAll('.active');
-        const lastActiveItem = activeItems[activeItems.length - 1];
-        if (lastActiveItem) {
-            lastActiveItem.insertAdjacentElement('afterend', element);
+        const isActive = element.classList.contains('active');
+        const lastActiveItem = list.querySelector('.user__item.active:last-child');
+        if (isActive) {
+            if (lastActiveItem) {
+                lastActiveItem.insertAdjacentElement('afterend', element);
+            } else {
+                list.appendChild(element);
+            }
         } else {
-            list.insertAdjacentElement('beforeend', element);
+            const lastInactiveItem = list.querySelector('.user__item:not(.active):last-child');
+            if (lastInactiveItem) {
+                lastInactiveItem.insertAdjacentElement('afterend', element);
+            } else if (lastActiveItem) {
+                lastActiveItem.insertAdjacentElement('afterend', element);
+            } else {
+                list.appendChild(element);
+            }
         }
     }
 }
