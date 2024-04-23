@@ -12,6 +12,10 @@ export class UserItem extends View {
         this.updateCounterDisplay();
     }
 
+    public getCounter(): number {
+        return this.counter;
+    }
+
     public increaseCounter(): void {
         this.counter += 1;
         this.updateCounterDisplay();
