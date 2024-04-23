@@ -55,15 +55,11 @@ export class LoginController {
         (inputLogin?.getElement() as HTMLInputElement).value = '';
         (inputPass?.getElement() as HTMLInputElement).value = '';
         const id = SessionStorageManager.generateRequestId();
-        this.saveUserDataToLocalStorage({ id, login, password });
-        this.authorization();
+        this.authorization({ id, login, password });
     }
 
-    private authorization(): void {
-        const userData = SessionStorageManager.getUserData();
-        if (userData) {
-            this.loginService.login(userData.id, userData.login, userData.password, this.errorAuth);
-        }
+    private authorization({ id, login, password }: UserDataType): void {
+        this.loginService.login(id, login, password, this.errorAuth);
     }
 
     private showErrorMessage(inputOne: View, inputTwo?: View): void {
@@ -99,9 +95,5 @@ export class LoginController {
             errorInputTwo.hideError();
             (buttonLogin?.getElement() as HTMLButtonElement).disabled = false;
         }
-    }
-
-    private saveUserDataToLocalStorage({ id, login, password }: UserDataType): void {
-        SessionStorageManager.saveUserData({ id, login, password });
     }
 }

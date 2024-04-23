@@ -2,6 +2,7 @@ import { RoutePath } from '../../router/hashRouter/types';
 import { Router } from '../../router/router/Router';
 import { State } from '../../state/State';
 import { SessionStorageManager } from '../../utils/sessionStorageManager/SessionStorageManager';
+import { UserDataType } from '../../utils/sessionStorageManager/types';
 import { ErrorAuth } from '../../view/login/errorAuth/ErrorAuth';
 import { WebSocketService } from '../WebSocketService';
 import { User } from '../chatService/types';
@@ -36,18 +37,27 @@ export class LoginService implements IHandleErrorMessage {
                 user: { login, password },
             },
         };
+        this.state.setUser({
+            id,
+            login,
+            password,
+            isLogined: false,
+        });
         this.webSocketService.sendRequest(request, this);
     }
 
     public handleUserLogin(data: ILoginSend): void {
-        const userData = SessionStorageManager.getUserData();
         const { isLogined } = data.payload.user;
-        if (userData) {
+        const user = this.state.getUser();
+        if (user) {
             this.state.setUser({
-                ...userData,
+                ...user,
                 isLogined,
             });
             this.router.navigate(RoutePath.CHAT);
+
+            const { id, login, password } = user;
+            this.saveUserDataToLocalStorage({ id, login, password });
         }
     }
 
@@ -61,5 +71,9 @@ export class LoginService implements IHandleErrorMessage {
             this.errorAuth?.showMessage(errorMessage);
             SessionStorageManager.removeUserData();
         }
+    }
+
+    private saveUserDataToLocalStorage({ id, login, password }: UserDataType): void {
+        SessionStorageManager.saveUserData({ id, login, password });
     }
 }

@@ -3,12 +3,12 @@ import { Input } from './input/Input';
 import { Button } from './button/Button';
 import { WebSocketService } from '../../../services/WebSocketService';
 import { LoginController } from '../../../controller/loginController/LoginController';
-
-import './Form.scss';
 import { ErrorAuth } from '../errorAuth/ErrorAuth';
 import { LinkInfo } from './btnInfo/LinkInfo';
 import { Router } from '../../../router/router/Router';
 import { RoutePath } from '../../../router/hashRouter/types';
+
+import './Form.scss';
 
 export class Form extends View {
     public inputLogin: Input | null = null;
