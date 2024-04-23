@@ -5,6 +5,7 @@ import { View } from '../view/View';
 import { Main } from '../view/main/Main';
 import { RoutePath } from '../router/hashRouter/types';
 import { WebSocketService } from '../services/WebSocketService';
+import { Loader } from '../view/loader/Loader';
 
 export class App {
     private state: State;
@@ -23,7 +24,8 @@ export class App {
     }
 
     public render(): void {
-        document.body.append(this.main.getElement());
+        const loader = new Loader().getElement();
+        document.body.append(...[this.main.getElement(), loader]);
     }
 
     private updateContent(component: View): void {
