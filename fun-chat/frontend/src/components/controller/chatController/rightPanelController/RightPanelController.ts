@@ -86,6 +86,7 @@ export class RightPanelController
                         sender === companionName.getCompanionNameText())
                 ) {
                     this.rightPanel.updateMessageList(data[0]);
+                    this.rightPanel.scrollMessagesToBottom();
                 }
                 this.leftPanel.increaseCounterInUserItem(data[0].from);
             }
@@ -178,7 +179,13 @@ export class RightPanelController
     private setEventListenerScrollWrapperMsg(): void {
         const wrapperMsg = this.rightPanel.getWrapperMessage().getElement();
         wrapperMsg.addEventListener('scroll', () => {
-            this.handleClickWrapperMsg();
+            const { scrollHeight } = wrapperMsg;
+            const { scrollTop } = wrapperMsg;
+            const { clientHeight } = wrapperMsg;
+
+            if (scrollHeight - scrollTop === clientHeight) {
+                this.handleClickWrapperMsg();
+            }
         });
     }
 }

@@ -41,6 +41,11 @@ export class RightPanel extends View {
         return this.messages;
     }
 
+    public scrollMessagesToBottom(): void {
+        const wrapper = this.wrapperMessage.getElement();
+        wrapper.scrollTop = wrapper.scrollHeight;
+    }
+
     public render(): void {
         this.renderPanelTop();
         this.renderWrapperMessage();
