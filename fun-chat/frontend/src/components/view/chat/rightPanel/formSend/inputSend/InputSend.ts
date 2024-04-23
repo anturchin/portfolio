@@ -4,7 +4,7 @@ import './InputSend.scss';
 
 export class InputSend extends View {
     constructor() {
-        super({ tag: 'textarea', classNames: ['textarea__send'] });
+        super({ tag: 'input', classNames: ['textarea__send'] });
         this.setupInputSend();
     }
 

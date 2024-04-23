@@ -55,7 +55,6 @@ export class LoginService implements IHandleErrorMessage {
                 isLogined,
             });
             this.router.navigate(RoutePath.CHAT);
-
             const { id, login, password } = user;
             this.saveUserDataToLocalStorage({ id, login, password });
         }

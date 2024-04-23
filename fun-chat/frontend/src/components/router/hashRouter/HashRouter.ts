@@ -28,7 +28,6 @@ export class HashRouter {
 
     public handleHashChange(): void {
         const userData = SessionStorageManager.getUserData();
-
         if (!this.getHashUrl()) {
             if (userData) {
                 this.updateHashUrl(RoutePath.CHAT);

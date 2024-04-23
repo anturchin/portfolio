@@ -25,6 +25,14 @@ export class Router implements IRouter {
         this.findRoute(RoutePath.NOT_FOUND)?.callback();
     }
 
+    public updateContentForCurrentRoute(): void {
+        const currentRoute = this.hashRouter.getHashUrl();
+        const routeCallback = this.findRoute(currentRoute)?.callback;
+        if (routeCallback) {
+            routeCallback();
+        }
+    }
+
     public navigate(path: RoutePath): void {
         const route = this.findRoute(path);
         if (route) {

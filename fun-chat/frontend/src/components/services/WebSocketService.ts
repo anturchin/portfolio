@@ -30,11 +30,14 @@ export class WebSocketService {
 
     private reconnectIntervalId: undefined | ReturnType<typeof setTimeout>;
 
+    private router: Router;
+
     constructor(socketUrl: string, router: Router, state: State) {
         this.socketUrl = socketUrl;
         this.socket = new WebSocket(this.socketUrl);
         this.loginService = new LoginService(this, router, state);
         this.chatService = new ChatService(this, router, state);
+        this.router = router;
         this.state = state;
         this.handleMessage = this.handleMessage.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -195,6 +198,8 @@ export class WebSocketService {
             this.reconnectIntervalId = setInterval(() => {
                 this.socket = new WebSocket(this.socketUrl);
                 this.setupEventListener();
+                this.state.clearSelectedUserMessages();
+                this.router.updateContentForCurrentRoute();
             }, 3000);
         }
     }

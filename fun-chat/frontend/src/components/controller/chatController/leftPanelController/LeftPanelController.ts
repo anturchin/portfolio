@@ -46,7 +46,10 @@ export class LeftPanelController implements IObserverUsers<User> {
         userItems.forEach((item) => item.updateCounterDisplay());
 
         const rightPanel = this.chatController.getRightPanel();
-        rightPanel.updatePanelTop(data.login, data.isLogined);
+        const { companionName } = rightPanel.getPanelTop();
+        if (companionName.getCompanionNameText() === data.login) {
+            rightPanel.updatePanelTop(data.login, data.isLogined);
+        }
     }
 
     public updateCounter(): void {

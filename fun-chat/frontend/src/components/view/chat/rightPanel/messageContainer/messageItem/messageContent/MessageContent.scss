@@ -3,6 +3,7 @@
     font-size: 1.8rem;
     text-align: justify;
     padding: 10px;
+    overflow-wrap: break-word;
     @media (max-width: 480px) {
         font-size: 1.6rem;
     }

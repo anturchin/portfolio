@@ -36,6 +36,10 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         }
     }
 
+    public clearSelectedUserMessages(): void {
+        this.selectedUserMessages = new Map();
+    }
+
     public registerUserObserver(key: string, observer: IObserverUsers<User>): void {
         this.userObservers.set(key, observer);
     }
