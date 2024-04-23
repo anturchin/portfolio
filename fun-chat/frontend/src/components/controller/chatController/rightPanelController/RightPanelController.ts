@@ -45,6 +45,7 @@ export class RightPanelController
 
         this.setEventListenerFormSubmit();
         this.setEventListenerClickWrapperMsg();
+        this.setEventListenerScrollWrapperMsg();
     }
 
     public updateStatus(data: FetchingMessageType): void {
@@ -170,6 +171,13 @@ export class RightPanelController
     private setEventListenerClickWrapperMsg(): void {
         const wrapperMsg = this.rightPanel.getWrapperMessage().getElement();
         wrapperMsg.addEventListener('click', () => {
+            this.handleClickWrapperMsg();
+        });
+    }
+
+    private setEventListenerScrollWrapperMsg(): void {
+        const wrapperMsg = this.rightPanel.getWrapperMessage().getElement();
+        wrapperMsg.addEventListener('scroll', () => {
             this.handleClickWrapperMsg();
         });
     }
