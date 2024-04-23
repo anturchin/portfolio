@@ -28,6 +28,8 @@ export class WebSocketService {
 
     private firstRenderCompleted: boolean = false;
 
+    private reconnectIntervalId: undefined | ReturnType<typeof setTimeout>;
+
     constructor(socketUrl: string, router: Router, state: State) {
         this.socketUrl = socketUrl;
         this.socket = new WebSocket(this.socketUrl);
@@ -35,6 +37,8 @@ export class WebSocketService {
         this.chatService = new ChatService(this, router, state);
         this.state = state;
         this.handleMessage = this.handleMessage.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleError = this.handleError.bind(this);
         this.setupEventListener();
     }
 
@@ -159,7 +163,12 @@ export class WebSocketService {
     }
 
     private onConnection(): void {
+        this.clearReconnectInterval();
         this.socket.addEventListener('open', () => {
+            const loader = document.querySelector<HTMLElement>('.loader');
+            if (loader) {
+                loader.classList.remove('show');
+            }
             const userDate = SessionStorageManager.getUserData();
             if (userDate) {
                 const { id, login, password } = userDate;
@@ -169,16 +178,47 @@ export class WebSocketService {
         });
     }
 
+    private handleClose(event: CloseEvent): void {
+        this.showLoader();
+        console.log(`WebSocket connection ${event.type} code: ${event.code}`);
+        this.reconnect();
+    }
+
+    private handleError(error: Event): void {
+        this.showLoader();
+        console.log(`WebSocket connection ${error.type}`);
+        this.reconnect();
+    }
+
+    private reconnect(): void {
+        if (!this.reconnectIntervalId) {
+            this.reconnectIntervalId = setInterval(() => {
+                this.socket = new WebSocket(this.socketUrl);
+                this.setupEventListener();
+            }, 3000);
+        }
+    }
+
+    private clearReconnectInterval(): void {
+        if (this.reconnectIntervalId) {
+            clearInterval(this.reconnectIntervalId);
+            this.reconnectIntervalId = undefined;
+        }
+    }
+
+    private showLoader(): void {
+        const loader = document.querySelector<HTMLElement>('.loader');
+        if (loader) {
+            loader.classList.add('show');
+        }
+    }
+
     private onCloseConnection(): void {
-        this.socket.addEventListener('close', (event: CloseEvent) => {
-            console.log(`WebSocket connection close ${event.reason}`);
-        });
+        this.socket.addEventListener('close', this.handleClose);
     }
 
     private onErrorConnection(): void {
-        this.socket.addEventListener('error', (error: Event) => {
-            console.log(`WebSocket connection close ${error}`);
-        });
+        this.socket.addEventListener('error', this.handleError);
     }
 
     private setupEventListener(): void {
