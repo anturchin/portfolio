@@ -20,6 +20,7 @@ export class FormSend extends View {
 
     public clearInputValue(): void {
         (this.inputSend.getElement() as HTMLInputElement).value = '';
+        this.enableBtn(true);
     }
 
     public getInputValue(): string {
