@@ -6,6 +6,7 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { UserItem } from '../../../view/chat/leftPanel/userItem/UserItem';
+import { ChatController } from '../ChatController';
 
 export class LeftPanelController implements IObserverUsers<User> {
     private chatService: ChatService;
@@ -16,10 +17,18 @@ export class LeftPanelController implements IObserverUsers<User> {
 
     private inputValue: string = '';
 
-    constructor(chatService: ChatService, leftPanel: LeftPanel, state: State) {
+    private chatController: ChatController;
+
+    constructor(
+        chatService: ChatService,
+        leftPanel: LeftPanel,
+        state: State,
+        chatController: ChatController
+    ) {
         this.chatService = chatService;
         this.leftPanel = leftPanel;
         this.state = state;
+        this.chatController = chatController;
         this.state.registerUserObserver(this.constructor.name, this);
         this.onHandleInput = this.onHandleInput.bind(this);
         this.handleUserItemClick = this.handleUserItemClick.bind(this);
@@ -35,6 +44,9 @@ export class LeftPanelController implements IObserverUsers<User> {
 
         const userItems = this.leftPanel.getUserItems();
         userItems.forEach((item) => item.updateCounterDisplay());
+
+        const rightPanel = this.chatController.getRightPanel();
+        rightPanel.updatePanelTop(data.login, data.isLogined);
     }
 
     public updateCounter(): void {

@@ -34,12 +34,21 @@ export class ChatController {
         this.rightPanel = rightPanel;
         this.chatService = chatService;
         this.headerController = new HeaderController(this.chatService, this.headerChat, this);
-        this.leftPanelController = new LeftPanelController(this.chatService, this.leftPanel, state);
+        this.leftPanelController = new LeftPanelController(
+            this.chatService,
+            this.leftPanel,
+            state,
+            this
+        );
         this.rightPanelController = new RightPanelController(
             this.chatService,
             this.rightPanel,
             this.leftPanel,
             state
         );
+    }
+
+    public getRightPanel(): RightPanel {
+        return this.rightPanel;
     }
 }
