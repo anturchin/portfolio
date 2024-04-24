@@ -23,7 +23,7 @@ export class Chat extends View {
         super({ tag: 'section', classNames: ['chat'] });
         this.headerChat = new Header(router);
         this.leftPanel = new LeftPanel();
-        this.rightPanel = new RightPanel();
+        this.rightPanel = new RightPanel(this);
         this.chatController = new ChatController(
             this.headerChat,
             this.leftPanel,
@@ -32,6 +32,10 @@ export class Chat extends View {
             socket.getState()
         );
         this.render();
+    }
+
+    public getChatController(): ChatController {
+        return this.chatController;
     }
 
     public render(): void {

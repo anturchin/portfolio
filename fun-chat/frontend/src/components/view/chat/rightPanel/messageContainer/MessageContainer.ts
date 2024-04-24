@@ -3,13 +3,17 @@ import { MessageItem } from './messageItem/MessageItem';
 import { MessageTakeType } from '../../../../services/chatService/messageReceiveService/types';
 
 import './MessageContainer.scss';
+import { Chat } from '../../Chat';
 
 export class MessageContainer extends View {
-    private messageItem: MessageItem;
+    public messageItem: MessageItem;
 
-    constructor(leftOrRight: string, message: MessageTakeType) {
+    private chat: Chat;
+
+    constructor(leftOrRight: string, message: MessageTakeType, chat: Chat) {
         super({ tag: 'div', classNames: ['message__container', leftOrRight] });
         this.messageItem = new MessageItem(leftOrRight, message);
+        this.chat = chat;
         this.handleItemClick = this.handleItemClick.bind(this);
         this.setupMessageContainer();
         this.setupEventListener();
@@ -25,10 +29,15 @@ export class MessageContainer extends View {
 
     private handleItemClick(event: MouseEvent): void {
         const target = event.target as HTMLElement;
+
+        const chatController = this.chat.getChatController();
+        const rightPanelController = chatController.getRightPanelController();
+
         if (target.matches('.message__item.right .delete')) {
-            console.log('Clicked on delete');
+            const idMessage = target.parentElement?.dataset.id;
+            if (idMessage) rightPanelController.handleClickRemoveMessage(idMessage);
         } else if (target.matches('.message__item.right .edit')) {
-            console.log('Clicked on edit');
+            console.log(target.parentElement);
         }
     }
 

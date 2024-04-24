@@ -61,6 +61,7 @@ export type FetchingMessageType = {
     status: {
         isDelivered: boolean;
         isReaded?: boolean;
+        isDeleted?: boolean;
     };
 };
 
@@ -99,4 +100,28 @@ export interface IRequestReadMessage {
     payload: {
         message: MessageIdType;
     };
+}
+
+export interface IRequestDeleteMessage {
+    id: string;
+    type: TypeMessage;
+    payload: {
+        message: MessageIdType;
+    };
+}
+
+export type DeleteMessageType = {
+    id: string;
+    status: {
+        isDeleted: boolean;
+    };
+};
+
+export type IDeleteMessageType = {
+    message: DeleteMessageType;
+};
+export interface IResponseDeleteMessage {
+    id: string;
+    type: TypeMessage;
+    payload: DeleteMessageType;
 }

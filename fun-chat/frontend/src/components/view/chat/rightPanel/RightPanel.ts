@@ -7,6 +7,7 @@ import { MessageTakeType } from '../../../services/chatService/messageReceiveSer
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 
 import './RightPanel.scss';
+import { Chat } from '../Chat';
 
 export const PADDING_FROM_BOTTOM: number = 5;
 export class RightPanel extends View {
@@ -18,8 +19,11 @@ export class RightPanel extends View {
 
     private formSend: FormSend;
 
-    constructor() {
+    private chat: Chat;
+
+    constructor(chat: Chat) {
         super({ tag: 'div', classNames: ['chat__right-panel'] });
+        this.chat = chat;
         this.panelTop = new RightPanelTop();
         this.wrapperMessage = new WrapperMessage();
         this.formSend = new FormSend();
@@ -40,6 +44,15 @@ export class RightPanel extends View {
 
     public getMessages(): MessageContainer[] {
         return this.messages;
+    }
+
+    public removeMessage(messageItem: MessageContainer): void {
+        const wrapper = this.wrapperMessage;
+        const index = this.messages.indexOf(messageItem);
+        wrapper.getElement().removeChild(messageItem.getElement());
+        if (index !== -1) {
+            this.messages.splice(index, 1);
+        }
     }
 
     public scrollMessagesToBottom(): void {
@@ -67,7 +80,7 @@ export class RightPanel extends View {
 
     public updateMessageList(message: MessageTakeType): void {
         const leftOrRight = this.determineMessageAlignment(message);
-        const newMessage = new MessageContainer(leftOrRight, message);
+        const newMessage = new MessageContainer(leftOrRight, message, this.chat);
         this.messages.push(newMessage);
         this.wrapperMessage.placeHolderHidden();
         this.wrapperMessage.getElement().append(newMessage.getElement());
@@ -99,7 +112,7 @@ export class RightPanel extends View {
         this.clearMessageList();
         messages.forEach((message) => {
             const leftOrRight = this.determineMessageAlignment(message);
-            msgList.push(new MessageContainer(leftOrRight, message));
+            msgList.push(new MessageContainer(leftOrRight, message, this.chat));
         });
         this.messages.push(...msgList);
         this.wrapperMessage.getElement().append(...this.messages.map((msg) => msg.getElement()));

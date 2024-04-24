@@ -1,4 +1,5 @@
 import {
+    IDeleteMessageType,
     IFetchingMessage,
     IMessageTake,
     MessagesHistoryType,
@@ -32,7 +33,8 @@ export interface IMessage {
         | IMessageTake
         | MessagesHistoryType
         | null
-        | IFetchingMessage;
+        | IFetchingMessage
+        | IDeleteMessageType;
 }
 
 export interface IHandleErrorMessage {

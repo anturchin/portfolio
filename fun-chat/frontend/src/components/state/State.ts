@@ -163,6 +163,13 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         }
     }
 
+    public removeMessageById(id: string): void {
+        this.selectedUserMessages.forEach((messages, userName) => {
+            const updateMessages = messages.filter((msg) => msg.id !== id);
+            this.selectedUserMessages.set(userName, updateMessages);
+        });
+    }
+
     public getAllUsers(): User[] {
         return this.allUsers;
     }

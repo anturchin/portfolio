@@ -9,8 +9,10 @@ import { SessionStorageManager } from '../../../utils/sessionStorageManager/Sess
 import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
 import {
+    DeleteMessageType,
     FetchingMessageType,
     IMessageRequest,
+    IRequestDeleteMessage,
     IRequestReadMessage,
     MessageTakeType,
     ReadMessageType,
@@ -35,14 +37,22 @@ export class MessageReceiveService
 
     private updateReadStatusMsg?: (data: ReadMessageType) => void;
 
+    private deleteMessage?: (data: DeleteMessageType) => void;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
         this.state = state;
     }
 
-    public setCallback(updateReadStatusMsg: (data: ReadMessageType) => void): void {
+    public setCallbackUpdateReadStatusMsg(
+        updateReadStatusMsg: (data: ReadMessageType) => void
+    ): void {
         this.updateReadStatusMsg = updateReadStatusMsg;
+    }
+
+    public setCallbackDeleteMessage(deleteMessage: (data: DeleteMessageType) => void): void {
+        this.deleteMessage = deleteMessage;
     }
 
     public registerStatusObserver(
@@ -131,6 +141,28 @@ export class MessageReceiveService
     public handleResponseReadStatusChange(data: ReadMessageType): void {
         this.state.updateReadStatusMessage(data);
         this.updateReadStatusMsg?.(data);
+    }
+
+    public sendRequestDeleteMessage(
+        idMessage: string,
+        cb: (data: DeleteMessageType) => void
+    ): void {
+        this.deleteMessage = cb;
+        const request: IRequestDeleteMessage = {
+            id: SessionStorageManager.generateRequestId(),
+            type: TypeMessage.MSG_DELETE,
+            payload: {
+                message: {
+                    id: idMessage,
+                },
+            },
+        };
+        this.webSocketService.sendRequest(request, this);
+    }
+
+    public handleResponseDeleteMessage(message: DeleteMessageType): void {
+        this.state.removeMessageById(message.id);
+        this.deleteMessage?.(message);
     }
 
     public handleErrorMessage(data: IMessage): void {

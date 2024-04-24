@@ -48,6 +48,10 @@ export class ChatController {
         );
     }
 
+    public getRightPanelController(): RightPanelController {
+        return this.rightPanelController;
+    }
+
     public getRightPanel(): RightPanel {
         return this.rightPanel;
     }

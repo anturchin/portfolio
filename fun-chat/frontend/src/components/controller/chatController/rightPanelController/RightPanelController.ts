@@ -3,6 +3,7 @@ import { IObserverMessages } from '../../../observers/observerMessages/ObserverM
 import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/ObserverStatusMsg.interface';
 import { ChatService } from '../../../services/chatService/ChatService';
 import {
+    DeleteMessageType,
     FetchingMessageType,
     MessageTakeType,
     ReadMessageType,
@@ -38,15 +39,45 @@ export class RightPanelController
         this.state = state;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.updateReadStatusMessage = this.updateReadStatusMessage.bind(this);
+        this.removeMessageByIdAndUpdateMessages =
+            this.removeMessageByIdAndUpdateMessages.bind(this);
         this.state.registerMessageObserver(this.constructor.name, this);
 
         const messageReceiveService = this.chatService.getMessageReceiveService();
         messageReceiveService.registerStatusObserver(this.constructor.name, this);
-        messageReceiveService.setCallback(this.updateReadStatusMessage);
+        messageReceiveService.setCallbackUpdateReadStatusMsg(this.updateReadStatusMessage);
+        messageReceiveService.setCallbackDeleteMessage(this.removeMessageByIdAndUpdateMessages);
 
         this.setEventListenerFormSubmit();
         this.setEventListenerClickWrapperMsg();
         this.setEventListenerScrollWrapperMsg();
+    }
+
+    public handleClickRemoveMessage(id: string): void {
+        const messageService = this.chatService.getMessageReceiveService();
+        messageService.sendRequestDeleteMessage(id, this.removeMessageByIdAndUpdateMessages);
+    }
+
+    public removeMessageByIdAndUpdateMessages(message: DeleteMessageType): void {
+        const wrapperMessage = this.rightPanel.getWrapperMessage();
+        const messages = this.rightPanel.getMessages();
+        if (messages.length) {
+            const { id } = message;
+            const findMessage = messages.find(
+                ({ messageItem }) => messageItem.getElement().dataset.id === id
+            );
+            if (findMessage) {
+                const userName = findMessage.getMessageItem().getUserNameFromMessage();
+                this.rightPanel.removeMessage(findMessage);
+                const userItem = this.leftPanel.getUserItem(userName);
+                userItem?.decreaseCounter();
+                if (userItem?.getCounter() === 0) {
+                    document.querySelector('.divider')?.remove();
+                }
+            }
+        }
+
+        if (messages.length === 0) wrapperMessage.placeHolderShow();
     }
 
     public updateStatus(data: FetchingMessageType): void {

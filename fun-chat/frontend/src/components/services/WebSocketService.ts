@@ -7,6 +7,7 @@ import { ChatService } from './chatService/ChatService';
 import { ILogoutUser, IUsersAccept, User } from './chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
 import {
+    IDeleteMessageType,
     IFetchingMessage,
     IMessageTake,
     IReadMessage,
@@ -130,6 +131,10 @@ export class WebSocketService {
             const { message } = data.payload as IReadMessage;
             messageReceiveService.handleResponseReadStatusChange(message);
         }
+        if (data.type === TypeMessage.MSG_DELETE) {
+            const { message } = data.payload as IDeleteMessageType;
+            messageReceiveService.handleResponseDeleteMessage(message);
+        }
     }
 
     private handleMessage(event: MessageEvent): void {
@@ -151,7 +156,8 @@ export class WebSocketService {
             data.type === TypeMessage.MSG_SEND ||
             data.type === TypeMessage.MSG_FROM_USER ||
             data.type === TypeMessage.MSG_DELIVER ||
-            data.type === TypeMessage.MSG_READ
+            data.type === TypeMessage.MSG_READ ||
+            data.type === TypeMessage.MSG_DELETE
         ) {
             this.handleReceivedMessages(data);
         }

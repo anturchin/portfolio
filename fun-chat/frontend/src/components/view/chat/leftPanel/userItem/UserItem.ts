@@ -21,6 +21,11 @@ export class UserItem extends View {
         this.updateCounterDisplay();
     }
 
+    public decreaseCounter(): void {
+        this.counter -= 1;
+        this.updateCounterDisplay();
+    }
+
     public setCounter(count: number): void {
         this.counter = count;
         this.updateCounterDisplay();
