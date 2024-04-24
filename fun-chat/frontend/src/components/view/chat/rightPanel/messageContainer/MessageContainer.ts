@@ -10,7 +10,9 @@ export class MessageContainer extends View {
     constructor(leftOrRight: string, message: MessageTakeType) {
         super({ tag: 'div', classNames: ['message__container', leftOrRight] });
         this.messageItem = new MessageItem(leftOrRight, message);
+        this.handleItemClick = this.handleItemClick.bind(this);
         this.setupMessageContainer();
+        this.setupEventListener();
     }
 
     public getMessageItem(): MessageItem {
@@ -19,5 +21,18 @@ export class MessageContainer extends View {
 
     private setupMessageContainer(): void {
         this.addInnerElement(this.messageItem.getElement());
+    }
+
+    private handleItemClick(event: MouseEvent): void {
+        const target = event.target as HTMLElement;
+        if (target.matches('.message__item.right .delete')) {
+            console.log('Clicked on delete');
+        } else if (target.matches('.message__item.right .edit')) {
+            console.log('Clicked on edit');
+        }
+    }
+
+    private setupEventListener(): void {
+        this.getElement().addEventListener('click', this.handleItemClick);
     }
 }

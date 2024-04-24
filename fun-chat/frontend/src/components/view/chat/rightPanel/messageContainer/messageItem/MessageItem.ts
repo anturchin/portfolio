@@ -43,9 +43,20 @@ export class MessageItem extends View {
             this.message.from,
             this.message.datetime
         ).getElement();
+
+        const deleteBtn = document.createElement('span');
+        deleteBtn.classList.add('delete');
+        const editBtn = document.createElement('span');
+        editBtn.classList.add('edit');
+
         this.getElement().append(
             ...[messageTop, this.messageContent.getElement(), this.messageStatus.getElement()]
         );
+
+        if (leftOrRight === 'right') {
+            this.getElement().append(...[deleteBtn, editBtn]);
+        }
+
         this.getElement().setAttribute('data-id', this.message.id);
     }
 }
