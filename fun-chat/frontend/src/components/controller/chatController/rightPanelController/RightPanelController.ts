@@ -27,6 +27,8 @@ export class RightPanelController
 
     private state: State;
 
+    private ignoreHandleClickWrapperMsg: boolean = false;
+
     constructor(
         chatService: ChatService,
         rightPanel: RightPanel,
@@ -59,6 +61,8 @@ export class RightPanelController
     }
 
     public removeMessageByIdAndUpdateMessages(message: DeleteMessageType): void {
+        this.ignoreHandleClickWrapperMsg = true;
+
         const wrapperMessage = this.rightPanel.getWrapperMessage();
         const messages = this.rightPanel.getMessages();
         if (messages.length) {
@@ -67,17 +71,28 @@ export class RightPanelController
                 ({ messageItem }) => messageItem.getElement().dataset.id === id
             );
             if (findMessage) {
+                const statusMessage = findMessage
+                    .getMessageItem()
+                    .getMessageStatus()
+                    .getElement().textContent;
+
                 const userName = findMessage.getMessageItem().getUserNameFromMessage();
                 this.rightPanel.removeMessage(findMessage);
-                const userItem = this.leftPanel.getUserItem(userName);
-                userItem?.decreaseCounter();
-                if (userItem?.getCounter() === 0) {
-                    document.querySelector('.divider')?.remove();
+
+                if (statusMessage !== StatusMessage.Read) {
+                    const userItem = this.leftPanel.getUserItem(userName);
+                    userItem?.decreaseCounter();
+                    if (userItem?.getCounter() === 0) {
+                        document.querySelector('.divider')?.remove();
+                    }
                 }
             }
         }
 
-        if (messages.length === 0) wrapperMessage.placeHolderShow();
+        if (messages.length === 0) {
+            wrapperMessage.updateTextContentInPlaceholder();
+            wrapperMessage.placeHolderShow();
+        }
     }
 
     public updateStatus(data: FetchingMessageType): void {
@@ -95,9 +110,8 @@ export class RightPanelController
         const messageItems = this.rightPanel.getMessages();
         messageItems.forEach((item) => {
             const messageItem = item.getMessageItem();
-            const rightMsg = messageItem.getElement().classList.contains('right');
             const dataId = messageItem.getElement().getAttribute('data-id');
-            if (dataId && rightMsg && data.id === dataId) {
+            if (dataId && data.id === dataId) {
                 messageItem.setMessageStatus(StatusMessage.Read);
             }
         });
@@ -244,8 +258,11 @@ export class RightPanelController
             const { clientHeight } = wrapperMsg;
 
             if (scrollHeight - scrollTop === clientHeight) {
-                this.handleClickWrapperMsg();
+                if (!this.ignoreHandleClickWrapperMsg) {
+                    this.handleClickWrapperMsg();
+                }
             }
+            this.ignoreHandleClickWrapperMsg = false;
         });
     }
 }

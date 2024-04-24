@@ -17,11 +17,11 @@ export class DeliveryInfo extends View {
         if (status.isReaded) {
             isDelivered = statusMessage.read;
         }
-        const textContent = leftOrRight === 'left' ? '' : isDelivered;
+        // const textContent = leftOrRight === 'left' ? '' : isDelivered;
         super({
             tag: 'p',
             classNames: ['delivery__info', leftOrRight],
-            textContent,
+            textContent: isDelivered,
         });
         this.status = status;
     }

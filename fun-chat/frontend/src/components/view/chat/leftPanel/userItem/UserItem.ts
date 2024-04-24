@@ -22,7 +22,9 @@ export class UserItem extends View {
     }
 
     public decreaseCounter(): void {
-        this.counter -= 1;
+        if (this.counter > 0) {
+            this.counter -= 1;
+        }
         this.updateCounterDisplay();
     }
 
