@@ -12,6 +12,7 @@ import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
 import { LeftPanel } from '../../../view/chat/leftPanel/LeftPanel';
 import { RightPanel } from '../../../view/chat/rightPanel/RightPanel';
+import { Divider } from '../../../view/chat/rightPanel/messageContainer/divider/Divider';
 import { StatusMessage } from './types';
 
 export class RightPanelController
@@ -71,6 +72,22 @@ export class RightPanelController
         });
     }
 
+    public addUnreadMessageDivider(user: string): void {
+        const divider = new Divider().getElement();
+        const countUnreadMessage = this.leftPanel.getUserItem(user)?.getCounter() || 0;
+        const messages = this.rightPanel
+            .getMessages()
+            .filter((msg) => msg.getElement().classList.contains('left'));
+        const targetMessage = messages[messages.length - countUnreadMessage];
+        const dividerOld = document.querySelector('.divider');
+        if (targetMessage && !dividerOld) {
+            this.rightPanel
+                .getWrapperMessage()
+                .getElement()
+                .insertBefore(divider, targetMessage.getElement());
+        }
+    }
+
     public updateMessages(data: MessageTakeType[]): void {
         if (data.length > 0) {
             const message = data[0];
@@ -90,6 +107,8 @@ export class RightPanelController
                 }
                 this.leftPanel.increaseCounterInUserItem(data[0].from);
             }
+            this.addUnreadMessageDivider(data[0].from);
+            this.rightPanel.scrollMessagesToBottom();
         }
     }
 
@@ -97,6 +116,11 @@ export class RightPanelController
         this.updatePlaceHolder(data);
         this.updateTopPanel(user);
         this.updateMessageContainer(data);
+        this.addUnreadMessageDivider(user.login);
+        const divider = document.querySelector<HTMLElement>('.divider');
+        if (divider) {
+            divider.nextElementSibling?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+        }
     }
 
     private updatePlaceHolder(messages: MessageTakeType[]): void {
@@ -167,6 +191,9 @@ export class RightPanelController
             return dataName === userName;
         });
         currentItem?.resetCounter();
+
+        const divider = document.querySelector('.divider');
+        if (divider) divider.remove();
     }
 
     private setEventListenerClickWrapperMsg(): void {

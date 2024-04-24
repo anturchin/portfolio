@@ -8,6 +8,7 @@ import { SessionStorageManager } from '../../../utils/sessionStorageManager/Sess
 
 import './RightPanel.scss';
 
+export const PADDING_FROM_BOTTOM: number = 5;
 export class RightPanel extends View {
     private panelTop: RightPanelTop;
 
@@ -43,12 +44,18 @@ export class RightPanel extends View {
 
     public scrollMessagesToBottom(): void {
         const wrapper = this.wrapperMessage.getElement();
-
         const { scrollHeight } = wrapper;
         const { clientHeight } = wrapper;
 
-        const paddingFromBottom = 10;
-        const newScrollPosition = scrollHeight - clientHeight - paddingFromBottom;
+        const divider = document.querySelector<HTMLElement>('.divider');
+
+        if (divider) {
+            const dividerTop = divider.offsetTop;
+
+            if (!(scrollHeight - clientHeight < dividerTop)) return;
+        }
+
+        const newScrollPosition = scrollHeight - clientHeight - PADDING_FROM_BOTTOM;
         wrapper.scrollTop = newScrollPosition;
     }
 

@@ -28,6 +28,11 @@ export class LeftPanel extends View {
         }
     }
 
+    public getUserItem(user: string): UserItem | undefined {
+        const items = this.userList.getUserItems();
+        return items.find((item) => item.getElement().dataset.name === user);
+    }
+
     public getUserList(): UserList {
         return this.userList;
     }
