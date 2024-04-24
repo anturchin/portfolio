@@ -144,6 +144,8 @@ export class LeftPanelController implements IObserverUsers<User> {
         if (element.classList.contains('user__item')) {
             const login = element.getAttribute('data-name');
             const messageService = this.chatService.getMessageReceiveService();
+            const divider = document.querySelector<HTMLElement>('.divider');
+            if (divider) divider.remove();
             if (login) messageService.sendRequestHistoryMessages(login, true);
         }
     }

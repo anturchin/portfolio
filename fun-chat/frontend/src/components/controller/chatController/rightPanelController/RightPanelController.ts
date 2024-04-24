@@ -119,7 +119,9 @@ export class RightPanelController
         this.addUnreadMessageDivider(user.login);
         const divider = document.querySelector<HTMLElement>('.divider');
         if (divider) {
-            divider.nextElementSibling?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+            const item = divider.nextElementSibling as HTMLElement;
+            const message = item.querySelector('.message__content');
+            message?.scrollIntoView({ block: 'end', behavior: 'smooth' });
         }
     }
 
