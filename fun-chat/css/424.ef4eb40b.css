@@ -7,7 +7,7 @@
 .chat__header{margin-top:5px;padding:0px 8px;display:flex;height:5%}
 .chat__footer{display:flex;padding:0px 8px;flex-wrap:wrap;justify-content:space-between;height:5%}
 .footer__author{color:#d3d7cf;align-self:center;font-size:2rem;text-decoration:none}@media(max-width: 480px){.footer__author{font-size:1.6rem}}
-.footer__school{color:#97e1f1;align-self:center;font-size:2rem;text-decoration:none;font-weight:500}@media(max-width: 480px){.footer__school{font-size:1.6rem}}
+.footer__school{color:#97e1f1;align-self:center;font-size:2rem;text-decoration:none;font-weight:500;display:block;width:120px}@media(max-width: 480px){.footer__school{font-size:1.6rem;width:80px}}
 .footer__year{color:#d3d7cf;align-self:center;font-size:2rem}@media(max-width: 480px){.footer__year{font-size:1.6rem}}
 .search__input{border:none;color:#d3d7cf;border-bottom:1px solid #d3d7cf;background-color:#000;border-radius:3px;outline:none;padding:10px;width:90%;border-radius:5px}@media(max-width: 780px){.search__input{width:80%}}@media(max-width: 480px){.search__input{width:70%;font-size:1.2rem}}.search__input::placeholder{text-align:center;color:#97e1f1}
 .user__item{position:relative;color:#d3d7cf;padding:7px;padding-left:30px;cursor:pointer}@media(max-width: 480px){.user__item{font-size:1.2rem}}.user__item:hover{color:#97e1f1;transform:translateY(-2px);box-shadow:0px 0px 52px 0px rgba(242,122,160,.65)}.user__item:hover.active{color:#97e1f1;transform:translateY(-2px);box-shadow:0px 0px 52px 0px rgba(151,255,241,.65)}.user__item::before{content:"";position:absolute;top:50%;left:10px;transform:translateY(-50%);display:inline-block;width:10px;height:10px;border-radius:50%;background-color:#f27aa0;margin-right:10px}.user__item.active::before{background-color:#97e1f1}.user__item .counter{font-size:1rem;display:flex;justify-content:center;align-items:center;position:absolute;top:50%;right:10px;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:1px solid #f27aa0;margin-right:10px}.user__item .counter.active{border:1px solid #97e1f1}.user__item .counter.hidden{opacity:0}.user__item .counter.show{opacity:1}
@@ -30,4 +30,5 @@
 .message__container{display:flex;margin:10px 0px}.message__container.left{justify-content:flex-start}.message__container.right{justify-content:flex-end}
 .chat__right-panel{display:flex;flex-direction:column;justify-content:space-between;width:70%;box-shadow:0px 0px 82px -40px rgba(211,215,207,.91) inset;border-radius:5px}@media(max-width: 480px){.chat__right-panel{width:60%}}
 .chat__wrapper{padding:0px 8px;display:flex;height:85%;gap:10px}
+.divider{position:relative;color:#d3d7cf;font-size:1.4rem;text-align:center;max-width:100%;padding:3px;border-bottom:1px dashed #d3d7cf;margin:25px 10px}
 .chat{max-width:1140px;height:100vh;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between}
