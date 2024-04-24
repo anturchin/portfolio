@@ -2,6 +2,7 @@
 /* eslint-disable brace-style */
 import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/ObserverStatusMsg.interface';
 import { ISubjectStatusMsg } from '../../../observers/observerStatusMsg/SubjectStatusMsg';
+import { RoutePath } from '../../../router/hashRouter/types';
 import { Router } from '../../../router/router/Router';
 import { State } from '../../../state/State';
 import { SessionStorageManager } from '../../../utils/sessionStorageManager/SessionStorageManager';
@@ -136,6 +137,7 @@ export class MessageReceiveService
         if (data.payload && 'error' in data.payload) {
             const errorMessage = data.payload.error;
             console.error(errorMessage);
+            this.router.navigate(RoutePath.LOGIN);
         }
     }
 }
