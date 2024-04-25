@@ -27,6 +27,10 @@ export class FormSend extends View {
         return (this.inputSend.getElement() as HTMLInputElement).value;
     }
 
+    public setInputValue(text: string) {
+        (this.inputSend.getElement() as HTMLInputElement).value = text;
+    }
+
     public enableInputs(switchOn: boolean): void {
         const input = this.inputSend.getElement() as HTMLInputElement;
         input.disabled = switchOn;

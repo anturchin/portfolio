@@ -117,11 +117,28 @@ export type DeleteMessageType = {
     };
 };
 
-export type IDeleteMessageType = {
+export interface IDeleteMessageType {
     message: DeleteMessageType;
-};
+}
 export interface IResponseDeleteMessage {
     id: string;
     type: TypeMessage;
     payload: DeleteMessageType;
+}
+
+export type EditMessageType = {
+    id: string;
+    text: string;
+    status?: {
+        isEdited: boolean;
+    };
+};
+export interface IEditMessageType {
+    message: EditMessageType;
+}
+
+export interface IResponseEditMessage {
+    id: string;
+    type: TypeMessage;
+    payload: IEditMessageType;
 }

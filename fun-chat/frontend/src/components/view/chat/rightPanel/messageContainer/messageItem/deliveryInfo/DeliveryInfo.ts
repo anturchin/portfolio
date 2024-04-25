@@ -17,7 +17,6 @@ export class DeliveryInfo extends View {
         if (status.isReaded) {
             isDelivered = statusMessage.read;
         }
-        // const textContent = leftOrRight === 'left' ? '' : isDelivered;
         super({
             tag: 'p',
             classNames: ['delivery__info', leftOrRight],

@@ -3,9 +3,11 @@ import { ISubjectMessages } from '../observers/observerMessages/SubjectMessages'
 import { IObserverUsers } from '../observers/observerUsers/ObserverUsers.interface';
 import { ISubjectUsers } from '../observers/observerUsers/SubjectUsers';
 import {
+    EditMessageType,
     FetchingMessageType,
     MessageTakeType,
     ReadMessageType,
+    StatusMessage,
 } from '../services/chatService/messageReceiveService/types';
 import { User } from '../services/chatService/types';
 import { SessionStorageManager } from '../utils/sessionStorageManager/SessionStorageManager';
@@ -97,24 +99,67 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
     }
 
     public updateStatusMessage(data: FetchingMessageType): void {
-        this.selectedUserMessages.forEach((user) => {
-            user.forEach((message) => {
-                if (message.id === data.id) {
-                    const copyMsg = message;
-                    copyMsg.status.isDelivered = data.status.isDelivered;
+        this.selectedUserMessages.forEach((messages, userName) => {
+            const updatedMessages = messages.map((msg) => {
+                if (msg.id === data.id) {
+                    const updatedStatus: StatusMessage = {
+                        ...msg.status,
+                        isDelivered: data.status.isDelivered,
+                    };
+                    return {
+                        ...msg,
+                        status: updatedStatus,
+                    };
                 }
+                return msg;
             });
+            this.selectedUserMessages.set(userName, updatedMessages);
         });
     }
 
     public updateReadStatusMessage(data: ReadMessageType): void {
-        this.selectedUserMessages.forEach((user) => {
-            user.forEach((message) => {
-                if (message.id === data.id) {
-                    const copyMsg = message;
-                    copyMsg.status.isReaded = data.status.isReaded;
+        this.selectedUserMessages.forEach((messages, userName) => {
+            const updatedMessages = messages.map((msg) => {
+                if (msg.id === data.id) {
+                    const updatedStatus: StatusMessage = {
+                        ...msg.status,
+                        isReaded: data.status.isReaded,
+                    };
+                    return {
+                        ...msg,
+                        status: updatedStatus,
+                    };
                 }
+                return msg;
             });
+            this.selectedUserMessages.set(userName, updatedMessages);
+        });
+    }
+
+    public removeMessageById(id: string): void {
+        this.selectedUserMessages.forEach((messages, userName) => {
+            const updateMessages = messages.filter((msg) => msg.id !== id);
+            this.selectedUserMessages.set(userName, updateMessages);
+        });
+    }
+
+    public editMessageById(message: EditMessageType): void {
+        this.selectedUserMessages.forEach((messages, userName) => {
+            const updateMessages = messages.map((msg) => {
+                if (msg.id === message.id) {
+                    const updateStatus: StatusMessage = {
+                        ...msg.status,
+                        isEdited: message.status?.isEdited || false,
+                    };
+                    return {
+                        ...msg,
+                        text: message.text,
+                        status: updateStatus,
+                    };
+                }
+                return msg;
+            });
+            this.selectedUserMessages.set(userName, updateMessages);
         });
     }
 
@@ -161,13 +206,6 @@ export class State implements ISubjectUsers<User>, ISubjectMessages<MessageTakeT
         if (shouldNotifyObservers) {
             this.notifyMessageObservers(updateMessages, selectedUser);
         }
-    }
-
-    public removeMessageById(id: string): void {
-        this.selectedUserMessages.forEach((messages, userName) => {
-            const updateMessages = messages.filter((msg) => msg.id !== id);
-            this.selectedUserMessages.set(userName, updateMessages);
-        });
     }
 
     public getAllUsers(): User[] {

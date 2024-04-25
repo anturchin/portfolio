@@ -3,19 +3,23 @@
     padding: 5px;
     border-radius: 10px;
     box-shadow: 0px 0px 82px -40px rgba(211, 215, 207, 0.91) inset;
+
     &.right {
         position: relative;
+
         span {
             position: absolute;
             left: -100%;
             width: 24px;
             height: 24px;
             cursor: pointer;
+
             &.delete {
                 top: 20px;
                 background-image: url(../../../../../../assets/image/delete.svg);
                 transition: all 0.7s ease-out;
             }
+
             &.edit {
                 bottom: 20px;
                 background-image: url(../../../../../../assets/image/edit.svg);
@@ -23,4 +27,16 @@
             }
         }
     }
+}
+
+.status__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status__edit {
+    color: #8ae234;
+    font-size: 1.8rem;
 }

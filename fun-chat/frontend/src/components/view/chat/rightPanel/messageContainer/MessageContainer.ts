@@ -1,9 +1,9 @@
 import { View } from '../../../View';
 import { MessageItem } from './messageItem/MessageItem';
 import { MessageTakeType } from '../../../../services/chatService/messageReceiveService/types';
+import { Chat } from '../../Chat';
 
 import './MessageContainer.scss';
-import { Chat } from '../../Chat';
 
 export class MessageContainer extends View {
     public messageItem: MessageItem;
@@ -37,7 +37,9 @@ export class MessageContainer extends View {
             const idMessage = target.parentElement?.dataset.id;
             if (idMessage) rightPanelController.handleClickRemoveMessage(idMessage);
         } else if (target.matches('.message__item.right .edit')) {
-            console.log(target.parentElement);
+            const idMessage = target.parentElement?.dataset.id;
+            const text = this.messageItem.getMessageContent().getElement().textContent;
+            if (idMessage && text) rightPanelController.handleClickEditMessage(idMessage, text);
         }
     }
 

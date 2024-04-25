@@ -5,6 +5,7 @@ import { MessageTop } from './messageTop/MessageTop';
 import { MessageTakeType } from '../../../../../services/chatService/messageReceiveService/types';
 
 import './MessageItem.scss';
+import { StatusMessage } from '../../../../../controller/chatController/rightPanelController/types';
 
 export class MessageItem extends View {
     private message: MessageTakeType;
@@ -53,12 +54,19 @@ export class MessageItem extends View {
         const editBtn = document.createElement('span');
         editBtn.classList.add('edit');
 
+        const statusContainer = document.createElement('div');
+        statusContainer.classList.add('status__container');
+        const statusEdit = document.createElement('p');
+        statusEdit.classList.add('status__edit');
+
+        if (this.message.status.isEdited) {
+            statusEdit.textContent = StatusMessage.Edit;
+        }
+
+        statusContainer.append(...[statusEdit, this.messageStatus.getElement()]);
+
         this.getElement().append(
-            ...[
-                this.messageTop.getElement(),
-                this.messageContent.getElement(),
-                this.messageStatus.getElement(),
-            ]
+            ...[this.messageTop.getElement(), this.messageContent.getElement(), statusContainer]
         );
 
         if (leftOrRight === 'right') {

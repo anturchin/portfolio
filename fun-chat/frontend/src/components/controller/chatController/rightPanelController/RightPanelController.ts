@@ -4,6 +4,7 @@ import { IObserverStatusMsg } from '../../../observers/observerStatusMsg/Observe
 import { ChatService } from '../../../services/chatService/ChatService';
 import {
     DeleteMessageType,
+    EditMessageType,
     FetchingMessageType,
     MessageTakeType,
     ReadMessageType,
@@ -29,6 +30,10 @@ export class RightPanelController
 
     private ignoreHandleClickWrapperMsg: boolean = false;
 
+    private submitMessageEdit: boolean = false;
+
+    private messageEditId: string = '';
+
     constructor(
         chatService: ChatService,
         rightPanel: RightPanel,
@@ -43,16 +48,41 @@ export class RightPanelController
         this.updateReadStatusMessage = this.updateReadStatusMessage.bind(this);
         this.removeMessageByIdAndUpdateMessages =
             this.removeMessageByIdAndUpdateMessages.bind(this);
+        this.editMessageById = this.editMessageById.bind(this);
         this.state.registerMessageObserver(this.constructor.name, this);
 
         const messageReceiveService = this.chatService.getMessageReceiveService();
         messageReceiveService.registerStatusObserver(this.constructor.name, this);
         messageReceiveService.setCallbackUpdateReadStatusMsg(this.updateReadStatusMessage);
         messageReceiveService.setCallbackDeleteMessage(this.removeMessageByIdAndUpdateMessages);
+        messageReceiveService.setCallbackEditMessage(this.editMessageById);
 
         this.setEventListenerFormSubmit();
         this.setEventListenerClickWrapperMsg();
         this.setEventListenerScrollWrapperMsg();
+    }
+
+    public handleClickEditMessage(id: string, text: string): void {
+        const form = this.rightPanel.getFormSend();
+        form.setInputValue(text);
+        form.enableBtn(false);
+        this.submitMessageEdit = true;
+        this.messageEditId = id;
+    }
+
+    public editMessageById(message: EditMessageType): void {
+        const messages = this.rightPanel.getMessages();
+        const { id } = message;
+        const messageContainer = messages.find(
+            ({ messageItem }) => messageItem.getElement().dataset.id === id
+        );
+        const itemMessage = messageContainer?.getMessageItem();
+        itemMessage?.setMessageContent(message.text);
+
+        const editStatus = itemMessage?.getElement().querySelector('.status__edit');
+        if (editStatus) {
+            editStatus.textContent = StatusMessage.Edit;
+        }
     }
 
     public handleClickRemoveMessage(id: string): void {
@@ -202,18 +232,22 @@ export class RightPanelController
     private handleFormSubmit(event: Event): void {
         event.preventDefault();
 
+        const messageService = this.chatService.getMessageReceiveService();
+
         const form = this.rightPanel.getFormSend();
         const text = form.getInputValue();
         const { companionName } = this.rightPanel.getPanelTop();
 
-        const messageService = this.chatService.getMessageReceiveService();
-        messageService.sendRequestToReceiveMessages(
-            companionName.getCompanionNameText() || '',
-            text
-        );
-
+        if (this.submitMessageEdit) {
+            messageService.sendRequestEditMessage(this.messageEditId, text, this.editMessageById);
+            this.submitMessageEdit = false;
+        } else {
+            messageService.sendRequestToReceiveMessages(
+                companionName.getCompanionNameText() || '',
+                text
+            );
+        }
         this.clearInput();
-
         this.handleClickWrapperMsg();
     }
 

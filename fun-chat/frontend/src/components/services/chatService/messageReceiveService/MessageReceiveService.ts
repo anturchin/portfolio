@@ -10,10 +10,12 @@ import { WebSocketService } from '../../WebSocketService';
 import { IHandleErrorMessage, IMessage, TypeMessage } from '../../types';
 import {
     DeleteMessageType,
+    EditMessageType,
     FetchingMessageType,
     IMessageRequest,
     IRequestDeleteMessage,
     IRequestReadMessage,
+    IResponseEditMessage,
     MessageTakeType,
     ReadMessageType,
 } from './types';
@@ -39,6 +41,8 @@ export class MessageReceiveService
 
     private deleteMessage?: (data: DeleteMessageType) => void;
 
+    private editMessage?: (data: EditMessageType) => void;
+
     constructor(webSocketService: WebSocketService, router: Router, state: State) {
         this.webSocketService = webSocketService;
         this.router = router;
@@ -53,6 +57,10 @@ export class MessageReceiveService
 
     public setCallbackDeleteMessage(deleteMessage: (data: DeleteMessageType) => void): void {
         this.deleteMessage = deleteMessage;
+    }
+
+    public setCallbackEditMessage(editMessage: (data: EditMessageType) => void): void {
+        this.editMessage = editMessage;
     }
 
     public registerStatusObserver(
@@ -163,6 +171,30 @@ export class MessageReceiveService
     public handleResponseDeleteMessage(message: DeleteMessageType): void {
         this.state.removeMessageById(message.id);
         this.deleteMessage?.(message);
+    }
+
+    public sendRequestEditMessage(
+        idMessage: string,
+        text: string,
+        cb: (data: EditMessageType) => void
+    ): void {
+        this.editMessage = cb;
+        const request: IResponseEditMessage = {
+            id: SessionStorageManager.generateRequestId(),
+            type: TypeMessage.MSG_EDIT,
+            payload: {
+                message: {
+                    id: idMessage,
+                    text,
+                },
+            },
+        };
+        this.webSocketService.sendRequest(request, this);
+    }
+
+    public handleResponseEditMessage(message: EditMessageType): void {
+        this.state.editMessageById(message);
+        this.editMessage?.(message);
     }
 
     public handleErrorMessage(data: IMessage): void {
