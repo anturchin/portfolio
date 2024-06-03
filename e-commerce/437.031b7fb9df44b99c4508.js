@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunke_commerce=self.webpackChunke_commerce||[]).push([[437],{437:(e,s,t)=>{t.r(s),t.d(s,{MainController:()=>a});var c=t(940);class r extends c.S{constructor(){super({tag:"section",classNames:["product-detail"]})}}class a{constructor(){this.page=new r}getElement(){return this.page.getElement()}}}}]);

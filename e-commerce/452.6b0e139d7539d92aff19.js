@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunke_commerce=self.webpackChunke_commerce||[]).push([[452],{452:(e,s,t)=>{t.r(s),t.d(s,{ProfileController:()=>l});var r=t(940);class c extends r.S{constructor(){super({tag:"section",classNames:["profile"]})}}class l{constructor(){this.page=new c}getElement(){return this.page.getElement()}}}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunke_commerce=self.webpackChunke_commerce||[]).push([[437],{437:(e,s,t)=>{t.r(s),t.d(s,{MainController:()=>r});var c=t(940);class n extends c.S{constructor(){super({tag:"section",classNames:["content"]}),this.setupMain()}setupMain(){}}class r{constructor(){this.page=new n}getElement(){return this.page.getElement()}}}}]);
