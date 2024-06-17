@@ -1,3 +1,3 @@
 .error__message{color:#d3d7cf;font-size:2rem;text-align:center}
 .modal-error{padding:20px;margin:10px;border-radius:5px;max-width:500px;box-shadow:0px 0px 82px -40px rgba(208,161,137,.91) inset;display:flex;flex-direction:column;gap:20px}
-.not-found{display:flex;flex-direction:column;justify-content:center;align-items:center;color:#d3d7cf}
+.not-found{display:flex;flex-direction:column;justify-content:center;align-items:center;color:#d3d7cf;z-index:1000}
